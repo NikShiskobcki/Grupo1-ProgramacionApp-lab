@@ -52,11 +52,11 @@ public class JFMain extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 916, Short.MAX_VALUE)
+            .addGap(0, 1141, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 567, Short.MAX_VALUE)
+            .addGap(0, 713, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Registros");
@@ -116,15 +116,11 @@ public class JFMain extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 225, Short.MAX_VALUE))
+            .addComponent(jDesktopPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 145, Short.MAX_VALUE))
+            .addComponent(jDesktopPane1)
         );
 
         pack();
@@ -139,8 +135,14 @@ public class JFMain extends javax.swing.JFrame {
     }//GEN-LAST:event_mntmAltaCursoActionPerformed
 
     private void mntmAltaInstitutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mntmAltaInstitutoActionPerformed
-       AltaInstitutoInternalFrame frame = new AltaInstitutoInternalFrame();
+AltaInstitutoInternalFrame frame = new AltaInstitutoInternalFrame();
     jDesktopPane1.add(frame);
+    
+    // Centrar el JInternalFrame d
+    int x = (jDesktopPane1.getWidth() - frame.getWidth()) / 2;
+    int y = (jDesktopPane1.getHeight() - frame.getHeight()) / 2;
+    frame.setLocation(x, y);
+
     frame.setVisible(true);
     try {
         frame.setSelected(true);
