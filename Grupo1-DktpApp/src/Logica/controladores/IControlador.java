@@ -5,8 +5,11 @@
 package Logica.controladores;
 
 
+
 public interface IControlador {
 
     //Metodos casos de uso 
+    void altaInstituto(String nombre);
+
 
 }

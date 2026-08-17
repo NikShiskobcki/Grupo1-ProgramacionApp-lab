@@ -4,16 +4,31 @@
  */
 package Logica.controladores;
 
+import Logica.Entidades.Instituto;
+import Persistencia.ManejadorInstituto;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 
 public class Controlador implements IControlador {
 
     private static Controlador instancia;
-    //Aca iria la declaracion de los manejadores;
+    
+    //Fabrica de entityManager utilizada por todos los manejadores
+    private final EntityManagerFactory emf;
+   
+    
+    //Manejadores;
+     private final ManejadorInstituto manejadorInstituto;
 
     // Constructor privado para aplicar Singleton
+     
     private Controlador() {
-
-         //Cuando creemos los manejadores los instanciamos aca 
+        //Fabrica de entidades creada una sola vez para toda la app
+        emf= Persistence.createEntityManagerFactory("edextPU"); 
+        
+         //Manejadores que comparten la misma EMF 
+         manejadorInstituto= new ManejadorInstituto(emf); 
         
     }
 
@@ -29,5 +44,14 @@ public class Controlador implements IControlador {
 
 
     //Aca implementamos los casos de uso 
+     
+    @Override
+    public void altaInstituto(String nombre) {
 
+        Instituto instituto = new Instituto(nombre);
+
+        manejadorInstituto.addInstituto(instituto);
+
+    }
+    
 }
