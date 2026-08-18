@@ -4,6 +4,19 @@
  */
 package Presentacion;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import Logica.controladores.Fabrica;
+import Logica.controladores.IControlador;
+
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import Logica.Entidades.Instituto;
+import Logica.Entidades.Curso;
+
 /**
  *
  * @author Usuario
@@ -13,16 +26,54 @@ public class AltaCurso extends javax.swing.JDialog {
     /**
      * Creates new form AltaCurso
      */
-    // Constructor para usarlo como JDialog modal desde JFMain
+    
 public AltaCurso(java.awt.Frame parent, boolean modal) {
     super(parent, modal);
     initComponents();
+    setLocationRelativeTo(null);
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    txtFecha.setText(LocalDate.now().format(formatter));
+    
+    cargarInstitutos();
+    cargarCursosPrevias();
+    
 }
 
 
 public AltaCurso() {
     initComponents();
 }
+
+private void cargarInstitutos() {
+        try {
+            IControlador icon = Fabrica.getInstance().getIControlador();
+            List<Instituto> institutos = icon.listarInstitutos();
+            
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+            for (Instituto inst : institutos) {
+                model.addElement(inst.getNombre());
+            }
+            cbInstituto.setModel(model);
+        } catch (Exception e) {
+            System.err.println("Error al cargar institutos: " + e.getMessage());
+        }
+    }
+
+    private void cargarCursosPrevias() {
+        try {
+            IControlador icon = Fabrica.getInstance().getIControlador();
+            List<Curso> cursos = icon.listarCursos();
+            
+            DefaultListModel<String> model = new DefaultListModel<>();
+            for (Curso c : cursos) {
+                model.addElement(c.getNombre());
+            }
+            lstPrevias.setModel(model);
+        } catch (Exception e) {
+            System.err.println("Error al cargar cursos para previas: " + e.getMessage());
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,39 +107,40 @@ public AltaCurso() {
         txtFecha = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
 
-        setTitle("AltaCurso");
+        setTitle("           AltaCurso");
+        setMinimumSize(new java.awt.Dimension(620, 400));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cbInstituto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbInstituto.addActionListener(this::cbInstitutoActionPerformed);
-        getContentPane().add(cbInstituto, new org.netbeans.lib.awtextra.AbsoluteConstraints(313, 19, 160, -1));
+        getContentPane().add(cbInstituto, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 160, -1));
 
         txtNombre.addActionListener(this::txtNombreActionPerformed);
-        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 71, 130, -1));
+        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 130, -1));
 
         txtUrl.addActionListener(this::txtUrlActionPerformed);
-        getContentPane().add(txtUrl, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 100, 130, -1));
+        getContentPane().add(txtUrl, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 130, -1));
 
         jLabel1.setText("Nombre");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 74, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
         jLabel2.setText("URL");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 103, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
         txtAreaDescripcion.setColumns(20);
         txtAreaDescripcion.setRows(5);
         jScrollPane1.setViewportView(txtAreaDescripcion);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 197, 290, 70));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 290, 70));
 
         spnDuracion.setModel(new javax.swing.SpinnerNumberModel(0, 0, 12, 1));
-        getContentPane().add(spnDuracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(526, 71, -1, -1));
+        getContentPane().add(spnDuracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 70, -1));
 
         spnHoras.setModel(new javax.swing.SpinnerNumberModel(0, 0, 24, 1));
-        getContentPane().add(spnHoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(526, 100, -1, -1));
+        getContentPane().add(spnHoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 70, -1));
 
         spnCreditos.setModel(new javax.swing.SpinnerNumberModel(0, 0, 255, 1));
-        getContentPane().add(spnCreditos, new org.netbeans.lib.awtextra.AbsoluteConstraints(526, 131, -1, -1));
+        getContentPane().add(spnCreditos, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 70, -1));
 
         lstPrevias.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -97,48 +149,121 @@ public AltaCurso() {
         });
         jScrollPane2.setViewportView(lstPrevias);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 210, 150, 130));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 190, 150, 130));
 
         btnAceptar.setText("Aceptar");
         btnAceptar.addActionListener(this::btnAceptarActionPerformed);
-        getContentPane().add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(405, 320, -1, -1));
+        getContentPane().add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 310, -1, -1));
 
         btnCancelar.setText("Cancelar");
-        getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 320, -1, -1));
+        btnCancelar.addActionListener(this::btnCancelarActionPerformed);
+        getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, -1, -1));
 
         jLabel3.setText("Instituto");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(217, 22, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, -1));
 
         jLabel4.setText("Duracion (meses)");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 74, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, -1, -1));
 
         jLabel5.setText("Cantidad de Horas");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 103, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, -1, -1));
 
         jLabel6.setText("Cantidad de Creditos");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(397, 134, -1, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, -1, -1));
 
         jLabel7.setText("Previas");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 190, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, -1, -1));
 
         jLabel8.setText("Descripcion");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, -1, -1));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
 
         txtFecha.addActionListener(this::txtFechaActionPerformed);
-        getContentPane().add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 131, 130, -1));
+        getContentPane().add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, 130, -1));
 
         jLabel9.setText("Fecha");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 134, -1, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        // TODO add your handling code here:
+      if (txtNombre.getText().trim().isEmpty() || 
+        txtUrl.getText().trim().isEmpty() || 
+        txtAreaDescripcion.getText().trim().isEmpty() || 
+        txtFecha.getText().trim().isEmpty() ||
+        cbInstituto.getSelectedIndex() == -1) {
+        
+        JOptionPane.showMessageDialog(
+            this, "Por favor, complete todos los campos obligatorios.", 
+            "Campos Incompletos", JOptionPane.WARNING_MESSAGE
+        );
+        return;
+    }
+
+    
+    LocalDate fechaAlta;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    try {
+        fechaAlta = LocalDate.parse(txtFecha.getText().trim(), formatter);
+    } catch (DateTimeParseException e) {
+        JOptionPane.showMessageDialog(
+            this, "El formato de fecha debe ser DD/MM/AAAA (ej. 18/08/2026).", 
+            "Fecha Inválida", JOptionPane.ERROR_MESSAGE
+        );
+        return;
+    }
+
+    try {
+        IControlador icon = Fabrica.getInstance().getIControlador();
+        String nombre = txtNombre.getText().trim();
+
+        // 3. Validar existencia previa del curso Regla del CU
+        if (icon.existeCurso(nombre)) {
+            JOptionPane.showMessageDialog(
+                this, 
+                "Ya existe un curso registrado con el nombre '" + nombre + "'. Modifique el nombre antes de continuar.", 
+                "Curso Duplicado", 
+                JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        String url = txtUrl.getText().trim();
+        String descripcion = txtAreaDescripcion.getText().trim();
+        int duracion = (Integer) spnDuracion.getValue();
+        int horas = (Integer) spnHoras.getValue();
+        int creditos = (Integer) spnCreditos.getValue();
+    
+        
+        String nombreInstituto = cbInstituto.getSelectedItem().toString();
+        Instituto institutoSeleccionado = icon.listarInstitutos().stream()
+               .filter(inst -> inst.getNombre().equals(nombreInstituto))
+               .findFirst().orElse(null);
+
+        if (institutoSeleccionado == null) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un instituto válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+       
+        List<String> nombresPrevias = lstPrevias.getSelectedValuesList();
+        List<Curso> previasSeleccionadas = icon.listarCursos().stream()
+            .filter(c -> nombresPrevias.contains(c.getNombre()))
+            .collect(java.util.stream.Collectors.toList());
+
+        //Invocar alta en la lógica
+        icon.altaCurso(nombre, descripcion, duracion, horas, creditos, url, fechaAlta, institutoSeleccionado, previasSeleccionadas);
+
+        JOptionPane.showMessageDialog(this, "Curso registrado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al guardar el curso: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } 
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
@@ -152,6 +277,10 @@ public AltaCurso() {
     private void cbInstitutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbInstitutoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbInstitutoActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
