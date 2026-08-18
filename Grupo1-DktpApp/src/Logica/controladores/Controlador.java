@@ -5,7 +5,13 @@
 package Logica.controladores;
 
 import Logica.Entidades.Instituto;
+import Persistencia.ManejadorCurso;
+import Persistencia.ManejadorEdicionCurso;
+import Persistencia.ManejadorInscripcionEdicion;
+import Persistencia.ManejadorInscripcionPrograma;
 import Persistencia.ManejadorInstituto;
+import Persistencia.ManejadorProgramaFormacion;
+import Persistencia.ManejadorUsuario;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -19,7 +25,13 @@ public class Controlador implements IControlador {
    
     
     //Manejadores;
-     private final ManejadorInstituto manejadorInstituto;
+    private final ManejadorUsuario manejadorUsuario;
+    private final ManejadorInstituto manejadorInstituto;
+    private final ManejadorCurso manejadorCurso;
+    private final ManejadorEdicionCurso manejadorEdicionCurso;
+    private final ManejadorProgramaFormacion manejadorProgramaFormacion;
+    private final ManejadorInscripcionEdicion manejadorInscripcionEdicion;
+    private final ManejadorInscripcionPrograma manejadorInscripcionPrograma;
 
     // Constructor privado para aplicar Singleton
      
@@ -28,7 +40,13 @@ public class Controlador implements IControlador {
         emf= Persistence.createEntityManagerFactory("edextPU"); 
         
          //Manejadores que comparten la misma EMF 
-         manejadorInstituto= new ManejadorInstituto(emf); 
+                 manejadorUsuario = new ManejadorUsuario(emf);
+        manejadorInstituto = new ManejadorInstituto(emf);
+        manejadorCurso = new ManejadorCurso(emf);
+        manejadorEdicionCurso = new ManejadorEdicionCurso(emf);
+        manejadorProgramaFormacion = new ManejadorProgramaFormacion(emf);
+        manejadorInscripcionEdicion = new ManejadorInscripcionEdicion(emf);
+        manejadorInscripcionPrograma = new ManejadorInscripcionPrograma(emf);
         
     }
 
