@@ -231,6 +231,7 @@ public class JFMain extends javax.swing.JFrame {
         pnlTab2.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton2.setText("Agregar Curso");
+        jButton2.addActionListener(this::jButton2ActionPerformed);
 
         javax.swing.GroupLayout pnlTab2Layout = new javax.swing.GroupLayout(pnlTab2);
         pnlTab2.setLayout(pnlTab2Layout);
@@ -277,7 +278,7 @@ public class JFMain extends javax.swing.JFrame {
             .addGroup(pnlTab4Layout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addComponent(jButton3)
-                .addContainerGap(1026, Short.MAX_VALUE))
+                .addContainerGap(1028, Short.MAX_VALUE))
         );
         pnlTab4Layout.setVerticalGroup(
             pnlTab4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -406,12 +407,35 @@ private void limpiarDesktopPane() {
         mu.setVisible(true);
     }//GEN-LAST:event_btnModificarUsuarioMouseClicked
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    AltaCurso dialog = new AltaCurso(this, true);
+    dialog.setLocationRelativeTo(this); // Lo centra en pantalla    
+    dialog.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     public static void main(String args[]) {
         
         /*IControlador controlador =
             Fabrica.getInstance().getIControlador();
 
     controlador.altaInstituto("UTEC");*/
+        
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
         java.awt.EventQueue.invokeLater(() -> new JFMain().setVisible(true));
     }
