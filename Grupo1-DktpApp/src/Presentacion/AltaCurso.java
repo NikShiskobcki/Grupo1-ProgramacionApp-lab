@@ -45,7 +45,7 @@ public AltaCurso() {
 }
 
 private void cargarInstitutos() {
-        try {
+       /* try {
             IControlador icon = Fabrica.getInstance().getIControlador();
             List<Instituto> institutos = icon.listarInstitutos();
             
@@ -56,11 +56,11 @@ private void cargarInstitutos() {
             cbInstituto.setModel(model);
         } catch (Exception e) {
             System.err.println("Error al cargar institutos: " + e.getMessage());
-        }
+        }*/
     }
 
     private void cargarCursosPrevias() {
-        try {
+      /* try {
             IControlador icon = Fabrica.getInstance().getIControlador();
             List<Curso> cursos = icon.listarCursos();
             
@@ -71,7 +71,7 @@ private void cargarInstitutos() {
             lstPrevias.setModel(model);
         } catch (Exception e) {
             System.err.println("Error al cargar cursos para previas: " + e.getMessage());
-        }
+        }*/
     }
 
 
@@ -216,7 +216,7 @@ private void cargarInstitutos() {
         );
         return;
     }
-
+/*
     try {
         IControlador icon = Fabrica.getInstance().getIControlador();
         String nombre = txtNombre.getText().trim();
@@ -263,7 +263,7 @@ private void cargarInstitutos() {
 
     } catch (Exception e) {
         JOptionPane.showMessageDialog(this, "Error al guardar el curso: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    } 
+    } */
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed

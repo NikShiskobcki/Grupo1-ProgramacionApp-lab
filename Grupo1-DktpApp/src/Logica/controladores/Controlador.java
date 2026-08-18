@@ -4,6 +4,8 @@
  */
 package Logica.controladores;
 
+import Logica.Entidades.Docente;
+import Logica.Entidades.Estudiante;
 import Logica.Entidades.Instituto;
 import Persistencia.ManejadorCurso;
 import Persistencia.ManejadorEdicionCurso;
@@ -12,6 +14,9 @@ import Persistencia.ManejadorInscripcionPrograma;
 import Persistencia.ManejadorInstituto;
 import Persistencia.ManejadorProgramaFormacion;
 import Persistencia.ManejadorUsuario;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -71,5 +76,42 @@ public class Controlador implements IControlador {
         manejadorInstituto.addInstituto(instituto);
 
     }
-    
+
+    @Override
+    public List<String> listarNombresInstitutos() {
+        List<Instituto> institutos = manejadorInstituto.listarInstitutos();
+        List<String> nombres = new ArrayList<>();
+        for (Instituto instituto : institutos) {
+            nombres.add(instituto.getNombre());
+        }
+        return nombres;
+    }
+
+    @Override
+    public boolean existeNickname(String nickname) {
+        return manejadorUsuario.existeNickname(nickname);
+    }
+
+    @Override
+    public boolean existeEmail(String email) {
+        return manejadorUsuario.existeEmail(email);
+    }
+
+    @Override
+    public void altaUsuarioEstudiante(String nickname, String nombre, String apellido,
+            String email, LocalDate fechaNacimiento) {
+
+        Estudiante estudiante = new Estudiante(nickname, nombre, apellido, email, fechaNacimiento);
+        manejadorUsuario.addUsuario(estudiante);
+    }
+
+    @Override
+    public void altaUsuarioDocente(String nickname, String nombre, String apellido,
+            String email, LocalDate fechaNacimiento, String nombreInstituto) {
+
+        Instituto instituto = manejadorInstituto.buscarInstituto(nombreInstituto);
+        Docente docente = new Docente(nickname, nombre, apellido, email, fechaNacimiento, instituto);
+        manejadorUsuario.addUsuario(docente);
+    }
+
 }
