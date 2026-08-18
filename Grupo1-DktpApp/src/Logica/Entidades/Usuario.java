@@ -2,18 +2,43 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+// Usuario.java
 package Logica.Entidades;
-import java.time.LocalDate;
 
-//@Entity
-public class Usuario {
-    //unico
+import java.io.Serializable;
+import java.time.LocalDate;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Usuario implements Serializable {
+
+    @Id
     private String nickname;
+
     private String nombre;
     private String apellido;
-    //unico
-    private String correo;
-    private LocalDate fNacimiento;
+
+    @Column(unique = true, nullable = false)
+    private String email;
+
+    private LocalDate fechaNacimiento;
+
+    public Usuario() {
+    }
+
+    public Usuario(String nickname, String nombre, String apellido,
+                   String email, LocalDate fechaNacimiento) {
+        this.nickname = nickname;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.fechaNacimiento = fechaNacimiento;
+    }
 
     public String getNickname() {
         return nickname;
@@ -39,24 +64,19 @@ public class Usuario {
         this.apellido = apellido;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public LocalDate getfNacimiento() {
-        return fNacimiento;
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
     }
 
-    public void setfNacimiento(LocalDate fNacimiento) {
-        this.fNacimiento = fNacimiento;
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
-    
-    
-    
-    
-    
 }
