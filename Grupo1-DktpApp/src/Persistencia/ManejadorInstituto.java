@@ -8,6 +8,7 @@ import Logica.Entidades.Instituto;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.util.List;
 
 /**
  *
@@ -37,4 +38,14 @@ public class ManejadorInstituto {
   }
     
 }
+ 
+ public List<Instituto> listarInstitutos() {
+    EntityManager em = emf.createEntityManager();
+    try {
+        return em.createQuery("SELECT i FROM Instituto i", Instituto.class).getResultList();
+    } finally {
+        em.close();
+    }
+}
+ 
 }

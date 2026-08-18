@@ -30,6 +30,7 @@ public class Curso implements Serializable {
     private int creditos;
     private String url;
     private LocalDate fechaAlta;
+     
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "instituto_nombre", nullable = false)

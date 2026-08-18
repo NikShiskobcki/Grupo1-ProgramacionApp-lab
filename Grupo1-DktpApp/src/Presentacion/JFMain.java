@@ -205,6 +205,7 @@ public class JFMain extends javax.swing.JFrame {
         pnlTab2.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton2.setText("Agregar Curso");
+        jButton2.addActionListener(this::jButton2ActionPerformed);
 
         javax.swing.GroupLayout pnlTab2Layout = new javax.swing.GroupLayout(pnlTab2);
         pnlTab2.setLayout(pnlTab2Layout);
@@ -251,7 +252,7 @@ public class JFMain extends javax.swing.JFrame {
             .addGroup(pnlTab4Layout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addComponent(jButton3)
-                .addContainerGap(1026, Short.MAX_VALUE))
+                .addContainerGap(1028, Short.MAX_VALUE))
         );
         pnlTab4Layout.setVerticalGroup(
             pnlTab4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -352,6 +353,12 @@ public class JFMain extends javax.swing.JFrame {
     private void lblInstitucionesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInstitucionesMouseExited
         lblInstituciones.setForeground(Color.LIGHT_GRAY);
     }//GEN-LAST:event_lblInstitucionesMouseExited
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    AltaCurso dialog = new AltaCurso(this, true);
+    dialog.setLocationRelativeTo(this); // Lo centra en pantalla    
+    dialog.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

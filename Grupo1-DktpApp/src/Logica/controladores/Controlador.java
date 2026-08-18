@@ -14,6 +14,9 @@ import Persistencia.ManejadorProgramaFormacion;
 import Persistencia.ManejadorUsuario;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import Logica.Entidades.Curso;
+import java.util.List;
+import java.time.LocalDate;
 
 
 public class Controlador implements IControlador {
@@ -71,5 +74,32 @@ public class Controlador implements IControlador {
         manejadorInstituto.addInstituto(instituto);
 
     }
+    
+    @Override
+public List<Instituto> listarInstitutos() {
+    return manejadorInstituto.listarInstitutos();
+}
+
+@Override
+public List<Curso> listarCursos() {
+    return manejadorCurso.listarCursos();
+}
+
+@Override
+public boolean existeCurso(String nombre) {
+    return manejadorCurso.buscarPorNombre(nombre) != null;
+}
+
+@Override
+public void altaCurso(String nombre, String descripcion, int duracion,
+                       int cantidadHoras, int creditos, String url,
+                       LocalDate fechaAlta, Instituto instituto,
+                       List<Curso> previas) {
+
+    Curso curso = new Curso(nombre, descripcion, duracion, cantidadHoras,
+                             creditos, url, fechaAlta, instituto);
+    curso.setPrevias(previas);
+    manejadorCurso.addCurso(curso);
+}
     
 }
