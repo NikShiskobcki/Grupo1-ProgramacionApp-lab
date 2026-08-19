@@ -231,7 +231,6 @@ public class JFMain extends javax.swing.JFrame {
         pnlTab2.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton2.setText("Agregar Curso");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
 
         javax.swing.GroupLayout pnlTab2Layout = new javax.swing.GroupLayout(pnlTab2);
         pnlTab2.setLayout(pnlTab2Layout);
@@ -278,7 +277,7 @@ public class JFMain extends javax.swing.JFrame {
             .addGroup(pnlTab4Layout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addComponent(jButton3)
-                .addContainerGap(1028, Short.MAX_VALUE))
+                .addContainerGap(1026, Short.MAX_VALUE))
         );
         pnlTab4Layout.setVerticalGroup(
             pnlTab4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -412,7 +411,7 @@ private void limpiarDesktopPane() {
     dialog.setLocationRelativeTo(this); // Lo centra en pantalla    
     dialog.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    
     public static void main(String args[]) {
         
         /*IControlador controlador =
