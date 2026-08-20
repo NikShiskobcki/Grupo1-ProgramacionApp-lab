@@ -211,6 +211,8 @@ public class JFMain extends javax.swing.JFrame {
         pnlTab1.setBackground(new java.awt.Color(255, 255, 255));
         pnlTab1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnAltaUsuario.setBackground(new java.awt.Color(35, 71, 75));
+        btnAltaUsuario.setForeground(new java.awt.Color(255, 255, 255));
         btnAltaUsuario.setText("Agregar Usuario");
         btnAltaUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -233,6 +235,8 @@ public class JFMain extends javax.swing.JFrame {
 
         pnlTab1.add(dpCRUDusuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 910, 640));
 
+        btnConsultaUsuario.setBackground(new java.awt.Color(35, 71, 75));
+        btnConsultaUsuario.setForeground(new java.awt.Color(255, 255, 255));
         btnConsultaUsuario.setText("Consulta Usuario");
         btnConsultaUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -241,6 +245,8 @@ public class JFMain extends javax.swing.JFrame {
         });
         pnlTab1.add(btnConsultaUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, -1, -1));
 
+        btnModificarUsuario.setBackground(new java.awt.Color(35, 71, 75));
+        btnModificarUsuario.setForeground(new java.awt.Color(255, 255, 255));
         btnModificarUsuario.setText("Modificar Usuario");
         btnModificarUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

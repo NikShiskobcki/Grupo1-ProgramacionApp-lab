@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Persistencia;
 
 import Logica.Entidades.Instituto;
@@ -7,6 +10,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+/**
+ *
+ * @author xnahu
+ */
 public class ManejadorInstituto {
     private final EntityManagerFactory emf; 
 

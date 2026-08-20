@@ -1,6 +1,8 @@
 
 package Logica.controladores;
 
+import Logica.DTO.DetalleUsuario;
+import Logica.DTO.UsuarioResumen;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -21,5 +23,10 @@ public interface IControlador {
 
     void altaUsuarioDocente(String nickname, String nombre, String apellido,
             String email, LocalDate fechaNacimiento, String nombreInstituto);
+
+    // Consulta de Usuario
+    List<UsuarioResumen> listarUsuarios();
+
+    DetalleUsuario consultarUsuario(String nickname);
 
 }

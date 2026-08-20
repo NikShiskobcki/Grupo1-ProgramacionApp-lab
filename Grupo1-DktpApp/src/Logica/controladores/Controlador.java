@@ -4,6 +4,8 @@
  */
 package Logica.controladores;
 
+import Logica.DTO.DetalleUsuario;
+import Logica.DTO.UsuarioResumen;
 import Logica.Entidades.Docente;
 import Logica.Entidades.Estudiante;
 import Logica.Entidades.Instituto;
@@ -112,6 +114,16 @@ public class Controlador implements IControlador {
         Instituto instituto = manejadorInstituto.buscarInstituto(nombreInstituto);
         Docente docente = new Docente(nickname, nombre, apellido, email, fechaNacimiento, instituto);
         manejadorUsuario.addUsuario(docente);
+    }
+
+    @Override
+    public List<UsuarioResumen> listarUsuarios() {
+        return manejadorUsuario.listarUsuarios();
+    }
+
+    @Override
+    public DetalleUsuario consultarUsuario(String nickname) {
+        return manejadorUsuario.buscarDetalleUsuario(nickname);
     }
 
 }
