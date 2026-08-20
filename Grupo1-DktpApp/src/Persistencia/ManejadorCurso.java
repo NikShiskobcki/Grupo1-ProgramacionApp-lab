@@ -1,10 +1,12 @@
 package Persistencia;
 
+
 import Logica.Entidades.Curso;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.List;
+
 
 public class ManejadorCurso {
 
@@ -47,4 +49,5 @@ public class ManejadorCurso {
             em.close();
         }
     }
+
 }
