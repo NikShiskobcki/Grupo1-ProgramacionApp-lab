@@ -101,5 +101,10 @@ public void altaCurso(String nombre, String descripcion, int duracion,
     curso.setPrevias(previas);
     manejadorCurso.addCurso(curso);
 }
+
+@Override
+public boolean existeInstituto(String nombre){
+    return manejadorInstituto.buscarPorNombre(nombre) != null;
+}
     
 }

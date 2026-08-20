@@ -267,6 +267,7 @@ public class JFMain extends javax.swing.JFrame {
         pnlTab5.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton4.setText("Alta Instituto");
+        jButton4.addActionListener(this::jButton4ActionPerformed);
 
         javax.swing.GroupLayout pnlTab5Layout = new javax.swing.GroupLayout(pnlTab5);
         pnlTab5.setLayout(pnlTab5Layout);
@@ -359,6 +360,12 @@ public class JFMain extends javax.swing.JFrame {
     dialog.setLocationRelativeTo(this); // Lo centra en pantalla    
     dialog.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+     AltaInstituto dialog = new AltaInstituto(this, true);
+    dialog.setLocationRelativeTo(this); // Lo centra en pantalla    
+    dialog.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

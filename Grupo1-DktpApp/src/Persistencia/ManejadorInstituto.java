@@ -48,4 +48,13 @@ public class ManejadorInstituto {
     }
 }
  
+ public Instituto buscarPorNombre(String nombre){
+     EntityManager em = emf.createEntityManager();
+     try{
+         return em.find(Instituto.class, nombre); //nombre es @id
+     }finally{
+         em.close();
+     }
+ }
+ 
 }

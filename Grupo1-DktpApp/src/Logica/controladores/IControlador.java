@@ -21,4 +21,9 @@ public interface IControlador {
                    int cantidadHoras, int creditos, String url,
                    LocalDate fechaAlta, Instituto instituto,
                    List<Curso> previas);
+    
+    
+    boolean existeInstituto(String nombre);
+    
+    
 }
