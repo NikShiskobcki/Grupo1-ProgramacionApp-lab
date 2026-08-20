@@ -8,12 +8,12 @@ package Presentacion;
  *
  * @author samio
  */
-public class IFConsultaUsuario extends javax.swing.JInternalFrame {
+public class IFModificarUsuario extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form IFConsultaUsuario
+     * Creates new form IFModificarUsuario
      */
-    public IFConsultaUsuario() {
+    public IFModificarUsuario() {
         initComponents();
     }
 
@@ -50,7 +50,7 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
 
         lblUsuarios1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblUsuarios1.setForeground(new java.awt.Color(255, 255, 255));
-        lblUsuarios1.setText("Consulta de Usuario");
+        lblUsuarios1.setText("Alta usuario");
         lblUsuarios1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblUsuarios1MouseClicked(evt);
@@ -76,8 +76,8 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(lblUsuarios)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 310, Short.MAX_VALUE)
+                .addComponent(lblUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 311, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(88, 88, 88))
         );
@@ -96,13 +96,13 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 265, Short.MAX_VALUE))
+                .addGap(0, 298, Short.MAX_VALUE))
         );
 
         pack();
