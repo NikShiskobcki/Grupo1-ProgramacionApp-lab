@@ -1,4 +1,7 @@
 
+
+import Logica.Entidades.Instituto;
+import Logica.Entidades.Curso;
 package Logica.controladores;
 
 import java.time.LocalDate;
@@ -6,8 +9,22 @@ import java.util.List;
 
 public interface IControlador {
 
-    //Metodos casos de uso 
     void altaInstituto(String nombre);
+
+
+    // Alta de Curso 
+    List<Instituto> listarInstitutos();
+    List<Curso> listarCursos();
+    boolean existeCurso(String nombre);
+    void altaCurso(String nombre, String descripcion, int duracion,
+                   int cantidadHoras, int creditos, String url,
+                   LocalDate fechaAlta, Instituto instituto,
+                   List<Curso> previas);
+    
+    
+    boolean existeInstituto(String nombre);
+    
+    
 
     // Alta de Usuario
     List<String> listarNombresInstitutos();
