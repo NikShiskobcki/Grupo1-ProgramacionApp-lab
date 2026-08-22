@@ -1,17 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package Logica.controladores;
+
 
 import Logica.Entidades.Instituto;
 import Logica.Entidades.Curso;
+package Logica.controladores;
+
 import java.time.LocalDate;
 import java.util.List;
 
 public interface IControlador {
 
     void altaInstituto(String nombre);
+
 
     // Alta de Curso 
     List<Instituto> listarInstitutos();
@@ -26,4 +25,18 @@ public interface IControlador {
     boolean existeInstituto(String nombre);
     
     
+
+    // Alta de Usuario
+    List<String> listarNombresInstitutos();
+
+    boolean existeNickname(String nickname);
+
+    boolean existeEmail(String email);
+
+    void altaUsuarioEstudiante(String nickname, String nombre, String apellido,
+            String email, LocalDate fechaNacimiento);
+
+    void altaUsuarioDocente(String nickname, String nombre, String apellido,
+            String email, LocalDate fechaNacimiento, String nombreInstituto);
+
 }
