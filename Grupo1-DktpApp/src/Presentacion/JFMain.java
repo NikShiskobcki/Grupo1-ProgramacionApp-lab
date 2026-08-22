@@ -38,11 +38,13 @@ public class JFMain extends javax.swing.JFrame {
         btnModificarUsuario = new javax.swing.JButton();
         pnlTab2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
+        dpCRUDcursos = new javax.swing.JDesktopPane();
         pnlTab3 = new javax.swing.JPanel();
         pnlTab4 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         pnlTab5 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
+        dpCRUDinstitutos = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -233,6 +235,20 @@ public class JFMain extends javax.swing.JFrame {
         jButton2.setText("Agregar Curso");
         jButton2.addActionListener(this::jButton2ActionPerformed);
 
+        dpCRUDcursos.setBackground(new java.awt.Color(255, 255, 255));
+        dpCRUDcursos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.gray, null, null));
+
+        javax.swing.GroupLayout dpCRUDcursosLayout = new javax.swing.GroupLayout(dpCRUDcursos);
+        dpCRUDcursos.setLayout(dpCRUDcursosLayout);
+        dpCRUDcursosLayout.setHorizontalGroup(
+            dpCRUDcursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 736, Short.MAX_VALUE)
+        );
+        dpCRUDcursosLayout.setVerticalGroup(
+            dpCRUDcursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 470, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout pnlTab2Layout = new javax.swing.GroupLayout(pnlTab2);
         pnlTab2.setLayout(pnlTab2Layout);
         pnlTab2Layout.setHorizontalGroup(
@@ -240,14 +256,18 @@ public class JFMain extends javax.swing.JFrame {
             .addGroup(pnlTab2Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jButton2)
-                .addContainerGap(1156, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dpCRUDcursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(493, Short.MAX_VALUE))
         );
         pnlTab2Layout.setVerticalGroup(
             pnlTab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTab2Layout.createSequentialGroup()
                 .addGap(76, 76, 76)
-                .addComponent(jButton2)
-                .addContainerGap(606, Short.MAX_VALUE))
+                .addGroup(pnlTab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dpCRUDcursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
 
         tpOptionPages.addTab("tab2", pnlTab2);
@@ -258,7 +278,7 @@ public class JFMain extends javax.swing.JFrame {
         pnlTab3.setLayout(pnlTab3Layout);
         pnlTab3Layout.setHorizontalGroup(
             pnlTab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1291, Short.MAX_VALUE)
+            .addGap(0, 1374, Short.MAX_VALUE)
         );
         pnlTab3Layout.setVerticalGroup(
             pnlTab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,7 +298,7 @@ public class JFMain extends javax.swing.JFrame {
             .addGroup(pnlTab4Layout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addComponent(jButton3)
-                .addContainerGap(1028, Short.MAX_VALUE))
+                .addContainerGap(1111, Short.MAX_VALUE))
         );
         pnlTab4Layout.setVerticalGroup(
             pnlTab4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,6 +315,20 @@ public class JFMain extends javax.swing.JFrame {
         jButton4.setText("Alta Instituto");
         jButton4.addActionListener(this::jButton4ActionPerformed);
 
+        dpCRUDinstitutos.setBackground(new java.awt.Color(255, 255, 255));
+        dpCRUDinstitutos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.gray, null, null));
+
+        javax.swing.GroupLayout dpCRUDinstitutosLayout = new javax.swing.GroupLayout(dpCRUDinstitutos);
+        dpCRUDinstitutos.setLayout(dpCRUDinstitutosLayout);
+        dpCRUDinstitutosLayout.setHorizontalGroup(
+            dpCRUDinstitutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 736, Short.MAX_VALUE)
+        );
+        dpCRUDinstitutosLayout.setVerticalGroup(
+            dpCRUDinstitutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 470, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout pnlTab5Layout = new javax.swing.GroupLayout(pnlTab5);
         pnlTab5.setLayout(pnlTab5Layout);
         pnlTab5Layout.setHorizontalGroup(
@@ -302,14 +336,21 @@ public class JFMain extends javax.swing.JFrame {
             .addGroup(pnlTab5Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jButton4)
-                .addContainerGap(1156, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dpCRUDinstitutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(493, Short.MAX_VALUE))
         );
         pnlTab5Layout.setVerticalGroup(
             pnlTab5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTab5Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jButton4)
-                .addContainerGap(623, Short.MAX_VALUE))
+                .addGroup(pnlTab5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlTab5Layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addComponent(jButton4))
+                    .addGroup(pnlTab5Layout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addComponent(dpCRUDinstitutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
 
         tpOptionPages.addTab("tab5", pnlTab5);
@@ -409,16 +450,24 @@ private void limpiarDesktopPane() {
     }//GEN-LAST:event_btnModificarUsuarioMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    AltaCurso dialog = new AltaCurso(this, true);
-    dialog.setLocationRelativeTo(this); // Lo centra en pantalla    
-    dialog.setVisible(true);
+    
+       for(javax.swing.JInternalFrame f : dpCRUDcursos.getAllFrames()){
+        f.dispose(); 
+    } 
+    IFAltaCurso ac = new IFAltaCurso(); 
+    dpCRUDcursos.add(ac); 
+    ac.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-     AltaInstituto dialog = new AltaInstituto(this, true);
-    dialog.setLocationRelativeTo(this); // Lo centra en pantalla    
-    dialog.setVisible(true);
+    for (javax.swing.JInternalFrame f : dpCRUDinstitutos.getAllFrames()){
+        f.dispose(); 
+    }
+    
+    IFAltaInstituto ai = new IFAltaInstituto(); 
+    dpCRUDinstitutos.add(ai); 
+    ai.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -457,6 +506,8 @@ private void limpiarDesktopPane() {
     private javax.swing.JButton btnConsultaUsuario;
     private javax.swing.JButton btnModificarUsuario;
     private javax.swing.JSeparator cursosSeparator;
+    private javax.swing.JDesktopPane dpCRUDcursos;
+    private javax.swing.JDesktopPane dpCRUDinstitutos;
     private javax.swing.JDesktopPane dpCRUDusuarios;
     private javax.swing.JSeparator editionSeparator;
     private javax.swing.JSeparator institutionSeparator;
