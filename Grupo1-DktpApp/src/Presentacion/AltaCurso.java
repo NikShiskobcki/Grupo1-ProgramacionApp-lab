@@ -26,29 +26,29 @@ public class AltaCurso extends javax.swing.JDialog {
     /**
      * Creates new form AltaCurso
      */
+    
+public AltaCurso(java.awt.Frame parent, boolean modal) {
+    super(parent, modal);
+    initComponents();
+    setLocationRelativeTo(null);
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    txtFecha.setText(LocalDate.now().format(formatter));
+    
+    cargarInstitutos();
+    cargarCursosPrevias();
+    
+}
 
-    public AltaCurso(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        setLocationRelativeTo(null);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        txtFecha.setText(LocalDate.now().format(formatter));
 
-        cargarInstitutos();
-        cargarCursosPrevias();
+public AltaCurso() {
+    initComponents();
+}
 
-    }
-
-
-    public AltaCurso() {
-        initComponents();
-    }
-
-    private void cargarInstitutos() {
-        try {
+private void cargarInstitutos() {
+       /* try {
             IControlador icon = Fabrica.getInstance().getIControlador();
             List<Instituto> institutos = icon.listarInstitutos();
-
+            
             DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
             for (Instituto inst : institutos) {
                 model.addElement(inst.getNombre());
@@ -56,14 +56,14 @@ public class AltaCurso extends javax.swing.JDialog {
             cbInstituto.setModel(model);
         } catch (Exception e) {
             System.err.println("Error al cargar institutos: " + e.getMessage());
-        }
+        }*/
     }
 
     private void cargarCursosPrevias() {
-        try {
+      /* try {
             IControlador icon = Fabrica.getInstance().getIControlador();
             List<Curso> cursos = icon.listarCursos();
-
+            
             DefaultListModel<String> model = new DefaultListModel<>();
             for (Curso c : cursos) {
                 model.addElement(c.getNombre());
@@ -71,7 +71,7 @@ public class AltaCurso extends javax.swing.JDialog {
             lstPrevias.setModel(model);
         } catch (Exception e) {
             System.err.println("Error al cargar cursos para previas: " + e.getMessage());
-        }
+        }*/
     }
 
 
@@ -187,83 +187,83 @@ public class AltaCurso extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-
+      
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        if (txtNombre.getText().trim().isEmpty() ||
-                txtUrl.getText().trim().isEmpty() ||
-                txtAreaDescripcion.getText().trim().isEmpty() ||
-                txtFecha.getText().trim().isEmpty() ||
-                cbInstituto.getSelectedIndex() == -1) {
+      if (txtNombre.getText().trim().isEmpty() || 
+        txtUrl.getText().trim().isEmpty() || 
+        txtAreaDescripcion.getText().trim().isEmpty() || 
+        txtFecha.getText().trim().isEmpty() ||
+        cbInstituto.getSelectedIndex() == -1) {
+        
+        JOptionPane.showMessageDialog(
+            this, "Por favor, complete todos los campos obligatorios.", 
+            "Campos Incompletos", JOptionPane.WARNING_MESSAGE
+        );
+        return;
+    }
 
+    
+    LocalDate fechaAlta;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    try {
+        fechaAlta = LocalDate.parse(txtFecha.getText().trim(), formatter);
+    } catch (DateTimeParseException e) {
+        JOptionPane.showMessageDialog(
+            this, "El formato de fecha debe ser DD/MM/AAAA (ej. 18/08/2026).", 
+            "Fecha Inválida", JOptionPane.ERROR_MESSAGE
+        );
+        return;
+    }
+/*
+    try {
+        IControlador icon = Fabrica.getInstance().getIControlador();
+        String nombre = txtNombre.getText().trim();
+
+        // 3. Validar existencia previa del curso Regla del CU
+        if (icon.existeCurso(nombre)) {
             JOptionPane.showMessageDialog(
-                    this, "Por favor, complete todos los campos obligatorios.",
-                    "Campos Incompletos", JOptionPane.WARNING_MESSAGE
+                this, 
+                "Ya existe un curso registrado con el nombre '" + nombre + "'. Modifique el nombre antes de continuar.", 
+                "Curso Duplicado", 
+                JOptionPane.WARNING_MESSAGE
             );
             return;
         }
 
+        String url = txtUrl.getText().trim();
+        String descripcion = txtAreaDescripcion.getText().trim();
+        int duracion = (Integer) spnDuracion.getValue();
+        int horas = (Integer) spnHoras.getValue();
+        int creditos = (Integer) spnCreditos.getValue();
+    
+        
+        String nombreInstituto = cbInstituto.getSelectedItem().toString();
+        Instituto institutoSeleccionado = icon.listarInstitutos().stream()
+               .filter(inst -> inst.getNombre().equals(nombreInstituto))
+               .findFirst().orElse(null);
 
-        LocalDate fechaAlta;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        try {
-            fechaAlta = LocalDate.parse(txtFecha.getText().trim(), formatter);
-        } catch (DateTimeParseException e) {
-            JOptionPane.showMessageDialog(
-                    this, "El formato de fecha debe ser DD/MM/AAAA (ej. 18/08/2026).",
-                    "Fecha Inválida", JOptionPane.ERROR_MESSAGE
-            );
+        if (institutoSeleccionado == null) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un instituto válido.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        try {
-            IControlador icon = Fabrica.getInstance().getIControlador();
-            String nombre = txtNombre.getText().trim();
+       
+        List<String> nombresPrevias = lstPrevias.getSelectedValuesList();
+        List<Curso> previasSeleccionadas = icon.listarCursos().stream()
+            .filter(c -> nombresPrevias.contains(c.getNombre()))
+            .collect(java.util.stream.Collectors.toList());
 
-            // 3. Validar existencia previa del curso Regla del CU
-            if (icon.existeCurso(nombre)) {
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Ya existe un curso registrado con el nombre '" + nombre + "'. Modifique el nombre antes de continuar.",
-                        "Curso Duplicado",
-                        JOptionPane.WARNING_MESSAGE
-                );
-                return;
-            }
+        //Invocar alta en la lógica
+        icon.altaCurso(nombre, descripcion, duracion, horas, creditos, url, fechaAlta, institutoSeleccionado, previasSeleccionadas);
 
-            String url = txtUrl.getText().trim();
-            String descripcion = txtAreaDescripcion.getText().trim();
-            int duracion = (Integer) spnDuracion.getValue();
-            int horas = (Integer) spnHoras.getValue();
-            int creditos = (Integer) spnCreditos.getValue();
+        JOptionPane.showMessageDialog(this, "Curso registrado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
 
-
-            String nombreInstituto = cbInstituto.getSelectedItem().toString();
-            Instituto institutoSeleccionado = icon.listarInstitutos().stream()
-                    .filter(inst -> inst.getNombre().equals(nombreInstituto))
-                    .findFirst().orElse(null);
-
-            if (institutoSeleccionado == null) {
-                JOptionPane.showMessageDialog(this, "Debe seleccionar un instituto válido.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-
-            List<String> nombresPrevias = lstPrevias.getSelectedValuesList();
-            List<Curso> previasSeleccionadas = icon.listarCursos().stream()
-                    .filter(c -> nombresPrevias.contains(c.getNombre()))
-                    .collect(java.util.stream.Collectors.toList());
-
-            //Invocar alta en la lógica
-            icon.altaCurso(nombre, descripcion, duracion, horas, creditos, url, fechaAlta, institutoSeleccionado, previasSeleccionadas);
-
-            JOptionPane.showMessageDialog(this, "Curso registrado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al guardar el curso: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al guardar el curso: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } */
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed

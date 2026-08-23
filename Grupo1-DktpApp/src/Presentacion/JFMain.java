@@ -6,13 +6,12 @@ import javax.swing.JInternalFrame;
 public class JFMain extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JFMain.class.getName());
-
+    int xMouse, yMouse;
     public JFMain() {
         initComponents();
     }
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+
     private void initComponents() {
 
         pnlLeftPanel = new javax.swing.JPanel();
@@ -27,8 +26,7 @@ public class JFMain extends javax.swing.JFrame {
         institutionSeparator = new javax.swing.JSeparator();
         lblInstituciones = new javax.swing.JLabel();
         pnlTopPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JLabel();
         pnlCenterPanel = new javax.swing.JPanel();
         tpOptionPages = new javax.swing.JTabbedPane();
         pnlTab1 = new javax.swing.JPanel();
@@ -38,14 +36,18 @@ public class JFMain extends javax.swing.JFrame {
         btnModificarUsuario = new javax.swing.JButton();
         pnlTab2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
+        dpCRUDcursos = new javax.swing.JDesktopPane();
         pnlTab3 = new javax.swing.JPanel();
         pnlTab4 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         pnlTab5 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
+        dpCRUDinstitutos = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setLocationByPlatform(true);
+        setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(1150, 570));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -147,39 +149,60 @@ public class JFMain extends javax.swing.JFrame {
         pnlLeftPanel.getAccessibleContext().setAccessibleDescription("");
 
         pnlTopPanel.setBackground(new java.awt.Color(35, 71, 75));
+        pnlTopPanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                pnlTopPanelMouseDragged(evt);
+            }
+        });
+        pnlTopPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pnlTopPanelMousePressed(evt);
+            }
+        });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("X");
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("-");
+        btnSalir.setBackground(new java.awt.Color(35, 71, 75));
+        btnSalir.setFont(new java.awt.Font("Verdana", 0, 36)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalir.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnSalir.setText("X");
+        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSalir.setMaximumSize(new java.awt.Dimension(35, 35));
+        btnSalir.setMinimumSize(new java.awt.Dimension(35, 35));
+        btnSalir.setOpaque(true);
+        btnSalir.setPreferredSize(new java.awt.Dimension(35, 35));
+        btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSalirMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSalirMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSalirMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlTopPanelLayout = new javax.swing.GroupLayout(pnlTopPanel);
         pnlTopPanel.setLayout(pnlTopPanelLayout);
         pnlTopPanelLayout.setHorizontalGroup(
             pnlTopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTopPanelLayout.createSequentialGroup()
-                .addContainerGap(1022, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(1092, 1092, 1092)
+                .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                .addGap(19, 19, 19))
         );
         pnlTopPanelLayout.setVerticalGroup(
             pnlTopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTopPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlTopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
-                .addGap(732, 732, 732))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTopPanelLayout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
-        getContentPane().add(pnlTopPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, 60));
+        btnSalir.getAccessibleContext().setAccessibleName("x");
+
+        getContentPane().add(pnlTopPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1150, 60));
 
         pnlCenterPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -195,6 +218,7 @@ public class JFMain extends javax.swing.JFrame {
                 btnAltaUsuarioMouseClicked(evt);
             }
         });
+        btnAltaUsuario.addActionListener(this::btnAltaUsuarioActionPerformed);
         pnlTab1.add(btnAltaUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
         javax.swing.GroupLayout dpCRUDusuariosLayout = new javax.swing.GroupLayout(dpCRUDusuarios);
@@ -205,10 +229,10 @@ public class JFMain extends javax.swing.JFrame {
         );
         dpCRUDusuariosLayout.setVerticalGroup(
             dpCRUDusuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 650, Short.MAX_VALUE)
+            .addGap(0, 640, Short.MAX_VALUE)
         );
 
-        pnlTab1.add(dpCRUDusuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 910, 650));
+        pnlTab1.add(dpCRUDusuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 910, 640));
 
         btnConsultaUsuario.setText("Consulta Usuario");
         btnConsultaUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -231,6 +255,21 @@ public class JFMain extends javax.swing.JFrame {
         pnlTab2.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton2.setText("Agregar Curso");
+        jButton2.addActionListener(this::jButton2ActionPerformed);
+
+        dpCRUDcursos.setBackground(new java.awt.Color(255, 255, 255));
+        dpCRUDcursos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.gray, null, null));
+
+        javax.swing.GroupLayout dpCRUDcursosLayout = new javax.swing.GroupLayout(dpCRUDcursos);
+        dpCRUDcursos.setLayout(dpCRUDcursosLayout);
+        dpCRUDcursosLayout.setHorizontalGroup(
+            dpCRUDcursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 736, Short.MAX_VALUE)
+        );
+        dpCRUDcursosLayout.setVerticalGroup(
+            dpCRUDcursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 470, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout pnlTab2Layout = new javax.swing.GroupLayout(pnlTab2);
         pnlTab2.setLayout(pnlTab2Layout);
@@ -239,14 +278,18 @@ public class JFMain extends javax.swing.JFrame {
             .addGroup(pnlTab2Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jButton2)
-                .addContainerGap(1156, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dpCRUDcursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(493, Short.MAX_VALUE))
         );
         pnlTab2Layout.setVerticalGroup(
             pnlTab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTab2Layout.createSequentialGroup()
                 .addGap(76, 76, 76)
-                .addComponent(jButton2)
-                .addContainerGap(606, Short.MAX_VALUE))
+                .addGroup(pnlTab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dpCRUDcursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
 
         tpOptionPages.addTab("tab2", pnlTab2);
@@ -257,7 +300,7 @@ public class JFMain extends javax.swing.JFrame {
         pnlTab3.setLayout(pnlTab3Layout);
         pnlTab3Layout.setHorizontalGroup(
             pnlTab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1291, Short.MAX_VALUE)
+            .addGap(0, 1374, Short.MAX_VALUE)
         );
         pnlTab3Layout.setVerticalGroup(
             pnlTab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,7 +320,7 @@ public class JFMain extends javax.swing.JFrame {
             .addGroup(pnlTab4Layout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addComponent(jButton3)
-                .addContainerGap(1026, Short.MAX_VALUE))
+                .addContainerGap(1111, Short.MAX_VALUE))
         );
         pnlTab4Layout.setVerticalGroup(
             pnlTab4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,6 +335,21 @@ public class JFMain extends javax.swing.JFrame {
         pnlTab5.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton4.setText("Alta Instituto");
+        jButton4.addActionListener(this::jButton4ActionPerformed);
+
+        dpCRUDinstitutos.setBackground(new java.awt.Color(255, 255, 255));
+        dpCRUDinstitutos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.gray, null, null));
+
+        javax.swing.GroupLayout dpCRUDinstitutosLayout = new javax.swing.GroupLayout(dpCRUDinstitutos);
+        dpCRUDinstitutos.setLayout(dpCRUDinstitutosLayout);
+        dpCRUDinstitutosLayout.setHorizontalGroup(
+            dpCRUDinstitutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 736, Short.MAX_VALUE)
+        );
+        dpCRUDinstitutosLayout.setVerticalGroup(
+            dpCRUDinstitutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 470, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout pnlTab5Layout = new javax.swing.GroupLayout(pnlTab5);
         pnlTab5.setLayout(pnlTab5Layout);
@@ -300,14 +358,21 @@ public class JFMain extends javax.swing.JFrame {
             .addGroup(pnlTab5Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jButton4)
-                .addContainerGap(1156, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dpCRUDinstitutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(493, Short.MAX_VALUE))
         );
         pnlTab5Layout.setVerticalGroup(
             pnlTab5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTab5Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jButton4)
-                .addContainerGap(623, Short.MAX_VALUE))
+                .addGroup(pnlTab5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlTab5Layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addComponent(jButton4))
+                    .addGroup(pnlTab5Layout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addComponent(dpCRUDinstitutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
 
         tpOptionPages.addTab("tab5", pnlTab5);
@@ -388,6 +453,7 @@ private void limpiarDesktopPane() {
         IFAltaUsuario au = new IFAltaUsuario();
         dpCRUDusuarios.add(au);
         au.setVisible(true);
+    
         //au.setVisible(true);
     }//GEN-LAST:event_btnAltaUsuarioMouseClicked
 
@@ -407,11 +473,56 @@ private void limpiarDesktopPane() {
     }//GEN-LAST:event_btnModificarUsuarioMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    AltaCurso dialog = new AltaCurso(this, true);
-    dialog.setLocationRelativeTo(this); // Lo centra en pantalla    
-    dialog.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
     
+       for(javax.swing.JInternalFrame f : dpCRUDcursos.getAllFrames()){
+        f.dispose(); 
+    } 
+    IFAltaCurso ac = new IFAltaCurso(); 
+    dpCRUDcursos.add(ac); 
+    ac.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    for (javax.swing.JInternalFrame f : dpCRUDinstitutos.getAllFrames()){
+        f.dispose(); 
+    }
+    
+    IFAltaInstituto ai = new IFAltaInstituto(); 
+    dpCRUDinstitutos.add(ai); 
+    ai.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    private void pnlTopPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlTopPanelMousePressed
+        xMouse =evt.getX();
+        yMouse =evt.getY();
+    }//GEN-LAST:event_pnlTopPanelMousePressed
+
+    private void pnlTopPanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlTopPanelMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x-xMouse,y-yMouse);
+    }//GEN-LAST:event_pnlTopPanelMouseDragged
+
+    private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_btnSalirMouseClicked
+
+    private void btnSalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseEntered
+        btnSalir.setBackground(new Color(204,0,51));
+    }//GEN-LAST:event_btnSalirMouseEntered
+
+    private void btnSalirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseExited
+       btnSalir.setBackground(new Color(35, 71, 75));
+    }//GEN-LAST:event_btnSalirMouseExited
+
+    private void btnAltaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAltaUsuarioActionPerformed
+
     public static void main(String args[]) {
         
         /*IControlador controlador =
@@ -443,15 +554,16 @@ private void limpiarDesktopPane() {
     private javax.swing.JButton btnAltaUsuario;
     private javax.swing.JButton btnConsultaUsuario;
     private javax.swing.JButton btnModificarUsuario;
+    private javax.swing.JLabel btnSalir;
     private javax.swing.JSeparator cursosSeparator;
+    private javax.swing.JDesktopPane dpCRUDcursos;
+    private javax.swing.JDesktopPane dpCRUDinstitutos;
     private javax.swing.JDesktopPane dpCRUDusuarios;
     private javax.swing.JSeparator editionSeparator;
     private javax.swing.JSeparator institutionSeparator;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblCursos;
     private javax.swing.JLabel lblEdiciones;
     private javax.swing.JLabel lblInstituciones;

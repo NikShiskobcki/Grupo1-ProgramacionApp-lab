@@ -8,12 +8,12 @@ package Presentacion;
  *
  * @author Usuario
  */
-public class AltaInstitutoInternalFrame extends javax.swing.JInternalFrame {
+public class IFAltaInstituto extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form AltaInstitutoInternalFrame
+     * Creates new form IFAltaInstituto
      */
-    public AltaInstitutoInternalFrame() {
+    public IFAltaInstituto() {
         initComponents();
     }
 
@@ -31,12 +31,7 @@ public class AltaInstitutoInternalFrame extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
-        setTitle("Alta de Instituto");
-
-        jLabel1.setText("Nombre del instituto");
+        jLabel1.setText("Nombre del Instituto");
 
         txtNombreInstituto.addActionListener(this::txtNombreInstitutoActionPerformed);
 
@@ -51,22 +46,24 @@ public class AltaInstitutoInternalFrame extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(105, 105, 105)
-                .addComponent(jButton1)
-                .addGap(32, 32, 32)
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(77, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNombreInstituto, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72))
+                .addGap(75, 75, 75)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jButton1)
+                        .addGap(32, 32, 32)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNombreInstituto, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(95, 95, 95)
+                .addGap(98, 98, 98)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNombreInstituto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -74,7 +71,7 @@ public class AltaInstitutoInternalFrame extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
         pack();
@@ -84,22 +81,45 @@ public class AltaInstitutoInternalFrame extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreInstitutoActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       String nombre = txtNombreInstituto.getText().trim();
-
-    // Validar que no esté vacío
-    if (nombre.isEmpty()) {
-        javax.swing.JOptionPane.showMessageDialog(this, 
-            "Debe ingresar el nombre del instituto.", 
-            "Campo Requerido", 
-            javax.swing.JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       this.dispose(); // Cierra la ventana
+        this.dispose(); // Cierra la ventana
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String nombre = txtNombreInstituto.getText().trim();
+
+        if (nombre.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                "Debe ingresar el nombre del instituto.",
+                "Campo Requerido",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Logica.controladores.IControlador icon =
+        Logica.controladores.Fabrica.getInstance().getIControlador();
+
+        // Validar nombre único (regla del CU)
+        if (icon.existeInstituto(nombre)) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                "Ya existe un instituto con ese nombre. Modifique el nombre o cancele.",
+                "Instituto existente",
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+            return; //
+        }
+
+        try {
+            icon.altaInstituto(nombre);
+            javax.swing.JOptionPane.showMessageDialog(this,
+                "Instituto registrado correctamente.");
+            this.dispose();
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                "Ocurrió un error al registrar el instituto: " + e.getMessage(),
+                "Error",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -12,11 +12,12 @@ import Persistencia.ManejadorProgramaFormacion;
 import Persistencia.ManejadorUsuario;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import Logica.Entidades.Curso;
-import Logica.Entidades.ProgramaFormacion;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import Logica.Entidades.Curso;
+import java.util.List;
+import java.time.LocalDate;
 
 
 public class Controlador implements IControlador {
@@ -75,6 +76,41 @@ public class Controlador implements IControlador {
 
     }
 
+    
+    @Override
+public List<Instituto> listarInstitutos() {
+    return manejadorInstituto.listarInstitutos();
+}
+
+@Override
+public List<Curso> listarCursos() {
+    return manejadorCurso.listarCursos();
+}
+
+@Override
+public boolean existeCurso(String nombre) {
+    return manejadorCurso.buscarPorNombre(nombre) != null;
+}
+
+@Override
+public void altaCurso(String nombre, String descripcion, int duracion,
+                       int cantidadHoras, int creditos, String url,
+                       LocalDate fechaAlta, Instituto instituto,
+                       List<Curso> previas) {
+
+    Curso curso = new Curso(nombre, descripcion, duracion, cantidadHoras,
+                             creditos, url, fechaAlta, instituto);
+    curso.setPrevias(previas);
+    manejadorCurso.addCurso(curso);
+}
+
+@Override
+public boolean existeInstituto(String nombre){
+    return manejadorInstituto.buscarPorNombre(nombre) != null;
+}
+    
+=======
+
     @Override
     public List<String> listarNombresInstitutos() {
         List<Instituto> institutos = manejadorInstituto.listarInstitutos();
@@ -84,13 +120,6 @@ public class Controlador implements IControlador {
         }
         return nombres;
     }
-    
-        
-    @Override
-    public List<Instituto> listarInstitutos() {
-        return manejadorInstituto.listarInstitutos();
-    }
-
 
     @Override
     public boolean existeNickname(String nickname) {
@@ -118,39 +147,5 @@ public class Controlador implements IControlador {
         Docente docente = new Docente(nickname, nombre, apellido, email, fechaNacimiento, instituto);
         manejadorUsuario.addUsuario(docente);
     }
-    
-    @Override
-public List<Curso> listarCursos() {
-    return manejadorCurso.listarCursos();
-}
-
-@Override
-public boolean existeCurso(String nombre) {
-    return manejadorCurso.buscarPorNombre(nombre) != null;
-}
-
-@Override
-public void altaCurso(String nombre, String descripcion, int duracion,
-                       int cantidadHoras, int creditos, String url,
-                       LocalDate fechaAlta, Instituto instituto,
-                       List<Curso> previas) {
-
-    Curso curso = new Curso(nombre, descripcion, duracion, cantidadHoras,
-                             creditos, url, fechaAlta, instituto);
-    curso.setPrevias(previas);
-    manejadorCurso.addCurso(curso);
-}
-
-
-@Override
-public boolean existePrograma(String nombre){
-    return manejadorProgramaFormacion.existePrograma(nombre);
-}
-
-@Override
-public void altaPrograma(String nombre, String descripcion, LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta){
-    ProgramaFormacion programa = new ProgramaFormacion(nombre,descripcion,fechaInicio,fechaFin,fechaAlta);
-    manejadorProgramaFormacion.addPrograma(programa);
-}
 
 }

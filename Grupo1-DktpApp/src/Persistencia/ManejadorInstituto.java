@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.util.List;
 
 public class ManejadorInstituto {
     private final EntityManagerFactory emf; 
@@ -31,6 +32,26 @@ public class ManejadorInstituto {
   }
     
 }
+
+ 
+ public List<Instituto> listarInstitutos() {
+    EntityManager em = emf.createEntityManager();
+    try {
+        return em.createQuery("SELECT i FROM Instituto i", Instituto.class).getResultList();
+    } finally {
+        em.close();
+    }
+}
+ 
+ public Instituto buscarPorNombre(String nombre){
+     EntityManager em = emf.createEntityManager();
+     try{
+         return em.find(Instituto.class, nombre); //nombre es @id
+     }finally{
+         em.close();
+     }
+ }
+ 
 
     public List<Instituto> listarInstitutos() {
         EntityManager em = emf.createEntityManager();
