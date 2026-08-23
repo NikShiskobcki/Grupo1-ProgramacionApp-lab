@@ -1,8 +1,8 @@
 
-
+package Logica.controladores;
 import Logica.Entidades.Instituto;
 import Logica.Entidades.Curso;
-package Logica.controladores;
+
 
 import java.time.LocalDate;
 import java.util.List;
@@ -38,5 +38,9 @@ public interface IControlador {
 
     void altaUsuarioDocente(String nickname, String nombre, String apellido,
             String email, LocalDate fechaNacimiento, String nombreInstituto);
+    
+    // Alta Programa Formacion
+    boolean existePrograma(String nombre);
+    void altaPrograma(String nombre, String descripcion, LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta);
 
 }

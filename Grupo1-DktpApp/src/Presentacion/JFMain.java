@@ -13,7 +13,7 @@ public class JFMain extends javax.swing.JFrame {
 
 
     private void initComponents() {
-
+        // <editor-fold defaultstate="collapsed" desc="Generated Code">
         pnlLeftPanel = new javax.swing.JPanel();
         lblEdiciones = new javax.swing.JLabel();
         usersSeparator = new javax.swing.JSeparator();
@@ -382,7 +382,7 @@ public class JFMain extends javax.swing.JFrame {
         getContentPane().add(pnlCenterPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 1220, 1010));
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
     private void lblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuariosMouseClicked
         tpOptionPages.setSelectedIndex(0);

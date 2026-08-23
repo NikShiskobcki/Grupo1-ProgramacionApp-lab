@@ -3,6 +3,8 @@ package Logica.controladores;
 import Logica.Entidades.Docente;
 import Logica.Entidades.Estudiante;
 import Logica.Entidades.Instituto;
+import Logica.Entidades.Curso;
+import Logica.Entidades.ProgramaFormacion;
 import Persistencia.ManejadorCurso;
 import Persistencia.ManejadorEdicionCurso;
 import Persistencia.ManejadorInscripcionEdicion;
@@ -15,19 +17,16 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import Logica.Entidades.Curso;
 import java.util.List;
 import java.time.LocalDate;
-
 
 public class Controlador implements IControlador {
 
     private static Controlador instancia;
-    
+
     //Fabrica de entityManager utilizada por todos los manejadores
     private final EntityManagerFactory emf;
-   
-    
+
     //Manejadores;
     private final ManejadorUsuario manejadorUsuario;
     private final ManejadorInstituto manejadorInstituto;
@@ -38,23 +37,21 @@ public class Controlador implements IControlador {
     private final ManejadorInscripcionPrograma manejadorInscripcionPrograma;
 
     // Constructor privado para aplicar Singleton
-     
     private Controlador() {
         //Fabrica de entidades creada una sola vez para toda la app
-        emf= Persistence.createEntityManagerFactory("edextPU"); 
-        
-         //Manejadores que comparten la misma EMF 
-                 manejadorUsuario = new ManejadorUsuario(emf);
+        emf = Persistence.createEntityManagerFactory("edextPU");
+
+        //Manejadores que comparten la misma EMF 
+        manejadorUsuario = new ManejadorUsuario(emf);
         manejadorInstituto = new ManejadorInstituto(emf);
         manejadorCurso = new ManejadorCurso(emf);
         manejadorEdicionCurso = new ManejadorEdicionCurso(emf);
         manejadorProgramaFormacion = new ManejadorProgramaFormacion(emf);
         manejadorInscripcionEdicion = new ManejadorInscripcionEdicion(emf);
         manejadorInscripcionPrograma = new ManejadorInscripcionPrograma(emf);
-        
+
     }
 
-    
     public static Controlador getInstance() {
 
         if (instancia == null) {
@@ -64,9 +61,7 @@ public class Controlador implements IControlador {
         return instancia;
     }
 
-
     //Aca implementamos los casos de uso 
-     
     @Override
     public void altaInstituto(String nombre) {
 
@@ -76,40 +71,37 @@ public class Controlador implements IControlador {
 
     }
 
-    
     @Override
-public List<Instituto> listarInstitutos() {
-    return manejadorInstituto.listarInstitutos();
-}
+    public List<Instituto> listarInstitutos() {
+        return manejadorInstituto.listarInstitutos();
+    }
 
-@Override
-public List<Curso> listarCursos() {
-    return manejadorCurso.listarCursos();
-}
+    @Override
+    public List<Curso> listarCursos() {
+        return manejadorCurso.listarCursos();
+    }
 
-@Override
-public boolean existeCurso(String nombre) {
-    return manejadorCurso.buscarPorNombre(nombre) != null;
-}
+    @Override
+    public boolean existeCurso(String nombre) {
+        return manejadorCurso.buscarPorNombre(nombre) != null;
+    }
 
-@Override
-public void altaCurso(String nombre, String descripcion, int duracion,
-                       int cantidadHoras, int creditos, String url,
-                       LocalDate fechaAlta, Instituto instituto,
-                       List<Curso> previas) {
+    @Override
+    public void altaCurso(String nombre, String descripcion, int duracion,
+            int cantidadHoras, int creditos, String url,
+            LocalDate fechaAlta, Instituto instituto,
+            List<Curso> previas) {
 
-    Curso curso = new Curso(nombre, descripcion, duracion, cantidadHoras,
-                             creditos, url, fechaAlta, instituto);
-    curso.setPrevias(previas);
-    manejadorCurso.addCurso(curso);
-}
+        Curso curso = new Curso(nombre, descripcion, duracion, cantidadHoras,
+                creditos, url, fechaAlta, instituto);
+        curso.setPrevias(previas);
+        manejadorCurso.addCurso(curso);
+    }
 
-@Override
-public boolean existeInstituto(String nombre){
-    return manejadorInstituto.buscarPorNombre(nombre) != null;
-}
-    
-=======
+    @Override
+    public boolean existeInstituto(String nombre) {
+        return manejadorInstituto.buscarPorNombre(nombre) != null;
+    }
 
     @Override
     public List<String> listarNombresInstitutos() {
@@ -147,5 +139,17 @@ public boolean existeInstituto(String nombre){
         Docente docente = new Docente(nickname, nombre, apellido, email, fechaNacimiento, instituto);
         manejadorUsuario.addUsuario(docente);
     }
+
+    @Override
+    public boolean existePrograma(String nombre){
+        return manejadorProgramaFormacion.existePrograma(nombre);
+    }
+    
+    @Override
+    public void altaPrograma(String nombre,  String descripcion, LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta){
+        ProgramaFormacion programa = new ProgramaFormacion(nombre, descripcion, fechaInicio, fechaFin, fechaAlta);
+        manejadorProgramaFormacion.addPrograma(programa);
+    }
+
 
 }

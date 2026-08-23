@@ -33,7 +33,7 @@ public class ManejadorInstituto {
     
 }
 
- 
+ /*
  public List<Instituto> listarInstitutos() {
     EntityManager em = emf.createEntityManager();
     try {
@@ -41,7 +41,7 @@ public class ManejadorInstituto {
     } finally {
         em.close();
     }
-}
+}*/
  
  public Instituto buscarPorNombre(String nombre){
      EntityManager em = emf.createEntityManager();
