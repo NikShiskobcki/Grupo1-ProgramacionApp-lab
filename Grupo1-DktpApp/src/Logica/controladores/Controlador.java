@@ -150,6 +150,21 @@ public class Controlador implements IControlador {
         ProgramaFormacion programa = new ProgramaFormacion(nombre, descripcion, fechaInicio, fechaFin, fechaAlta);
         manejadorProgramaFormacion.addPrograma(programa);
     }
+    
+    @Override
+    public List<String> listarProgramas(){
+        List<ProgramaFormacion> programas = manejadorProgramaFormacion.listarProgramas();
+        List<String> nombres = new ArrayList<>();
+        for (ProgramaFormacion programa : programas) {
+            nombres.add(programa.getNombre());
+        }
+        return nombres;
+    }
 
+    @Override
+    public void agregarCursoAPrograma(String nombrePrograma, String nombreCurso){
+        manejadorProgramaFormacion.agregarCursoAPrograma(nombrePrograma, nombreCurso);
+        
+    }
 
 }

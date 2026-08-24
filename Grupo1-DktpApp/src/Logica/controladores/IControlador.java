@@ -42,5 +42,8 @@ public interface IControlador {
     // Alta Programa Formacion
     boolean existePrograma(String nombre);
     void altaPrograma(String nombre, String descripcion, LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta);
-
+    
+    //Agregar curso a Programa Formacion
+    List<String> listarProgramas();
+    void agregarCursoAPrograma(String nombrePrograma, String nombreCurso);
 }
