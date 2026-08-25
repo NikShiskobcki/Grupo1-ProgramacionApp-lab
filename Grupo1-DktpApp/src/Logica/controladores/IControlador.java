@@ -1,15 +1,30 @@
 
 package Logica.controladores;
+import Logica.Entidades.Instituto;
+import Logica.Entidades.Curso;
 
-import Logica.DTO.DetalleUsuario;
-import Logica.DTO.UsuarioResumen;
+
 import java.time.LocalDate;
 import java.util.List;
 
 public interface IControlador {
 
-    //Metodos casos de uso 
     void altaInstituto(String nombre);
+
+
+    // Alta de Curso 
+    List<Instituto> listarInstitutos();
+    List<Curso> listarCursos();
+    boolean existeCurso(String nombre);
+    void altaCurso(String nombre, String descripcion, int duracion,
+                   int cantidadHoras, int creditos, String url,
+                   LocalDate fechaAlta, Instituto instituto,
+                   List<Curso> previas);
+    
+    
+    boolean existeInstituto(String nombre);
+    
+    
 
     // Alta de Usuario
     List<String> listarNombresInstitutos();
@@ -23,10 +38,12 @@ public interface IControlador {
 
     void altaUsuarioDocente(String nickname, String nombre, String apellido,
             String email, LocalDate fechaNacimiento, String nombreInstituto);
-
-    // Consulta de Usuario
-    List<UsuarioResumen> listarUsuarios();
-
-    DetalleUsuario consultarUsuario(String nickname);
-
+    
+    // Alta Programa Formacion
+    boolean existePrograma(String nombre);
+    void altaPrograma(String nombre, String descripcion, LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta);
+    
+    //Agregar curso a Programa Formacion
+    List<String> listarProgramas();
+    void agregarCursoAPrograma(String nombrePrograma, String nombreCurso);
 }
