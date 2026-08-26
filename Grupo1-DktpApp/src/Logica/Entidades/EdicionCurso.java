@@ -26,7 +26,7 @@ public class EdicionCurso implements Serializable {
 
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
-    private int cupo;
+    private Integer cupo;
     private LocalDate fechaPublicacion;
 
     @ManyToOne(optional = false)
@@ -59,7 +59,7 @@ public class EdicionCurso implements Serializable {
 
 
     public EdicionCurso(String nombre, LocalDate fechaInicio,
-                        LocalDate fechaFin, int cupo,
+                        LocalDate fechaFin, Integer cupo,
                         LocalDate fechaPublicacion, Curso curso) {
 
         this.nombre = nombre;
@@ -85,7 +85,7 @@ public class EdicionCurso implements Serializable {
         return fechaFin;
     }
 
-    public int getCupo() {
+    public Integer getCupo() {
         return cupo;
     }
 
@@ -116,7 +116,7 @@ public class EdicionCurso implements Serializable {
         this.fechaFin = fechaFin;
     }
 
-    public void setCupo(int cupo) {
+    public void setCupo(Integer cupo) {
         this.cupo = cupo;
     }
 

@@ -4,6 +4,7 @@ import Logica.Entidades.Docente;
 import Logica.Entidades.Estudiante;
 import Logica.Entidades.Instituto;
 import Logica.Entidades.Curso;
+import Logica.Entidades.EdicionCurso;
 import Logica.Entidades.ProgramaFormacion;
 import Persistencia.ManejadorCurso;
 import Persistencia.ManejadorEdicionCurso;
@@ -166,5 +167,54 @@ public class Controlador implements IControlador {
         manejadorProgramaFormacion.agregarCursoAPrograma(nombrePrograma, nombreCurso);
         
     }
+    
+    @Override
+    public List<Curso> listarCursosPorInstituto(String nombreInstituto) {
+    return manejadorCurso.listarCursosPorInstituto(nombreInstituto);
+}
+    @Override
+    public List<Docente> listarDocentesPorInstituto(String nombreInstituto) {
+    return manejadorUsuario.listarDocentesPorInstituto(nombreInstituto);
+}
+    @Override
+    public boolean existeEdicion(String nombre) {
+    return manejadorEdicionCurso.buscarPorNombre(nombre) != null;
+}
+@Override
+public void altaEdicionCurso(
+        String nombre,
+        LocalDate fechaInicio,
+        LocalDate fechaFin,
+        Integer cupo,
+        String nombreCurso,
+        List<Docente> docentes) {
+
+    Curso curso = manejadorCurso.buscarPorNombre(nombreCurso);
+
+    LocalDate fechaPublicacion = LocalDate.now();
+
+    EdicionCurso edicion = new EdicionCurso(
+            nombre,
+            fechaInicio,
+            fechaFin,
+            cupo,
+            fechaPublicacion,
+            curso
+    );
+
+    edicion.setDocentes(docentes);
+
+    manejadorEdicionCurso.addEdicion(edicion);
+}
+
+@Override
+public List<EdicionCurso> listarEdicionesPorCurso(String nombreCurso) {
+    return manejadorEdicionCurso.listarEdicionesPorCurso(nombreCurso);
+}
+
+@Override
+public EdicionCurso buscarEdicion(String nombre) {
+    return manejadorEdicionCurso.buscarEdicionCompleta(nombre);
+}
 
 }

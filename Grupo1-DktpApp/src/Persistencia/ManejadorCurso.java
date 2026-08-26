@@ -49,5 +49,22 @@ public class ManejadorCurso {
             em.close();
         }
     }
+    
+    public List<Curso> listarCursosPorInstituto(String nombreInstituto) {
+
+    EntityManager em = emf.createEntityManager();
+
+    try {
+        return em.createQuery(
+                "SELECT c FROM Curso c "
+                + "WHERE c.instituto.nombre = :nombreInstituto",
+                Curso.class)
+                .setParameter("nombreInstituto", nombreInstituto)
+                .getResultList();
+
+    } finally {
+        em.close();
+    }
+}
 
 }

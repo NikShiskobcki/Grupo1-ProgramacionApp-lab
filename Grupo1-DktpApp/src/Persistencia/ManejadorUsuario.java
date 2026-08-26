@@ -5,6 +5,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import Logica.Entidades.Docente;
+import java.util.List;
 
 public class ManejadorUsuario {
 
@@ -52,4 +54,21 @@ public class ManejadorUsuario {
             em.close();
         }
     }
+    
+    public List<Docente> listarDocentesPorInstituto(String nombreInstituto) {
+
+    EntityManager em = emf.createEntityManager();
+
+    try {
+        return em.createQuery(
+                "SELECT d FROM Docente d "
+                + "WHERE d.instituto.nombre = :nombreInstituto",
+                Docente.class)
+                .setParameter("nombreInstituto", nombreInstituto)
+                .getResultList();
+
+    } finally {
+        em.close();
+    }
+}
 }
