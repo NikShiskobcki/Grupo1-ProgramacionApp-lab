@@ -1,6 +1,22 @@
 package Persistencia;
 
+import Logica.DTO.DetalleUsuario;
+import Logica.DTO.UsuarioEdicion;
+import Logica.DTO.UsuarioResumen;
+import Logica.Entidades.Curso;
+import Logica.Entidades.Docente;
+import Logica.Entidades.EdicionCurso;
+import Logica.Entidades.Estudiante;
+import Logica.Entidades.Instituto;
+import Logica.Entidades.InscripcionEdicion;
+import Logica.Entidades.InscripcionPrograma;
+import Logica.Entidades.ProgramaFormacion;
 import Logica.Entidades.Usuario;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -48,6 +64,150 @@ public class ManejadorUsuario {
                     "SELECT COUNT(u) FROM Usuario u WHERE u.email = :email", Long.class);
             query.setParameter("email", email);
             return query.getSingleResult() > 0;
+        } finally {
+            em.close();
+        }
+    }
+
+    /**
+     * Lista todos los usuarios (Estudiantes y Docentes) para poblar la
+     * pantalla de selección del caso de uso "Consulta de Usuario".
+     */
+    public List<UsuarioResumen> listarUsuarios() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            List<Usuario> usuarios = em.createQuery(
+                    "SELECT u FROM Usuario u ORDER BY u.nickname", Usuario.class).getResultList();
+
+            List<UsuarioResumen> resumenes = new ArrayList<>();
+            for (Usuario u : usuarios) {
+                String tipo = (u instanceof Docente) ? "Docente" : "Estudiante";
+                resumenes.add(new UsuarioResumen(u.getNickname(), u.getNombre() + " " + u.getApellido(), tipo));
+            }
+            return resumenes;
+        } finally {
+            em.close();
+        }
+    }
+
+
+    public DetalleUsuario buscarDetalleUsuario(String nickname) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            Usuario usuario = em.find(Usuario.class, nickname);
+            if (usuario == null) {
+                return null;
+            }
+
+            String tipoUsuario;
+            String instituto = null;
+            List<String> cursos = new ArrayList<>();
+            List<String> ediciones = new ArrayList<>();
+            List<String> programas = new ArrayList<>();
+
+            if (usuario instanceof Docente) {
+                Docente docente = (Docente) usuario;
+                tipoUsuario = "Docente";
+                instituto = docente.getInstituto().getNombre();
+
+                Set<String> nombresCursos = new LinkedHashSet<>();
+                for (EdicionCurso edicion : docente.getEdiciones()) {
+                    ediciones.add(edicion.getNombre() + " (" + edicion.getFechaInicio()
+                            + " a " + edicion.getFechaFin() + ")");
+                    Curso curso = edicion.getCurso();
+                    if (nombresCursos.add(curso.getNombre())) {
+                        cursos.add(curso.getNombre() + " - " + curso.getDescripcion());
+                    }
+                }
+
+                if (!nombresCursos.isEmpty()) {
+                    List<ProgramaFormacion> programasEncontrados = em.createQuery(
+                            "SELECT DISTINCT p FROM ProgramaFormacion p JOIN p.cursos c "
+                            + "WHERE c.nombre IN :nombres", ProgramaFormacion.class)
+                            .setParameter("nombres", nombresCursos)
+                            .getResultList();
+                    for (ProgramaFormacion programa : programasEncontrados) {
+                        programas.add(programa.getNombre() + " (" + programa.getFechaInicio()
+                                + " a " + programa.getFechaFin() + ")");
+                    }
+                }
+
+            } else {
+                Estudiante estudiante = (Estudiante) usuario;
+                tipoUsuario = "Estudiante";
+
+                for (InscripcionEdicion inscripcion : estudiante.getInscripcionesEdiciones()) {
+                    EdicionCurso edicion = inscripcion.getEdicion();
+                    ediciones.add(edicion.getNombre() + " (inscripto el "
+                            + inscripcion.getFechaInscripcion() + ")");
+                }
+                for (InscripcionPrograma inscripcion : estudiante.getInscripcionesProgramas()) {
+                    ProgramaFormacion programa = inscripcion.getPrograma();
+                    programas.add(programa.getNombre() + " (inscripto el "
+                            + inscripcion.getFechaInscripcion() + ")");
+                }
+            }
+
+            return new DetalleUsuario(usuario.getNickname(), usuario.getNombre(), usuario.getApellido(),
+                    usuario.getEmail(), usuario.getFechaNacimiento(), tipoUsuario, instituto,
+                    cursos, ediciones, programas);
+        } finally {
+            em.close();
+        }
+    }
+
+
+    public UsuarioEdicion buscarUsuarioParaEditar(String nickname) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            Usuario usuario = em.find(Usuario.class, nickname);
+            if (usuario == null) {
+                return null;
+            }
+
+            String tipoUsuario;
+            String instituto = null;
+            if (usuario instanceof Docente) {
+                tipoUsuario = "Docente";
+                instituto = ((Docente) usuario).getInstituto().getNombre();
+            } else {
+                tipoUsuario = "Estudiante";
+            }
+
+            return new UsuarioEdicion(usuario.getNickname(), usuario.getEmail(), tipoUsuario,
+                    usuario.getNombre(), usuario.getApellido(), usuario.getFechaNacimiento(), instituto);
+        } finally {
+            em.close();
+        }
+    }
+
+
+    public void actualizarUsuario(String nickname, String nombre, String apellido,
+            LocalDate fechaNacimiento, String nombreInstituto) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction t = em.getTransaction();
+        try {
+            t.begin();
+            Usuario usuario = em.find(Usuario.class, nickname);
+            if (usuario == null) {
+                throw new IllegalArgumentException("El usuario '" + nickname + "' no existe.");
+            }
+
+            usuario.setNombre(nombre);
+            usuario.setApellido(apellido);
+            usuario.setFechaNacimiento(fechaNacimiento);
+
+            if (usuario instanceof Docente) {
+                Instituto instituto = em.find(Instituto.class, nombreInstituto);
+                ((Docente) usuario).setInstituto(instituto);
+            }
+
+            t.commit();
+        } catch (Exception e) {
+            if (t.isActive()) {
+                t.rollback();
+            }
+            throw e;
         } finally {
             em.close();
         }

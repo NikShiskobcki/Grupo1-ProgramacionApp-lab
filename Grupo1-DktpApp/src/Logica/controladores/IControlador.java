@@ -1,5 +1,8 @@
 
 package Logica.controladores;
+import Logica.DTO.DetalleUsuario;
+import Logica.DTO.UsuarioEdicion;
+import Logica.DTO.UsuarioResumen;
 import Logica.Entidades.Instituto;
 import Logica.Entidades.Curso;
 
@@ -46,4 +49,15 @@ public interface IControlador {
     //Agregar curso a Programa Formacion
     List<String> listarProgramas();
     void agregarCursoAPrograma(String nombrePrograma, String nombreCurso);
+
+    // Consulta de Usuario
+    List<UsuarioResumen> listarUsuarios();
+
+    DetalleUsuario consultarUsuario(String nickname);
+
+    // Modificar Datos de Usuario
+    UsuarioEdicion buscarUsuarioParaEditar(String nickname);
+
+    void modificarUsuario(String nickname, String nombre, String apellido,
+            LocalDate fechaNacimiento, String nombreInstituto);
 }

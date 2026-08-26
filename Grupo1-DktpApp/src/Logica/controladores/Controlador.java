@@ -1,5 +1,8 @@
 package Logica.controladores;
 
+import Logica.DTO.DetalleUsuario;
+import Logica.DTO.UsuarioEdicion;
+import Logica.DTO.UsuarioResumen;
 import Logica.Entidades.Docente;
 import Logica.Entidades.Estudiante;
 import Logica.Entidades.Instituto;
@@ -36,7 +39,7 @@ public class Controlador implements IControlador {
     private final ManejadorInscripcionEdicion manejadorInscripcionEdicion;
     private final ManejadorInscripcionPrograma manejadorInscripcionPrograma;
 
-    // Constructor privado para aplicar Singleton
+
     private Controlador() {
         //Fabrica de entidades creada una sola vez para toda la app
         emf = Persistence.createEntityManagerFactory("edextPU");
@@ -165,6 +168,27 @@ public class Controlador implements IControlador {
     public void agregarCursoAPrograma(String nombrePrograma, String nombreCurso){
         manejadorProgramaFormacion.agregarCursoAPrograma(nombrePrograma, nombreCurso);
         
+    }
+
+    @Override
+    public List<UsuarioResumen> listarUsuarios() {
+        return manejadorUsuario.listarUsuarios();
+    }
+
+    @Override
+    public DetalleUsuario consultarUsuario(String nickname) {
+        return manejadorUsuario.buscarDetalleUsuario(nickname);
+    }
+
+    @Override
+    public UsuarioEdicion buscarUsuarioParaEditar(String nickname) {
+        return manejadorUsuario.buscarUsuarioParaEditar(nickname);
+    }
+
+    @Override
+    public void modificarUsuario(String nickname, String nombre, String apellido,
+            LocalDate fechaNacimiento, String nombreInstituto) {
+        manejadorUsuario.actualizarUsuario(nickname, nombre, apellido, fechaNacimiento, nombreInstituto);
     }
 
 }
