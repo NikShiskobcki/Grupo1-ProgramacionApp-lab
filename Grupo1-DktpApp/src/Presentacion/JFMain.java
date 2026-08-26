@@ -9,31 +9,66 @@ public class JFMain extends javax.swing.JFrame {
     int xMouse, yMouse;
     public JFMain() {
         initComponents();
+        pnlMenuUsuarios.setVisible(false);
+        pnlMenuCursos.setVisible(false);
+        pnlMenuEdiciones.setVisible(false);
+        pnlMenuProgramas.setVisible(false);
+        pnlMenuInstituciones.setVisible(false);
+    }
+    
+    private void cerrarSubmenus() {
+        pnlMenuUsuarios.setVisible(false);
+        pnlMenuCursos.setVisible(false);
+        pnlMenuEdiciones.setVisible(false);
+        pnlMenuProgramas.setVisible(false);
+        pnlMenuInstituciones.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelMenuEdiciones1 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         pnlLeftPanel = new javax.swing.JPanel();
-        lblEdiciones = new javax.swing.JLabel();
-        usersSeparator = new javax.swing.JSeparator();
-        lblCursos = new javax.swing.JLabel();
-        editionSeparator = new javax.swing.JSeparator();
+        pnlOpcionesMenu = new javax.swing.JPanel();
         lblUsuarios = new javax.swing.JLabel();
+        usersSeparator = new javax.swing.JSeparator();
+        pnlMenuUsuarios = new javax.swing.JPanel();
+        lblAltaUsuario = new javax.swing.JLabel();
+        lblConsultaUsuario = new javax.swing.JLabel();
+        lblModificarUsuario = new javax.swing.JLabel();
+        lblCursos = new javax.swing.JLabel();
         cursosSeparator = new javax.swing.JSeparator();
-        programsSeparator = new javax.swing.JSeparator();
+        pnlMenuCursos = new javax.swing.JPanel();
+        lblAltaCurso = new javax.swing.JLabel();
+        lblConsultaCurso = new javax.swing.JLabel();
+        lblEdiciones = new javax.swing.JLabel();
+        editionSeparator = new javax.swing.JSeparator();
+        pnlMenuEdiciones = new javax.swing.JPanel();
+        lblAltaEdicion = new javax.swing.JLabel();
+        lblConsultaEdicion = new javax.swing.JLabel();
+        lblInscripcionEdicion = new javax.swing.JLabel();
         lblProgramas = new javax.swing.JLabel();
-        institutionSeparator = new javax.swing.JSeparator();
+        programsSeparator = new javax.swing.JSeparator();
+        pnlMenuProgramas = new javax.swing.JPanel();
+        lblCrearPrograma = new javax.swing.JLabel();
+        lblAgregarCursoPrograma = new javax.swing.JLabel();
+        lblConsultaPrograma = new javax.swing.JLabel();
         lblInstituciones = new javax.swing.JLabel();
+        institutionSeparator = new javax.swing.JSeparator();
+        pnlMenuInstituciones = new javax.swing.JPanel();
+        lblAltaInstituto = new javax.swing.JLabel();
         pnlTopPanel = new javax.swing.JPanel();
         btnSalir = new javax.swing.JLabel();
         pnlCenterPanel = new javax.swing.JPanel();
         tpOptionPages = new javax.swing.JTabbedPane();
         pnlTab1 = new javax.swing.JPanel();
         btnAltaUsuario = new javax.swing.JButton();
-        dpCRUDusuarios = new javax.swing.JDesktopPane();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        dpPrincipal = new javax.swing.JDesktopPane();
+        jLabel2 = new javax.swing.JLabel();
         btnConsultaUsuario = new javax.swing.JButton();
         btnModificarUsuario = new javax.swing.JButton();
         pnlTab2 = new javax.swing.JPanel();
@@ -46,6 +81,34 @@ public class JFMain extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         dpCRUDinstitutos = new javax.swing.JDesktopPane();
 
+        panelMenuEdiciones1.setBackground(new java.awt.Color(47, 93, 98));
+        panelMenuEdiciones1.setAlignmentX(0.0F);
+        panelMenuEdiciones1.setMaximumSize(new java.awt.Dimension(32767, 105));
+        panelMenuEdiciones1.setPreferredSize(new java.awt.Dimension(260, 105));
+        panelMenuEdiciones1.setLayout(new java.awt.GridLayout(3, 1, 0, 2));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(242, 242, 242));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel6.setText("Alta de Edicion");
+        jLabel6.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        panelMenuEdiciones1.add(jLabel6);
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(242, 242, 242));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel7.setText("Consulta de Edicion");
+        jLabel7.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        panelMenuEdiciones1.add(jLabel7);
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(242, 242, 242));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel8.setText("Inscripción a Edición ");
+        jLabel8.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        panelMenuEdiciones1.add(jLabel8);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setLocationByPlatform(true);
@@ -56,46 +119,18 @@ public class JFMain extends javax.swing.JFrame {
         pnlLeftPanel.setBackground(new java.awt.Color(47, 93, 98));
         pnlLeftPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblEdiciones.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblEdiciones.setForeground(new java.awt.Color(206, 206, 206));
-        lblEdiciones.setText("Ediciones");
-        lblEdiciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblEdiciones.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblEdicionesMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblEdicionesMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblEdicionesMouseExited(evt);
-            }
-        });
-        pnlLeftPanel.add(lblEdiciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 142, 38));
-        pnlLeftPanel.add(usersSeparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 210, 10));
-
-        lblCursos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblCursos.setForeground(new java.awt.Color(206, 206, 206));
-        lblCursos.setText("Cursos");
-        lblCursos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblCursos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCursosMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblCursosMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblCursosMouseExited(evt);
-            }
-        });
-        pnlLeftPanel.add(lblCursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 142, 38));
-        pnlLeftPanel.add(editionSeparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 210, 10));
+        pnlOpcionesMenu.setBackground(new java.awt.Color(47, 93, 98));
+        pnlOpcionesMenu.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 12, 1, 12));
+        pnlOpcionesMenu.setLayout(new javax.swing.BoxLayout(pnlOpcionesMenu, javax.swing.BoxLayout.Y_AXIS));
 
         lblUsuarios.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblUsuarios.setForeground(new java.awt.Color(206, 206, 206));
+        lblUsuarios.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblUsuarios.setText("Usuarios");
+        lblUsuarios.setBorder(javax.swing.BorderFactory.createEmptyBorder(7, 14, 7, 0));
         lblUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblUsuarios.setMaximumSize(new java.awt.Dimension(32767, 40));
+        lblUsuarios.setPreferredSize(new java.awt.Dimension(260, 40));
         lblUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblUsuariosMouseClicked(evt);
@@ -107,14 +142,156 @@ public class JFMain extends javax.swing.JFrame {
                 lblUsuariosMouseExited(evt);
             }
         });
-        pnlLeftPanel.add(lblUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 133, 38));
-        pnlLeftPanel.add(cursosSeparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 210, 10));
-        pnlLeftPanel.add(programsSeparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 210, 20));
+        pnlOpcionesMenu.add(lblUsuarios);
+
+        usersSeparator.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 12, 1, 1));
+        usersSeparator.setMaximumSize(new java.awt.Dimension(32767, 1));
+        usersSeparator.setPreferredSize(new java.awt.Dimension(250, 1));
+        pnlOpcionesMenu.add(usersSeparator);
+
+        pnlMenuUsuarios.setBackground(new java.awt.Color(47, 93, 98));
+        pnlMenuUsuarios.setAlignmentX(0.0F);
+        pnlMenuUsuarios.setMaximumSize(new java.awt.Dimension(32767, 105));
+        pnlMenuUsuarios.setPreferredSize(new java.awt.Dimension(260, 105));
+        pnlMenuUsuarios.setLayout(new java.awt.GridLayout(3, 1, 0, 2));
+
+        lblAltaUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblAltaUsuario.setForeground(new java.awt.Color(242, 242, 242));
+        lblAltaUsuario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblAltaUsuario.setText("Alta Usuario");
+        lblAltaUsuario.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        lblAltaUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlMenuUsuarios.add(lblAltaUsuario);
+
+        lblConsultaUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblConsultaUsuario.setForeground(new java.awt.Color(242, 242, 242));
+        lblConsultaUsuario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblConsultaUsuario.setText("Consulta de Usuario");
+        lblConsultaUsuario.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        pnlMenuUsuarios.add(lblConsultaUsuario);
+
+        lblModificarUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblModificarUsuario.setForeground(new java.awt.Color(242, 242, 242));
+        lblModificarUsuario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblModificarUsuario.setText("Modificar Usuario");
+        lblModificarUsuario.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        pnlMenuUsuarios.add(lblModificarUsuario);
+
+        pnlOpcionesMenu.add(pnlMenuUsuarios);
+
+        lblCursos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblCursos.setForeground(new java.awt.Color(206, 206, 206));
+        lblCursos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblCursos.setText("Cursos");
+        lblCursos.setBorder(javax.swing.BorderFactory.createEmptyBorder(7, 14, 7, 0));
+        lblCursos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCursos.setMaximumSize(new java.awt.Dimension(32767, 40));
+        lblCursos.setPreferredSize(new java.awt.Dimension(260, 40));
+        lblCursos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCursosMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblCursosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblCursosMouseExited(evt);
+            }
+        });
+        pnlOpcionesMenu.add(lblCursos);
+
+        cursosSeparator.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 12, 1, 1));
+        cursosSeparator.setMaximumSize(new java.awt.Dimension(32767, 1));
+        cursosSeparator.setPreferredSize(new java.awt.Dimension(250, 1));
+        pnlOpcionesMenu.add(cursosSeparator);
+
+        pnlMenuCursos.setBackground(new java.awt.Color(47, 93, 98));
+        pnlMenuCursos.setAlignmentX(0.0F);
+        pnlMenuCursos.setMaximumSize(new java.awt.Dimension(32767, 70));
+        pnlMenuCursos.setPreferredSize(new java.awt.Dimension(260, 70));
+        pnlMenuCursos.setLayout(new java.awt.GridLayout(2, 1, 0, 2));
+
+        lblAltaCurso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblAltaCurso.setForeground(new java.awt.Color(242, 242, 242));
+        lblAltaCurso.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblAltaCurso.setText("Alta de  Curso");
+        lblAltaCurso.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        lblAltaCurso.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlMenuCursos.add(lblAltaCurso);
+
+        lblConsultaCurso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblConsultaCurso.setForeground(new java.awt.Color(242, 242, 242));
+        lblConsultaCurso.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblConsultaCurso.setText("Consulta de Curso");
+        lblConsultaCurso.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        pnlMenuCursos.add(lblConsultaCurso);
+
+        pnlOpcionesMenu.add(pnlMenuCursos);
+
+        lblEdiciones.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblEdiciones.setForeground(new java.awt.Color(206, 206, 206));
+        lblEdiciones.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblEdiciones.setText("Ediciones");
+        lblEdiciones.setBorder(javax.swing.BorderFactory.createEmptyBorder(7, 14, 7, 0));
+        lblEdiciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblEdiciones.setMaximumSize(new java.awt.Dimension(32767, 40));
+        lblEdiciones.setPreferredSize(new java.awt.Dimension(260, 40));
+        lblEdiciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblEdicionesMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblEdicionesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblEdicionesMouseExited(evt);
+            }
+        });
+        pnlOpcionesMenu.add(lblEdiciones);
+
+        editionSeparator.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 12, 1, 1));
+        editionSeparator.setMaximumSize(new java.awt.Dimension(32767, 1));
+        editionSeparator.setPreferredSize(new java.awt.Dimension(250, 1));
+        pnlOpcionesMenu.add(editionSeparator);
+
+        pnlMenuEdiciones.setBackground(new java.awt.Color(47, 93, 98));
+        pnlMenuEdiciones.setAlignmentX(0.0F);
+        pnlMenuEdiciones.setMaximumSize(new java.awt.Dimension(32767, 105));
+        pnlMenuEdiciones.setPreferredSize(new java.awt.Dimension(260, 105));
+        pnlMenuEdiciones.setLayout(new java.awt.GridLayout(3, 1, 0, 2));
+
+        lblAltaEdicion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblAltaEdicion.setForeground(new java.awt.Color(242, 242, 242));
+        lblAltaEdicion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblAltaEdicion.setText("Alta de Edicion de Curso");
+        lblAltaEdicion.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        lblAltaEdicion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlMenuEdiciones.add(lblAltaEdicion);
+
+        lblConsultaEdicion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblConsultaEdicion.setForeground(new java.awt.Color(242, 242, 242));
+        lblConsultaEdicion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblConsultaEdicion.setText("Consulta de Edicion");
+        lblConsultaEdicion.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        pnlMenuEdiciones.add(lblConsultaEdicion);
+
+        lblInscripcionEdicion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblInscripcionEdicion.setForeground(new java.awt.Color(242, 242, 242));
+        lblInscripcionEdicion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblInscripcionEdicion.setText("Inscripción a Edición ");
+        lblInscripcionEdicion.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        pnlMenuEdiciones.add(lblInscripcionEdicion);
+
+        pnlOpcionesMenu.add(pnlMenuEdiciones);
 
         lblProgramas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblProgramas.setForeground(new java.awt.Color(206, 206, 206));
+        lblProgramas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblProgramas.setText("Programas");
+        lblProgramas.setBorder(javax.swing.BorderFactory.createEmptyBorder(7, 14, 7, 0));
         lblProgramas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblProgramas.setMaximumSize(new java.awt.Dimension(32767, 40));
+        lblProgramas.setPreferredSize(new java.awt.Dimension(260, 40));
         lblProgramas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblProgramasMouseClicked(evt);
@@ -126,13 +303,51 @@ public class JFMain extends javax.swing.JFrame {
                 lblProgramasMouseExited(evt);
             }
         });
-        pnlLeftPanel.add(lblProgramas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 142, 40));
-        pnlLeftPanel.add(institutionSeparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 210, 20));
+        pnlOpcionesMenu.add(lblProgramas);
+
+        programsSeparator.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 12, 1, 1));
+        programsSeparator.setMaximumSize(new java.awt.Dimension(32767, 1));
+        programsSeparator.setPreferredSize(new java.awt.Dimension(250, 1));
+        pnlOpcionesMenu.add(programsSeparator);
+
+        pnlMenuProgramas.setBackground(new java.awt.Color(47, 93, 98));
+        pnlMenuProgramas.setAlignmentX(0.0F);
+        pnlMenuProgramas.setMaximumSize(new java.awt.Dimension(32767, 105));
+        pnlMenuProgramas.setPreferredSize(new java.awt.Dimension(260, 105));
+        pnlMenuProgramas.setLayout(new java.awt.GridLayout(3, 1, 0, 2));
+
+        lblCrearPrograma.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblCrearPrograma.setForeground(new java.awt.Color(242, 242, 242));
+        lblCrearPrograma.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblCrearPrograma.setText("Crear Programa de Formacion");
+        lblCrearPrograma.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        lblCrearPrograma.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlMenuProgramas.add(lblCrearPrograma);
+
+        lblAgregarCursoPrograma.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblAgregarCursoPrograma.setForeground(new java.awt.Color(242, 242, 242));
+        lblAgregarCursoPrograma.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblAgregarCursoPrograma.setText("Agregar Curso a Programa");
+        lblAgregarCursoPrograma.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        pnlMenuProgramas.add(lblAgregarCursoPrograma);
+
+        lblConsultaPrograma.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblConsultaPrograma.setForeground(new java.awt.Color(242, 242, 242));
+        lblConsultaPrograma.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblConsultaPrograma.setText("Consulta de Programa");
+        lblConsultaPrograma.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        pnlMenuProgramas.add(lblConsultaPrograma);
+
+        pnlOpcionesMenu.add(pnlMenuProgramas);
 
         lblInstituciones.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblInstituciones.setForeground(new java.awt.Color(206, 206, 206));
+        lblInstituciones.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblInstituciones.setText("Instituciones");
+        lblInstituciones.setBorder(javax.swing.BorderFactory.createEmptyBorder(7, 14, 7, 0));
         lblInstituciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblInstituciones.setMaximumSize(new java.awt.Dimension(32767, 40));
+        lblInstituciones.setPreferredSize(new java.awt.Dimension(260, 40));
         lblInstituciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblInstitucionesMouseClicked(evt);
@@ -144,7 +359,30 @@ public class JFMain extends javax.swing.JFrame {
                 lblInstitucionesMouseExited(evt);
             }
         });
-        pnlLeftPanel.add(lblInstituciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 142, 38));
+        pnlOpcionesMenu.add(lblInstituciones);
+
+        institutionSeparator.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 12, 1, 1));
+        institutionSeparator.setMaximumSize(new java.awt.Dimension(32767, 1));
+        institutionSeparator.setPreferredSize(new java.awt.Dimension(250, 1));
+        pnlOpcionesMenu.add(institutionSeparator);
+
+        pnlMenuInstituciones.setBackground(new java.awt.Color(47, 93, 98));
+        pnlMenuInstituciones.setAlignmentX(0.0F);
+        pnlMenuInstituciones.setMaximumSize(new java.awt.Dimension(32767, 35));
+        pnlMenuInstituciones.setPreferredSize(new java.awt.Dimension(260, 35));
+        pnlMenuInstituciones.setLayout(new java.awt.GridLayout(1, 1, 0, 2));
+
+        lblAltaInstituto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblAltaInstituto.setForeground(new java.awt.Color(242, 242, 242));
+        lblAltaInstituto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblAltaInstituto.setText("Alta de Instituto");
+        lblAltaInstituto.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        lblAltaInstituto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlMenuInstituciones.add(lblAltaInstituto);
+
+        pnlOpcionesMenu.add(pnlMenuInstituciones);
+
+        pnlLeftPanel.add(pnlOpcionesMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 440));
 
         getContentPane().add(pnlLeftPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 680));
         pnlLeftPanel.getAccessibleContext().setAccessibleName("pnlLeftPanel");
@@ -223,28 +461,31 @@ public class JFMain extends javax.swing.JFrame {
         btnAltaUsuario.addActionListener(this::btnAltaUsuarioActionPerformed);
         pnlTab1.add(btnAltaUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
-        jCheckBox1.setText("jCheckBox1");
+        dpPrincipal.setMaximumSize(new java.awt.Dimension(32767, 1));
+        dpPrincipal.setPreferredSize(new java.awt.Dimension(250, 1));
 
-        dpCRUDusuarios.setLayer(jCheckBox1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLabel2.setText("jLabel2");
 
-        javax.swing.GroupLayout dpCRUDusuariosLayout = new javax.swing.GroupLayout(dpCRUDusuarios);
-        dpCRUDusuarios.setLayout(dpCRUDusuariosLayout);
-        dpCRUDusuariosLayout.setHorizontalGroup(
-            dpCRUDusuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dpCRUDusuariosLayout.createSequentialGroup()
-                .addGap(391, 391, 391)
-                .addComponent(jCheckBox1)
-                .addContainerGap(435, Short.MAX_VALUE))
+        dpPrincipal.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout dpPrincipalLayout = new javax.swing.GroupLayout(dpPrincipal);
+        dpPrincipal.setLayout(dpPrincipalLayout);
+        dpPrincipalLayout.setHorizontalGroup(
+            dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dpPrincipalLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addContainerGap())
         );
-        dpCRUDusuariosLayout.setVerticalGroup(
-            dpCRUDusuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dpCRUDusuariosLayout.createSequentialGroup()
-                .addGap(201, 201, 201)
-                .addComponent(jCheckBox1)
-                .addContainerGap(419, Short.MAX_VALUE))
+        dpPrincipalLayout.setVerticalGroup(
+            dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dpPrincipalLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addContainerGap())
         );
 
-        pnlTab1.add(dpCRUDusuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 910, 640));
+        pnlTab1.add(dpPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 910, 640));
 
         btnConsultaUsuario.setText("Consulta Usuario");
         btnConsultaUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -394,7 +635,14 @@ public class JFMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuariosMouseClicked
-        tpOptionPages.setSelectedIndex(0);
+        // tpOptionPages.setSelectedIndex(0);
+        boolean estabaAbierto = pnlMenuUsuarios.isVisible();
+
+        cerrarSubmenus();
+
+        pnlMenuUsuarios.setVisible(!estabaAbierto);
+        pnlMenuUsuarios.getParent().revalidate();
+        pnlMenuUsuarios.getParent().repaint();
     }//GEN-LAST:event_lblUsuariosMouseClicked
 
     private void lblUsuariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuariosMouseEntered
@@ -406,7 +654,14 @@ public class JFMain extends javax.swing.JFrame {
     }//GEN-LAST:event_lblUsuariosMouseExited
 
     private void lblCursosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCursosMouseClicked
-        tpOptionPages.setSelectedIndex(1);
+        //tpOptionPages.setSelectedIndex(1);
+        boolean estabaAbierto = pnlMenuCursos.isVisible();
+
+        cerrarSubmenus();
+
+        pnlMenuCursos.setVisible(!estabaAbierto);
+        pnlMenuCursos.getParent().revalidate();
+        pnlMenuCursos.getParent().repaint();
     }//GEN-LAST:event_lblCursosMouseClicked
 
     private void lblCursosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCursosMouseEntered
@@ -422,7 +677,16 @@ public class JFMain extends javax.swing.JFrame {
     }//GEN-LAST:event_lblCursosMouseExited
 
     private void lblEdicionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEdicionesMouseClicked
-        tpOptionPages.setSelectedIndex(2);
+        //tpOptionPages.setSelectedIndex(2);
+        boolean estabaAbierto = pnlMenuEdiciones.isVisible();
+
+        cerrarSubmenus();
+
+        pnlMenuEdiciones.setVisible(!estabaAbierto);
+
+        pnlMenuEdiciones.getParent().revalidate();
+        pnlMenuEdiciones.getParent().repaint();
+
     }//GEN-LAST:event_lblEdicionesMouseClicked
 
     private void lblEdicionesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEdicionesMouseEntered
@@ -430,7 +694,14 @@ public class JFMain extends javax.swing.JFrame {
     }//GEN-LAST:event_lblEdicionesMouseEntered
 
     private void lblProgramasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProgramasMouseClicked
-        tpOptionPages.setSelectedIndex(3);
+        //tpOptionPages.setSelectedIndex(3);
+        boolean estabaAbierto = pnlMenuProgramas.isVisible();
+
+        cerrarSubmenus();
+
+        pnlMenuProgramas.setVisible(!estabaAbierto);
+        pnlMenuProgramas.getParent().revalidate();
+        pnlMenuProgramas.getParent().repaint();
     }//GEN-LAST:event_lblProgramasMouseClicked
 
     private void lblProgramasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProgramasMouseEntered
@@ -442,7 +713,14 @@ public class JFMain extends javax.swing.JFrame {
     }//GEN-LAST:event_lblProgramasMouseExited
 
     private void lblInstitucionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInstitucionesMouseClicked
-        tpOptionPages.setSelectedIndex(4);
+        //tpOptionPages.setSelectedIndex(4);
+        boolean estabaAbierto = pnlMenuInstituciones.isVisible();
+
+        cerrarSubmenus();
+
+        pnlMenuInstituciones.setVisible(!estabaAbierto);
+        pnlMenuInstituciones.getParent().revalidate();
+        pnlMenuInstituciones.getParent().repaint();
     }//GEN-LAST:event_lblInstitucionesMouseClicked
 
     private void lblInstitucionesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInstitucionesMouseEntered
@@ -453,14 +731,14 @@ public class JFMain extends javax.swing.JFrame {
         lblInstituciones.setForeground(Color.LIGHT_GRAY);
     }//GEN-LAST:event_lblInstitucionesMouseExited
 private void limpiarDesktopPane() {
-    for (JInternalFrame frame : dpCRUDusuarios.getAllFrames()) {
+    for (JInternalFrame frame : dpPrincipal.getAllFrames()) {
         frame.dispose();
     }
 }
     private void btnAltaUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAltaUsuarioMouseClicked
         limpiarDesktopPane();
         IFAltaUsuario au = new IFAltaUsuario();
-        dpCRUDusuarios.add(au);
+        dpPrincipal.add(au);
         au.setVisible(true);
     
         //au.setVisible(true);
@@ -469,7 +747,7 @@ private void limpiarDesktopPane() {
     private void btnConsultaUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultaUsuarioMouseClicked
         limpiarDesktopPane();
         IFConsultaUsuario cu = new IFConsultaUsuario();
-        dpCRUDusuarios.add(cu);
+        dpPrincipal.add(cu);
         cu.setVisible(true);
         
     }//GEN-LAST:event_btnConsultaUsuarioMouseClicked
@@ -477,7 +755,7 @@ private void limpiarDesktopPane() {
     private void btnModificarUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarUsuarioMouseClicked
         limpiarDesktopPane();
         IFModificarUsuario mu = new IFModificarUsuario();
-        dpCRUDusuarios.add(mu);
+        dpPrincipal.add(mu);
         mu.setVisible(true);
     }//GEN-LAST:event_btnModificarUsuarioMouseClicked
 
@@ -546,20 +824,42 @@ ai.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
     private javax.swing.JSeparator cursosSeparator;
     private javax.swing.JDesktopPane dpCRUDcursos;
     private javax.swing.JDesktopPane dpCRUDinstitutos;
-    private javax.swing.JDesktopPane dpCRUDusuarios;
+    private javax.swing.JDesktopPane dpPrincipal;
     private javax.swing.JSeparator editionSeparator;
     private javax.swing.JSeparator institutionSeparator;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel lblAgregarCursoPrograma;
+    private javax.swing.JLabel lblAltaCurso;
+    private javax.swing.JLabel lblAltaEdicion;
+    private javax.swing.JLabel lblAltaInstituto;
+    private javax.swing.JLabel lblAltaUsuario;
+    private javax.swing.JLabel lblConsultaCurso;
+    private javax.swing.JLabel lblConsultaEdicion;
+    private javax.swing.JLabel lblConsultaPrograma;
+    private javax.swing.JLabel lblConsultaUsuario;
+    private javax.swing.JLabel lblCrearPrograma;
     private javax.swing.JLabel lblCursos;
     private javax.swing.JLabel lblEdiciones;
+    private javax.swing.JLabel lblInscripcionEdicion;
     private javax.swing.JLabel lblInstituciones;
+    private javax.swing.JLabel lblModificarUsuario;
     private javax.swing.JLabel lblProgramas;
     private javax.swing.JLabel lblUsuarios;
+    private javax.swing.JPanel panelMenuEdiciones1;
     private javax.swing.JPanel pnlCenterPanel;
     private javax.swing.JPanel pnlLeftPanel;
+    private javax.swing.JPanel pnlMenuCursos;
+    private javax.swing.JPanel pnlMenuEdiciones;
+    private javax.swing.JPanel pnlMenuInstituciones;
+    private javax.swing.JPanel pnlMenuProgramas;
+    private javax.swing.JPanel pnlMenuUsuarios;
+    private javax.swing.JPanel pnlOpcionesMenu;
     private javax.swing.JPanel pnlTab1;
     private javax.swing.JPanel pnlTab2;
     private javax.swing.JPanel pnlTab3;
