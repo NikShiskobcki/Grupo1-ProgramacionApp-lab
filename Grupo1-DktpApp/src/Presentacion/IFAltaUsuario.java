@@ -59,7 +59,6 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         lblUsuarios = new javax.swing.JLabel();
         lblUsuarios1 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         usersSeparator = new javax.swing.JSeparator();
         usersSeparator1 = new javax.swing.JSeparator();
         usersSeparator2 = new javax.swing.JSeparator();
@@ -81,9 +80,10 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
         usersSeparator7 = new javax.swing.JSeparator();
         cbInstitutos = new javax.swing.JComboBox<>();
 
-        setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        setBorder(null);
         setMinimumSize(new java.awt.Dimension(910, 640));
         setPreferredSize(new java.awt.Dimension(910, 910));
+        setVisible(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(35, 71, 75));
@@ -118,12 +118,6 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setBackground(new java.awt.Color(217, 222, 226));
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("X");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -133,9 +127,7 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
                 .addComponent(lblUsuarios)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 579, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88))
+                .addContainerGap(887, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,12 +135,11 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 50));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1070, 50));
 
         usersSeparator.setForeground(new java.awt.Color(35, 71, 75));
         getContentPane().add(usersSeparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 270, 10));
@@ -555,7 +546,6 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbInstitutos;
     private javax.swing.JCheckBox chbAlumno;
     private javax.swing.JCheckBox chbDocente;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblUsuarios;
     private javax.swing.JLabel lblUsuarios1;
