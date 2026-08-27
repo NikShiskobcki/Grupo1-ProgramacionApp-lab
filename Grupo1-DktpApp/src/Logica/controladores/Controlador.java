@@ -8,7 +8,9 @@ import Logica.Entidades.Docente;
 import Logica.Entidades.Estudiante;
 import Logica.Entidades.Instituto;
 import Logica.Entidades.Curso;
+import Logica.Entidades.EdicionCurso;
 import Logica.Entidades.ProgramaFormacion;
+
 import Persistencia.ManejadorCurso;
 import Persistencia.ManejadorEdicionCurso;
 import Persistencia.ManejadorInscripcionEdicion;
@@ -16,13 +18,13 @@ import Persistencia.ManejadorInscripcionPrograma;
 import Persistencia.ManejadorInstituto;
 import Persistencia.ManejadorProgramaFormacion;
 import Persistencia.ManejadorUsuario;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.util.List;
-import java.time.LocalDate;
 
 public class Controlador implements IControlador {
 
@@ -40,12 +42,12 @@ public class Controlador implements IControlador {
     private final ManejadorInscripcionEdicion manejadorInscripcionEdicion;
     private final ManejadorInscripcionPrograma manejadorInscripcionPrograma;
 
-
+    // Constructor privado para aplicar Singleton
     private Controlador() {
         //Fabrica de entidades creada una sola vez para toda la app
         emf = Persistence.createEntityManagerFactory("edextPU");
 
-        //Manejadores que comparten la misma EMF 
+        //Manejadores que comparten la misma EMF
         manejadorUsuario = new ManejadorUsuario(emf);
         manejadorInstituto = new ManejadorInstituto(emf);
         manejadorCurso = new ManejadorCurso(emf);
@@ -65,7 +67,7 @@ public class Controlador implements IControlador {
         return instancia;
     }
 
-    //Aca implementamos los casos de uso 
+    //Aca implementamos los casos de uso
     @Override
     public void altaInstituto(String nombre) {
 
@@ -148,27 +150,37 @@ public class Controlador implements IControlador {
     public boolean existePrograma(String nombre){
         return manejadorProgramaFormacion.existePrograma(nombre);
     }
-    
+
     @Override
-    public void altaPrograma(String nombre,  String descripcion, LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta){
-        ProgramaFormacion programa = new ProgramaFormacion(nombre, descripcion, fechaInicio, fechaFin, fechaAlta);
+    public void altaPrograma(String nombre, String descripcion,
+            LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta){
+
+        ProgramaFormacion programa = new ProgramaFormacion(
+                nombre,
+                descripcion,
+                fechaInicio,
+                fechaFin,
+                fechaAlta
+        );
+
         manejadorProgramaFormacion.addPrograma(programa);
     }
-    
+
     @Override
     public List<String> listarProgramas(){
         List<ProgramaFormacion> programas = manejadorProgramaFormacion.listarProgramas();
         List<String> nombres = new ArrayList<>();
+
         for (ProgramaFormacion programa : programas) {
             nombres.add(programa.getNombre());
         }
+
         return nombres;
     }
 
     @Override
     public void agregarCursoAPrograma(String nombrePrograma, String nombreCurso){
         manejadorProgramaFormacion.agregarCursoAPrograma(nombrePrograma, nombreCurso);
-        
     }
     
     @Override
@@ -176,6 +188,68 @@ public class Controlador implements IControlador {
         return manejadorProgramaFormacion.buscarDetallePrograma(nombre);
     }
 
+
+
+    // =========================
+    // EDICIONES
+    // =========================
+
+    @Override
+    public List<Curso> listarCursosPorInstituto(String nombreInstituto) {
+        return manejadorCurso.listarCursosPorInstituto(nombreInstituto);
+    }
+
+    @Override
+    public List<Docente> listarDocentesPorInstituto(String nombreInstituto) {
+        return manejadorUsuario.listarDocentesPorInstituto(nombreInstituto);
+    }
+
+    @Override
+    public boolean existeEdicion(String nombre) {
+        return manejadorEdicionCurso.buscarPorNombre(nombre) != null;
+    }
+
+    @Override
+    public void altaEdicionCurso(
+            String nombre,
+            LocalDate fechaInicio,
+            LocalDate fechaFin,
+            Integer cupo,
+            String nombreCurso,
+            List<Docente> docentes) {
+
+        Curso curso = manejadorCurso.buscarPorNombre(nombreCurso);
+
+        LocalDate fechaPublicacion = LocalDate.now();
+
+        EdicionCurso edicion = new EdicionCurso(
+                nombre,
+                fechaInicio,
+                fechaFin,
+                cupo,
+                fechaPublicacion,
+                curso
+        );
+
+        edicion.setDocentes(docentes);
+
+        manejadorEdicionCurso.addEdicion(edicion);
+    }
+
+    @Override
+    public List<EdicionCurso> listarEdicionesPorCurso(String nombreCurso) {
+        return manejadorEdicionCurso.listarEdicionesPorCurso(nombreCurso);
+    }
+
+    @Override
+    public EdicionCurso buscarEdicion(String nombre) {
+        return manejadorEdicionCurso.buscarEdicionCompleta(nombre);
+    }
+
+
+    // =========================
+    // CONSULTA DE USUARIO
+    // =========================
 
     @Override
     public List<UsuarioResumen> listarUsuarios() {
@@ -187,6 +261,11 @@ public class Controlador implements IControlador {
         return manejadorUsuario.buscarDetalleUsuario(nickname);
     }
 
+
+    // =========================
+    // MODIFICAR USUARIO
+    // =========================
+
     @Override
     public UsuarioEdicion buscarUsuarioParaEditar(String nickname) {
         return manejadorUsuario.buscarUsuarioParaEditar(nickname);
@@ -195,7 +274,13 @@ public class Controlador implements IControlador {
     @Override
     public void modificarUsuario(String nickname, String nombre, String apellido,
             LocalDate fechaNacimiento, String nombreInstituto) {
-        manejadorUsuario.actualizarUsuario(nickname, nombre, apellido, fechaNacimiento, nombreInstituto);
-    }
 
+        manejadorUsuario.actualizarUsuario(
+                nickname,
+                nombre,
+                apellido,
+                fechaNacimiento,
+                nombreInstituto
+        );
+    }
 }
