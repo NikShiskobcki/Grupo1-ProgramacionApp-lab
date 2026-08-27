@@ -1,5 +1,6 @@
 package Logica.controladores;
 
+import Logica.DTO.DetalleProgramaFormacion;
 import Logica.DTO.DetalleUsuario;
 import Logica.DTO.UsuarioEdicion;
 import Logica.DTO.UsuarioResumen;
@@ -169,6 +170,12 @@ public class Controlador implements IControlador {
         manejadorProgramaFormacion.agregarCursoAPrograma(nombrePrograma, nombreCurso);
         
     }
+    
+    @Override
+    public DetalleProgramaFormacion consultarPrograma(String nombre){
+        return manejadorProgramaFormacion.buscarDetallePrograma(nombre);
+    }
+
 
     @Override
     public List<UsuarioResumen> listarUsuarios() {
