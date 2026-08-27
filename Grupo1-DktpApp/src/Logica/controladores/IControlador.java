@@ -1,6 +1,7 @@
 
 package Logica.controladores;
 
+import Logica.DTO.DetalleProgramaFormacion;
 import Logica.DTO.DetalleUsuario;
 import Logica.DTO.UsuarioEdicion;
 import Logica.DTO.UsuarioResumen;
@@ -86,6 +87,9 @@ public interface IControlador {
             String nombrePrograma,
             String nombreCurso
     );
+    
+    // Consulta Programa de Formacion
+    DetalleProgramaFormacion consultarPrograma(String nombre);
 
 
     // Alta y Consulta de Edicion
