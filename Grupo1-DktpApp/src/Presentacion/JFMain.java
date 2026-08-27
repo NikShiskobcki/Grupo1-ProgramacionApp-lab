@@ -1,5 +1,7 @@
 package Presentacion;
 
+import Logica.controladores.Fabrica;
+import Logica.controladores.IControlador;
 import java.awt.Color;
 import javax.swing.JInternalFrame;
 
@@ -7,8 +9,14 @@ public class JFMain extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JFMain.class.getName());
     int xMouse, yMouse;
+    private IControlador controlador;
     public JFMain() {
         initComponents();
+        controlador= Fabrica.getInstance().getIControlador(); 
+        
+        //Oculte la tpOptions para que tengamos un solo dpPrincipal!!!!
+        //tpOptionPages.setVisible(false);
+        
         pnlMenuUsuarios.setVisible(false);
         pnlMenuCursos.setVisible(false);
         pnlMenuEdiciones.setVisible(false);
@@ -28,10 +36,6 @@ public class JFMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelMenuEdiciones1 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         pnlLeftPanel = new javax.swing.JPanel();
         pnlOpcionesMenu = new javax.swing.JPanel();
         lblUsuarios = new javax.swing.JLabel();
@@ -64,11 +68,11 @@ public class JFMain extends javax.swing.JFrame {
         pnlTopPanel = new javax.swing.JPanel();
         btnSalir = new javax.swing.JLabel();
         pnlCenterPanel = new javax.swing.JPanel();
+        dpPrincipal = new javax.swing.JDesktopPane();
         tpOptionPages = new javax.swing.JTabbedPane();
         pnlTab1 = new javax.swing.JPanel();
+        dpCRUDUsuarios = new javax.swing.JDesktopPane();
         btnAltaUsuario = new javax.swing.JButton();
-        dpPrincipal = new javax.swing.JDesktopPane();
-        jLabel2 = new javax.swing.JLabel();
         btnConsultaUsuario = new javax.swing.JButton();
         btnModificarUsuario = new javax.swing.JButton();
         pnlTab2 = new javax.swing.JPanel();
@@ -81,39 +85,10 @@ public class JFMain extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         dpCRUDinstitutos = new javax.swing.JDesktopPane();
 
-        panelMenuEdiciones1.setBackground(new java.awt.Color(47, 93, 98));
-        panelMenuEdiciones1.setAlignmentX(0.0F);
-        panelMenuEdiciones1.setMaximumSize(new java.awt.Dimension(32767, 105));
-        panelMenuEdiciones1.setPreferredSize(new java.awt.Dimension(260, 105));
-        panelMenuEdiciones1.setLayout(new java.awt.GridLayout(3, 1, 0, 2));
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(242, 242, 242));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel6.setText("Alta de Edicion");
-        jLabel6.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
-        jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        panelMenuEdiciones1.add(jLabel6);
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(242, 242, 242));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel7.setText("Consulta de Edicion");
-        jLabel7.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
-        panelMenuEdiciones1.add(jLabel7);
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(242, 242, 242));
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel8.setText("Inscripción a Edición ");
-        jLabel8.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
-        panelMenuEdiciones1.add(jLabel8);
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setLocationByPlatform(true);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1150, 570));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlLeftPanel.setBackground(new java.awt.Color(47, 93, 98));
@@ -161,6 +136,11 @@ public class JFMain extends javax.swing.JFrame {
         lblAltaUsuario.setText("Alta Usuario");
         lblAltaUsuario.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
         lblAltaUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblAltaUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAltaUsuarioMouseClicked(evt);
+            }
+        });
         pnlMenuUsuarios.add(lblAltaUsuario);
 
         lblConsultaUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -266,6 +246,11 @@ public class JFMain extends javax.swing.JFrame {
         lblAltaEdicion.setText("Alta de Edicion de Curso");
         lblAltaEdicion.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
         lblAltaEdicion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblAltaEdicion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAltaEdicionMouseClicked(evt);
+            }
+        });
         pnlMenuEdiciones.add(lblAltaEdicion);
 
         lblConsultaEdicion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -446,11 +431,40 @@ public class JFMain extends javax.swing.JFrame {
 
         pnlCenterPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        javax.swing.GroupLayout dpPrincipalLayout = new javax.swing.GroupLayout(dpPrincipal);
+        dpPrincipal.setLayout(dpPrincipalLayout);
+        dpPrincipalLayout.setHorizontalGroup(
+            dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 910, Short.MAX_VALUE)
+        );
+        dpPrincipalLayout.setVerticalGroup(
+            dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 680, Short.MAX_VALUE)
+        );
+
+        pnlCenterPanel.add(dpPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, -1, 680));
+
         tpOptionPages.setBackground(new java.awt.Color(255, 255, 255));
         tpOptionPages.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
 
         pnlTab1.setBackground(new java.awt.Color(255, 255, 255));
         pnlTab1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        dpCRUDUsuarios.setMaximumSize(new java.awt.Dimension(32767, 1));
+        dpCRUDUsuarios.setPreferredSize(new java.awt.Dimension(250, 1));
+
+        javax.swing.GroupLayout dpCRUDUsuariosLayout = new javax.swing.GroupLayout(dpCRUDUsuarios);
+        dpCRUDUsuarios.setLayout(dpCRUDUsuariosLayout);
+        dpCRUDUsuariosLayout.setHorizontalGroup(
+            dpCRUDUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 910, Short.MAX_VALUE)
+        );
+        dpCRUDUsuariosLayout.setVerticalGroup(
+            dpCRUDUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 680, Short.MAX_VALUE)
+        );
+
+        pnlTab1.add(dpCRUDUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 910, 680));
 
         btnAltaUsuario.setText("Agregar Usuario");
         btnAltaUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -460,32 +474,6 @@ public class JFMain extends javax.swing.JFrame {
         });
         btnAltaUsuario.addActionListener(this::btnAltaUsuarioActionPerformed);
         pnlTab1.add(btnAltaUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
-
-        dpPrincipal.setMaximumSize(new java.awt.Dimension(32767, 1));
-        dpPrincipal.setPreferredSize(new java.awt.Dimension(250, 1));
-
-        jLabel2.setText("jLabel2");
-
-        dpPrincipal.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout dpPrincipalLayout = new javax.swing.GroupLayout(dpPrincipal);
-        dpPrincipal.setLayout(dpPrincipalLayout);
-        dpPrincipalLayout.setHorizontalGroup(
-            dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dpPrincipalLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addContainerGap())
-        );
-        dpPrincipalLayout.setVerticalGroup(
-            dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dpPrincipalLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addContainerGap())
-        );
-
-        pnlTab1.add(dpPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 910, 640));
 
         btnConsultaUsuario.setText("Consulta Usuario");
         btnConsultaUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -635,7 +623,7 @@ public class JFMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuariosMouseClicked
-        // tpOptionPages.setSelectedIndex(0);
+         tpOptionPages.setSelectedIndex(0);
         boolean estabaAbierto = pnlMenuUsuarios.isVisible();
 
         cerrarSubmenus();
@@ -731,14 +719,14 @@ public class JFMain extends javax.swing.JFrame {
         lblInstituciones.setForeground(Color.LIGHT_GRAY);
     }//GEN-LAST:event_lblInstitucionesMouseExited
 private void limpiarDesktopPane() {
-    for (JInternalFrame frame : dpPrincipal.getAllFrames()) {
+    for (JInternalFrame frame : dpCRUDUsuarios.getAllFrames()) {
         frame.dispose();
     }
 }
     private void btnAltaUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAltaUsuarioMouseClicked
         limpiarDesktopPane();
         IFAltaUsuario au = new IFAltaUsuario();
-        dpPrincipal.add(au);
+        dpCRUDUsuarios.add(au);
         au.setVisible(true);
     
         //au.setVisible(true);
@@ -747,7 +735,7 @@ private void limpiarDesktopPane() {
     private void btnConsultaUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultaUsuarioMouseClicked
         limpiarDesktopPane();
         IFConsultaUsuario cu = new IFConsultaUsuario();
-        dpPrincipal.add(cu);
+        dpCRUDUsuarios.add(cu);
         cu.setVisible(true);
         
     }//GEN-LAST:event_btnConsultaUsuarioMouseClicked
@@ -755,7 +743,7 @@ private void limpiarDesktopPane() {
     private void btnModificarUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarUsuarioMouseClicked
         limpiarDesktopPane();
         IFModificarUsuario mu = new IFModificarUsuario();
-        dpPrincipal.add(mu);
+        dpCRUDUsuarios.add(mu);
         mu.setVisible(true);
     }//GEN-LAST:event_btnModificarUsuarioMouseClicked
 
@@ -806,6 +794,38 @@ IFAltaInstituto ai = new IFAltaInstituto();
 dpCRUDinstitutos.add(ai);
 ai.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
 
+
+    private void lblAltaCursoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaCursoMouseClicked
+        limpiarDesktopPane(); 
+        IFAltaCurso ac = new IFAltaCurso(); 
+        dpCRUDUsuarios.add(ac); 
+        ac.setVisible(true);
+    }//GEN-LAST:event_lblAltaCursoMouseClicked
+
+    private void lblAltaInstitutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaInstitutoMouseClicked
+        limpiarDesktopPane(); 
+        IFAltaInstituto ai = new IFAltaInstituto(); 
+        dpCRUDUsuarios.add(ai); 
+        ai.setVisible(true);
+    }//GEN-LAST:event_lblAltaInstitutoMouseClicked
+
+    private void lblAltaEdicionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaEdicionMouseClicked
+    IFAltaEdicionCurso ventana = new IFAltaEdicionCurso(controlador);
+
+    dpPrincipal.add(ventana);
+    ventana.setVisible(true);
+    }//GEN-LAST:event_lblAltaEdicionMouseClicked
+
+    private void lblAltaUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaUsuarioMouseClicked
+      
+   IFAltaUsuario ventana = new IFAltaUsuario();
+
+    dpPrincipal.add(ventana);
+    ventana.setVisible(true);
+
+    }//GEN-LAST:event_lblAltaUsuarioMouseClicked
+
+
     public static void main(String args[]) {
         
         /*IControlador controlador =
@@ -822,6 +842,7 @@ ai.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
     private javax.swing.JButton btnModificarUsuario;
     private javax.swing.JLabel btnSalir;
     private javax.swing.JSeparator cursosSeparator;
+    private javax.swing.JDesktopPane dpCRUDUsuarios;
     private javax.swing.JDesktopPane dpCRUDcursos;
     private javax.swing.JDesktopPane dpCRUDinstitutos;
     private javax.swing.JDesktopPane dpPrincipal;
@@ -830,10 +851,6 @@ ai.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel lblAgregarCursoPrograma;
     private javax.swing.JLabel lblAltaCurso;
     private javax.swing.JLabel lblAltaEdicion;
@@ -851,7 +868,6 @@ ai.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
     private javax.swing.JLabel lblModificarUsuario;
     private javax.swing.JLabel lblProgramas;
     private javax.swing.JLabel lblUsuarios;
-    private javax.swing.JPanel panelMenuEdiciones1;
     private javax.swing.JPanel pnlCenterPanel;
     private javax.swing.JPanel pnlLeftPanel;
     private javax.swing.JPanel pnlMenuCursos;

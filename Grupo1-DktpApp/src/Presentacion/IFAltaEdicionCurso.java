@@ -3,9 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package Presentacion;
+import Logica.Entidades.Curso;
+import Logica.Entidades.Docente;
 import Logica.controladores.IControlador;
 import Logica.Entidades.Instituto;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 
 /**
  *
@@ -13,6 +21,7 @@ import java.util.List;
  */
 public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
     private IControlador controlador;
+    private List<Docente> docentesDisponibles;
 
     /**
      * Creates new form IFAltaEdicionCurso
@@ -20,15 +29,72 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
     public IFAltaEdicionCurso(IControlador controlador) {
         initComponents();
         this.controlador = controlador;
+        
+        //Seteo valor inicial con la fecha actual y configuro maximos y minimos para los spinners
+        setearSpinnersFecha();
 
-        
-        cmbInstituto.removeAllItems();
-        cmbInstituto.addItem("Seleccione un instituto...");
-        
-        cmbCurso.removeAllItems();
-        cmbCurso.addItem("Seleccione un curso...");
-        cmbCurso.setEnabled(false);
+          //CmbInstituto
+         cmbInstituto.removeAllItems();
+         cmbInstituto.addItem("Seleccione un instituto...");
+         
+        //CmbCurso
+         cmbCurso.removeAllItems();
+         cmbCurso.addItem("Seleccione primero un instituto...");
+         cmbCurso.setEnabled(false);
+         
+        //listaDocentes 
+        lstDocentes.setEnabled(false);
+
+         cargarInstitutos();
     }
+    
+    private void setearSpinnersFecha() {
+
+    LocalDate hoy = LocalDate.now();
+
+    spDiaInicio.setModel(
+            new javax.swing.SpinnerNumberModel(
+                    hoy.getDayOfMonth(), 1, 31, 1
+            )
+    );
+
+    spMesInicio.setModel(
+            new javax.swing.SpinnerNumberModel(
+                    hoy.getMonthValue(), 1, 12, 1
+            )
+    );
+
+    spAnioInicio.setModel(
+            new javax.swing.SpinnerNumberModel(
+                    hoy.getYear(), hoy.getYear(), 2100, 1
+            )
+    );
+
+    spDiaFin.setModel(
+            new javax.swing.SpinnerNumberModel(
+                    hoy.getDayOfMonth(), 1, 31, 1
+            )
+    );
+
+    spMesFin.setModel(
+            new javax.swing.SpinnerNumberModel(
+                    hoy.getMonthValue(), 1, 12, 1
+            )
+    );
+
+    spAnioFin.setModel(
+            new javax.swing.SpinnerNumberModel(
+                    hoy.getYear(), hoy.getYear(), 2100, 1
+            )
+    );
+    
+     // Mostrar el año sin separador
+    spAnioInicio.setEditor(
+            new JSpinner.NumberEditor(spAnioInicio, "0"));
+
+    spAnioFin.setEditor(
+            new JSpinner.NumberEditor(spAnioFin, "0"));
+}
     
     private void cargarInstitutos() {
 
@@ -37,6 +103,70 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
     for(Instituto instituto: institutos){
         cmbInstituto.addItem(instituto.getNombre());
     }
+    }
+    
+    private void cargarCursosPorInstituto() {
+
+    cmbCurso.removeAllItems();
+
+    // Si no eligió un instituto
+    if (cmbInstituto.getSelectedIndex() <= 0) {
+        cmbCurso.addItem("Seleccione primero un instituto...");
+        cmbCurso.setEnabled(false);
+        return;
+    }
+    
+    //Si eligio lo capturo y habilito combobox de cursos 
+    String nombreInstituto = cmbInstituto.getSelectedItem().toString();
+    
+    List<Curso> cursos =
+            controlador.listarCursosPorInstituto(nombreInstituto);
+    
+    //Si no hay cursos asociados a ese instituto
+     if (cursos.isEmpty()) {
+        cmbCurso.addItem("No hay cursos disponibles");
+        cmbCurso.setEnabled(false);
+        return;
+    }
+    
+
+    cmbCurso.addItem("Seleccione un curso...");
+
+    for (Curso curso : cursos) {
+        cmbCurso.addItem(curso.getNombre());
+    }
+
+    cmbCurso.setEnabled(true);
+}
+
+   private void cargarDocentesPorInstituto() {
+
+    DefaultListModel<String> modelo = new DefaultListModel<>();
+    lstDocentes.setModel(modelo);
+
+    if (cmbInstituto.getSelectedIndex() <= 0) {
+        docentesDisponibles = new ArrayList<>();
+        lstDocentes.setEnabled(false);
+        return;
+    }
+
+    String nombreInstituto =
+            cmbInstituto.getSelectedItem().toString();
+
+    docentesDisponibles =
+            controlador.listarDocentesPorInstituto(nombreInstituto);
+
+    for (Docente docente : docentesDisponibles) {
+        modelo.addElement(
+                docente.getNickname()
+                + " - "
+                + docente.getNombre()
+                + " "
+                + docente.getApellido()
+        );
+    }
+
+    lstDocentes.setEnabled(true);
 }
 
     /**
@@ -52,6 +182,23 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
         cmbInstituto = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         cmbCurso = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstDocentes = new javax.swing.JList<>();
+        lblNombreEdicion = new javax.swing.JLabel();
+        lblFechaInicio = new javax.swing.JLabel();
+        lblFechaFin = new javax.swing.JLabel();
+        lblCupo = new javax.swing.JLabel();
+        txtNombreEdicion = new javax.swing.JTextField();
+        spDiaInicio = new javax.swing.JSpinner();
+        spMesInicio = new javax.swing.JSpinner();
+        spAnioInicio = new javax.swing.JSpinner();
+        spAnioFin = new javax.swing.JSpinner();
+        spMesFin = new javax.swing.JSpinner();
+        spDiaFin = new javax.swing.JSpinner();
+        txtCupo = new javax.swing.JTextField();
+        btnAceptar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -67,6 +214,37 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
         jLabel2.setText("Curso: ");
 
         cmbCurso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbCurso.addActionListener(this::cmbCursoActionPerformed);
+
+        jLabel3.setText("Docentes participantes: ");
+
+        lstDocentes.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(lstDocentes);
+
+        lblNombreEdicion.setText("Nombre edición:");
+
+        lblFechaInicio.setText("Fecha inicio:");
+
+        lblFechaFin.setText("Fecha fin:");
+
+        lblCupo.setText("Cupo (opcional):");
+
+        txtNombreEdicion.setPreferredSize(new java.awt.Dimension(220, 26));
+        txtNombreEdicion.addActionListener(this::txtNombreEdicionActionPerformed);
+
+        txtCupo.setPreferredSize(new java.awt.Dimension(80, 26));
+
+        btnAceptar.setText("Aceptar");
+        btnAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAceptar.addActionListener(this::btnAceptarActionPerformed);
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.addActionListener(this::btnCancelarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,13 +253,56 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addGap(80, 80, 80)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbInstituto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(166, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbInstituto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(120, 120, 120))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNombreEdicion)
+                                    .addComponent(lblCupo))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNombreEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblFechaInicio)
+                                            .addComponent(lblFechaFin))
+                                        .addGap(82, 82, 82)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(spDiaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(spDiaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(btnAceptar)
+                                        .addComponent(jLabel3)))
+                                .addGap(36, 36, 36)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnCancelar)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(spMesFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                                                .addComponent(spAnioFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(spMesInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(spAnioInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(27, 27, 27)))))
+                        .addGap(92, 92, 92))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,21 +315,251 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cmbCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(200, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombreEdicion)
+                    .addComponent(txtNombreEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblFechaInicio)
+                    .addComponent(spDiaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spMesInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spAnioInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblFechaFin)
+                    .addComponent(spAnioFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spMesFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spDiaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCupo)
+                    .addComponent(txtCupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAceptar)
+                    .addComponent(btnCancelar))
+                .addGap(40, 40, 40))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbInstitutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbInstitutoActionPerformed
-        // TODO add your handling code here:
+       cargarCursosPorInstituto();
+       cargarDocentesPorInstituto(); 
     }//GEN-LAST:event_cmbInstitutoActionPerformed
+
+    private void cmbCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCursoActionPerformed
+        
+    }//GEN-LAST:event_cmbCursoActionPerformed
+
+    private void txtNombreEdicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreEdicionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreEdicionActionPerformed
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+
+
+    // Validacion nombre de la edición
+    String nombre = txtNombreEdicion.getText().trim();
+
+    if (nombre.isEmpty()) {
+        JOptionPane.showMessageDialog(
+                this,
+                "Debe ingresar un nombre para la edición.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+        );
+        return;
+    }
+
+    //Validacion Instituto
+    if (cmbInstituto.getSelectedIndex() <= 0) {
+        JOptionPane.showMessageDialog(
+                this,
+                "Debe seleccionar un instituto.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+        );
+        return;
+    }
+
+    // Validacion Curso
+    if (!cmbCurso.isEnabled() || cmbCurso.getSelectedIndex() <= 0) {
+        JOptionPane.showMessageDialog(
+                this,
+                "Debe seleccionar un curso.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+        );
+        return;
+    }
+
+    String nombreCurso = cmbCurso.getSelectedItem().toString();
+
+    // Validacion fechas
+    LocalDate fechaInicio;
+    LocalDate fechaFin;
+
+    try {
+        int diaInicio = (Integer) spDiaInicio.getValue();
+        int mesInicio = (Integer) spMesInicio.getValue();
+        int anioInicio = (Integer) spAnioInicio.getValue();
+
+        fechaInicio = LocalDate.of(
+                anioInicio,
+                mesInicio,
+                diaInicio
+        );
+
+        int diaFin = (Integer) spDiaFin.getValue();
+        int mesFin = (Integer) spMesFin.getValue();
+        int anioFin = (Integer) spAnioFin.getValue();
+
+        fechaFin = LocalDate.of(
+                anioFin,
+                mesFin,
+                diaFin
+        );
+
+    } catch (DateTimeException e) {
+        JOptionPane.showMessageDialog(
+                this,
+                "La fecha ingresada no es válida.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+        );
+        return;
+    }
+
+    // Fecha de fin anterior o igual a fecha de inicio
+    if (fechaFin.isBefore(fechaInicio)) {
+        JOptionPane.showMessageDialog(
+                this,
+                "La fecha de fin no puede ser anterior a la fecha de inicio.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+        );
+        return;
+    }
+
+    //Validacion cupo opcional
+    Integer cupo = null;
+
+    String textoCupo = txtCupo.getText().trim();
+
+    if (!textoCupo.isEmpty()) {
+        try {
+            cupo = Integer.valueOf(textoCupo);
+
+            if (cupo < 0) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "El cupo debe ser mayor a cero.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+            if (cupo == 0) {
+                cupo = null;
+            }
+
+             } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "El cupo debe ser un número entero.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+    }
+
+    // Validacion nombre único
+    if (controlador.existeEdicion(nombre)) {
+        JOptionPane.showMessageDialog(
+                this,
+                "Ya existe una edición con ese nombre.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+        );
+        return;
+    }
+
+    //Obtener los docentes seleccionados
+    List<Docente> docentesSeleccionados = new ArrayList<>();
+
+    int[] indicesSeleccionados = lstDocentes.getSelectedIndices();
+
+    for (int indice : indicesSeleccionados) {
+        docentesSeleccionados.add(
+                docentesDisponibles.get(indice)
+        );
+    }
+
+    //Registrar edición
+    try {
+        controlador.altaEdicionCurso(
+                nombre,
+                fechaInicio,
+                fechaFin,
+                cupo,
+                nombreCurso,
+                docentesSeleccionados
+        );
+
+        JOptionPane.showMessageDialog(
+                this,
+                "La edición fue registrada correctamente.",
+                "Alta de Edición",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+
+        dispose();
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(
+                this,
+                "No se pudo registrar la edición.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+        );
+    }
+
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+         dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JComboBox<String> cmbCurso;
     private javax.swing.JComboBox<String> cmbInstituto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCupo;
+    private javax.swing.JLabel lblFechaFin;
+    private javax.swing.JLabel lblFechaInicio;
+    private javax.swing.JLabel lblNombreEdicion;
+    private javax.swing.JList<String> lstDocentes;
+    private javax.swing.JSpinner spAnioFin;
+    private javax.swing.JSpinner spAnioInicio;
+    private javax.swing.JSpinner spDiaFin;
+    private javax.swing.JSpinner spDiaInicio;
+    private javax.swing.JSpinner spMesFin;
+    private javax.swing.JSpinner spMesInicio;
+    private javax.swing.JTextField txtCupo;
+    private javax.swing.JTextField txtNombreEdicion;
     // End of variables declaration//GEN-END:variables
 }
