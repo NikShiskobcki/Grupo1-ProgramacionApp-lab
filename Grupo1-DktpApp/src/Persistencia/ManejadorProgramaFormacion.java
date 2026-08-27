@@ -1,7 +1,10 @@
 package Persistencia;
 
+import Logica.DTO.CursoResumen;
+import Logica.DTO.DetalleProgramaFormacion;
 import Logica.Entidades.Curso;
 import Logica.Entidades.ProgramaFormacion;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -65,6 +68,28 @@ public class ManejadorProgramaFormacion {
         try{
             return em.createQuery("SELECT p FROM ProgramaFormacion p ORDER BY p.nombre", ProgramaFormacion.class).getResultList();
         }finally {
+            em.close();
+        }
+    }
+    
+    public DetalleProgramaFormacion buscarDetallePrograma(String nombre){
+        EntityManager em = emf.createEntityManager();
+        try{
+            ProgramaFormacion programa = em.find(ProgramaFormacion.class, nombre);
+            if (programa == null) return null;
+            List<CursoResumen> cursos = new ArrayList<>();
+            for (Curso curso : programa.getCursos()){
+                cursos.add(new CursoResumen(curso.getNombre(), curso.getInstituto().getNombre()));
+            }
+            return new DetalleProgramaFormacion(
+                programa.getNombre(),
+                programa.getDescripcion(),
+                programa.getFechaInicio(),
+                programa.getFechaFin(),
+                programa.getFechaAlta(),
+                cursos
+            );
+        }finally{
             em.close();
         }
     }
