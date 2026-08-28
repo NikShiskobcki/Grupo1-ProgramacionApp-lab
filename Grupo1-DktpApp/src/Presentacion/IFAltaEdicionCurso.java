@@ -20,6 +20,7 @@ import javax.swing.JSpinner;
  * @author xnahu
  */
 public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
+    
     private IControlador controlador;
     private List<Docente> docentesDisponibles;
 

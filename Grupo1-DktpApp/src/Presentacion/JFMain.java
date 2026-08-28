@@ -24,6 +24,17 @@ public class JFMain extends javax.swing.JFrame {
         pnlMenuInstituciones.setVisible(false);
     }
     
+    private void abrirInternalFrame(javax.swing.JInternalFrame ventana) {
+
+    // Cierra cualquier InternalFrame que ya esté abierto
+    for (javax.swing.JInternalFrame frame : dpPrincipal.getAllFrames()) {
+        frame.dispose();
+    }
+
+    dpPrincipal.add(ventana);
+    ventana.setVisible(true);
+}
+    
     private void cerrarSubmenus() {
         pnlMenuUsuarios.setVisible(false);
         pnlMenuCursos.setVisible(false);
@@ -92,6 +103,7 @@ public class JFMain extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlLeftPanel.setBackground(new java.awt.Color(47, 93, 98));
+        pnlLeftPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlLeftPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlOpcionesMenu.setBackground(new java.awt.Color(47, 93, 98));
@@ -148,6 +160,11 @@ public class JFMain extends javax.swing.JFrame {
         lblConsultaUsuario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblConsultaUsuario.setText("Consulta de Usuario");
         lblConsultaUsuario.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        lblConsultaUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblConsultaUsuarioMouseClicked(evt);
+            }
+        });
         pnlMenuUsuarios.add(lblConsultaUsuario);
 
         lblModificarUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -155,6 +172,11 @@ public class JFMain extends javax.swing.JFrame {
         lblModificarUsuario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblModificarUsuario.setText("Modificar Usuario");
         lblModificarUsuario.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        lblModificarUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblModificarUsuarioMouseClicked(evt);
+            }
+        });
         pnlMenuUsuarios.add(lblModificarUsuario);
 
         pnlOpcionesMenu.add(pnlMenuUsuarios);
@@ -197,6 +219,14 @@ public class JFMain extends javax.swing.JFrame {
         lblAltaCurso.setText("Alta de  Curso");
         lblAltaCurso.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
         lblAltaCurso.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblAltaCurso.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAltaCursoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblAltaCursoMouseEntered(evt);
+            }
+        });
         pnlMenuCursos.add(lblAltaCurso);
 
         lblConsultaCurso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -307,6 +337,11 @@ public class JFMain extends javax.swing.JFrame {
         lblCrearPrograma.setText("Crear Programa de Formacion");
         lblCrearPrograma.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
         lblCrearPrograma.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCrearPrograma.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCrearProgramaMouseClicked(evt);
+            }
+        });
         pnlMenuProgramas.add(lblCrearPrograma);
 
         lblAgregarCursoPrograma.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -321,6 +356,11 @@ public class JFMain extends javax.swing.JFrame {
         lblConsultaPrograma.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblConsultaPrograma.setText("Consulta de Programa");
         lblConsultaPrograma.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        lblConsultaPrograma.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblConsultaProgramaMouseClicked(evt);
+            }
+        });
         pnlMenuProgramas.add(lblConsultaPrograma);
 
         pnlOpcionesMenu.add(pnlMenuProgramas);
@@ -363,6 +403,11 @@ public class JFMain extends javax.swing.JFrame {
         lblAltaInstituto.setText("Alta de Instituto");
         lblAltaInstituto.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
         lblAltaInstituto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblAltaInstituto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAltaInstitutoMouseClicked(evt);
+            }
+        });
         pnlMenuInstituciones.add(lblAltaInstituto);
 
         pnlOpcionesMenu.add(pnlMenuInstituciones);
@@ -435,7 +480,7 @@ public class JFMain extends javax.swing.JFrame {
         dpPrincipal.setLayout(dpPrincipalLayout);
         dpPrincipalLayout.setHorizontalGroup(
             dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 910, Short.MAX_VALUE)
+            .addGap(0, 890, Short.MAX_VALUE)
         );
         dpPrincipalLayout.setVerticalGroup(
             dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -796,42 +841,45 @@ ai.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
 
 
     private void lblAltaCursoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaCursoMouseClicked
-        limpiarDesktopPane(); 
-        IFAltaCurso ac = new IFAltaCurso(); 
-        dpCRUDUsuarios.add(ac); 
-        ac.setVisible(true);
+        abrirInternalFrame(new IFAltaCurso());
     }//GEN-LAST:event_lblAltaCursoMouseClicked
 
     private void lblAltaInstitutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaInstitutoMouseClicked
-        limpiarDesktopPane(); 
-        IFAltaInstituto ai = new IFAltaInstituto(); 
-        dpCRUDUsuarios.add(ai); 
-        ai.setVisible(true);
+        abrirInternalFrame(new IFAltaInstituto());
     }//GEN-LAST:event_lblAltaInstitutoMouseClicked
 
     private void lblAltaEdicionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaEdicionMouseClicked
-    IFAltaEdicionCurso ventana = new IFAltaEdicionCurso(controlador);
-
-    dpPrincipal.add(ventana);
-    ventana.setVisible(true);
+    abrirInternalFrame(new IFAltaEdicionCurso(controlador));
     }//GEN-LAST:event_lblAltaEdicionMouseClicked
 
     private void lblAltaUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaUsuarioMouseClicked
-      
-   IFAltaUsuario ventana = new IFAltaUsuario();
-
-    dpPrincipal.add(ventana);
-    ventana.setVisible(true);
+       
+        abrirInternalFrame(new IFAltaUsuario());
 
     }//GEN-LAST:event_lblAltaUsuarioMouseClicked
+
+    private void lblConsultaUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultaUsuarioMouseClicked
+        abrirInternalFrame(new IFConsultaUsuario());
+    }//GEN-LAST:event_lblConsultaUsuarioMouseClicked
+
+    private void lblModificarUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblModificarUsuarioMouseClicked
+        abrirInternalFrame(new IFModificarUsuario());
+    }//GEN-LAST:event_lblModificarUsuarioMouseClicked
+
+    private void lblAltaCursoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaCursoMouseEntered
+           }//GEN-LAST:event_lblAltaCursoMouseEntered
+
+    private void lblCrearProgramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCrearProgramaMouseClicked
+        abrirInternalFrame(new IFAltaPrograma());
+    }//GEN-LAST:event_lblCrearProgramaMouseClicked
+
+    private void lblConsultaProgramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultaProgramaMouseClicked
+        abrirInternalFrame(new IFConsultaPrograma());
+    }//GEN-LAST:event_lblConsultaProgramaMouseClicked
 
 
     public static void main(String args[]) {
         
-        /*IControlador controlador =
-            Fabrica.getInstance().getIControlador();
-
-    controlador.altaInstituto("UTEC");*/
 
         java.awt.EventQueue.invokeLater(() -> new JFMain().setVisible(true));
     }
