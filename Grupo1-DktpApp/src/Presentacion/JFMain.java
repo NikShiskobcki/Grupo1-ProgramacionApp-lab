@@ -15,7 +15,7 @@ public class JFMain extends javax.swing.JFrame {
         controlador= Fabrica.getInstance().getIControlador(); 
         
         //Oculte la tpOptions para que tengamos un solo dpPrincipal!!!!
-        //tpOptionPages.setVisible(false);
+        tpOptionPages.setVisible(false);
         
         pnlMenuUsuarios.setVisible(false);
         pnlMenuCursos.setVisible(false);
@@ -234,6 +234,11 @@ public class JFMain extends javax.swing.JFrame {
         lblConsultaCurso.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblConsultaCurso.setText("Consulta de Curso");
         lblConsultaCurso.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        lblConsultaCurso.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblConsultaCursoMouseClicked(evt);
+            }
+        });
         pnlMenuCursos.add(lblConsultaCurso);
 
         pnlOpcionesMenu.add(pnlMenuCursos);
@@ -876,6 +881,10 @@ ai.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
     private void lblConsultaProgramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultaProgramaMouseClicked
         abrirInternalFrame(new IFConsultaPrograma());
     }//GEN-LAST:event_lblConsultaProgramaMouseClicked
+
+    private void lblConsultaCursoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultaCursoMouseClicked
+        abrirInternalFrame(new IFConsultaCurso());
+    }//GEN-LAST:event_lblConsultaCursoMouseClicked
 
 
     public static void main(String args[]) {
