@@ -1,5 +1,9 @@
 package Persistencia;
 
+import Logica.DTO.DetalleEdicionCurso;
+import Logica.Entidades.Docente;
+import java.util.ArrayList;
+
 import Logica.Entidades.EdicionCurso;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -86,4 +90,30 @@ public class ManejadorEdicionCurso {
         em.close();
     }
 }
+    public DetalleEdicionCurso buscarDetalleEdicion(String nombre) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            EdicionCurso edicion = em.find(EdicionCurso.class, nombre);
+            if (edicion == null) {
+                return null;
+            }
+
+            List<String> docentes = new ArrayList<>();
+            for (Docente d : edicion.getDocentes()) {
+                docentes.add(d.getNombre() + " " + d.getApellido() + " (" + d.getNickname() + ")");
+            }
+
+            return new DetalleEdicionCurso(
+                    edicion.getNombre(),
+                    edicion.getFechaInicio(),
+                    edicion.getFechaFin(),
+                    edicion.getCupo(),
+                    edicion.getFechaPublicacion(),
+                    edicion.getCurso() != null ? edicion.getCurso().getNombre() : "",
+                    docentes
+            );
+        } finally {
+            em.close();
+        }
+    }
 }

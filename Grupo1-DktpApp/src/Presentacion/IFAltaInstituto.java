@@ -30,6 +30,9 @@ public class IFAltaInstituto extends javax.swing.JInternalFrame {
         txtNombreInstituto = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        lblInsitututo = new javax.swing.JLabel();
+        lblInstituto2 = new javax.swing.JLabel();
 
         jLabel1.setText("Nombre del Instituto");
 
@@ -40,6 +43,59 @@ public class IFAltaInstituto extends javax.swing.JInternalFrame {
 
         jButton2.setText("Aceptar");
         jButton2.addActionListener(this::jButton2ActionPerformed);
+
+        jPanel2.setBackground(new java.awt.Color(35, 71, 75));
+
+        lblInsitututo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblInsitututo.setForeground(new java.awt.Color(206, 206, 206));
+        lblInsitututo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\GitHub\\Grupo1-ProgramacionApp-lab\\img\\programas_white_32px.png")); // NOI18N
+        lblInsitututo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblInsitututoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblInsitututoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblInsitututoMouseExited(evt);
+            }
+        });
+
+        lblInstituto2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblInstituto2.setForeground(new java.awt.Color(255, 255, 255));
+        lblInstituto2.setText("Alta de Instituto");
+        lblInstituto2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblInstituto2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblInstituto2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblInstituto2MouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblInsitututo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblInstituto2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblInstituto2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblInsitututo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -59,11 +115,13 @@ public class IFAltaInstituto extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtNombreInstituto, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(74, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(98, 98, 98)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNombreInstituto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -121,11 +179,38 @@ public class IFAltaInstituto extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void lblInsitututoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInsitututoMouseClicked
+
+    }//GEN-LAST:event_lblInsitututoMouseClicked
+
+    private void lblInsitututoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInsitututoMouseEntered
+
+    }//GEN-LAST:event_lblInsitututoMouseEntered
+
+    private void lblInsitututoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInsitututoMouseExited
+
+    }//GEN-LAST:event_lblInsitututoMouseExited
+
+    private void lblInstituto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInstituto2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblInstituto2MouseClicked
+
+    private void lblInstituto2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInstituto2MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblInstituto2MouseEntered
+
+    private void lblInstituto2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInstituto2MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblInstituto2MouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblInsitututo;
+    private javax.swing.JLabel lblInstituto2;
     private javax.swing.JTextField txtNombreInstituto;
     // End of variables declaration//GEN-END:variables
 }
