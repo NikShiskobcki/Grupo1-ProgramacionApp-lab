@@ -1,5 +1,8 @@
 package Logica.controladores;
 
+import Logica.DTO.DetalleCurso;
+import Logica.DTO.DetalleEdicionCurso;
+
 import Logica.DTO.DetalleProgramaFormacion;
 import Logica.DTO.DetalleUsuario;
 import Logica.DTO.UsuarioEdicion;
@@ -85,6 +88,11 @@ public class Controlador implements IControlador {
     @Override
     public List<Curso> listarCursos() {
         return manejadorCurso.listarCursos();
+    }
+    
+       @Override
+    public DetalleCurso consultarCurso(String nombreCurso) {
+        return manejadorCurso.buscarDetalleCurso(nombreCurso);
     }
 
     @Override
@@ -246,7 +254,11 @@ public class Controlador implements IControlador {
         return manejadorEdicionCurso.buscarEdicionCompleta(nombre);
     }
 
-
+  @Override
+    public DetalleEdicionCurso consultarEdicion(String nombreEdicion) {
+        return manejadorEdicionCurso.buscarDetalleEdicion(nombreEdicion);
+    }
+    
     // =========================
     // CONSULTA DE USUARIO
     // =========================
@@ -261,6 +273,7 @@ public class Controlador implements IControlador {
         return manejadorUsuario.buscarDetalleUsuario(nickname);
     }
 
+    
 
     // =========================
     // MODIFICAR USUARIO

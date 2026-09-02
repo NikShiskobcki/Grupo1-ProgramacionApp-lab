@@ -5,6 +5,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import Logica.DTO.DetalleEdicionCurso;
+import Logica.Entidades.Docente;
+import java.util.ArrayList;
 
 public class ManejadorEdicionCurso {
 
@@ -81,6 +84,42 @@ public class ManejadorEdicionCurso {
                 EdicionCurso.class)
                 .setParameter("nombre", nombre)
                 .getSingleResult();
+
+    } finally {
+        em.close();
+    }
+}
+    public DetalleEdicionCurso buscarDetalleEdicion(String nombre) {
+    EntityManager em = emf.createEntityManager();
+
+    try {
+        EdicionCurso edicion = em.find(EdicionCurso.class, nombre);
+
+        if (edicion == null) {
+            return null;
+        }
+
+        List<String> docentes = new ArrayList<>();
+
+        for (Docente d : edicion.getDocentes()) {
+            docentes.add(
+                d.getNombre() + " " +
+                d.getApellido() + " (" +
+                d.getNickname() + ")"
+            );
+        }
+
+        return new DetalleEdicionCurso(
+            edicion.getNombre(),
+            edicion.getFechaInicio(),
+            edicion.getFechaFin(),
+            edicion.getCupo(),
+            edicion.getFechaPublicacion(),
+            edicion.getCurso() != null
+                ? edicion.getCurso().getNombre()
+                : "",
+            docentes
+        );
 
     } finally {
         em.close();

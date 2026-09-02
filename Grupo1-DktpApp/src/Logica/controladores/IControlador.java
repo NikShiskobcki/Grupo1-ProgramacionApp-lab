@@ -1,6 +1,9 @@
 
 package Logica.controladores;
 
+import Logica.DTO.DetalleCurso;
+import Logica.DTO.DetalleEdicionCurso;
+
 import Logica.DTO.DetalleProgramaFormacion;
 import Logica.DTO.DetalleUsuario;
 import Logica.DTO.UsuarioEdicion;
@@ -39,7 +42,8 @@ public interface IControlador {
             List<Curso> previas
     );
 
-
+    DetalleCurso consultarCurso(String nombreCurso);
+    
     boolean existeInstituto(String nombre);
 
 
@@ -110,8 +114,9 @@ public interface IControlador {
 
     EdicionCurso buscarEdicion(String nombre);
 
-
-    // Consulta de Usuario
+    DetalleEdicionCurso consultarEdicion(String nombreEdicion);
+    
+// Consulta de Usuario
     List<UsuarioResumen> listarUsuarios();
 
     DetalleUsuario consultarUsuario(String nickname);
