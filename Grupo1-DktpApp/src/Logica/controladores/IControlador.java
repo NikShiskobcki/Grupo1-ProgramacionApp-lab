@@ -12,6 +12,8 @@ import Logica.Entidades.Instituto;
 import Logica.Entidades.Curso;
 import Logica.Entidades.Docente;
 import Logica.Entidades.EdicionCurso;
+import Logica.Entidades.Estudiante;
+import Logica.Entidades.InscripcionEdicion;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -29,6 +31,7 @@ public interface IControlador {
     List<Curso> listarCursosPorInstituto(String nombreInstituto);
 
     boolean existeCurso(String nombre);
+    
 
     void altaCurso(
             String nombre,
@@ -115,6 +118,19 @@ public interface IControlador {
     EdicionCurso buscarEdicion(String nombre);
 
     DetalleEdicionCurso consultarEdicion(String nombreEdicion);
+    
+    void inscribirEstudianteEdicion(String nicknameEstudiante,String nombreEdicion,LocalDate fechaInscripcion);
+    
+    void modificarInscripcionEdicion(Long idInscripcion, LocalDate nuevaFecha);
+    
+    //Inscripcion a edición 
+    EdicionCurso buscarEdicionVigentePorCurso(String nombreCurso);
+    
+    List<Estudiante> listarEstudiantes();
+    
+    InscripcionEdicion buscarInscripcionEdicion(
+        String nicknameEstudiante,
+        String nombreEdicion);
     
 // Consulta de Usuario
     List<UsuarioResumen> listarUsuarios();

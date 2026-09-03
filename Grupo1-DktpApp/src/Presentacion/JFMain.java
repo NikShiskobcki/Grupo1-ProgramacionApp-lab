@@ -293,6 +293,11 @@ public class JFMain extends javax.swing.JFrame {
         lblConsultaEdicion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblConsultaEdicion.setText("Consulta de Edicion");
         lblConsultaEdicion.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        lblConsultaEdicion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblConsultaEdicionMouseClicked(evt);
+            }
+        });
         pnlMenuEdiciones.add(lblConsultaEdicion);
 
         lblInscripcionEdicion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -885,6 +890,10 @@ ai.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
     private void lblConsultaCursoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultaCursoMouseClicked
         abrirInternalFrame(new IFConsultaCurso());
     }//GEN-LAST:event_lblConsultaCursoMouseClicked
+
+    private void lblConsultaEdicionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultaEdicionMouseClicked
+         abrirInternalFrame(new IFConsultaEdicionCurso(controlador));
+    }//GEN-LAST:event_lblConsultaEdicionMouseClicked
 
 
     public static void main(String args[]) {

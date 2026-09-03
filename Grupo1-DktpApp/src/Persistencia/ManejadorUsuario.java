@@ -336,4 +336,31 @@ public class ManejadorUsuario {
             em.close();
         }
     }
+    
+    public List<Estudiante> listarEstudiantes() {
+
+    EntityManager em = emf.createEntityManager();
+
+    try {
+        return em.createQuery(
+                "SELECT e FROM Estudiante e "
+                + "ORDER BY e.nickname",
+                Estudiante.class)
+                .getResultList();
+
+    } finally {
+        em.close();
+    }
+}
+    
+    public Estudiante buscarEstudiante(String nickname) {
+
+    EntityManager em = emf.createEntityManager();
+
+    try {
+        return em.find(Estudiante.class, nickname);
+    } finally {
+        em.close();
+    }
+}
 }

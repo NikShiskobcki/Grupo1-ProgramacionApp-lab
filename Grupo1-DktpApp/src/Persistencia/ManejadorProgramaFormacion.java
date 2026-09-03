@@ -51,7 +51,10 @@ public class ManejadorProgramaFormacion {
             t.begin();
             ProgramaFormacion programa = em.find(ProgramaFormacion.class,nombrePrograma);
             Curso curso = em.find(Curso.class, nombreCurso);
-            programa.getCursos().add(curso);
+            if (programa != null
+                && curso != null
+                && !programa.getCursos().contains(curso)){
+            programa.getCursos().add(curso);}
             t.commit();
         }catch (Exception e){
             if (t.isActive()){

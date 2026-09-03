@@ -12,6 +12,7 @@ import Logica.Entidades.Estudiante;
 import Logica.Entidades.Instituto;
 import Logica.Entidades.Curso;
 import Logica.Entidades.EdicionCurso;
+import Logica.Entidades.InscripcionEdicion;
 import Logica.Entidades.ProgramaFormacion;
 
 import Persistencia.ManejadorCurso;
@@ -259,6 +260,16 @@ public class Controlador implements IControlador {
         return manejadorEdicionCurso.buscarDetalleEdicion(nombreEdicion);
     }
     
+    @Override
+    public EdicionCurso buscarEdicionVigentePorCurso(String nombreCurso) {
+    return manejadorEdicionCurso.buscarEdicionVigentePorCurso(nombreCurso);
+    }
+    
+    @Override
+    public List<Estudiante> listarEstudiantes() {
+    return manejadorUsuario.listarEstudiantes();
+    }
+
     // =========================
     // CONSULTA DE USUARIO
     // =========================
@@ -272,8 +283,39 @@ public class Controlador implements IControlador {
     public DetalleUsuario consultarUsuario(String nickname) {
         return manejadorUsuario.buscarDetalleUsuario(nickname);
     }
-
     
+    @Override
+    public InscripcionEdicion buscarInscripcionEdicion (String nicknameEstudiante,
+        String nombreEdicion) {
+        
+        return manejadorInscripcionEdicion.buscarInscripcion(nicknameEstudiante,nombreEdicion);
+}
+    @Override
+public void inscribirEstudianteEdicion(
+        String nicknameEstudiante,
+        String nombreEdicion,
+        LocalDate fechaInscripcion) {
+
+    Estudiante estudiante =
+            manejadorUsuario.buscarEstudiante(nicknameEstudiante);
+
+    EdicionCurso edicion =
+            manejadorEdicionCurso.buscarPorNombre(nombreEdicion);
+
+    InscripcionEdicion inscripcion =
+            new InscripcionEdicion(
+                    fechaInscripcion,
+                    estudiante,
+                    edicion
+            );
+
+    manejadorInscripcionEdicion.addInscripcion(inscripcion);
+}
+    @Override
+public void modificarInscripcionEdicion(Long idInscripcion, LocalDate nuevaFecha) {
+
+    manejadorInscripcionEdicion.modificarInscripcion(idInscripcion,nuevaFecha);
+}
 
     // =========================
     // MODIFICAR USUARIO
