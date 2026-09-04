@@ -261,9 +261,9 @@ public class Controlador implements IControlador {
     }
     
     @Override
-    public EdicionCurso buscarEdicionVigentePorCurso(String nombreCurso) {
-    return manejadorEdicionCurso.buscarEdicionVigentePorCurso(nombreCurso);
-    }
+    public List<EdicionCurso> listarEdicionesVigentesPorCurso(String nombreCurso) {
+    return manejadorEdicionCurso.listarEdicionesVigentesPorCurso(nombreCurso);
+}
     
     @Override
     public List<Estudiante> listarEstudiantes() {

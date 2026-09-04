@@ -124,7 +124,7 @@ public interface IControlador {
     void modificarInscripcionEdicion(Long idInscripcion, LocalDate nuevaFecha);
     
     //Inscripcion a edición 
-    EdicionCurso buscarEdicionVigentePorCurso(String nombreCurso);
+    List<EdicionCurso> listarEdicionesVigentesPorCurso(String nombreCurso);
     
     List<Estudiante> listarEstudiantes();
     

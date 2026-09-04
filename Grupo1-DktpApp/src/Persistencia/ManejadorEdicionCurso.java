@@ -55,7 +55,26 @@ public class ManejadorEdicionCurso {
     }
 }
     
-    public List<EdicionCurso> listarEdicionesPorCurso(String nombreCurso) {
+   public List<EdicionCurso> listarEdicionesVigentesPorCurso(String nombreCurso) {
+
+    EntityManager em = emf.createEntityManager();
+
+    try {
+        return em.createQuery(
+                "SELECT e FROM EdicionCurso e "
+                + "WHERE e.curso.nombre = :nombreCurso "
+                + "AND :hoy BETWEEN e.fechaInicio AND e.fechaFin "
+                + "ORDER BY e.nombre",
+                EdicionCurso.class)
+                .setParameter("nombreCurso", nombreCurso)
+                .setParameter("hoy", LocalDate.now())
+                .getResultList();
+
+    } finally {
+        em.close();
+    }
+}
+   public List<EdicionCurso> listarEdicionesPorCurso(String nombreCurso) {
 
     EntityManager em = emf.createEntityManager();
 

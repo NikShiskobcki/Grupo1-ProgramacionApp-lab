@@ -305,6 +305,11 @@ public class JFMain extends javax.swing.JFrame {
         lblInscripcionEdicion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblInscripcionEdicion.setText("Inscripción a Edición ");
         lblInscripcionEdicion.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        lblInscripcionEdicion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblInscripcionEdicionMouseClicked(evt);
+            }
+        });
         pnlMenuEdiciones.add(lblInscripcionEdicion);
 
         pnlOpcionesMenu.add(pnlMenuEdiciones);
@@ -894,6 +899,10 @@ ai.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
     private void lblConsultaEdicionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultaEdicionMouseClicked
          abrirInternalFrame(new IFConsultaEdicionCurso(controlador));
     }//GEN-LAST:event_lblConsultaEdicionMouseClicked
+
+    private void lblInscripcionEdicionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInscripcionEdicionMouseClicked
+        abrirInternalFrame(new IFInscripcionEdicionCurso(controlador));
+    }//GEN-LAST:event_lblInscripcionEdicionMouseClicked
 
 
     public static void main(String args[]) {
