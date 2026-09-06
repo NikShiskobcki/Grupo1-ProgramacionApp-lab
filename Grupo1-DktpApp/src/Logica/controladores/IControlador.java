@@ -1,6 +1,9 @@
 
 package Logica.controladores;
 
+import Logica.DTO.DetalleCurso;
+import Logica.DTO.DetalleEdicionCurso;
+
 import Logica.DTO.DetalleProgramaFormacion;
 import Logica.DTO.DetalleUsuario;
 import Logica.DTO.UsuarioEdicion;
@@ -9,6 +12,8 @@ import Logica.Entidades.Instituto;
 import Logica.Entidades.Curso;
 import Logica.Entidades.Docente;
 import Logica.Entidades.EdicionCurso;
+import Logica.Entidades.Estudiante;
+import Logica.Entidades.InscripcionEdicion;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,6 +31,7 @@ public interface IControlador {
     List<Curso> listarCursosPorInstituto(String nombreInstituto);
 
     boolean existeCurso(String nombre);
+    
 
     void altaCurso(
             String nombre,
@@ -39,7 +45,8 @@ public interface IControlador {
             List<Curso> previas
     );
 
-
+    DetalleCurso consultarCurso(String nombreCurso);
+    
     boolean existeInstituto(String nombre);
 
 
@@ -110,8 +117,22 @@ public interface IControlador {
 
     EdicionCurso buscarEdicion(String nombre);
 
-
-    // Consulta de Usuario
+    DetalleEdicionCurso consultarEdicion(String nombreEdicion);
+    
+    void inscribirEstudianteEdicion(String nicknameEstudiante,String nombreEdicion,LocalDate fechaInscripcion);
+    
+    void modificarInscripcionEdicion(Long idInscripcion, LocalDate nuevaFecha);
+    
+    //Inscripcion a edición 
+    List<EdicionCurso> listarEdicionesVigentesPorCurso(String nombreCurso);
+    
+    List<Estudiante> listarEstudiantes();
+    
+    InscripcionEdicion buscarInscripcionEdicion(
+        String nicknameEstudiante,
+        String nombreEdicion);
+    
+// Consulta de Usuario
     List<UsuarioResumen> listarUsuarios();
 
     DetalleUsuario consultarUsuario(String nickname);
