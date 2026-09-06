@@ -364,6 +364,11 @@ public class JFMain extends javax.swing.JFrame {
         lblAgregarCursoPrograma.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblAgregarCursoPrograma.setText("Agregar Curso a Programa");
         lblAgregarCursoPrograma.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        lblAgregarCursoPrograma.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAgregarCursoProgramaMouseClicked(evt);
+            }
+        });
         pnlMenuProgramas.add(lblAgregarCursoPrograma);
 
         lblConsultaPrograma.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -903,6 +908,10 @@ ai.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
     private void lblInscripcionEdicionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInscripcionEdicionMouseClicked
         abrirInternalFrame(new IFInscripcionEdicionCurso(controlador));
     }//GEN-LAST:event_lblInscripcionEdicionMouseClicked
+
+    private void lblAgregarCursoProgramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarCursoProgramaMouseClicked
+        abrirInternalFrame(new IFAgregarCursoAPrograma());
+    }//GEN-LAST:event_lblAgregarCursoProgramaMouseClicked
 
 
     public static void main(String args[]) {
