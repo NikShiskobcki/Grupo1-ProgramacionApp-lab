@@ -4,7 +4,12 @@ import Logica.DTO.CursoResumen;
 import Logica.DTO.DetalleProgramaFormacion;
 import Logica.controladores.Fabrica;
 import Logica.controladores.IControlador;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 public class IFConsultaPrograma extends javax.swing.JInternalFrame {
 
@@ -13,6 +18,7 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
      */
     public IFConsultaPrograma() {
         initComponents();
+        treeCursos.setModel(new DefaultTreeModel(null));
         cargarProgramas();
     }
         
@@ -40,13 +46,13 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
         lblFechaInicio = new javax.swing.JLabel();
         lblFechaFin = new javax.swing.JLabel();
         lblFechaAlta = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        lstCursos = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        treeCursos = new javax.swing.JTree();
 
         cbProgramas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbProgramas.addActionListener(this::cbProgramasActionPerformed);
@@ -62,13 +68,6 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
 
         lblFechaAlta.setText("Fecha Alta");
 
-        lstCursos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(lstCursos);
-
         jLabel1.setText("Descripcion:");
 
         jLabel2.setText("Fecha Inicio:");
@@ -78,6 +77,8 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
         jLabel4.setText("Fecha Alta:");
 
         jLabel5.setText("Cursos:");
+
+        jScrollPane2.setViewportView(treeCursos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,7 +92,7 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
                         .addGap(72, 72, 72)
                         .addComponent(btnConsultar)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
@@ -101,7 +102,7 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 361, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblFechaInicio)
                                     .addComponent(lblDescripcion)))
@@ -112,8 +113,8 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
                         .addGap(48, 48, 48)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(98, 98, 98))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,9 +142,10 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblFechaAlta)
-                            .addComponent(jLabel4)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(48, Short.MAX_VALUE))
+                            .addComponent(jLabel4))
+                        .addGap(0, 328, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
+                .addContainerGap())
         );
 
         pack();
@@ -166,11 +168,36 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
         lblFechaAlta.setText(detalle.getFechaAlta().toString());
         
         List<CursoResumen> cursos = detalle.getCursos();
-        String[] items = new String[cursos.size()];
-        for (int i=0;i<cursos.size();i++){
-            items[i] = cursos.get(i).toString();
+        
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode(detalle.getNombre());
+        Map<String, List<CursoResumen>> porInstituto = new LinkedHashMap<>();
+        for (CursoResumen curso : cursos){
+            String instituto = curso.getNombreInstituto();
+            //si no esta el instituto lo pongo como key nueva y le asocio la lista de cursos vacia
+            if (!porInstituto.containsKey(instituto)){
+                porInstituto.put(instituto, new ArrayList<>());
+            }
+            porInstituto.get(instituto).add(curso);
         }
-        lstCursos.setListData(items);
+        
+        for (Map.Entry<String, List<CursoResumen>> entry : porInstituto.entrySet()){
+            String nombreInstituto = entry.getKey();
+            List<CursoResumen> cursosInstituto = entry.getValue();
+            
+            DefaultMutableTreeNode instiNode = new DefaultMutableTreeNode(nombreInstituto);
+            for (CursoResumen curso: cursosInstituto){
+                DefaultMutableTreeNode cursoNode = new DefaultMutableTreeNode(curso.getNombre());
+                instiNode.add(cursoNode);
+            }
+            root.add(instiNode);
+            
+        }
+        DefaultTreeModel arbol = new DefaultTreeModel(root);
+        treeCursos.setModel(arbol);
+        
+        for (int i=0;i<treeCursos.getRowCount();i++){
+            treeCursos.expandRow(i);
+        }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
 
@@ -182,11 +209,11 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblDescripcion;
     private javax.swing.JLabel lblFechaAlta;
     private javax.swing.JLabel lblFechaFin;
     private javax.swing.JLabel lblFechaInicio;
-    private javax.swing.JList<String> lstCursos;
+    private javax.swing.JTree treeCursos;
     // End of variables declaration//GEN-END:variables
 }
