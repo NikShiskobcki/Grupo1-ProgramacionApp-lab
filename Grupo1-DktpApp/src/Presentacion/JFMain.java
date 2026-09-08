@@ -4,6 +4,7 @@ import Logica.controladores.Fabrica;
 import Logica.controladores.IControlador;
 import java.awt.Color;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 
 public class JFMain extends javax.swing.JFrame {
     
@@ -76,6 +77,8 @@ public class JFMain extends javax.swing.JFrame {
         institutionSeparator = new javax.swing.JSeparator();
         pnlMenuInstituciones = new javax.swing.JPanel();
         lblAltaInstituto = new javax.swing.JLabel();
+        lblCargarDatosPrueba = new javax.swing.JLabel();
+        separatorDatosPrueba = new javax.swing.JSeparator();
         pnlTopPanel = new javax.swing.JPanel();
         btnSalir = new javax.swing.JLabel();
         pnlCenterPanel = new javax.swing.JPanel();
@@ -431,6 +434,25 @@ public class JFMain extends javax.swing.JFrame {
         pnlMenuInstituciones.add(lblAltaInstituto);
 
         pnlOpcionesMenu.add(pnlMenuInstituciones);
+
+        lblCargarDatosPrueba.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblCargarDatosPrueba.setForeground(new java.awt.Color(206, 206, 206));
+        lblCargarDatosPrueba.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblCargarDatosPrueba.setText("Cargar datos");
+        lblCargarDatosPrueba.setBorder(javax.swing.BorderFactory.createEmptyBorder(7, 14, 7, 0));
+        lblCargarDatosPrueba.setMaximumSize(new java.awt.Dimension(32767, 40));
+        lblCargarDatosPrueba.setPreferredSize(new java.awt.Dimension(260, 40));
+        lblCargarDatosPrueba.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCargarDatosPruebaMouseClicked(evt);
+            }
+        });
+        pnlOpcionesMenu.add(lblCargarDatosPrueba);
+
+        separatorDatosPrueba.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 12, 1, 1));
+        separatorDatosPrueba.setMaximumSize(new java.awt.Dimension(32767, 1));
+        separatorDatosPrueba.setPreferredSize(new java.awt.Dimension(250, 1));
+        pnlOpcionesMenu.add(separatorDatosPrueba);
 
         pnlLeftPanel.add(pnlOpcionesMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 440));
 
@@ -914,6 +936,31 @@ ai.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
         abrirInternalFrame(new IFAgregarCursoAPrograma());
     }//GEN-LAST:event_lblAgregarCursoProgramaMouseClicked
 
+    private void lblCargarDatosPruebaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCargarDatosPruebaMouseClicked
+ 
+    try {
+        controlador.cargarDatosPrueba();
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Los datos de prueba fueron cargados correctamente.",
+                "Datos de prueba",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(
+                this,
+                "Ocurrió un error al cargar los datos de prueba:\n" + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+        );
+
+        e.printStackTrace();
+    }
+
+    }//GEN-LAST:event_lblCargarDatosPruebaMouseClicked
+
 
 
     public static void main(String args[]) {
@@ -942,6 +989,7 @@ ai.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
     private javax.swing.JLabel lblAltaEdicion;
     private javax.swing.JLabel lblAltaInstituto;
     private javax.swing.JLabel lblAltaUsuario;
+    private javax.swing.JLabel lblCargarDatosPrueba;
     private javax.swing.JLabel lblConsultaCurso;
     private javax.swing.JLabel lblConsultaEdicion;
     private javax.swing.JLabel lblConsultaPrograma;
@@ -969,6 +1017,7 @@ ai.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
     private javax.swing.JPanel pnlTab5;
     private javax.swing.JPanel pnlTopPanel;
     private javax.swing.JSeparator programsSeparator;
+    private javax.swing.JSeparator separatorDatosPrueba;
     private javax.swing.JTabbedPane tpOptionPages;
     private javax.swing.JSeparator usersSeparator;
     // End of variables declaration//GEN-END:variables

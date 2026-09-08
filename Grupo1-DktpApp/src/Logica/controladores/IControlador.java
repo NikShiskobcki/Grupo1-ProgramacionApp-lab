@@ -20,6 +20,7 @@ import java.util.List;
 
 public interface IControlador {
 
+    void cargarDatosPrueba();
     void altaInstituto(String nombre);
 
 
