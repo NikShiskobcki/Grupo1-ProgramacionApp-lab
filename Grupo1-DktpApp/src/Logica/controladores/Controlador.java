@@ -7,6 +7,7 @@ import Logica.DTO.DetalleProgramaFormacion;
 import Logica.DTO.DetalleUsuario;
 import Logica.DTO.UsuarioEdicion;
 import Logica.DTO.UsuarioResumen;
+import Logica.DatosPrueba.CargadorDatosPrueba;
 import Logica.Entidades.Docente;
 import Logica.Entidades.Estudiante;
 import Logica.Entidades.Instituto;
@@ -45,6 +46,7 @@ public class Controlador implements IControlador {
     private final ManejadorProgramaFormacion manejadorProgramaFormacion;
     private final ManejadorInscripcionEdicion manejadorInscripcionEdicion;
     private final ManejadorInscripcionPrograma manejadorInscripcionPrograma;
+    private CargadorDatosPrueba cargadorDatosPrueba;
 
     // Constructor privado para aplicar Singleton
     private Controlador() {
@@ -59,8 +61,19 @@ public class Controlador implements IControlador {
         manejadorProgramaFormacion = new ManejadorProgramaFormacion(emf);
         manejadorInscripcionEdicion = new ManejadorInscripcionEdicion(emf);
         manejadorInscripcionPrograma = new ManejadorInscripcionPrograma(emf);
+        
+        cargadorDatosPrueba = new CargadorDatosPrueba(
+        manejadorInstituto,
+        manejadorUsuario,
+        manejadorCurso,
+        manejadorEdicionCurso,
+        manejadorInscripcionEdicion,
+        manejadorProgramaFormacion
+        );
 
     }
+    
+  
 
     public static Controlador getInstance() {
 
@@ -338,4 +351,9 @@ public void modificarInscripcionEdicion(Long idInscripcion, LocalDate nuevaFecha
                 nombreInstituto
         );
     }
+    
+    @Override
+    public void cargarDatosPrueba() {
+    cargadorDatosPrueba.cargar();
+}
 }
