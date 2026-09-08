@@ -40,6 +40,8 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
+        lblConsultaPrograma = new javax.swing.JLabel();
         cbProgramas = new javax.swing.JComboBox<>();
         btnConsultar = new javax.swing.JButton();
         lblDescripcion = new javax.swing.JLabel();
@@ -80,10 +82,45 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
 
         jScrollPane2.setViewportView(treeCursos);
 
+        jPanel2.setBackground(new java.awt.Color(35, 71, 75));
+
+        lblConsultaPrograma.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblConsultaPrograma.setForeground(new java.awt.Color(255, 255, 255));
+        lblConsultaPrograma.setText("Consulta de Programa");
+        lblConsultaPrograma.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblConsultaProgramaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblConsultaProgramaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblConsultaProgramaMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblConsultaPrograma, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblConsultaPrograma, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,6 +156,7 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbProgramas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -200,6 +238,18 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
+    private void lblConsultaProgramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultaProgramaMouseClicked
+
+    }//GEN-LAST:event_lblConsultaProgramaMouseClicked
+
+    private void lblConsultaProgramaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultaProgramaMouseEntered
+
+    }//GEN-LAST:event_lblConsultaProgramaMouseEntered
+
+    private void lblConsultaProgramaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultaProgramaMouseExited
+
+    }//GEN-LAST:event_lblConsultaProgramaMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsultar;
@@ -209,6 +259,8 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblConsultaPrograma;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblDescripcion;
     private javax.swing.JLabel lblFechaAlta;

@@ -45,6 +45,8 @@ public class IFAgregarCursoAPrograma extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
+        lblAgregarCursoPrograma = new javax.swing.JLabel();
         cbProgramas = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -62,10 +64,45 @@ public class IFAgregarCursoAPrograma extends javax.swing.JInternalFrame {
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(this::btnAgregarActionPerformed);
 
+        jPanel2.setBackground(new java.awt.Color(35, 71, 75));
+
+        lblAgregarCursoPrograma.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblAgregarCursoPrograma.setForeground(new java.awt.Color(255, 255, 255));
+        lblAgregarCursoPrograma.setText("Agregar Curso a Programa");
+        lblAgregarCursoPrograma.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAgregarCursoProgramaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblAgregarCursoProgramaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblAgregarCursoProgramaMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblAgregarCursoPrograma, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblAgregarCursoPrograma, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(cbCursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -87,6 +124,7 @@ public class IFAgregarCursoAPrograma extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -121,6 +159,18 @@ public class IFAgregarCursoAPrograma extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    private void lblAgregarCursoProgramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarCursoProgramaMouseClicked
+
+    }//GEN-LAST:event_lblAgregarCursoProgramaMouseClicked
+
+    private void lblAgregarCursoProgramaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarCursoProgramaMouseEntered
+
+    }//GEN-LAST:event_lblAgregarCursoProgramaMouseEntered
+
+    private void lblAgregarCursoProgramaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarCursoProgramaMouseExited
+
+    }//GEN-LAST:event_lblAgregarCursoProgramaMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
@@ -128,5 +178,7 @@ public class IFAgregarCursoAPrograma extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbProgramas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblAgregarCursoPrograma;
     // End of variables declaration//GEN-END:variables
 }
