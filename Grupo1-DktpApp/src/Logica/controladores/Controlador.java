@@ -1,5 +1,8 @@
 package Logica.controladores;
 
+import Logica.DTO.DetalleCurso;
+import Logica.DTO.DetalleEdicionCurso;
+
 import Logica.DTO.DetalleProgramaFormacion;
 import Logica.DTO.DetalleUsuario;
 import Logica.DTO.UsuarioEdicion;
@@ -9,6 +12,7 @@ import Logica.Entidades.Estudiante;
 import Logica.Entidades.Instituto;
 import Logica.Entidades.Curso;
 import Logica.Entidades.EdicionCurso;
+import Logica.Entidades.InscripcionEdicion;
 import Logica.Entidades.ProgramaFormacion;
 
 import Persistencia.ManejadorCurso;
@@ -85,6 +89,11 @@ public class Controlador implements IControlador {
     @Override
     public List<Curso> listarCursos() {
         return manejadorCurso.listarCursos();
+    }
+    
+       @Override
+    public DetalleCurso consultarCurso(String nombreCurso) {
+        return manejadorCurso.buscarDetalleCurso(nombreCurso);
     }
 
     @Override
@@ -246,6 +255,20 @@ public class Controlador implements IControlador {
         return manejadorEdicionCurso.buscarEdicionCompleta(nombre);
     }
 
+  @Override
+    public DetalleEdicionCurso consultarEdicion(String nombreEdicion) {
+        return manejadorEdicionCurso.buscarDetalleEdicion(nombreEdicion);
+    }
+    
+    @Override
+    public List<EdicionCurso> listarEdicionesVigentesPorCurso(String nombreCurso) {
+    return manejadorEdicionCurso.listarEdicionesVigentesPorCurso(nombreCurso);
+}
+    
+    @Override
+    public List<Estudiante> listarEstudiantes() {
+    return manejadorUsuario.listarEstudiantes();
+    }
 
     // =========================
     // CONSULTA DE USUARIO
@@ -260,7 +283,39 @@ public class Controlador implements IControlador {
     public DetalleUsuario consultarUsuario(String nickname) {
         return manejadorUsuario.buscarDetalleUsuario(nickname);
     }
+    
+    @Override
+    public InscripcionEdicion buscarInscripcionEdicion (String nicknameEstudiante,
+        String nombreEdicion) {
+        
+        return manejadorInscripcionEdicion.buscarInscripcion(nicknameEstudiante,nombreEdicion);
+}
+    @Override
+public void inscribirEstudianteEdicion(
+        String nicknameEstudiante,
+        String nombreEdicion,
+        LocalDate fechaInscripcion) {
 
+    Estudiante estudiante =
+            manejadorUsuario.buscarEstudiante(nicknameEstudiante);
+
+    EdicionCurso edicion =
+            manejadorEdicionCurso.buscarPorNombre(nombreEdicion);
+
+    InscripcionEdicion inscripcion =
+            new InscripcionEdicion(
+                    fechaInscripcion,
+                    estudiante,
+                    edicion
+            );
+
+    manejadorInscripcionEdicion.addInscripcion(inscripcion);
+}
+    @Override
+public void modificarInscripcionEdicion(Long idInscripcion, LocalDate nuevaFecha) {
+
+    manejadorInscripcionEdicion.modificarInscripcion(idInscripcion,nuevaFecha);
+}
 
     // =========================
     // MODIFICAR USUARIO

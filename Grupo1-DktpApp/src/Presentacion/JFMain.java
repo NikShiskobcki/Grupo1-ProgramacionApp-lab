@@ -15,7 +15,7 @@ public class JFMain extends javax.swing.JFrame {
         controlador= Fabrica.getInstance().getIControlador(); 
         
         //Oculte la tpOptions para que tengamos un solo dpPrincipal!!!!
-        //tpOptionPages.setVisible(false);
+        tpOptionPages.setVisible(false);
         
         pnlMenuUsuarios.setVisible(false);
         pnlMenuCursos.setVisible(false);
@@ -234,6 +234,11 @@ public class JFMain extends javax.swing.JFrame {
         lblConsultaCurso.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblConsultaCurso.setText("Consulta de Curso");
         lblConsultaCurso.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        lblConsultaCurso.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblConsultaCursoMouseClicked(evt);
+            }
+        });
         pnlMenuCursos.add(lblConsultaCurso);
 
         pnlOpcionesMenu.add(pnlMenuCursos);
@@ -288,6 +293,11 @@ public class JFMain extends javax.swing.JFrame {
         lblConsultaEdicion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblConsultaEdicion.setText("Consulta de Edicion");
         lblConsultaEdicion.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        lblConsultaEdicion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblConsultaEdicionMouseClicked(evt);
+            }
+        });
         pnlMenuEdiciones.add(lblConsultaEdicion);
 
         lblInscripcionEdicion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -295,6 +305,11 @@ public class JFMain extends javax.swing.JFrame {
         lblInscripcionEdicion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblInscripcionEdicion.setText("Inscripción a Edición ");
         lblInscripcionEdicion.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        lblInscripcionEdicion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblInscripcionEdicionMouseClicked(evt);
+            }
+        });
         pnlMenuEdiciones.add(lblInscripcionEdicion);
 
         pnlOpcionesMenu.add(pnlMenuEdiciones);
@@ -349,6 +364,11 @@ public class JFMain extends javax.swing.JFrame {
         lblAgregarCursoPrograma.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblAgregarCursoPrograma.setText("Agregar Curso a Programa");
         lblAgregarCursoPrograma.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        lblAgregarCursoPrograma.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAgregarCursoProgramaMouseClicked(evt);
+            }
+        });
         pnlMenuProgramas.add(lblAgregarCursoPrograma);
 
         lblConsultaPrograma.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -876,6 +896,24 @@ ai.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
     private void lblConsultaProgramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultaProgramaMouseClicked
         abrirInternalFrame(new IFConsultaPrograma());
     }//GEN-LAST:event_lblConsultaProgramaMouseClicked
+
+    private void lblConsultaCursoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultaCursoMouseClicked
+        abrirInternalFrame(new IFConsultaCurso());
+    }//GEN-LAST:event_lblConsultaCursoMouseClicked
+
+    private void lblConsultaEdicionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultaEdicionMouseClicked
+         abrirInternalFrame(new IFConsultaEdicionCurso(controlador));
+    }//GEN-LAST:event_lblConsultaEdicionMouseClicked
+
+    private void lblInscripcionEdicionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInscripcionEdicionMouseClicked
+        abrirInternalFrame(new IFInscripcionEdicionCurso(controlador));
+    }//GEN-LAST:event_lblInscripcionEdicionMouseClicked
+
+
+    private void lblAgregarCursoProgramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarCursoProgramaMouseClicked
+        abrirInternalFrame(new IFAgregarCursoAPrograma());
+    }//GEN-LAST:event_lblAgregarCursoProgramaMouseClicked
+
 
 
     public static void main(String args[]) {
