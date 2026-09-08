@@ -111,7 +111,7 @@ public class IFConsultaCurso extends javax.swing.JInternalFrame {
 
         lblInsitututo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblInsitututo.setForeground(new java.awt.Color(206, 206, 206));
-        lblInsitututo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\GitHub\\Grupo1-ProgramacionApp-lab\\img\\cursos_white_32px.png")); // NOI18N
+        lblInsitututo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/cursos_white_32px.png"))); // NOI18N
         lblInsitututo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblInsitututoMouseClicked(evt);

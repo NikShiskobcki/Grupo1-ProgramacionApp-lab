@@ -179,6 +179,8 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
+        lblAltaEdicion = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         cmbInstituto = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
@@ -234,10 +236,28 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
 
         lblCupo.setText("Cupo (opcional):");
 
+        txtNombreEdicion.setBackground(new java.awt.Color(242, 242, 242));
+        txtNombreEdicion.setForeground(new java.awt.Color(153, 153, 153));
+        txtNombreEdicion.setText("Ingrese nombre de la edicion");
+        txtNombreEdicion.setBorder(null);
         txtNombreEdicion.setPreferredSize(new java.awt.Dimension(220, 26));
+        txtNombreEdicion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtNombreEdicionMousePressed(evt);
+            }
+        });
         txtNombreEdicion.addActionListener(this::txtNombreEdicionActionPerformed);
 
+        txtCupo.setBackground(new java.awt.Color(242, 242, 242));
+        txtCupo.setForeground(new java.awt.Color(153, 153, 153));
+        txtCupo.setText("Cupo");
+        txtCupo.setBorder(null);
         txtCupo.setPreferredSize(new java.awt.Dimension(80, 26));
+        txtCupo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtCupoMousePressed(evt);
+            }
+        });
 
         btnAceptar.setText("Aceptar");
         btnAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -247,10 +267,45 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
         btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancelar.addActionListener(this::btnCancelarActionPerformed);
 
+        jPanel2.setBackground(new java.awt.Color(35, 71, 75));
+
+        lblAltaEdicion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblAltaEdicion.setForeground(new java.awt.Color(255, 255, 255));
+        lblAltaEdicion.setText("Alta de Edición de Curso");
+        lblAltaEdicion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAltaEdicionMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblAltaEdicionMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblAltaEdicionMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblAltaEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblAltaEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,6 +363,7 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -359,6 +415,20 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_cmbCursoActionPerformed
 
+    private void txtNombreEdicionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreEdicionMousePressed
+        txtNombreEdicion.setForeground(new java.awt.Color(0,0,0));
+        if(txtNombreEdicion.getText().equals("Ingrese nombre de la edicion")){
+            txtNombreEdicion.setText("");
+        }
+    }//GEN-LAST:event_txtNombreEdicionMousePressed
+
+    private void txtCupoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCupoMousePressed
+        txtCupo.setForeground(new java.awt.Color(0,0,0));
+        if(txtCupo.getText().equals("Cupo")){
+            txtCupo.setText("");
+        }
+    }//GEN-LAST:event_txtCupoMousePressed
+
     private void txtNombreEdicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreEdicionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreEdicionActionPerformed
@@ -369,7 +439,7 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
     // Validacion nombre de la edición
     String nombre = txtNombreEdicion.getText().trim();
 
-    if (nombre.isEmpty()) {
+    if (nombre.isEmpty() || nombre.equals("Ingrese nombre de la edicion")) {
         JOptionPane.showMessageDialog(
                 this,
                 "Debe ingresar un nombre para la edición.",
@@ -453,6 +523,9 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
     Integer cupo = null;
 
     String textoCupo = txtCupo.getText().trim();
+    if (txtCupo.getText().equals("Cupo")) {
+        textoCupo = "";
+    }
 
     if (!textoCupo.isEmpty()) {
         try {
@@ -539,6 +612,18 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
          dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void lblAltaEdicionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaEdicionMouseClicked
+
+    }//GEN-LAST:event_lblAltaEdicionMouseClicked
+
+    private void lblAltaEdicionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaEdicionMouseEntered
+
+    }//GEN-LAST:event_lblAltaEdicionMouseEntered
+
+    private void lblAltaEdicionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaEdicionMouseExited
+
+    }//GEN-LAST:event_lblAltaEdicionMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
@@ -548,6 +633,8 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblAltaEdicion;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCupo;
     private javax.swing.JLabel lblFechaFin;

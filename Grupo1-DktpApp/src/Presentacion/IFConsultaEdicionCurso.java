@@ -169,6 +169,8 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
+        lblConsultaEdicion = new javax.swing.JLabel();
         cmbInstituto = new javax.swing.JComboBox<>();
         cmbCurso = new javax.swing.JComboBox<>();
         cmbEdicion = new javax.swing.JComboBox<>();
@@ -250,10 +252,45 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
         btnCerrar.setText("Cerrar");
         btnCerrar.addActionListener(this::btnCerrarActionPerformed);
 
+        jPanel2.setBackground(new java.awt.Color(35, 71, 75));
+
+        lblConsultaEdicion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblConsultaEdicion.setForeground(new java.awt.Color(255, 255, 255));
+        lblConsultaEdicion.setText("Consulta de Edición de Curso");
+        lblConsultaEdicion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblConsultaEdicionMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblConsultaEdicionMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblConsultaEdicionMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblConsultaEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblConsultaEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,6 +332,7 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -359,6 +397,18 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
         dispose(); 
     }//GEN-LAST:event_btnCerrarActionPerformed
 
+    private void lblConsultaEdicionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultaEdicionMouseClicked
+
+    }//GEN-LAST:event_lblConsultaEdicionMouseClicked
+
+    private void lblConsultaEdicionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultaEdicionMouseEntered
+
+    }//GEN-LAST:event_lblConsultaEdicionMouseEntered
+
+    private void lblConsultaEdicionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultaEdicionMouseExited
+
+    }//GEN-LAST:event_lblConsultaEdicionMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
@@ -375,6 +425,8 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblConsultaEdicion;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> lstDocentes;
     private javax.swing.JTextField txtCupo;

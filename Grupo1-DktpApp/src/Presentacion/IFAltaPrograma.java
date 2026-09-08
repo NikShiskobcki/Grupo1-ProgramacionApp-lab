@@ -30,6 +30,8 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
+        lblAltaPrograma = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -49,8 +51,46 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Fecha Fin");
 
+        txtNombre.setBackground(new java.awt.Color(242, 242, 242));
+        txtNombre.setForeground(new java.awt.Color(153, 153, 153));
+        txtNombre.setText("Ingrese nombre del programa");
+        txtNombre.setBorder(null);
+        txtNombre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtNombreMousePressed(evt);
+            }
+        });
         txtNombre.addActionListener(this::txtNombreActionPerformed);
 
+        txtDescripcion.setBackground(new java.awt.Color(242, 242, 242));
+        txtDescripcion.setForeground(new java.awt.Color(153, 153, 153));
+        txtDescripcion.setText("Ingrese descripcion");
+        txtDescripcion.setBorder(null);
+        txtDescripcion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtDescripcionMousePressed(evt);
+            }
+        });
+
+        txtFInicio.setBackground(new java.awt.Color(242, 242, 242));
+        txtFInicio.setForeground(new java.awt.Color(153, 153, 153));
+        txtFInicio.setText("dd/mm/aaaa");
+        txtFInicio.setBorder(null);
+        txtFInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtFInicioMousePressed(evt);
+            }
+        });
+
+        txtFFin.setBackground(new java.awt.Color(242, 242, 242));
+        txtFFin.setForeground(new java.awt.Color(153, 153, 153));
+        txtFFin.setText("dd/mm/aaaa");
+        txtFFin.setBorder(null);
+        txtFFin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtFFinMousePressed(evt);
+            }
+        });
         txtFFin.addActionListener(this::txtFFinActionPerformed);
 
         btnCancelar.setText("Cancelar");
@@ -59,10 +99,45 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
         btnAceptar.setText("Aceptar");
         btnAceptar.addActionListener(this::btnAceptarActionPerformed);
 
+        jPanel2.setBackground(new java.awt.Color(35, 71, 75));
+
+        lblAltaPrograma.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblAltaPrograma.setForeground(new java.awt.Color(255, 255, 255));
+        lblAltaPrograma.setText("Alta de Programa");
+        lblAltaPrograma.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAltaProgramaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblAltaProgramaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblAltaProgramaMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblAltaPrograma, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblAltaPrograma, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -89,6 +164,7 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -115,6 +191,34 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtNombreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreMousePressed
+        txtNombre.setForeground(new java.awt.Color(0,0,0));
+        if(txtNombre.getText().equals("Ingrese nombre del programa")){
+            txtNombre.setText("");
+        }
+    }//GEN-LAST:event_txtNombreMousePressed
+
+    private void txtDescripcionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDescripcionMousePressed
+        txtDescripcion.setForeground(new java.awt.Color(0,0,0));
+        if(txtDescripcion.getText().equals("Ingrese descripcion")){
+            txtDescripcion.setText("");
+        }
+    }//GEN-LAST:event_txtDescripcionMousePressed
+
+    private void txtFInicioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFInicioMousePressed
+        txtFInicio.setForeground(new java.awt.Color(0,0,0));
+        if(txtFInicio.getText().equals("dd/mm/aaaa")){
+            txtFInicio.setText("");
+        }
+    }//GEN-LAST:event_txtFInicioMousePressed
+
+    private void txtFFinMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFFinMousePressed
+        txtFFin.setForeground(new java.awt.Color(0,0,0));
+        if(txtFFin.getText().equals("dd/mm/aaaa")){
+            txtFFin.setText("");
+        }
+    }//GEN-LAST:event_txtFFinMousePressed
+
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
@@ -124,7 +228,7 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtFFinActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        if (txtNombre.getText().trim().isEmpty() || txtDescripcion.getText().trim().isEmpty() || txtFInicio.getText().trim().isEmpty() || txtFFin.getText().trim().isEmpty()){
+        if (txtNombre.getText().trim().isEmpty() || txtNombre.getText().equals("Ingrese nombre del programa") || txtDescripcion.getText().trim().isEmpty() || txtDescripcion.getText().equals("Ingrese descripcion") || txtFInicio.getText().trim().isEmpty() || txtFInicio.getText().equals("dd/mm/aaaa") || txtFFin.getText().trim().isEmpty() || txtFFin.getText().equals("dd/mm/aaaa")){
             JOptionPane.showMessageDialog(this, "Complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -168,6 +272,18 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void lblAltaProgramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaProgramaMouseClicked
+
+    }//GEN-LAST:event_lblAltaProgramaMouseClicked
+
+    private void lblAltaProgramaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaProgramaMouseEntered
+
+    }//GEN-LAST:event_lblAltaProgramaMouseEntered
+
+    private void lblAltaProgramaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaProgramaMouseExited
+
+    }//GEN-LAST:event_lblAltaProgramaMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
@@ -176,6 +292,8 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblAltaPrograma;
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtFFin;
     private javax.swing.JTextField txtFInicio;
