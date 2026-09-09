@@ -104,7 +104,7 @@ public class JFMain extends javax.swing.JFrame {
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(10, 10));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1050, 700));
+        setPreferredSize(new java.awt.Dimension(1150, 700));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlLeftPanel.setBackground(new java.awt.Color(47, 93, 98));
