@@ -1,9 +1,15 @@
 package Persistencia;
 
+import Logica.DTO.CursoResumen;
+import Logica.DTO.DetalleProgramaFormacion;
+import Logica.Entidades.Curso;
 import Logica.Entidades.ProgramaFormacion;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import Logica.excepciones.*;
 
 public class ManejadorProgramaFormacion {
 
@@ -33,7 +39,64 @@ public class ManejadorProgramaFormacion {
             if (t.isActive()){
                 t.rollback();
             }
-            throw e;
+            if (NombreDuplicadoException.esNombreDuplicado(e)){
+                throw new NombreDuplicadoException("Ya existe un programa con ese nombre", e);
+            } else{
+                throw new PersistenciaException("No se pudo guardar el programa", e);
+            }
+        }finally{
+            em.close();
+        }
+    }
+    
+    public void agregarCursoAPrograma(String nombrePrograma, String nombreCurso){
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction t = em.getTransaction();
+        try{
+            t.begin();
+            ProgramaFormacion programa = em.find(ProgramaFormacion.class,nombrePrograma);
+            Curso curso = em.find(Curso.class, nombreCurso);
+            if (programa != null
+                && curso != null
+                && !programa.getCursos().contains(curso)){
+            programa.getCursos().add(curso);}
+            t.commit();
+        }catch (Exception e){
+            if (t.isActive()){
+                t.rollback();
+            }
+            throw new PersistenciaException("Error al agregar el curso al programa", e);
+        }finally{
+            em.close();
+        }
+    }
+    
+    public List<ProgramaFormacion> listarProgramas(){
+        EntityManager em = emf.createEntityManager();
+        try{
+            return em.createQuery("SELECT p FROM ProgramaFormacion p ORDER BY p.nombre", ProgramaFormacion.class).getResultList();
+        }finally {
+            em.close();
+        }
+    }
+    
+    public DetalleProgramaFormacion buscarDetallePrograma(String nombre){
+        EntityManager em = emf.createEntityManager();
+        try{
+            ProgramaFormacion programa = em.find(ProgramaFormacion.class, nombre);
+            if (programa == null) return null;
+            List<CursoResumen> cursos = new ArrayList<>();
+            for (Curso curso : programa.getCursos()){
+                cursos.add(new CursoResumen(curso.getNombre(), curso.getInstituto().getNombre()));
+            }
+            return new DetalleProgramaFormacion(
+                programa.getNombre(),
+                programa.getDescripcion(),
+                programa.getFechaInicio(),
+                programa.getFechaFin(),
+                programa.getFechaAlta(),
+                cursos
+            );
         }finally{
             em.close();
         }

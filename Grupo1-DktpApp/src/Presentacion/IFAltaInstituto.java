@@ -26,6 +26,8 @@ public class IFAltaInstituto extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
+        lblAltaInstituto = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         txtNombreInstituto = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -33,6 +35,15 @@ public class IFAltaInstituto extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Nombre del Instituto");
 
+        txtNombreInstituto.setBackground(new java.awt.Color(242, 242, 242));
+        txtNombreInstituto.setForeground(new java.awt.Color(153, 153, 153));
+        txtNombreInstituto.setText("Ingrese nombre del instituto");
+        txtNombreInstituto.setBorder(null);
+        txtNombreInstituto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtNombreInstitutoMousePressed(evt);
+            }
+        });
         txtNombreInstituto.addActionListener(this::txtNombreInstitutoActionPerformed);
 
         jButton1.setText("Cancelar");
@@ -41,10 +52,45 @@ public class IFAltaInstituto extends javax.swing.JInternalFrame {
         jButton2.setText("Aceptar");
         jButton2.addActionListener(this::jButton2ActionPerformed);
 
+        jPanel2.setBackground(new java.awt.Color(35, 71, 75));
+
+        lblAltaInstituto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblAltaInstituto.setForeground(new java.awt.Color(255, 255, 255));
+        lblAltaInstituto.setText("Alta de Instituto");
+        lblAltaInstituto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAltaInstitutoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblAltaInstitutoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblAltaInstitutoMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblAltaInstituto, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblAltaInstituto, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(75, 75, 75)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -63,6 +109,7 @@ public class IFAltaInstituto extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(98, 98, 98)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -77,6 +124,13 @@ public class IFAltaInstituto extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtNombreInstitutoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreInstitutoMousePressed
+        txtNombreInstituto.setForeground(new java.awt.Color(0,0,0));
+        if(txtNombreInstituto.getText().equals("Ingrese nombre del instituto")){
+            txtNombreInstituto.setText("");
+        }
+    }//GEN-LAST:event_txtNombreInstitutoMousePressed
+
     private void txtNombreInstitutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreInstitutoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreInstitutoActionPerformed
@@ -85,10 +139,21 @@ public class IFAltaInstituto extends javax.swing.JInternalFrame {
         this.dispose(); // Cierra la ventana
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void lblAltaInstitutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaInstitutoMouseClicked
+
+    }//GEN-LAST:event_lblAltaInstitutoMouseClicked
+
+    private void lblAltaInstitutoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaInstitutoMouseEntered
+
+    }//GEN-LAST:event_lblAltaInstitutoMouseEntered
+
+    private void lblAltaInstitutoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaInstitutoMouseExited
+
+    }//GEN-LAST:event_lblAltaInstitutoMouseExited
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String nombre = txtNombreInstituto.getText().trim();
-
-        if (nombre.isEmpty()) {
+        if (nombre.isEmpty() || nombre.equals("Ingrese nombre del instituto")) {
             javax.swing.JOptionPane.showMessageDialog(this,
                 "Debe ingresar el nombre del instituto.",
                 "Campo Requerido",
@@ -126,6 +191,8 @@ public class IFAltaInstituto extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblAltaInstituto;
     private javax.swing.JTextField txtNombreInstituto;
     // End of variables declaration//GEN-END:variables
 }

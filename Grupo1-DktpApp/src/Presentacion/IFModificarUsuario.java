@@ -1,8 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
+
 package Presentacion;
+
+import Logica.DTO.UsuarioEdicion;
+import Logica.DTO.UsuarioResumen;
+import Logica.controladores.Fabrica;
+import Logica.controladores.IControlador;
+import java.awt.Color;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -10,11 +20,99 @@ package Presentacion;
  */
 public class IFModificarUsuario extends javax.swing.JInternalFrame {
 
+    private List<UsuarioResumen> usuariosCache = new ArrayList<>();
+
+    /** Datos del usuario actualmente en edición (null si no hay selección). */
+    private UsuarioEdicion usuarioSeleccionado;
+
     /**
      * Creates new form IFModificarUsuario
      */
     public IFModificarUsuario() {
         initComponents();
+        cargarUsuarios();
+    }
+
+    private void cargarUsuarios() {
+        IControlador ic = Fabrica.getInstance().getIControlador();
+        usuariosCache = ic.listarUsuarios();
+
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for (UsuarioResumen u : usuariosCache) {
+            model.addElement(u.toString());
+        }
+        lstUsuarios.setModel(model);
+        limpiarFormulario();
+    }
+
+    /**
+     * Deja el formulario en su estado inicial: sin usuario seleccionado y
+     * con los campos de edición deshabilitados.
+     */
+    private void limpiarFormulario() {
+        usuarioSeleccionado = null;
+
+        lblInfoNickname.setText("Nickname: —");
+        lblInfoEmail.setText("Correo electrónico: —");
+        lblInfoTipo.setText("Tipo de usuario: —");
+
+        tfNombre.setText("Seleccione un usuario");
+        tfApellido.setText("Seleccione un usuario");
+        tfDia.setText("día");
+        tfMes.setText("mes");
+        tfAnio.setText("año");
+
+        tfNombre.setEnabled(false);
+        tfApellido.setEnabled(false);
+        tfDia.setEnabled(false);
+        tfMes.setEnabled(false);
+        tfAnio.setEnabled(false);
+        cbInstitutos.setModel(new DefaultComboBoxModel<>());
+        cbInstitutos.setEnabled(false);
+        btnGuardar.setEnabled(false);
+    }
+
+    /**
+     * Carga los datos del usuario elegido en los campos editables.
+     */
+    private void mostrarUsuarioParaEditar(UsuarioEdicion datos) {
+        usuarioSeleccionado = datos;
+
+        lblInfoNickname.setText("Nickname: " + datos.getNickname());
+        lblInfoEmail.setText("Correo electrónico: " + datos.getEmail());
+        lblInfoTipo.setText("Tipo de usuario: " + datos.getTipoUsuario());
+
+        tfNombre.setForeground(new Color(0, 0, 0));
+        tfNombre.setText(datos.getNombre());
+        tfApellido.setForeground(new Color(0, 0, 0));
+        tfApellido.setText(datos.getApellido());
+
+        LocalDate fecha = datos.getFechaNacimiento();
+        tfDia.setForeground(new Color(0, 0, 0));
+        tfDia.setText(String.valueOf(fecha.getDayOfMonth()));
+        tfMes.setForeground(new Color(0, 0, 0));
+        tfMes.setText(String.valueOf(fecha.getMonthValue()));
+        tfAnio.setForeground(new Color(0, 0, 0));
+        tfAnio.setText(String.valueOf(fecha.getYear()));
+
+        tfNombre.setEnabled(true);
+        tfApellido.setEnabled(true);
+        tfDia.setEnabled(true);
+        tfMes.setEnabled(true);
+        tfAnio.setEnabled(true);
+        btnGuardar.setEnabled(true);
+
+        boolean esDocente = "Docente".equals(datos.getTipoUsuario());
+        if (esDocente) {
+            IControlador ic = Fabrica.getInstance().getIControlador();
+            List<String> nombresInstitutos = ic.listarNombresInstitutos();
+            cbInstitutos.setModel(new DefaultComboBoxModel<>(nombresInstitutos.toArray(new String[0])));
+            cbInstitutos.setSelectedItem(datos.getInstituto());
+            cbInstitutos.setEnabled(true);
+        } else {
+            cbInstitutos.setModel(new DefaultComboBoxModel<>());
+            cbInstitutos.setEnabled(false);
+        }
     }
 
     /**
@@ -29,7 +127,29 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         lblUsuarios = new javax.swing.JLabel();
         lblUsuarios1 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lblListaUsuarios = new javax.swing.JLabel();
+        jScrollPaneUsuarios = new javax.swing.JScrollPane();
+        lstUsuarios = new javax.swing.JList<>();
+        lblInfoNickname = new javax.swing.JLabel();
+        lblInfoEmail = new javax.swing.JLabel();
+        lblInfoTipo = new javax.swing.JLabel();
+        lblNombreCaption = new javax.swing.JLabel();
+        tfNombre = new javax.swing.JTextField();
+        lblApellidoCaption = new javax.swing.JLabel();
+        tfApellido = new javax.swing.JTextField();
+        lblFechaCaption = new javax.swing.JLabel();
+        tfDia = new javax.swing.JTextField();
+        tfMes = new javax.swing.JTextField();
+        tfAnio = new javax.swing.JTextField();
+        lblInstitutoCaption = new javax.swing.JLabel();
+        cbInstitutos = new javax.swing.JComboBox();
+        btnGuardar = new javax.swing.JButton();
+
+        setBorder(null);
+        setMinimumSize(new java.awt.Dimension(910, 640));
+        setPreferredSize(new java.awt.Dimension(910, 700));
+        setVisible(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(35, 71, 75));
 
@@ -50,7 +170,7 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
 
         lblUsuarios1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblUsuarios1.setForeground(new java.awt.Color(255, 255, 255));
-        lblUsuarios1.setText("Alta usuario");
+        lblUsuarios1.setText("Modificar usuario");
         lblUsuarios1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblUsuarios1MouseClicked(evt);
@@ -63,11 +183,6 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("X");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -76,10 +191,8 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(lblUsuarios)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 311, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88))
+                .addComponent(lblUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(740, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,23 +200,101 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 298, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, 50));
+
+        lblListaUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblListaUsuarios.setForeground(new java.awt.Color(35, 71, 75));
+        lblListaUsuarios.setText("Usuarios registrados");
+        getContentPane().add(lblListaUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 65, 280, 25));
+
+        lstUsuarios.addListSelectionListener(this::lstUsuariosValueChanged);
+        jScrollPaneUsuarios.setViewportView(lstUsuarios);
+
+        getContentPane().add(jScrollPaneUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 280, 330));
+
+        lblInfoNickname.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lblInfoNickname.setForeground(new java.awt.Color(35, 71, 75));
+        lblInfoNickname.setText("Nickname: —");
+        getContentPane().add(lblInfoNickname, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 65, 530, 20));
+
+        lblInfoEmail.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lblInfoEmail.setForeground(new java.awt.Color(35, 71, 75));
+        lblInfoEmail.setText("Correo electrónico: —");
+        getContentPane().add(lblInfoEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 530, 20));
+
+        lblInfoTipo.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lblInfoTipo.setForeground(new java.awt.Color(35, 71, 75));
+        lblInfoTipo.setText("Tipo de usuario: —");
+        getContentPane().add(lblInfoTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 115, 530, 20));
+
+        lblNombreCaption.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblNombreCaption.setForeground(new java.awt.Color(35, 71, 75));
+        lblNombreCaption.setText("Nombre");
+        getContentPane().add(lblNombreCaption, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 300, 20));
+
+        tfNombre.setBackground(new java.awt.Color(242, 242, 242));
+        tfNombre.setForeground(new java.awt.Color(153, 153, 153));
+        tfNombre.setText("Seleccione un usuario");
+        tfNombre.setBorder(null);
+        tfNombre.setEnabled(false);
+        getContentPane().add(tfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 172, 300, 30));
+
+        lblApellidoCaption.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblApellidoCaption.setForeground(new java.awt.Color(35, 71, 75));
+        lblApellidoCaption.setText("Apellido");
+        getContentPane().add(lblApellidoCaption, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, 300, 20));
+
+        tfApellido.setBackground(new java.awt.Color(242, 242, 242));
+        tfApellido.setForeground(new java.awt.Color(153, 153, 153));
+        tfApellido.setText("Seleccione un usuario");
+        tfApellido.setBorder(null);
+        tfApellido.setEnabled(false);
+        getContentPane().add(tfApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, 300, 30));
+
+        lblFechaCaption.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblFechaCaption.setForeground(new java.awt.Color(35, 71, 75));
+        lblFechaCaption.setText("Fecha de nacimiento (día / mes / año)");
+        getContentPane().add(lblFechaCaption, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 250, 400, 20));
+
+        tfDia.setBackground(new java.awt.Color(242, 242, 242));
+        tfDia.setForeground(new java.awt.Color(153, 153, 153));
+        tfDia.setText("día");
+        tfDia.setBorder(null);
+        tfDia.setEnabled(false);
+        getContentPane().add(tfDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 70, 30));
+
+        tfMes.setBackground(new java.awt.Color(242, 242, 242));
+        tfMes.setForeground(new java.awt.Color(153, 153, 153));
+        tfMes.setText("mes");
+        tfMes.setBorder(null);
+        tfMes.setEnabled(false);
+        getContentPane().add(tfMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 270, 70, 30));
+
+        tfAnio.setBackground(new java.awt.Color(242, 242, 242));
+        tfAnio.setForeground(new java.awt.Color(153, 153, 153));
+        tfAnio.setText("año");
+        tfAnio.setBorder(null);
+        tfAnio.setEnabled(false);
+        getContentPane().add(tfAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 270, 90, 30));
+
+        lblInstitutoCaption.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblInstitutoCaption.setForeground(new java.awt.Color(35, 71, 75));
+        lblInstitutoCaption.setText("Instituto (solo Docentes)");
+        getContentPane().add(lblInstitutoCaption, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 300, 300, 20));
+
+        cbInstitutos.setEnabled(false);
+        getContentPane().add(cbInstitutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 330, 300, 30));
+
+        btnGuardar.setBackground(new java.awt.Color(35, 71, 75));
+        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardar.setText("Guardar cambios");
+        btnGuardar.setEnabled(false);
+        btnGuardar.addActionListener(this::btnGuardarActionPerformed);
+        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 380, 220, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -132,11 +323,128 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblUsuarios1MouseExited
 
+    private void lstUsuariosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstUsuariosValueChanged
+        if (evt.getValueIsAdjusting()) {
+            return;
+        }
+
+        int index = lstUsuarios.getSelectedIndex();
+        if (index < 0 || index >= usuariosCache.size()) {
+            limpiarFormulario();
+            return;
+        }
+
+        String nickname = usuariosCache.get(index).getNickname();
+        IControlador ic = Fabrica.getInstance().getIControlador();
+
+        try {
+            UsuarioEdicion datos = ic.buscarUsuarioParaEditar(nickname);
+            if (datos == null) {
+                JOptionPane.showMessageDialog(this, "No se encontró información para el usuario seleccionado.",
+                        "Error", JOptionPane.WARNING_MESSAGE);
+                limpiarFormulario();
+                return;
+            }
+            mostrarUsuarioParaEditar(datos);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(
+            this, "Ocurrió un error al consultar el usuario: " + ex.getMessage(),
+            "Error", JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }//GEN-LAST:event_lstUsuariosValueChanged
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        if (usuarioSeleccionado == null) {
+            return;
+        }
+
+        // Campos obligatorios completos
+        if (tfNombre.getText().trim().isEmpty() || tfApellido.getText().trim().isEmpty()
+                || tfDia.getText().trim().isEmpty() || tfDia.getText().equals("día")
+                || tfMes.getText().trim().isEmpty() || tfMes.getText().equals("mes")
+                || tfAnio.getText().trim().isEmpty() || tfAnio.getText().equals("año")) {
+
+            JOptionPane.showMessageDialog(
+            this, "Por favor, complete todos los campos.",
+            "Campos Incompletos", JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        boolean esDocente = "Docente".equals(usuarioSeleccionado.getTipoUsuario());
+        if (esDocente && cbInstitutos.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(
+            this, "No hay institutos cargados. Debe existir al menos un instituto para modificar un docente.",
+            "Campos Incompletos", JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        // Fecha de nacimiento válida
+        LocalDate fechaNacimiento;
+        try {
+            int dia = Integer.parseInt(tfDia.getText().trim());
+            int mes = Integer.parseInt(tfMes.getText().trim());
+            int anio = Integer.parseInt(tfAnio.getText().trim());
+            fechaNacimiento = LocalDate.of(anio, mes, dia);
+        } catch (NumberFormatException | DateTimeException ex) {
+            JOptionPane.showMessageDialog(
+            this, "La fecha de nacimiento ingresada no es válida.",
+            "Fecha Inválida", JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+        if (fechaNacimiento.isAfter(LocalDate.now())) {
+            JOptionPane.showMessageDialog(
+            this, "La fecha de nacimiento no puede ser posterior a hoy.",
+            "Fecha Inválida", JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        String nombre = tfNombre.getText().trim();
+        String apellido = tfApellido.getText().trim();
+        String nombreInstituto = esDocente ? (String) cbInstitutos.getSelectedItem() : null;
+
+        IControlador ic = Fabrica.getInstance().getIControlador();
+        try {
+            ic.modificarUsuario(usuarioSeleccionado.getNickname(), nombre, apellido, fechaNacimiento, nombreInstituto);
+
+            JOptionPane.showMessageDialog(
+            this, "Los datos del usuario se actualizaron correctamente.",
+            "Modificación exitosa", JOptionPane.INFORMATION_MESSAGE
+            );
+            cargarUsuarios();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(
+            this, "Ocurrió un error al modificar el usuario: " + ex.getMessage(),
+            "Error", JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JComboBox cbInstitutos;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPaneUsuarios;
+    private javax.swing.JLabel lblApellidoCaption;
+    private javax.swing.JLabel lblFechaCaption;
+    private javax.swing.JLabel lblInfoEmail;
+    private javax.swing.JLabel lblInfoNickname;
+    private javax.swing.JLabel lblInfoTipo;
+    private javax.swing.JLabel lblInstitutoCaption;
+    private javax.swing.JLabel lblListaUsuarios;
+    private javax.swing.JLabel lblNombreCaption;
     private javax.swing.JLabel lblUsuarios;
     private javax.swing.JLabel lblUsuarios1;
+    private javax.swing.JList<String> lstUsuarios;
+    private javax.swing.JTextField tfAnio;
+    private javax.swing.JTextField tfApellido;
+    private javax.swing.JTextField tfDia;
+    private javax.swing.JTextField tfMes;
+    private javax.swing.JTextField tfNombre;
     // End of variables declaration//GEN-END:variables
 }

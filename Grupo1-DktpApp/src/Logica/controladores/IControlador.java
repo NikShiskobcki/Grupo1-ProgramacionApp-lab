@@ -1,30 +1,55 @@
 
 package Logica.controladores;
+
+import Logica.DTO.DetalleCurso;
+import Logica.DTO.DetalleEdicionCurso;
+
+import Logica.DTO.DetalleProgramaFormacion;
+import Logica.DTO.DetalleUsuario;
+import Logica.DTO.UsuarioEdicion;
+import Logica.DTO.UsuarioResumen;
 import Logica.Entidades.Instituto;
 import Logica.Entidades.Curso;
-
+import Logica.Entidades.Docente;
+import Logica.Entidades.EdicionCurso;
+import Logica.Entidades.Estudiante;
+import Logica.Entidades.InscripcionEdicion;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public interface IControlador {
 
+    void cargarDatosPrueba();
     void altaInstituto(String nombre);
 
 
-    // Alta de Curso 
+    // Alta de Curso
     List<Instituto> listarInstitutos();
+
     List<Curso> listarCursos();
+
+    List<Curso> listarCursosPorInstituto(String nombreInstituto);
+
     boolean existeCurso(String nombre);
-    void altaCurso(String nombre, String descripcion, int duracion,
-                   int cantidadHoras, int creditos, String url,
-                   LocalDate fechaAlta, Instituto instituto,
-                   List<Curso> previas);
     
+
+    void altaCurso(
+            String nombre,
+            String descripcion,
+            int duracion,
+            int cantidadHoras,
+            int creditos,
+            String url,
+            LocalDate fechaAlta,
+            Instituto instituto,
+            List<Curso> previas
+    );
+
+    DetalleCurso consultarCurso(String nombreCurso);
     
     boolean existeInstituto(String nombre);
-    
-    
+
 
     // Alta de Usuario
     List<String> listarNombresInstitutos();
@@ -33,14 +58,95 @@ public interface IControlador {
 
     boolean existeEmail(String email);
 
-    void altaUsuarioEstudiante(String nickname, String nombre, String apellido,
-            String email, LocalDate fechaNacimiento);
+    void altaUsuarioEstudiante(
+            String nickname,
+            String nombre,
+            String apellido,
+            String email,
+            LocalDate fechaNacimiento
+    );
 
-    void altaUsuarioDocente(String nickname, String nombre, String apellido,
-            String email, LocalDate fechaNacimiento, String nombreInstituto);
-    
+    void altaUsuarioDocente(
+            String nickname,
+            String nombre,
+            String apellido,
+            String email,
+            LocalDate fechaNacimiento,
+            String nombreInstituto
+    );
+
+
     // Alta Programa Formacion
     boolean existePrograma(String nombre);
-    void altaPrograma(String nombre, String descripcion, LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta);
 
+    void altaPrograma(
+            String nombre,
+            String descripcion,
+            LocalDate fechaInicio,
+            LocalDate fechaFin,
+            LocalDate fechaAlta
+    );
+
+
+    // Agregar curso a Programa Formacion
+    List<String> listarProgramas();
+
+    void agregarCursoAPrograma(
+            String nombrePrograma,
+            String nombreCurso
+    );
+    
+    // Consulta Programa de Formacion
+    DetalleProgramaFormacion consultarPrograma(String nombre);
+
+
+    // Alta y Consulta de Edicion
+    List<Docente> listarDocentesPorInstituto(String nombreInstituto);
+
+    boolean existeEdicion(String nombre);
+
+    void altaEdicionCurso(
+            String nombre,
+            LocalDate fechaInicio,
+            LocalDate fechaFin,
+            Integer cupo,
+            String nombreCurso,
+            List<Docente> docentes
+    );
+
+    List<EdicionCurso> listarEdicionesPorCurso(String nombreCurso);
+
+    EdicionCurso buscarEdicion(String nombre);
+
+    DetalleEdicionCurso consultarEdicion(String nombreEdicion);
+    
+    void inscribirEstudianteEdicion(String nicknameEstudiante,String nombreEdicion,LocalDate fechaInscripcion);
+    
+    void modificarInscripcionEdicion(Long idInscripcion, LocalDate nuevaFecha);
+    
+    //Inscripcion a edición 
+    List<EdicionCurso> listarEdicionesVigentesPorCurso(String nombreCurso);
+    
+    List<Estudiante> listarEstudiantes();
+    
+    InscripcionEdicion buscarInscripcionEdicion(
+        String nicknameEstudiante,
+        String nombreEdicion);
+    
+// Consulta de Usuario
+    List<UsuarioResumen> listarUsuarios();
+
+    DetalleUsuario consultarUsuario(String nickname);
+
+
+    // Modificar Datos de Usuario
+    UsuarioEdicion buscarUsuarioParaEditar(String nickname);
+
+    void modificarUsuario(
+            String nickname,
+            String nombre,
+            String apellido,
+            LocalDate fechaNacimiento,
+            String nombreInstituto
+    );
 }

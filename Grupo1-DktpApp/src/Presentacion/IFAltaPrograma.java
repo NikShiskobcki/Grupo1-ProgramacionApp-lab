@@ -1,14 +1,17 @@
 package Presentacion;
 
+import Logica.controladores.Fabrica;
+import Logica.controladores.IControlador;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 
-/**
- *
- * @author nicolle
- */
 public class IFAltaPrograma extends javax.swing.JInternalFrame {
 
     /**
@@ -27,16 +30,18 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
+        lblAltaPrograma = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        txtNombre = new javax.swing.JTextField();
+        txtDescripcion = new javax.swing.JTextField();
+        txtFInicio = new javax.swing.JTextField();
+        txtFFin = new javax.swing.JTextField();
+        btnCancelar = new javax.swing.JButton();
+        btnAceptar = new javax.swing.JButton();
 
         jLabel1.setText("Nombre");
 
@@ -46,18 +51,93 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Fecha Fin");
 
-        jTextField1.addActionListener(this::jTextField1ActionPerformed);
+        txtNombre.setBackground(new java.awt.Color(242, 242, 242));
+        txtNombre.setForeground(new java.awt.Color(153, 153, 153));
+        txtNombre.setText("Ingrese nombre del programa");
+        txtNombre.setBorder(null);
+        txtNombre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtNombreMousePressed(evt);
+            }
+        });
+        txtNombre.addActionListener(this::txtNombreActionPerformed);
 
-        jTextField4.addActionListener(this::jTextField4ActionPerformed);
+        txtDescripcion.setBackground(new java.awt.Color(242, 242, 242));
+        txtDescripcion.setForeground(new java.awt.Color(153, 153, 153));
+        txtDescripcion.setText("Ingrese descripcion");
+        txtDescripcion.setBorder(null);
+        txtDescripcion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtDescripcionMousePressed(evt);
+            }
+        });
 
-        jButton1.setText("Cancelar");
+        txtFInicio.setBackground(new java.awt.Color(242, 242, 242));
+        txtFInicio.setForeground(new java.awt.Color(153, 153, 153));
+        txtFInicio.setText("dd/mm/aaaa");
+        txtFInicio.setBorder(null);
+        txtFInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtFInicioMousePressed(evt);
+            }
+        });
 
-        jButton2.setText("Aceptar");
+        txtFFin.setBackground(new java.awt.Color(242, 242, 242));
+        txtFFin.setForeground(new java.awt.Color(153, 153, 153));
+        txtFFin.setText("dd/mm/aaaa");
+        txtFFin.setBorder(null);
+        txtFFin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtFFinMousePressed(evt);
+            }
+        });
+        txtFFin.addActionListener(this::txtFFinActionPerformed);
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(this::btnCancelarActionPerformed);
+
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(this::btnAceptarActionPerformed);
+
+        jPanel2.setBackground(new java.awt.Color(35, 71, 75));
+
+        lblAltaPrograma.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblAltaPrograma.setForeground(new java.awt.Color(255, 255, 255));
+        lblAltaPrograma.setText("Alta de Programa");
+        lblAltaPrograma.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAltaProgramaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblAltaProgramaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblAltaProgramaMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblAltaPrograma, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblAltaPrograma, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -68,67 +148,155 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(55, 55, 55)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                            .addComponent(txtDescripcion)
+                            .addComponent(txtFInicio)
+                            .addComponent(txtFFin))
+                        .addContainerGap(48, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(btnCancelar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)
+                        .addComponent(btnAceptar)
                         .addGap(28, 28, 28))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnAceptar))
                 .addGap(37, 37, 37))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void txtNombreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreMousePressed
+        txtNombre.setForeground(new java.awt.Color(0,0,0));
+        if(txtNombre.getText().equals("Ingrese nombre del programa")){
+            txtNombre.setText("");
+        }
+    }//GEN-LAST:event_txtNombreMousePressed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void txtDescripcionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDescripcionMousePressed
+        txtDescripcion.setForeground(new java.awt.Color(0,0,0));
+        if(txtDescripcion.getText().equals("Ingrese descripcion")){
+            txtDescripcion.setText("");
+        }
+    }//GEN-LAST:event_txtDescripcionMousePressed
+
+    private void txtFInicioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFInicioMousePressed
+        txtFInicio.setForeground(new java.awt.Color(0,0,0));
+        if(txtFInicio.getText().equals("dd/mm/aaaa")){
+            txtFInicio.setText("");
+        }
+    }//GEN-LAST:event_txtFInicioMousePressed
+
+    private void txtFFinMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFFinMousePressed
+        txtFFin.setForeground(new java.awt.Color(0,0,0));
+        if(txtFFin.getText().equals("dd/mm/aaaa")){
+            txtFFin.setText("");
+        }
+    }//GEN-LAST:event_txtFFinMousePressed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtFFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFFinActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFFinActionPerformed
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        if (txtNombre.getText().trim().isEmpty() || txtNombre.getText().equals("Ingrese nombre del programa") || txtDescripcion.getText().trim().isEmpty() || txtDescripcion.getText().equals("Ingrese descripcion") || txtFInicio.getText().trim().isEmpty() || txtFInicio.getText().equals("dd/mm/aaaa") || txtFFin.getText().trim().isEmpty() || txtFFin.getText().equals("dd/mm/aaaa")){
+            JOptionPane.showMessageDialog(this, "Complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
+        LocalDate fechaInicio;
+        try{
+            fechaInicio = LocalDate.parse(txtFInicio.getText().trim(), formatter);
+        }catch (DateTimeParseException e){
+           JOptionPane.showMessageDialog(this, "El formato de fecha debe ser DD/MM/AAAA", "Fecha Inválida", JOptionPane.ERROR_MESSAGE);
+            return; 
+        }
+        
+        LocalDate fechaFin;
+        try{
+            fechaFin = LocalDate.parse(txtFFin.getText().trim(), formatter);
+        }catch (DateTimeParseException e){
+           JOptionPane.showMessageDialog(this, "El formato de fecha debe ser DD/MM/AAAA", "Fecha Inválida", JOptionPane.ERROR_MESSAGE);
+            return; 
+        }
+        
+        try{
+            IControlador icon = Fabrica.getInstance().getIControlador();
+            String nombre = txtNombre.getText().trim();
+            String descripcion = txtDescripcion.getText().trim();
+            
+            if (icon.existePrograma(nombre)){
+               JOptionPane.showMessageDialog(this, "Ya existe un programa con el nombre '" + nombre + "'.", "Programa Duplicado", JOptionPane.WARNING_MESSAGE);
+                return; 
+            }
+            
+            icon.altaPrograma(nombre, descripcion, fechaInicio, fechaFin, LocalDate.now());
+            JOptionPane.showMessageDialog(this, "Programa de Formacion creado", "Exito", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Error al guardar el programa: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void lblAltaProgramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaProgramaMouseClicked
+
+    }//GEN-LAST:event_lblAltaProgramaMouseClicked
+
+    private void lblAltaProgramaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaProgramaMouseEntered
+
+    }//GEN-LAST:event_lblAltaProgramaMouseEntered
+
+    private void lblAltaProgramaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaProgramaMouseExited
+
+    }//GEN-LAST:event_lblAltaProgramaMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblAltaPrograma;
+    private javax.swing.JTextField txtDescripcion;
+    private javax.swing.JTextField txtFFin;
+    private javax.swing.JTextField txtFInicio;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }
