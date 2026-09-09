@@ -12,6 +12,9 @@ import Logica.Entidades.InscripcionEdicion;
 import Logica.Entidades.InscripcionPrograma;
 import Logica.Entidades.ProgramaFormacion;
 import Logica.Entidades.Usuario;
+import Logica.excepciones.EntidadNoEncontradaException;
+import Logica.excepciones.NombreDuplicadoException;
+import Logica.excepciones.PersistenciaException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -45,7 +48,11 @@ public class ManejadorUsuario {
             if (t.isActive()) {
                 t.rollback();
             }
-            throw e;
+            if (NombreDuplicadoException.esNombreDuplicado(e)){
+                throw new NombreDuplicadoException("Ya existe ese usuario",e);
+            }else{
+                throw new PersistenciaException("No se pudo guardar el usuario", e);
+            }
 
         } finally {
             em.close();
@@ -304,9 +311,7 @@ public class ManejadorUsuario {
             Usuario usuario = em.find(Usuario.class, nickname);
 
             if (usuario == null) {
-                throw new IllegalArgumentException(
-                        "El usuario '" + nickname + "' no existe."
-                );
+                throw new EntidadNoEncontradaException("El usuario '" + nickname + "' no existe.",null);
             }
 
             usuario.setNombre(nombre);
@@ -330,7 +335,11 @@ public class ManejadorUsuario {
                 t.rollback();
             }
 
-            throw e;
+            if (e instanceof PersistenciaException){
+               throw (PersistenciaException) e;
+            }
+            throw new PersistenciaException("No se pudo guardar el usuario",e);
+
 
         } finally {
             em.close();

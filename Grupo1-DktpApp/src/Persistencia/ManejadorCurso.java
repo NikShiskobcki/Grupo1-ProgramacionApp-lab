@@ -6,6 +6,9 @@ import Logica.Entidades.ProgramaFormacion;
 import java.util.ArrayList;
 
 import Logica.Entidades.Curso;
+import Logica.excepciones.NombreDuplicadoException;
+import Logica.excepciones.PersistenciaException;
+import Logica.excepciones.RelacionInvalidaException;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -31,7 +34,14 @@ public class ManejadorCurso {
             if (t.isActive()) {
                 t.rollback();
             }
-            throw e;
+            if (NombreDuplicadoException.esNombreDuplicado(e)){
+                throw new NombreDuplicadoException("Ya existe un curso con ese nombre",e);
+  
+            }else if (RelacionInvalidaException.esRelacionInvalida(e)){
+                throw new RelacionInvalidaException("El instituto no existe", e);
+            }else{
+                throw new PersistenciaException("No se pudo guardar el curso", e);
+            }
         } finally {
             em.close();
         }
@@ -77,7 +87,7 @@ public class ManejadorCurso {
         }
     }
     
-     public DetalleCurso buscarDetalleCurso(String nombre) {
+    public DetalleCurso buscarDetalleCurso(String nombre) {
         EntityManager em = emf.createEntityManager();
         try {
             Curso curso = em.find(Curso.class, nombre);
@@ -124,41 +134,29 @@ public class ManejadorCurso {
         }
     }
      
-     public void agregarPrevia(
-        String nombreCurso,
-        String nombrePrevia) {
+    public void agregarPrevia(String nombreCurso,String nombrePrevia) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction t = em.getTransaction();
 
-    EntityManager em = emf.createEntityManager();
-    EntityTransaction t = em.getTransaction();
+        try {
+            t.begin();
+            Curso curso = em.find(Curso.class, nombreCurso);
+            Curso previa = em.find(Curso.class, nombrePrevia);
 
-    try {
-        t.begin();
+            if (curso != null
+                    && previa != null
+                    && !curso.getPrevias().contains(previa)) {
 
-        Curso curso =
-                em.find(Curso.class, nombreCurso);
-
-        Curso previa =
-                em.find(Curso.class, nombrePrevia);
-
-        if (curso != null
-                && previa != null
-                && !curso.getPrevias().contains(previa)) {
-
-            curso.getPrevias().add(previa);
+                curso.getPrevias().add(previa);
+            }
+            t.commit();
+        } catch (Exception e) {
+            if (t.isActive()) {
+                t.rollback();
+            }
+            throw new PersistenciaException("No se pudo guardar la previa",e);
+        } finally {
+            em.close();
         }
-
-        t.commit();
-
-    } catch (Exception e) {
-
-        if (t.isActive()) {
-            t.rollback();
-        }
-
-        throw e;
-
-    } finally {
-        em.close();
     }
-}
 }
