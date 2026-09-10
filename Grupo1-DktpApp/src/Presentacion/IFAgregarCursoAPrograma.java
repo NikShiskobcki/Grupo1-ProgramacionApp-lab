@@ -64,7 +64,7 @@ public class IFAgregarCursoAPrograma extends javax.swing.JInternalFrame {
         cbProgramas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbProgramas.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cbProgramas.setMaximumSize(new java.awt.Dimension(72, 22));
-        getContentPane().add(cbProgramas, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, 370, 40));
+        getContentPane().add(cbProgramas, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 370, 40));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(35, 71, 75));
@@ -78,7 +78,7 @@ public class IFAgregarCursoAPrograma extends javax.swing.JInternalFrame {
 
         cbCursos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbCursos.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        getContentPane().add(cbCursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 370, 40));
+        getContentPane().add(cbCursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, 370, 40));
         cbCursos.getAccessibleContext().setAccessibleName("");
 
         btnAgregar.setBackground(new java.awt.Color(35, 71, 75));
@@ -106,7 +106,7 @@ public class IFAgregarCursoAPrograma extends javax.swing.JInternalFrame {
 
         lblUsuarios1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblUsuarios1.setForeground(new java.awt.Color(255, 255, 255));
-        lblUsuarios1.setText("Crear Programa de Formacion");
+        lblUsuarios1.setText("Agregar Curso a Programa");
         lblUsuarios1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblUsuarios1MouseClicked(evt);
