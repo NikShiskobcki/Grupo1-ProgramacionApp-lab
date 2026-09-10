@@ -7,7 +7,10 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="Grupo1-DktpApp" default="default" basedir=".">
+<project name="Grupo1-DktpApp"
+         default="default"
+         basedir="."
+         xmlns:jacoco="antlib:org.jacoco.ant">
     <description>Builds, tests, and runs the project Grupo1-DktpApp.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
@@ -70,4 +73,55 @@
     nbproject/build-impl.xml file. 
 
     -->
+    
+  <taskdef uri="antlib:org.jacoco.ant"
+         resource="org/jacoco/ant/antlib.xml"
+         classpath="lib/jacocoant.jar"/>
+
+<target name="jacoco-test" depends="compile-test">
+    <mkdir dir="build/jacoco"/>
+
+    <jacoco:coverage destfile="build/jacoco/jacoco.exec">
+        <junit fork="true" printsummary="yes" haltonfailure="false">
+            <classpath>
+                <pathelement path="${build.classes.dir}"/>
+                <pathelement path="${build.test.classes.dir}"/>
+                <path path="${javac.test.classpath}"/>
+            </classpath>
+
+            <batchtest>
+                <fileset dir="${test.src.dir}">
+                    <include name="**/*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </jacoco:coverage>
+</target>
+
+<target name="jacoco-report" depends="jacoco-test">
+    <mkdir dir="build/jacoco/report"/>
+
+    <jacoco:report>
+        <executiondata>
+            <file file="build/jacoco/jacoco.exec"/>
+        </executiondata>
+
+        <structure name="Grupo1-DktpApp">
+            <classfiles>
+                <fileset dir="${build.classes.dir}">
+                    <include name="Logica/**/*.class"/>
+                </fileset>
+            </classfiles>
+
+            <sourcefiles encoding="UTF-8">
+                <fileset dir="${src.dir}">
+                    <include name="Logica/**/*.java"/>
+                </fileset>
+            </sourcefiles>
+        </structure>
+
+        <html destdir="build/jacoco/report"/>
+    </jacoco:report>
+</target>
+
 </project>

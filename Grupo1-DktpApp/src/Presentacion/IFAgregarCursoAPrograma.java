@@ -4,19 +4,38 @@
  */
 package Presentacion;
 
-/**
- *
- * @author Usuario
- */
-public class IFAltaInstituto extends javax.swing.JInternalFrame {
+import Logica.Entidades.Curso;
+import Logica.controladores.Fabrica;
+import Logica.controladores.IControlador;
+import java.util.List;
+import javax.swing.JOptionPane;
+
+public class IFAgregarCursoAPrograma extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form IFAltaInstituto
+     * Creates new form IFAgregarCursoAPrograma
      */
-    public IFAltaInstituto() {
+    public IFAgregarCursoAPrograma() {
         initComponents();
+        cargarProgramas();
+        cargarCursos();
     }
-
+    private void cargarProgramas(){
+        IControlador icon = Fabrica.getInstance().getIControlador();
+        List<String> nombres = icon.listarProgramas();
+        cbProgramas.removeAllItems();
+        for (String nombre:nombres){
+            cbProgramas.addItem(nombre);
+        }
+    }
+    private void cargarCursos(){
+        IControlador icon = Fabrica.getInstance().getIControlador();
+        List<Curso> cursos = icon.listarCursos();
+        cbCursos.removeAllItems();
+        for (Curso curso:cursos){
+            cbCursos.addItem(curso.getNombre());
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,12 +45,15 @@ public class IFAltaInstituto extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        cbProgramas = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        txtNombreInstituto = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        cbCursos = new javax.swing.JComboBox<>();
+        btnAgregar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         lblUsuarios = new javax.swing.JLabel();
         lblUsuarios1 = new javax.swing.JLabel();
+        usersSeparator = new javax.swing.JSeparator();
         usersSeparator1 = new javax.swing.JSeparator();
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -39,21 +61,31 @@ public class IFAltaInstituto extends javax.swing.JInternalFrame {
         setVisible(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        cbProgramas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbProgramas.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        cbProgramas.setMaximumSize(new java.awt.Dimension(72, 22));
+        getContentPane().add(cbProgramas, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, 370, 40));
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(35, 71, 75));
-        jLabel1.setText("Nombre del Instituto");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, -1, -1));
+        jLabel1.setText("Programa");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, -1, -1));
 
-        txtNombreInstituto.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        txtNombreInstituto.addActionListener(this::txtNombreInstitutoActionPerformed);
-        getContentPane().add(txtNombreInstituto, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 420, 30));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(35, 71, 75));
+        jLabel2.setText("Curso");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, -1, -1));
 
-        jButton2.setBackground(new java.awt.Color(35, 71, 75));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Aceptar");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 150, 100, 40));
+        cbCursos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbCursos.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        getContentPane().add(cbCursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 370, 40));
+        cbCursos.getAccessibleContext().setAccessibleName("");
+
+        btnAgregar.setBackground(new java.awt.Color(35, 71, 75));
+        btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(this::btnAgregarActionPerformed);
+        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, 90, 50));
 
         jPanel2.setBackground(new java.awt.Color(35, 71, 75));
 
@@ -74,7 +106,7 @@ public class IFAltaInstituto extends javax.swing.JInternalFrame {
 
         lblUsuarios1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblUsuarios1.setForeground(new java.awt.Color(255, 255, 255));
-        lblUsuarios1.setText("Alta Instituto");
+        lblUsuarios1.setText("Crear Programa de Formacion");
         lblUsuarios1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblUsuarios1MouseClicked(evt);
@@ -110,69 +142,44 @@ public class IFAltaInstituto extends javax.swing.JInternalFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1070, 60));
 
+        usersSeparator.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 370, 10));
+
         usersSeparator1.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 120, 420, 10));
+        getContentPane().add(usersSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, 370, 10));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNombreInstitutoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreInstitutoMousePressed
-        txtNombreInstituto.setForeground(new java.awt.Color(0,0,0));
-        if(txtNombreInstituto.getText().equals("Ingrese nombre del instituto")){
-            txtNombreInstituto.setText("");
-        }
-    }//GEN-LAST:event_txtNombreInstitutoMousePressed
-
-    private void txtNombreInstitutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreInstitutoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreInstitutoActionPerformed
-
-    private void lblAltaInstitutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaInstitutoMouseClicked
-
-    }//GEN-LAST:event_lblAltaInstitutoMouseClicked
-
-    private void lblAltaInstitutoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaInstitutoMouseEntered
-
-    }//GEN-LAST:event_lblAltaInstitutoMouseEntered
-
-    private void lblAltaInstitutoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaInstitutoMouseExited
-
-    }//GEN-LAST:event_lblAltaInstitutoMouseExited
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String nombre = txtNombreInstituto.getText().trim();
-        if (nombre.isEmpty() || nombre.equals("Ingrese nombre del instituto")) {
-            javax.swing.JOptionPane.showMessageDialog(this,
-                "Debe ingresar el nombre del instituto.",
-                "Campo Requerido",
-                javax.swing.JOptionPane.ERROR_MESSAGE);
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        String nombrePrograma = (String) cbProgramas.getSelectedItem();
+        String nombreCurso = (String) cbCursos.getSelectedItem();
+        
+        if (nombrePrograma == null || nombreCurso == null){
+            JOptionPane.showMessageDialog(this, "Seleccione un programa y un curso", "Datos incompletos", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
-        Logica.controladores.IControlador icon =
-        Logica.controladores.Fabrica.getInstance().getIControlador();
-
-        // Validar nombre único (regla del CU)
-        if (icon.existeInstituto(nombre)) {
-            javax.swing.JOptionPane.showMessageDialog(this,
-                "Ya existe un instituto con ese nombre. Modifique el nombre o cancele.",
-                "Instituto existente",
-                javax.swing.JOptionPane.WARNING_MESSAGE);
-            return; //
-        }
-
-        try {
-            icon.altaInstituto(nombre);
-            javax.swing.JOptionPane.showMessageDialog(this,
-                "Instituto registrado correctamente.");
+        try{
+            IControlador icon = Fabrica.getInstance().getIControlador();
+            icon.agregarCursoAPrograma(nombrePrograma, nombreCurso);
+            JOptionPane.showMessageDialog(this, "Curso Agregado", "Exito", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
-        } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(this,
-                "Ocurrió un error al registrar el instituto: " + e.getMessage(),
-                "Error",
-                javax.swing.JOptionPane.ERROR_MESSAGE);
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Error al agregar curso: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void lblAgregarCursoProgramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarCursoProgramaMouseClicked
+
+    }//GEN-LAST:event_lblAgregarCursoProgramaMouseClicked
+
+    private void lblAgregarCursoProgramaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarCursoProgramaMouseEntered
+
+    }//GEN-LAST:event_lblAgregarCursoProgramaMouseEntered
+
+    private void lblAgregarCursoProgramaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarCursoProgramaMouseExited
+
+    }//GEN-LAST:event_lblAgregarCursoProgramaMouseExited
 
     private void lblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuariosMouseClicked
 
@@ -200,12 +207,15 @@ public class IFAltaInstituto extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JComboBox<String> cbCursos;
+    private javax.swing.JComboBox<String> cbProgramas;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblUsuarios;
     private javax.swing.JLabel lblUsuarios1;
-    private javax.swing.JTextField txtNombreInstituto;
+    private javax.swing.JSeparator usersSeparator;
     private javax.swing.JSeparator usersSeparator1;
     // End of variables declaration//GEN-END:variables
 }

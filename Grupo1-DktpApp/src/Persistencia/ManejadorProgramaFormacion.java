@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import Logica.excepciones.*;
 
 public class ManejadorProgramaFormacion {
 
@@ -38,7 +39,11 @@ public class ManejadorProgramaFormacion {
             if (t.isActive()){
                 t.rollback();
             }
-            throw e;
+            if (NombreDuplicadoException.esNombreDuplicado(e)){
+                throw new NombreDuplicadoException("Ya existe un programa con ese nombre", e);
+            } else{
+                throw new PersistenciaException("No se pudo guardar el programa", e);
+            }
         }finally{
             em.close();
         }
@@ -51,13 +56,16 @@ public class ManejadorProgramaFormacion {
             t.begin();
             ProgramaFormacion programa = em.find(ProgramaFormacion.class,nombrePrograma);
             Curso curso = em.find(Curso.class, nombreCurso);
-            programa.getCursos().add(curso);
+            if (programa != null
+                && curso != null
+                && !programa.getCursos().contains(curso)){
+            programa.getCursos().add(curso);}
             t.commit();
         }catch (Exception e){
             if (t.isActive()){
                 t.rollback();
             }
-            throw e;
+            throw new PersistenciaException("Error al agregar el curso al programa", e);
         }finally{
             em.close();
         }

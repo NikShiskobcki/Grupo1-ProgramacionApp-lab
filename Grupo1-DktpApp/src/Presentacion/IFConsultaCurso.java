@@ -48,6 +48,9 @@ public class IFConsultaCurso extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
+        lblInsitututo = new javax.swing.JLabel();
+        lblInstituto2 = new javax.swing.JLabel();
         cbInstitutos = new javax.swing.JComboBox<>();
         lblInstituto = new javax.swing.JLabel();
         cbCursos = new javax.swing.JComboBox<>();
@@ -63,55 +66,21 @@ public class IFConsultaCurso extends javax.swing.JInternalFrame {
         btnVerDetallePrograma = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        lblInsitututo = new javax.swing.JLabel();
-        lblInstituto2 = new javax.swing.JLabel();
+        usersSeparator7 = new javax.swing.JSeparator();
+        usersSeparator8 = new javax.swing.JSeparator();
+        usersSeparator9 = new javax.swing.JSeparator();
+        usersSeparator10 = new javax.swing.JSeparator();
+        usersSeparator11 = new javax.swing.JSeparator();
 
-        cbInstitutos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbInstitutos.addActionListener(this::cbInstitutosActionPerformed);
-
-        lblInstituto.setText("Instituto");
-
-        cbCursos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbCursos.addActionListener(this::cbCursosActionPerformed);
-
-        lblCurso.setText("Curso");
-
-        jLabel3.setText("Detalle Curso");
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(jList1);
-
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(jList2);
-
-        btnVerDetalleEdicion.setText("Ver Detalle Edicion");
-        btnVerDetalleEdicion.addActionListener(this::btnVerDetalleEdicionActionPerformed);
-
-        btnVerDetallePrograma.setText("Ver Detalle Programa");
-        btnVerDetallePrograma.addActionListener(this::btnVerDetalleProgramaActionPerformed);
-
-        jLabel1.setText("Programas de Formacion Asociados");
-
-        jLabel2.setText("Ediciones asociadas al Curso");
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        setPreferredSize(new java.awt.Dimension(910, 910));
+        setVisible(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(35, 71, 75));
 
         lblInsitututo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblInsitututo.setForeground(new java.awt.Color(206, 206, 206));
-        lblInsitututo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\GitHub\\Grupo1-ProgramacionApp-lab\\img\\cursos_white_32px.png")); // NOI18N
         lblInsitututo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblInsitututoMouseClicked(evt);
@@ -148,7 +117,7 @@ public class IFConsultaCurso extends javax.swing.JInternalFrame {
                 .addComponent(lblInsitututo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblInstituto2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(727, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,90 +129,95 @@ public class IFConsultaCurso extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(92, 92, 92)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel2)
-                                    .addGap(6, 6, 6))
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(btnVerDetalleEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(20, 20, 20)))
-                        .addGap(58, 58, 58)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(36, 36, 36)
-                                .addComponent(btnVerDetallePrograma)
-                                .addGap(13, 13, 13)))
-                        .addGap(109, 109, 109))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(157, 157, 157)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblInstituto)
-                        .addGap(31, 31, 31))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblCurso)
-                        .addGap(44, 44, 44)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cbCursos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cbInstitutos, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblInstituto)
-                    .addComponent(cbInstitutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCurso)
-                    .addComponent(cbCursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnVerDetalleEdicion))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnVerDetallePrograma)))
-                .addGap(71, 71, 71))
-        );
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, -1));
+
+        cbInstitutos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbInstitutos.setBorder(null);
+        cbInstitutos.addActionListener(this::cbInstitutosActionPerformed);
+        getContentPane().add(cbInstitutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 410, 30));
+
+        lblInstituto.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblInstituto.setForeground(new java.awt.Color(35, 71, 75));
+        lblInstituto.setText("Instituto");
+        getContentPane().add(lblInstituto, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, -1, -1));
+
+        cbCursos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbCursos.setBorder(null);
+        cbCursos.addActionListener(this::cbCursosActionPerformed);
+        getContentPane().add(cbCursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 410, 30));
+
+        lblCurso.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCurso.setForeground(new java.awt.Color(35, 71, 75));
+        lblCurso.setText("Curso");
+        getContentPane().add(lblCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(35, 71, 75));
+        jLabel3.setText("Detalle Curso");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, -1, -1));
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 470, 110));
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(jList1);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, 210, 120));
+
+        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(jList2);
+
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 310, 230, 120));
+
+        btnVerDetalleEdicion.setBackground(new java.awt.Color(35, 71, 75));
+        btnVerDetalleEdicion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnVerDetalleEdicion.setForeground(new java.awt.Color(255, 255, 255));
+        btnVerDetalleEdicion.setText("Ver Detalle Edicion");
+        btnVerDetalleEdicion.addActionListener(this::btnVerDetalleEdicionActionPerformed);
+        getContentPane().add(btnVerDetalleEdicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 450, 160, 40));
+
+        btnVerDetallePrograma.setBackground(new java.awt.Color(35, 71, 75));
+        btnVerDetallePrograma.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnVerDetallePrograma.setForeground(new java.awt.Color(255, 255, 255));
+        btnVerDetallePrograma.setText("Ver Detalle Programa");
+        btnVerDetallePrograma.addActionListener(this::btnVerDetalleProgramaActionPerformed);
+        getContentPane().add(btnVerDetallePrograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 450, 170, 40));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(35, 71, 75));
+        jLabel1.setText("Programas de Formacion Asociados");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(35, 71, 75));
+        jLabel2.setText("Ediciones asociadas al Curso");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, -1, -1));
+
+        usersSeparator7.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 430, 230, 10));
+
+        usersSeparator8.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 410, 10));
+
+        usersSeparator9.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 410, 10));
+
+        usersSeparator10.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 470, 10));
+
+        usersSeparator11.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 430, 210, 10));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -437,5 +411,10 @@ public class IFConsultaCurso extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblInsitututo;
     private javax.swing.JLabel lblInstituto;
     private javax.swing.JLabel lblInstituto2;
+    private javax.swing.JSeparator usersSeparator10;
+    private javax.swing.JSeparator usersSeparator11;
+    private javax.swing.JSeparator usersSeparator7;
+    private javax.swing.JSeparator usersSeparator8;
+    private javax.swing.JSeparator usersSeparator9;
     // End of variables declaration//GEN-END:variables
 }
