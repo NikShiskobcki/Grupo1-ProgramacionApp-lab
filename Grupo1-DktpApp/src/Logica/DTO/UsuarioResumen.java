@@ -25,8 +25,8 @@ public class UsuarioResumen {
         return tipo;
     }
 
-    @Override
-    public String toString() {
-        return nickname + " - " + nombreCompleto + " (" + tipo + ")";
-    }
+//    @Override
+//    public String toString() {
+//        return nickname + " - " + nombreCompleto + " (" + tipo + ")";
+//    }
 }

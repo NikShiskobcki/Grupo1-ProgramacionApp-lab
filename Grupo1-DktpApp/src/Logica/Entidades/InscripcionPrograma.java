@@ -38,30 +38,30 @@ public class InscripcionPrograma implements Serializable {
     public InscripcionPrograma() {
     }
 
-    public InscripcionPrograma(LocalDate fechaInscripcion,
-                               Estudiante estudiante,
-                               ProgramaFormacion programa) {
-
-        this.fechaInscripcion = fechaInscripcion;
-        this.estudiante = estudiante;
-        this.programa = programa;
-    }
+//    public InscripcionPrograma(LocalDate fechaInscripcion,
+//                               Estudiante estudiante,
+//                               ProgramaFormacion programa) {
+//
+//        this.fechaInscripcion = fechaInscripcion;
+//        this.estudiante = estudiante;
+//        this.programa = programa;
+//    }
 
 
     // GETTERS
 
-    public Long getId() {
-        return id;
-    }
+//    public Long getId() {
+//        return id;
+//    }
 
     public LocalDate getFechaInscripcion() {
         return fechaInscripcion;
     }
-
-    public Estudiante getEstudiante() {
-        return estudiante;
-    }
-
+//
+//    public Estudiante getEstudiante() {
+//        return estudiante;
+//    }
+//
     public ProgramaFormacion getPrograma() {
         return programa;
     }
@@ -69,19 +69,19 @@ public class InscripcionPrograma implements Serializable {
 
     // SETTERS
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
-    public void setFechaInscripcion(LocalDate fechaInscripcion) {
-        this.fechaInscripcion = fechaInscripcion;
-    }
-
-    public void setEstudiante(Estudiante estudiante) {
-        this.estudiante = estudiante;
-    }
-
-    public void setPrograma(ProgramaFormacion programa) {
-        this.programa = programa;
-    }
+//    public void setFechaInscripcion(LocalDate fechaInscripcion) {
+//        this.fechaInscripcion = fechaInscripcion;
+//    }
+//
+//    public void setEstudiante(Estudiante estudiante) {
+//        this.estudiante = estudiante;
+//    }
+//
+//    public void setPrograma(ProgramaFormacion programa) {
+//        this.programa = programa;
+//    }
 }

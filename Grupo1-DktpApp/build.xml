@@ -107,17 +107,19 @@
         </executiondata>
 
         <structure name="Grupo1-DktpApp">
-            <classfiles>
-                <fileset dir="${build.classes.dir}">
-                    <include name="Logica/**/*.class"/>
-                </fileset>
-            </classfiles>
+            <group name = "Logica">
+                <classfiles>
+                    <fileset dir="${build.classes.dir}">
+                        <include name="Logica/**/*.class"/>
+                    </fileset>
+                </classfiles>
 
-            <sourcefiles encoding="UTF-8">
-                <fileset dir="${src.dir}">
-                    <include name="Logica/**/*.java"/>
-                </fileset>
-            </sourcefiles>
+                <sourcefiles encoding="UTF-8">
+                    <fileset dir="${src.dir}">
+                        <include name="Logica/**/*.java"/>
+                    </fileset>
+                </sourcefiles>
+            </group>
         </structure>
 
         <html destdir="build/jacoco/report"/>

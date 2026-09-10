@@ -59,9 +59,9 @@ public class InscripcionEdicion implements Serializable {
         return fechaInscripcion;
     }
 
-    public Estudiante getEstudiante() {
-        return estudiante;
-    }
+//    public Estudiante getEstudiante() {
+//        return estudiante;
+//    }
 
     public EdicionCurso getEdicion() {
         return edicion;
@@ -70,19 +70,19 @@ public class InscripcionEdicion implements Serializable {
 
     // SETTERS
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
     public void setFechaInscripcion(LocalDate fechaInscripcion) {
         this.fechaInscripcion = fechaInscripcion;
     }
 
-    public void setEstudiante(Estudiante estudiante) {
-        this.estudiante = estudiante;
-    }
+//    public void setEstudiante(Estudiante estudiante) {
+//        this.estudiante = estudiante;
+//    }
 
-    public void setEdicion(EdicionCurso edicion) {
-        this.edicion = edicion;
-    }
+//    public void setEdicion(EdicionCurso edicion) {
+//        this.edicion = edicion;
+//    }
 }

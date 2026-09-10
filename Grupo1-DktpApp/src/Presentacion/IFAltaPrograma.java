@@ -2,10 +2,12 @@ package Presentacion;
 
 import Logica.controladores.Fabrica;
 import Logica.controladores.IControlador;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -19,6 +21,48 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
      */
     public IFAltaPrograma() {
         initComponents();
+        setearSpinnersFecha();
+    }
+    
+    private void setearSpinnersFecha() {
+        LocalDate hoy = LocalDate.now();
+        spDiaInicio.setModel(
+                new javax.swing.SpinnerNumberModel(
+                        hoy.getDayOfMonth(), 1, 31, 1
+                )
+        );
+        spMesInicio.setModel(
+                new javax.swing.SpinnerNumberModel(
+                        hoy.getMonthValue(), 1, 12, 1
+                )
+        );
+        spAnioInicio.setModel(
+                new javax.swing.SpinnerNumberModel(
+                        hoy.getYear(), hoy.getYear(), 2100, 1
+                )
+        );
+        spDiaFin.setModel(
+                new javax.swing.SpinnerNumberModel(
+                        hoy.getDayOfMonth(), 1, 31, 1
+                )
+        );
+        spMesFin.setModel(
+                new javax.swing.SpinnerNumberModel(
+                        hoy.getMonthValue(), 1, 12, 1
+                )
+        );
+        spAnioFin.setModel(
+                new javax.swing.SpinnerNumberModel(
+                        hoy.getYear(), hoy.getYear(), 2100, 1
+                )
+        );
+
+        // Mostrar el año sin separador
+       spAnioInicio.setEditor(
+               new JSpinner.NumberEditor(spAnioInicio, "0"));
+
+       spAnioFin.setEditor(
+               new JSpinner.NumberEditor(spAnioFin, "0"));
     }
 
     /**
@@ -36,16 +80,18 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         txtDescripcion = new javax.swing.JTextField();
-        txtFInicio = new javax.swing.JTextField();
-        txtFFin = new javax.swing.JTextField();
         btnAceptar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         lblUsuarios = new javax.swing.JLabel();
         lblUsuarios1 = new javax.swing.JLabel();
-        usersSeparator = new javax.swing.JSeparator();
         usersSeparator1 = new javax.swing.JSeparator();
         usersSeparator2 = new javax.swing.JSeparator();
-        usersSeparator3 = new javax.swing.JSeparator();
+        spAnioFin = new javax.swing.JSpinner();
+        spAnioInicio = new javax.swing.JSpinner();
+        spDiaInicio = new javax.swing.JSpinner();
+        spMesInicio = new javax.swing.JSpinner();
+        spDiaFin = new javax.swing.JSpinner();
+        spMesFin = new javax.swing.JSpinner();
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         setPreferredSize(new java.awt.Dimension(910, 910));
@@ -78,13 +124,6 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
 
         txtDescripcion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         getContentPane().add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, 320, 30));
-
-        txtFInicio.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        getContentPane().add(txtFInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 320, 30));
-
-        txtFFin.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        txtFFin.addActionListener(this::txtFFinActionPerformed);
-        getContentPane().add(txtFFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, 320, 30));
 
         btnAceptar.setBackground(new java.awt.Color(35, 71, 75));
         btnAceptar.setForeground(new java.awt.Color(255, 255, 255));
@@ -147,17 +186,17 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1070, 60));
 
-        usersSeparator.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 250, 320, 10));
-
         usersSeparator1.setForeground(new java.awt.Color(35, 71, 75));
         getContentPane().add(usersSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 130, 320, 10));
 
         usersSeparator2.setForeground(new java.awt.Color(35, 71, 75));
         getContentPane().add(usersSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 170, 320, 10));
-
-        usersSeparator3.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 210, 320, 10));
+        getContentPane().add(spAnioFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 220, -1, 30));
+        getContentPane().add(spAnioInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 180, -1, 30));
+        getContentPane().add(spDiaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, -1, 30));
+        getContentPane().add(spMesInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 180, -1, 30));
+        getContentPane().add(spDiaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, -1, 30));
+        getContentPane().add(spMesFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, -1, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -175,7 +214,7 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
             txtDescripcion.setText("");
         }
     }//GEN-LAST:event_txtDescripcionMousePressed
-
+/*
     private void txtFInicioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFInicioMousePressed
         txtFInicio.setForeground(new java.awt.Color(0,0,0));
         if(txtFInicio.getText().equals("dd/mm/aaaa")){
@@ -189,37 +228,61 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
             txtFFin.setText("");
         }
     }//GEN-LAST:event_txtFFinMousePressed
-
+*/
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
 
-    private void txtFFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFFinActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFFinActionPerformed
-
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        if (txtNombre.getText().trim().isEmpty() || txtNombre.getText().equals("Ingrese nombre del programa") || txtDescripcion.getText().trim().isEmpty() || txtDescripcion.getText().equals("Ingrese descripcion") || txtFInicio.getText().trim().isEmpty() || txtFInicio.getText().equals("dd/mm/aaaa") || txtFFin.getText().trim().isEmpty() || txtFFin.getText().equals("dd/mm/aaaa")){
+        if (txtNombre.getText().trim().isEmpty() || txtNombre.getText().equals("Ingrese nombre del programa") || txtDescripcion.getText().trim().isEmpty() || txtDescripcion.getText().equals("Ingrese descripcion")){
             JOptionPane.showMessageDialog(this, "Complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
         LocalDate fechaInicio;
-        try{
-            fechaInicio = LocalDate.parse(txtFInicio.getText().trim(), formatter);
-        }catch (DateTimeParseException e){
-           JOptionPane.showMessageDialog(this, "El formato de fecha debe ser DD/MM/AAAA", "Fecha Inválida", JOptionPane.ERROR_MESSAGE);
-            return; 
+        LocalDate fechaFin;
+
+        try {
+            int diaInicio = (Integer) spDiaInicio.getValue();
+            int mesInicio = (Integer) spMesInicio.getValue();
+            int anioInicio = (Integer) spAnioInicio.getValue();
+
+            fechaInicio = LocalDate.of(
+                    anioInicio,
+                    mesInicio,
+                    diaInicio
+            );
+
+            int diaFin = (Integer) spDiaFin.getValue();
+            int mesFin = (Integer) spMesFin.getValue();
+            int anioFin = (Integer) spAnioFin.getValue();
+
+            fechaFin = LocalDate.of(
+                    anioFin,
+                    mesFin,
+                    diaFin
+            );
+        } catch (DateTimeException e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "La fecha ingresada no es válida.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        return;
+        }
+
+        // Fecha de fin anterior o igual a fecha de inicio
+        if (fechaFin.isBefore(fechaInicio)) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "La fecha de fin no puede ser anterior a la fecha de inicio.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
         }
         
-        LocalDate fechaFin;
-        try{
-            fechaFin = LocalDate.parse(txtFFin.getText().trim(), formatter);
-        }catch (DateTimeParseException e){
-           JOptionPane.showMessageDialog(this, "El formato de fecha debe ser DD/MM/AAAA", "Fecha Inválida", JOptionPane.ERROR_MESSAGE);
-            return; 
-        }
         
         try{
             IControlador icon = Fabrica.getInstance().getIControlador();
@@ -285,13 +348,15 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblUsuarios;
     private javax.swing.JLabel lblUsuarios1;
+    private javax.swing.JSpinner spAnioFin;
+    private javax.swing.JSpinner spAnioInicio;
+    private javax.swing.JSpinner spDiaFin;
+    private javax.swing.JSpinner spDiaInicio;
+    private javax.swing.JSpinner spMesFin;
+    private javax.swing.JSpinner spMesInicio;
     private javax.swing.JTextField txtDescripcion;
-    private javax.swing.JTextField txtFFin;
-    private javax.swing.JTextField txtFInicio;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JSeparator usersSeparator;
     private javax.swing.JSeparator usersSeparator1;
     private javax.swing.JSeparator usersSeparator2;
-    private javax.swing.JSeparator usersSeparator3;
     // End of variables declaration//GEN-END:variables
 }
