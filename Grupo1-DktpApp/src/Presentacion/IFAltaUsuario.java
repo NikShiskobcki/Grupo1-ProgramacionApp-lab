@@ -79,8 +79,15 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
         tfMes = new javax.swing.JTextField();
         usersSeparator7 = new javax.swing.JSeparator();
         cbInstitutos = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
-        setBorder(null);
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         setMinimumSize(new java.awt.Dimension(910, 640));
         setPreferredSize(new java.awt.Dimension(910, 910));
         setVisible(true);
@@ -123,41 +130,41 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addComponent(lblUsuarios)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(887, Short.MAX_VALUE))
+                .addContainerGap(881, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                    .addComponent(lblUsuarios1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1070, 50));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1070, 60));
 
         usersSeparator.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 270, 10));
+        getContentPane().add(usersSeparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 370, 10));
 
         usersSeparator1.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 270, 10));
+        getContentPane().add(usersSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 370, 10));
 
         usersSeparator2.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 270, 10));
+        getContentPane().add(usersSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, 370, 10));
 
         usersSeparator3.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 270, 10));
+        getContentPane().add(usersSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 370, 10));
 
         usersSeparator4.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 40, 10));
+        getContentPane().add(usersSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, 40, 10));
 
-        lblUsuarios7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblUsuarios7.setForeground(new java.awt.Color(206, 206, 206));
+        lblUsuarios7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblUsuarios7.setForeground(new java.awt.Color(35, 71, 75));
         lblUsuarios7.setText("Fecha de nacimiento");
         lblUsuarios7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblUsuarios7.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -171,13 +178,13 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
                 lblUsuarios7MouseExited(evt);
             }
         });
-        getContentPane().add(lblUsuarios7, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 200, 38));
+        getContentPane().add(lblUsuarios7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 300, 200, 38));
 
         usersSeparator5.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 40, 10));
+        getContentPane().add(usersSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 410, 40, 10));
 
         usersSeparator6.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 120, 70, 10));
+        getContentPane().add(usersSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 450, 70, 10));
 
         chbAlumno.setText("Alumno");
         chbAlumno.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -186,7 +193,7 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
             }
         });
         chbAlumno.addActionListener(this::chbAlumnoActionPerformed);
-        getContentPane().add(chbAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 190, -1, -1));
+        getContentPane().add(chbAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 470, -1, -1));
 
         chbDocente.setText("Docente");
         chbDocente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -195,7 +202,7 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
             }
         });
         chbDocente.addActionListener(this::chbDocenteActionPerformed);
-        getContentPane().add(chbDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 160, -1, -1));
+        getContentPane().add(chbDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 470, -1, -1));
 
         btnAlta.setBackground(new java.awt.Color(35, 71, 75));
         btnAlta.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -203,11 +210,11 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
         btnAlta.setText("Dar de alta");
         btnAlta.setBorderPainted(false);
         btnAlta.addActionListener(this::btnAltaActionPerformed);
-        getContentPane().add(btnAlta, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 253, -1, 30));
+        getContentPane().add(btnAlta, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 470, 110, 50));
 
         tfAnio.setBackground(new java.awt.Color(242, 242, 242));
         tfAnio.setForeground(new java.awt.Color(153, 153, 153));
-        tfAnio.setText("año");
+        tfAnio.setText("AAAA");
         tfAnio.setToolTipText("");
         tfAnio.setBorder(null);
         tfAnio.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -216,7 +223,7 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
             }
         });
         tfAnio.addActionListener(this::tfAnioActionPerformed);
-        getContentPane().add(tfAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 70, 30));
+        getContentPane().add(tfAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 420, 70, 30));
 
         tfNickname.setBackground(new java.awt.Color(242, 242, 242));
         tfNickname.setForeground(new java.awt.Color(153, 153, 153));
@@ -228,7 +235,7 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
             }
         });
         tfNickname.addActionListener(this::tfNicknameActionPerformed);
-        getContentPane().add(tfNickname, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 280, 30));
+        getContentPane().add(tfNickname, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 380, 30));
 
         tfNombre.setBackground(new java.awt.Color(242, 242, 242));
         tfNombre.setForeground(new java.awt.Color(153, 153, 153));
@@ -240,7 +247,7 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
             }
         });
         tfNombre.addActionListener(this::tfNombreActionPerformed);
-        getContentPane().add(tfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 280, 30));
+        getContentPane().add(tfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 150, 380, 30));
 
         tfApellido.setBackground(new java.awt.Color(242, 242, 242));
         tfApellido.setForeground(new java.awt.Color(153, 153, 153));
@@ -252,7 +259,7 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
             }
         });
         tfApellido.addActionListener(this::tfApellidoActionPerformed);
-        getContentPane().add(tfApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 280, 30));
+        getContentPane().add(tfApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 380, 30));
 
         tfCorreo.setBackground(new java.awt.Color(242, 242, 242));
         tfCorreo.setForeground(new java.awt.Color(153, 153, 153));
@@ -264,11 +271,11 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
             }
         });
         tfCorreo.addActionListener(this::tfCorreoActionPerformed);
-        getContentPane().add(tfCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 280, 30));
+        getContentPane().add(tfCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, 380, 30));
 
         tfDia.setBackground(new java.awt.Color(242, 242, 242));
         tfDia.setForeground(new java.awt.Color(153, 153, 153));
-        tfDia.setText("dia");
+        tfDia.setText("DD");
         tfDia.setBorder(null);
         tfDia.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -276,11 +283,11 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
             }
         });
         tfDia.addActionListener(this::tfDiaActionPerformed);
-        getContentPane().add(tfDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 40, 30));
+        getContentPane().add(tfDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 340, 40, 30));
 
         tfMes.setBackground(new java.awt.Color(242, 242, 242));
         tfMes.setForeground(new java.awt.Color(153, 153, 153));
-        tfMes.setText("mes");
+        tfMes.setText("MM");
         tfMes.setBorder(null);
         tfMes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -288,15 +295,50 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
             }
         });
         tfMes.addActionListener(this::tfMesActionPerformed);
-        getContentPane().add(tfMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, 40, 30));
+        getContentPane().add(tfMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 380, 40, 30));
 
         usersSeparator7.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 180, 270, 10));
+        getContentPane().add(usersSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 530, 270, 10));
 
         cbInstitutos.setBackground(new java.awt.Color(242, 242, 242));
         cbInstitutos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbInstitutos.setBorder(null);
-        getContentPane().add(cbInstitutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 150, 270, 30));
+        getContentPane().add(cbInstitutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 500, 270, 30));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(35, 71, 75));
+        jLabel1.setText("año");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 420, 30, 30));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(35, 71, 75));
+        jLabel2.setText("Nickname");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 70, 30));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(35, 71, 75));
+        jLabel3.setText("Nombre");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 70, 30));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(35, 71, 75));
+        jLabel4.setText("Apellido");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 70, 30));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(35, 71, 75));
+        jLabel5.setText("Correo");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 70, 30));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(35, 71, 75));
+        jLabel6.setText("Dia");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 30, 30));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(35, 71, 75));
+        jLabel7.setText("Mes");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, 30, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -546,6 +588,13 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbInstitutos;
     private javax.swing.JCheckBox chbAlumno;
     private javax.swing.JCheckBox chbDocente;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblUsuarios;
     private javax.swing.JLabel lblUsuarios1;

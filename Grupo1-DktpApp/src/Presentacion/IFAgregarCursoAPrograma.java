@@ -50,26 +50,103 @@ public class IFAgregarCursoAPrograma extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         cbCursos = new javax.swing.JComboBox<>();
         btnAgregar = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        lblUsuarios = new javax.swing.JLabel();
+        lblUsuarios1 = new javax.swing.JLabel();
+        usersSeparator = new javax.swing.JSeparator();
+        usersSeparator1 = new javax.swing.JSeparator();
 
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        setPreferredSize(new java.awt.Dimension(910, 910));
+        setVisible(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cbProgramas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbProgramas.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cbProgramas.setMaximumSize(new java.awt.Dimension(72, 22));
-        getContentPane().add(cbProgramas, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 87, 285, 34));
+        getContentPane().add(cbProgramas, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, 370, 40));
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(35, 71, 75));
         jLabel1.setText("Programa");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 65, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, -1, -1));
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(35, 71, 75));
         jLabel2.setText("Curso");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 146, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, -1, -1));
 
         cbCursos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(cbCursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 280, 30));
+        cbCursos.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        getContentPane().add(cbCursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 370, 40));
         cbCursos.getAccessibleContext().setAccessibleName("");
 
+        btnAgregar.setBackground(new java.awt.Color(35, 71, 75));
+        btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(this::btnAgregarActionPerformed);
-        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(237, 224, -1, -1));
+        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, 90, 50));
+
+        jPanel2.setBackground(new java.awt.Color(35, 71, 75));
+
+        lblUsuarios.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblUsuarios.setForeground(new java.awt.Color(206, 206, 206));
+        lblUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/usuarios_white_32px.png"))); // NOI18N
+        lblUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblUsuariosMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblUsuariosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblUsuariosMouseExited(evt);
+            }
+        });
+
+        lblUsuarios1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblUsuarios1.setForeground(new java.awt.Color(255, 255, 255));
+        lblUsuarios1.setText("Crear Programa de Formacion");
+        lblUsuarios1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblUsuarios1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblUsuarios1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblUsuarios1MouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(lblUsuarios)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(755, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                    .addComponent(lblUsuarios1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1070, 60));
+
+        usersSeparator.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 370, 10));
+
+        usersSeparator1.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, 370, 10));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -104,6 +181,30 @@ public class IFAgregarCursoAPrograma extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_lblAgregarCursoProgramaMouseExited
 
+    private void lblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuariosMouseClicked
+
+    }//GEN-LAST:event_lblUsuariosMouseClicked
+
+    private void lblUsuariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuariosMouseEntered
+
+    }//GEN-LAST:event_lblUsuariosMouseEntered
+
+    private void lblUsuariosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuariosMouseExited
+
+    }//GEN-LAST:event_lblUsuariosMouseExited
+
+    private void lblUsuarios1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarios1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblUsuarios1MouseClicked
+
+    private void lblUsuarios1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarios1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblUsuarios1MouseEntered
+
+    private void lblUsuarios1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarios1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblUsuarios1MouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
@@ -111,5 +212,10 @@ public class IFAgregarCursoAPrograma extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbProgramas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblUsuarios;
+    private javax.swing.JLabel lblUsuarios1;
+    private javax.swing.JSeparator usersSeparator;
+    private javax.swing.JSeparator usersSeparator1;
     // End of variables declaration//GEN-END:variables
 }

@@ -144,8 +144,9 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
         lblInstitutoCaption = new javax.swing.JLabel();
         cbInstitutos = new javax.swing.JComboBox();
         btnGuardar = new javax.swing.JButton();
+        usersSeparator = new javax.swing.JSeparator();
 
-        setBorder(null);
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         setMinimumSize(new java.awt.Dimension(910, 640));
         setPreferredSize(new java.awt.Dimension(910, 700));
         setVisible(true);
@@ -214,87 +215,90 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
         lstUsuarios.addListSelectionListener(this::lstUsuariosValueChanged);
         jScrollPaneUsuarios.setViewportView(lstUsuarios);
 
-        getContentPane().add(jScrollPaneUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 280, 330));
+        getContentPane().add(jScrollPaneUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 280, 410));
 
         lblInfoNickname.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblInfoNickname.setForeground(new java.awt.Color(35, 71, 75));
         lblInfoNickname.setText("Nickname: —");
-        getContentPane().add(lblInfoNickname, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 65, 530, 20));
+        getContentPane().add(lblInfoNickname, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, 530, 20));
 
         lblInfoEmail.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblInfoEmail.setForeground(new java.awt.Color(35, 71, 75));
         lblInfoEmail.setText("Correo electrónico: —");
-        getContentPane().add(lblInfoEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 530, 20));
+        getContentPane().add(lblInfoEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, 530, 20));
 
         lblInfoTipo.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblInfoTipo.setForeground(new java.awt.Color(35, 71, 75));
         lblInfoTipo.setText("Tipo de usuario: —");
-        getContentPane().add(lblInfoTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 115, 530, 20));
+        getContentPane().add(lblInfoTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 160, 530, 20));
 
         lblNombreCaption.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblNombreCaption.setForeground(new java.awt.Color(35, 71, 75));
         lblNombreCaption.setText("Nombre");
-        getContentPane().add(lblNombreCaption, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 300, 20));
+        getContentPane().add(lblNombreCaption, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, 300, 20));
 
         tfNombre.setBackground(new java.awt.Color(242, 242, 242));
         tfNombre.setForeground(new java.awt.Color(153, 153, 153));
         tfNombre.setText("Seleccione un usuario");
         tfNombre.setBorder(null);
         tfNombre.setEnabled(false);
-        getContentPane().add(tfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 172, 300, 30));
+        getContentPane().add(tfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, 300, 30));
 
         lblApellidoCaption.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblApellidoCaption.setForeground(new java.awt.Color(35, 71, 75));
         lblApellidoCaption.setText("Apellido");
-        getContentPane().add(lblApellidoCaption, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, 300, 20));
+        getContentPane().add(lblApellidoCaption, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 260, 300, 20));
 
         tfApellido.setBackground(new java.awt.Color(242, 242, 242));
         tfApellido.setForeground(new java.awt.Color(153, 153, 153));
         tfApellido.setText("Seleccione un usuario");
         tfApellido.setBorder(null);
         tfApellido.setEnabled(false);
-        getContentPane().add(tfApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, 300, 30));
+        getContentPane().add(tfApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 280, 300, 30));
 
         lblFechaCaption.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblFechaCaption.setForeground(new java.awt.Color(35, 71, 75));
         lblFechaCaption.setText("Fecha de nacimiento (día / mes / año)");
-        getContentPane().add(lblFechaCaption, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 250, 400, 20));
+        getContentPane().add(lblFechaCaption, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 330, 400, 20));
 
         tfDia.setBackground(new java.awt.Color(242, 242, 242));
         tfDia.setForeground(new java.awt.Color(153, 153, 153));
         tfDia.setText("día");
         tfDia.setBorder(null);
         tfDia.setEnabled(false);
-        getContentPane().add(tfDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 70, 30));
+        getContentPane().add(tfDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 350, 70, 30));
 
         tfMes.setBackground(new java.awt.Color(242, 242, 242));
         tfMes.setForeground(new java.awt.Color(153, 153, 153));
         tfMes.setText("mes");
         tfMes.setBorder(null);
         tfMes.setEnabled(false);
-        getContentPane().add(tfMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 270, 70, 30));
+        getContentPane().add(tfMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 350, 70, 30));
 
         tfAnio.setBackground(new java.awt.Color(242, 242, 242));
         tfAnio.setForeground(new java.awt.Color(153, 153, 153));
         tfAnio.setText("año");
         tfAnio.setBorder(null);
         tfAnio.setEnabled(false);
-        getContentPane().add(tfAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 270, 90, 30));
+        getContentPane().add(tfAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 350, 90, 30));
 
         lblInstitutoCaption.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblInstitutoCaption.setForeground(new java.awt.Color(35, 71, 75));
         lblInstitutoCaption.setText("Instituto (solo Docentes)");
-        getContentPane().add(lblInstitutoCaption, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 300, 300, 20));
+        getContentPane().add(lblInstitutoCaption, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 390, 300, 20));
 
         cbInstitutos.setEnabled(false);
-        getContentPane().add(cbInstitutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 330, 300, 30));
+        getContentPane().add(cbInstitutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 420, 300, 30));
 
         btnGuardar.setBackground(new java.awt.Color(35, 71, 75));
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar.setText("Guardar cambios");
         btnGuardar.setEnabled(false);
         btnGuardar.addActionListener(this::btnGuardarActionPerformed);
-        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 380, 220, 40));
+        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 460, 220, 40));
+
+        usersSeparator.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, 280, 10));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -446,5 +450,6 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfDia;
     private javax.swing.JTextField tfMes;
     private javax.swing.JTextField tfNombre;
+    private javax.swing.JSeparator usersSeparator;
     // End of variables declaration//GEN-END:variables
 }

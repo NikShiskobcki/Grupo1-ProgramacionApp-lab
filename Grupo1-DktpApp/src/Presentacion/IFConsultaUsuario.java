@@ -97,8 +97,10 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
         lblDetalleUsuario = new javax.swing.JLabel();
         jScrollPaneDetalle = new javax.swing.JScrollPane();
         txtDetalle = new javax.swing.JTextArea();
+        usersSeparator = new javax.swing.JSeparator();
+        usersSeparator1 = new javax.swing.JSeparator();
 
-        setBorder(null);
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         setToolTipText("");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(910, 640));
@@ -166,10 +168,11 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
         lblListaUsuarios.setText("Usuarios registrados");
         getContentPane().add(lblListaUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 65, 280, 25));
 
+        lstUsuarios.setBorder(null);
         lstUsuarios.addListSelectionListener(this::lstUsuariosValueChanged);
         jScrollPaneUsuarios.setViewportView(lstUsuarios);
 
-        getContentPane().add(jScrollPaneUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 280, 280));
+        getContentPane().add(jScrollPaneUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 280, 380));
 
         lblDetalleUsuario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblDetalleUsuario.setForeground(new java.awt.Color(35, 71, 75));
@@ -184,7 +187,13 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
         txtDetalle.setWrapStyleWord(true);
         jScrollPaneDetalle.setViewportView(txtDetalle);
 
-        getContentPane().add(jScrollPaneDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 520, 280));
+        getContentPane().add(jScrollPaneDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 520, 270));
+
+        usersSeparator.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 520, 10));
+
+        usersSeparator1.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 280, 10));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -254,5 +263,7 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblUsuarios1;
     private javax.swing.JList<String> lstUsuarios;
     private javax.swing.JTextArea txtDetalle;
+    private javax.swing.JSeparator usersSeparator;
+    private javax.swing.JSeparator usersSeparator1;
     // End of variables declaration//GEN-END:variables
 }
