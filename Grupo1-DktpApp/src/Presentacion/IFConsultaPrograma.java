@@ -40,8 +40,6 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        lblConsultaPrograma = new javax.swing.JLabel();
         cbProgramas = new javax.swing.JComboBox<>();
         btnConsultar = new javax.swing.JButton();
         lblDescripcion = new javax.swing.JLabel();
@@ -55,47 +53,95 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         treeCursos = new javax.swing.JTree();
+        jPanel2 = new javax.swing.JPanel();
+        lblUsuarios = new javax.swing.JLabel();
+        lblUsuarios1 = new javax.swing.JLabel();
+        usersSeparator1 = new javax.swing.JSeparator();
+
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        setPreferredSize(new java.awt.Dimension(910, 910));
+        setVisible(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cbProgramas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbProgramas.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cbProgramas.addActionListener(this::cbProgramasActionPerformed);
+        getContentPane().add(cbProgramas, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 390, 40));
 
+        btnConsultar.setBackground(new java.awt.Color(35, 71, 75));
+        btnConsultar.setForeground(new java.awt.Color(255, 255, 255));
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(this::btnConsultarActionPerformed);
+        getContentPane().add(btnConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, 90, 40));
 
         lblDescripcion.setText("Descripcion");
+        getContentPane().add(lblDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 260, -1));
 
         lblFechaInicio.setText("Fecha Inicio");
+        getContentPane().add(lblFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, 260, -1));
 
         lblFechaFin.setText("Fecha Fin");
+        getContentPane().add(lblFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 270, 260, -1));
 
         lblFechaAlta.setText("Fecha Alta");
+        getContentPane().add(lblFechaAlta, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, 250, -1));
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(35, 71, 75));
         jLabel1.setText("Descripcion:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, -1, -1));
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(35, 71, 75));
         jLabel2.setText("Fecha Inicio:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(35, 71, 75));
         jLabel3.setText("Fecha Fin:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, -1, -1));
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(35, 71, 75));
         jLabel4.setText("Fecha Alta:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, -1, -1));
 
         jLabel5.setText("Cursos:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 80, -1, -1));
 
         jScrollPane2.setViewportView(treeCursos);
 
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 100, 250, 490));
+
         jPanel2.setBackground(new java.awt.Color(35, 71, 75));
 
-        lblConsultaPrograma.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblConsultaPrograma.setForeground(new java.awt.Color(255, 255, 255));
-        lblConsultaPrograma.setText("Consulta de Programa");
-        lblConsultaPrograma.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblUsuarios.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblUsuarios.setForeground(new java.awt.Color(206, 206, 206));
+        lblUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/usuarios_white_32px.png"))); // NOI18N
+        lblUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblConsultaProgramaMouseClicked(evt);
+                lblUsuariosMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblConsultaProgramaMouseEntered(evt);
+                lblUsuariosMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblConsultaProgramaMouseExited(evt);
+                lblUsuariosMouseExited(evt);
+            }
+        });
+
+        lblUsuarios1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblUsuarios1.setForeground(new java.awt.Color(255, 255, 255));
+        lblUsuarios1.setText("Crear Programa de Formacion");
+        lblUsuarios1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblUsuarios1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblUsuarios1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblUsuarios1MouseExited(evt);
             }
         });
 
@@ -104,87 +150,26 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblConsultaPrograma, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lblUsuarios)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(755, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblConsultaPrograma, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cbProgramas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(72, 72, 72)
-                        .addComponent(btnConsultar)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblFechaAlta))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 361, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblFechaInicio)
-                                    .addComponent(lblDescripcion)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblFechaFin)))
-                        .addGap(48, 48, 48)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbProgramas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnConsultar))
-                .addGap(20, 20, 20)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblDescripcion)
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblFechaInicio)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblFechaFin)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblFechaAlta)
-                            .addComponent(jLabel4))
-                        .addGap(0, 328, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                    .addComponent(lblUsuarios1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1070, 60));
+
+        usersSeparator1.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 390, 10));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -250,6 +235,30 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_lblConsultaProgramaMouseExited
 
+    private void lblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuariosMouseClicked
+
+    }//GEN-LAST:event_lblUsuariosMouseClicked
+
+    private void lblUsuariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuariosMouseEntered
+
+    }//GEN-LAST:event_lblUsuariosMouseEntered
+
+    private void lblUsuariosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuariosMouseExited
+
+    }//GEN-LAST:event_lblUsuariosMouseExited
+
+    private void lblUsuarios1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarios1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblUsuarios1MouseClicked
+
+    private void lblUsuarios1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarios1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblUsuarios1MouseEntered
+
+    private void lblUsuarios1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarios1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblUsuarios1MouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsultar;
@@ -260,12 +269,14 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel lblConsultaPrograma;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblDescripcion;
     private javax.swing.JLabel lblFechaAlta;
     private javax.swing.JLabel lblFechaFin;
     private javax.swing.JLabel lblFechaInicio;
+    private javax.swing.JLabel lblUsuarios;
+    private javax.swing.JLabel lblUsuarios1;
     private javax.swing.JTree treeCursos;
+    private javax.swing.JSeparator usersSeparator1;
     // End of variables declaration//GEN-END:variables
 }
