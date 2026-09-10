@@ -102,7 +102,9 @@ public class JFMain extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setLocationByPlatform(true);
+        setMinimumSize(new java.awt.Dimension(10, 10));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1050, 700));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlLeftPanel.setBackground(new java.awt.Color(47, 93, 98));
@@ -500,9 +502,9 @@ public class JFMain extends javax.swing.JFrame {
         pnlTopPanelLayout.setHorizontalGroup(
             pnlTopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTopPanelLayout.createSequentialGroup()
-                .addGap(1092, 1092, 1092)
+                .addGap(1057, 1057, 1057)
                 .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                .addGap(19, 19, 19))
+                .addGap(54, 54, 54))
         );
         pnlTopPanelLayout.setVerticalGroup(
             pnlTopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -960,6 +962,7 @@ ai.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
     }
 
     }//GEN-LAST:event_lblCargarDatosPruebaMouseClicked
+
 
 
 
