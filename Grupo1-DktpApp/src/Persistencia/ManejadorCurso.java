@@ -6,6 +6,7 @@ import Logica.Entidades.ProgramaFormacion;
 import java.util.ArrayList;
 
 import Logica.Entidades.Curso;
+import Logica.Entidades.Instituto;
 import Logica.excepciones.NombreDuplicadoException;
 import Logica.excepciones.PersistenciaException;
 import Logica.excepciones.RelacionInvalidaException;
@@ -26,8 +27,12 @@ public class ManejadorCurso {
         EntityManager em = emf.createEntityManager();
         EntityTransaction t = em.getTransaction();
 
-        try {
+         try {
             t.begin();
+            if (curso.getInstituto() == null||em.find(Instituto.class, curso.getInstituto().getNombre()) == null) {
+                throw new RelacionInvalidaException("El curso debe estar asociado a un instituto válido",null);
+            }
+            
             em.persist(curso);
             t.commit();
         } catch (Exception e) {
@@ -36,9 +41,6 @@ public class ManejadorCurso {
             }
             if (NombreDuplicadoException.esNombreDuplicado(e)){
                 throw new NombreDuplicadoException("Ya existe un curso con ese nombre",e);
-  
-            }else if (RelacionInvalidaException.esRelacionInvalida(e)){
-                throw new RelacionInvalidaException("El instituto no existe", e);
             }else{
                 throw new PersistenciaException("No se pudo guardar el curso", e);
             }

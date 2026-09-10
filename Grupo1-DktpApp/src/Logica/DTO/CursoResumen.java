@@ -17,10 +17,10 @@ public class CursoResumen {
     public String getNombreInstituto() {
         return nombreInstituto;
     }
-
-    @Override
-    public String toString() {
-        return (nombre + " ("+ nombreInstituto + ")");  
-    }
+//
+//    @Override
+//    public String toString() {
+//        return (nombre + " ("+ nombreInstituto + ")");  
+//    }
  
 }
