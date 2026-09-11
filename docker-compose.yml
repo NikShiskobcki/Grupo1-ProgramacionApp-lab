@@ -1,0 +1,50 @@
+services:
+  mariadb:
+    build: 
+      context: .
+      dockerfile: Dockerfile.db
+    image: edext-mariadb:1.0
+    container_name: mariadb_stack
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: 4dm1n
+      MARIADB_USER: admin
+      MARIADB_PASSWORD: 4dm1n
+      MARIADB_DATABASE: edext
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+  adminer:
+    image: adminer:latest
+    container_name: adminer_stack
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mariadb
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app_swing
+    #restart: unless-stopped
+    environment:
+      - DISPLAY=${DISPLAY}
+      #-DISPLAY=host.docker.internal:0 (mac)
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    network_mode: "host"
+    depends_on:
+      mariadb:
+        condition: service_healthy
+volumes:
+  mariadb_data:
+    driver: local
