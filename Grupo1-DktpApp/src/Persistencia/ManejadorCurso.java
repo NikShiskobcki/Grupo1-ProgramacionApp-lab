@@ -94,17 +94,20 @@ public class ManejadorCurso {
             if (curso == null) {
                 return null;
             }
-
+            
             List<String> previas = new ArrayList<>();
             for (Curso previa : curso.getPrevias()) {
                 previas.add(previa.getNombre());
             }
 
-            List<String> ediciones = new ArrayList<>();
-            for (EdicionCurso edicion : curso.getEdiciones()) {
-                ediciones.add(edicion.getNombre());
-            }
+            
+            List<String> ediciones = em.createQuery(
+                    "SELECT e.nombre FROM EdicionCurso e WHERE e.curso.nombre = :nombreCurso ORDER BY e.nombre",
+                    String.class)
+                    .setParameter("nombreCurso", nombre)
+                    .getResultList();
 
+            
             List<ProgramaFormacion> programas = em.createQuery(
                     "SELECT DISTINCT p FROM ProgramaFormacion p JOIN p.cursos c WHERE c.nombre = :nombreCurso",
                     ProgramaFormacion.class)
@@ -133,6 +136,7 @@ public class ManejadorCurso {
             em.close();
         }
     }
+
      
     public void agregarPrevia(String nombreCurso,String nombrePrevia) {
         EntityManager em = emf.createEntityManager();
