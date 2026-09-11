@@ -8,7 +8,8 @@ import java.time.LocalDate;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-
+import javax.swing.JFileChooser;
+import java.io.File;
 
 public class IFAltaUsuario extends javax.swing.JInternalFrame {
 
@@ -86,6 +87,7 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        btnAgregarImagen = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         setMinimumSize(new java.awt.Dimension(910, 640));
@@ -340,6 +342,10 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
         jLabel7.setText("Mes");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, 30, 30));
 
+        btnAgregarImagen.setText("jButton1");
+        btnAgregarImagen.addActionListener(this::btnAgregarImagenActionPerformed);
+        getContentPane().add(btnAgregarImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 350, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -447,21 +453,21 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
 
     private void tfDiaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfDiaMousePressed
         tfDia.setForeground(new Color(0,0,0));
-        if(tfDia.getText().equals("dia")){
+        if(tfDia.getText().equals("DD")){
             tfDia.setText("");
         }
     }//GEN-LAST:event_tfDiaMousePressed
 
     private void tfMesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfMesMousePressed
         tfMes.setForeground(new Color(0,0,0));
-        if(tfMes.getText().equals("mes")){
+        if(tfMes.getText().equals("MM")){
             tfMes.setText("");
         }
     }//GEN-LAST:event_tfMesMousePressed
 
     private void tfAnioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfAnioMousePressed
         tfAnio.setForeground(new Color(0,0,0));
-        if(tfAnio.getText().equals("año")){
+        if(tfAnio.getText().equals("AAAA")){
             tfAnio.setText("");
         }
     }//GEN-LAST:event_tfAnioMousePressed
@@ -582,8 +588,18 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnAltaActionPerformed
 
+    private void btnAgregarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarImagenActionPerformed
+        JFileChooser selector = new JFileChooser();
+        int resultado = selector.showOpenDialog(this);
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            File archivo = selector.getSelectedFile();
+            System.out.println("Imagen seleccionada: " + archivo.getAbsolutePath());
+        }
+    }//GEN-LAST:event_btnAgregarImagenActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarImagen;
     private javax.swing.JButton btnAlta;
     private javax.swing.JComboBox<String> cbInstitutos;
     private javax.swing.JCheckBox chbAlumno;
