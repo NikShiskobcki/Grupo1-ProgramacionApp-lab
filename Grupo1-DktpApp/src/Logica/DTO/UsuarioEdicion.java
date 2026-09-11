@@ -13,9 +13,11 @@ public class UsuarioEdicion {
     private final String apellido;
     private final LocalDate fechaNacimiento;
     private final String instituto; // solo Docente, null si no aplica
+    private final String rutaImagen; // puede ser null si el usuario no tiene imagen
 
     public UsuarioEdicion(String nickname, String email, String tipoUsuario,
-            String nombre, String apellido, LocalDate fechaNacimiento, String instituto) {
+            String nombre, String apellido, LocalDate fechaNacimiento, String instituto,
+            String rutaImagen) {
         this.nickname = nickname;
         this.email = email;
         this.tipoUsuario = tipoUsuario;
@@ -23,6 +25,7 @@ public class UsuarioEdicion {
         this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;
         this.instituto = instituto;
+        this.rutaImagen = rutaImagen;
     }
 
     public String getNickname() {
@@ -51,5 +54,9 @@ public class UsuarioEdicion {
 
     public String getInstituto() {
         return instituto;
+    }
+
+    public String getRutaImagen() {
+        return rutaImagen;
     }
 }

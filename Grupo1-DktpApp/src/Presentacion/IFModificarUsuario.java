@@ -6,12 +6,16 @@ import Logica.DTO.UsuarioResumen;
 import Logica.controladores.Fabrica;
 import Logica.controladores.IControlador;
 import java.awt.Color;
+import java.awt.Image;
+import java.io.File;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,6 +28,8 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
 
     /** Datos del usuario actualmente en edición (null si no hay selección). */
     private UsuarioEdicion usuarioSeleccionado;
+
+    private String rutaImagenSeleccionada;
 
     /**
      * Creates new form IFModificarUsuario
@@ -70,6 +76,9 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
         cbInstitutos.setModel(new DefaultComboBoxModel<>());
         cbInstitutos.setEnabled(false);
         btnGuardar.setEnabled(false);
+        btnAgregarImagen.setEnabled(false);
+        rutaImagenSeleccionada = null;
+        lblImagenPreview.setIcon(null);
     }
 
     /**
@@ -101,6 +110,10 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
         tfMes.setEnabled(true);
         tfAnio.setEnabled(true);
         btnGuardar.setEnabled(true);
+        btnAgregarImagen.setEnabled(true);
+
+        rutaImagenSeleccionada = datos.getRutaImagen();
+        lblImagenPreview.setIcon(crearIconoRedimensionado(rutaImagenSeleccionada));
 
         boolean esDocente = "Docente".equals(datos.getTipoUsuario());
         if (esDocente) {
@@ -145,6 +158,9 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
         cbInstitutos = new javax.swing.JComboBox();
         btnGuardar = new javax.swing.JButton();
         usersSeparator = new javax.swing.JSeparator();
+        lblImagenPreview = new javax.swing.JLabel();
+        btnAgregarImagen = new javax.swing.JButton();
+        usersSeparator1 = new javax.swing.JSeparator();
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         setMinimumSize(new java.awt.Dimension(910, 640));
@@ -193,7 +209,7 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
                 .addComponent(lblUsuarios)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(740, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,7 +275,7 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
         lblFechaCaption.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblFechaCaption.setForeground(new java.awt.Color(35, 71, 75));
         lblFechaCaption.setText("Fecha de nacimiento (día / mes / año)");
-        getContentPane().add(lblFechaCaption, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 330, 400, 20));
+        getContentPane().add(lblFechaCaption, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 330, 290, 20));
 
         tfDia.setBackground(new java.awt.Color(242, 242, 242));
         tfDia.setForeground(new java.awt.Color(153, 153, 153));
@@ -299,6 +315,19 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
 
         usersSeparator.setForeground(new java.awt.Color(35, 71, 75));
         getContentPane().add(usersSeparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, 280, 10));
+
+        lblImagenPreview.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(lblImagenPreview, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 90, 220, 200));
+
+        btnAgregarImagen.setBackground(new java.awt.Color(35, 71, 75));
+        btnAgregarImagen.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregarImagen.setText("Cambiar imagen");
+        btnAgregarImagen.setEnabled(false);
+        btnAgregarImagen.addActionListener(this::btnAgregarImagenActionPerformed);
+        getContentPane().add(btnAgregarImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 300, 220, 30));
+
+        usersSeparator1.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 290, 220, 10));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -413,7 +442,7 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
 
         IControlador ic = Fabrica.getInstance().getIControlador();
         try {
-            ic.modificarUsuario(usuarioSeleccionado.getNickname(), nombre, apellido, fechaNacimiento, nombreInstituto);
+            ic.modificarUsuario(usuarioSeleccionado.getNickname(), nombre, apellido, fechaNacimiento, nombreInstituto, rutaImagenSeleccionada);
 
             JOptionPane.showMessageDialog(
             this, "Los datos del usuario se actualizaron correctamente.",
@@ -428,14 +457,38 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private void btnAgregarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarImagenActionPerformed
+        JFileChooser selector = new JFileChooser();
+        int resultado = selector.showOpenDialog(this);
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            File archivo = selector.getSelectedFile();
+            rutaImagenSeleccionada = archivo.getAbsolutePath();
+            lblImagenPreview.setIcon(crearIconoRedimensionado(rutaImagenSeleccionada));
+        }
+    }//GEN-LAST:event_btnAgregarImagenActionPerformed
+
+    private ImageIcon crearIconoRedimensionado(String ruta) {
+        if (ruta == null || ruta.trim().isEmpty()) {
+            return null;
+        }
+        File f = new File(ruta);
+        if (!f.exists()) {
+            return null;
+        }
+        ImageIcon icono = new ImageIcon(ruta);
+        Image img = icono.getImage().getScaledInstance(lblImagenPreview.getWidth(), lblImagenPreview.getHeight(), Image.SCALE_SMOOTH);
+        return new ImageIcon(img);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarImagen;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox cbInstitutos;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPaneUsuarios;
     private javax.swing.JLabel lblApellidoCaption;
     private javax.swing.JLabel lblFechaCaption;
+    private javax.swing.JLabel lblImagenPreview;
     private javax.swing.JLabel lblInfoEmail;
     private javax.swing.JLabel lblInfoNickname;
     private javax.swing.JLabel lblInfoTipo;
@@ -451,5 +504,6 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfMes;
     private javax.swing.JTextField tfNombre;
     private javax.swing.JSeparator usersSeparator;
+    private javax.swing.JSeparator usersSeparator1;
     // End of variables declaration//GEN-END:variables
 }
