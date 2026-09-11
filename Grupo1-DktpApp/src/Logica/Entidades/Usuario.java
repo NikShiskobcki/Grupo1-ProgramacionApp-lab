@@ -28,6 +28,8 @@ public abstract class Usuario implements Serializable {
 
     private LocalDate fechaNacimiento;
 
+    private String rutaImagen;
+
     public Usuario() {
     }
 
@@ -78,5 +80,13 @@ public abstract class Usuario implements Serializable {
 
     public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public String getRutaImagen() {
+        return rutaImagen;
+    }
+
+    public void setRutaImagen(String rutaImagen) {
+        this.rutaImagen = rutaImagen;
     }
 }

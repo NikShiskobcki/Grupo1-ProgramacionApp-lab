@@ -63,7 +63,8 @@ public interface IControlador {
             String nombre,
             String apellido,
             String email,
-            LocalDate fechaNacimiento
+            LocalDate fechaNacimiento,
+            String rutaImagen
     );
 
     void altaUsuarioDocente(
@@ -72,7 +73,8 @@ public interface IControlador {
             String apellido,
             String email,
             LocalDate fechaNacimiento,
-            String nombreInstituto
+            String nombreInstituto,
+            String rutaImagen
     );
 
 
@@ -147,6 +149,7 @@ public interface IControlador {
             String nombre,
             String apellido,
             LocalDate fechaNacimiento,
-            String nombreInstituto
+            String nombreInstituto,
+            String rutaImagen
     );
 }

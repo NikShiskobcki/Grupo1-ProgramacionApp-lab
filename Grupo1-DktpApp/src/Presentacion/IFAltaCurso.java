@@ -14,6 +14,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import Logica.Entidades.Instituto;
 import Logica.Entidades.Curso;
+import java.awt.Color;
 /**
  *
  * @author Usuario
@@ -27,7 +28,7 @@ public class IFAltaCurso extends javax.swing.JInternalFrame {
         initComponents();
         
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        txtFecha.setText(LocalDate.now().format(formatter));
+        //txtFecha.setText(LocalDate.now().format(formatter));
         
         cargarInstitutos();
         cargarPrevias();
@@ -42,11 +43,8 @@ public class IFAltaCurso extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        lblAltaCurso = new javax.swing.JLabel();
+        pnlMain = new javax.swing.JPanel();
         cbInstituto = new javax.swing.JComboBox<>();
-        txtNombre = new javax.swing.JTextField();
-        txtUrl = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -56,55 +54,63 @@ public class IFAltaCurso extends javax.swing.JInternalFrame {
         spnCreditos = new javax.swing.JSpinner();
         jScrollPane2 = new javax.swing.JScrollPane();
         lstPrevias = new javax.swing.JList<>();
-        btnAceptar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        txtFecha = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        lblUsuarios1 = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        usersSeparator = new javax.swing.JSeparator();
+        txtUrl = new javax.swing.JTextField();
+        usersSeparator1 = new javax.swing.JSeparator();
+        txtFecha = new javax.swing.JTextField();
+        usersSeparator2 = new javax.swing.JSeparator();
+        usersSeparator3 = new javax.swing.JSeparator();
+        usersSeparator4 = new javax.swing.JSeparator();
+        usersSeparator5 = new javax.swing.JSeparator();
+        usersSeparator6 = new javax.swing.JSeparator();
+        btnAcc = new javax.swing.JButton();
+
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        setPreferredSize(new java.awt.Dimension(910, 910));
+        setRequestFocusEnabled(false);
+        setVisible(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pnlMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cbInstituto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbInstituto.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cbInstituto.addActionListener(this::cbInstitutoActionPerformed);
-
-        txtNombre.setBackground(new java.awt.Color(242, 242, 242));
-        txtNombre.setForeground(new java.awt.Color(153, 153, 153));
-        txtNombre.setText("Ingrese nombre del curso");
-        txtNombre.setBorder(null);
-        txtNombre.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtNombreMousePressed(evt);
-            }
-        });
-        txtNombre.addActionListener(this::txtNombreActionPerformed);
-
-        txtUrl.setBackground(new java.awt.Color(242, 242, 242));
-        txtUrl.setForeground(new java.awt.Color(153, 153, 153));
-        txtUrl.setText("Ingrese URL del curso");
-        txtUrl.setBorder(null);
-        txtUrl.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtUrlMousePressed(evt);
-            }
-        });
-        txtUrl.addActionListener(this::txtUrlActionPerformed);
+        pnlMain.add(cbInstituto, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, 470, 30));
 
         jLabel1.setText("Nombre");
+        pnlMain.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 50, -1));
 
         jLabel2.setText("URL");
+        pnlMain.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, -1, -1));
 
         txtAreaDescripcion.setColumns(20);
         txtAreaDescripcion.setRows(5);
         jScrollPane1.setViewportView(txtAreaDescripcion);
 
+        pnlMain.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 560, 70));
+
         spnDuracion.setModel(new javax.swing.SpinnerNumberModel(0, 0, 12, 1));
+        spnDuracion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        pnlMain.add(spnDuracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 120, 50, 30));
 
         spnHoras.setModel(new javax.swing.SpinnerNumberModel(0, 0, 24, 1));
+        spnHoras.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        pnlMain.add(spnHoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, 50, 30));
 
         spnCreditos.setModel(new javax.swing.SpinnerNumberModel(0, 0, 255, 1));
+        spnCreditos.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        pnlMain.add(spnCreditos, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 200, 50, 30));
 
         lstPrevias.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -113,42 +119,43 @@ public class IFAltaCurso extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(lstPrevias);
 
-        btnAceptar.setText("Aceptar");
-        btnAceptar.addActionListener(this::btnAceptarActionPerformed);
-
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(this::btnCancelarActionPerformed);
+        pnlMain.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, 440, 230));
 
         jLabel3.setText("Instituto");
+        pnlMain.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, -1, -1));
 
         jLabel4.setText("Duracion (meses)");
+        pnlMain.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, -1, -1));
 
         jLabel5.setText("Cantidad de Horas");
+        pnlMain.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 170, -1, -1));
 
         jLabel6.setText("Cantidad de Creditos");
+        pnlMain.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 210, -1, -1));
 
         jLabel7.setText("Previas");
+        pnlMain.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, -1, 30));
 
         jLabel8.setText("Descripcion");
-
-        txtFecha.addActionListener(this::txtFechaActionPerformed);
+        pnlMain.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, -1, -1));
 
         jLabel9.setText("Fecha");
+        pnlMain.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(35, 71, 75));
 
-        lblAltaCurso.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblAltaCurso.setForeground(new java.awt.Color(255, 255, 255));
-        lblAltaCurso.setText("Alta de Curso");
-        lblAltaCurso.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblUsuarios1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblUsuarios1.setForeground(new java.awt.Color(255, 255, 255));
+        lblUsuarios1.setText("Alta Curso");
+        lblUsuarios1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblAltaCursoMouseClicked(evt);
+                lblUsuarios1MouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblAltaCursoMouseEntered(evt);
+                lblUsuarios1MouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblAltaCursoMouseExited(evt);
+                lblUsuarios1MouseExited(evt);
             }
         });
 
@@ -157,150 +164,103 @@ public class IFAltaCurso extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblAltaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(819, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addComponent(lblUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(747, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblAltaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 47, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(170, 170, 170)
-                            .addComponent(jLabel3)
-                            .addGap(16, 16, 16)
-                            .addComponent(cbInstituto, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(jLabel1)
-                            .addGap(26, 26, 26)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(170, 170, 170)
-                            .addComponent(jLabel4)
-                            .addGap(18, 18, 18)
-                            .addComponent(spnDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(jLabel2)
-                            .addGap(49, 49, 49)
-                            .addComponent(txtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(160, 160, 160)
-                            .addComponent(jLabel5)
-                            .addGap(22, 22, 22)
-                            .addComponent(spnHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(jLabel9)
-                            .addGap(39, 39, 39)
-                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(150, 150, 150)
-                            .addComponent(jLabel6)
-                            .addGap(19, 19, 19)
-                            .addComponent(spnCreditos, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(490, 490, 490)
-                            .addComponent(jLabel7))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel8)
-                            .addGap(38, 38, 38)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(30, 30, 30)
-                                    .addComponent(btnCancelar)
-                                    .addGap(104, 104, 104)
-                                    .addComponent(btnAceptar)))
-                            .addGap(40, 40, 40)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(0, 48, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGap(0, 398, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 37, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(cbInstituto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(38, 38, 38)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(spnDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(8, 8, 8)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(txtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(spnHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(8, 8, 8)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
-                            .addComponent(spnCreditos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel7)
-                        .addGap(4, 4, 4)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel8))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(50, 50, 50)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnCancelar)
-                                    .addComponent(btnAceptar)))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 38, Short.MAX_VALUE))))
-        );
+        pnlMain.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 50));
+
+        txtNombre.setBackground(new java.awt.Color(242, 242, 242));
+        txtNombre.setForeground(new java.awt.Color(153, 153, 153));
+        txtNombre.setText("Ingrese un nombre");
+        txtNombre.setBorder(null);
+        txtNombre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtNombreMousePressed(evt);
+            }
+        });
+        txtNombre.addActionListener(this::txtNombreActionPerformed);
+        pnlMain.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 220, 30));
+
+        usersSeparator.setForeground(new java.awt.Color(35, 71, 75));
+        pnlMain.add(usersSeparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 230, 50, 10));
+
+        txtUrl.setBackground(new java.awt.Color(242, 242, 242));
+        txtUrl.setForeground(new java.awt.Color(153, 153, 153));
+        txtUrl.setText("Ingrese un URL");
+        txtUrl.setBorder(null);
+        txtUrl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtUrlMousePressed(evt);
+            }
+        });
+        txtUrl.addActionListener(this::txtUrlActionPerformed);
+        pnlMain.add(txtUrl, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 220, 30));
+
+        usersSeparator1.setForeground(new java.awt.Color(35, 71, 75));
+        pnlMain.add(usersSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, 210, 10));
+
+        txtFecha.setBackground(new java.awt.Color(242, 242, 242));
+        txtFecha.setForeground(new java.awt.Color(153, 153, 153));
+        txtFecha.setText("DD/MM/AAAA");
+        txtFecha.setBorder(null);
+        txtFecha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtFechaMousePressed(evt);
+            }
+        });
+        txtFecha.addActionListener(this::txtFechaActionPerformed);
+        pnlMain.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, 220, 30));
+
+        usersSeparator2.setForeground(new java.awt.Color(35, 71, 75));
+        pnlMain.add(usersSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, 210, 10));
+
+        usersSeparator3.setForeground(new java.awt.Color(35, 71, 75));
+        pnlMain.add(usersSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 470, 10));
+
+        usersSeparator4.setForeground(new java.awt.Color(35, 71, 75));
+        pnlMain.add(usersSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 150, 50, 10));
+
+        usersSeparator5.setForeground(new java.awt.Color(35, 71, 75));
+        pnlMain.add(usersSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 190, 50, 10));
+
+        usersSeparator6.setForeground(new java.awt.Color(35, 71, 75));
+        pnlMain.add(usersSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, 210, 10));
+
+        btnAcc.setBackground(new java.awt.Color(35, 71, 75));
+        btnAcc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnAcc.setForeground(new java.awt.Color(255, 255, 255));
+        btnAcc.setText("Aceptar");
+        btnAcc.setBorderPainted(false);
+        btnAcc.addActionListener(this::btnAccActionPerformed);
+        pnlMain.add(btnAcc, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 550, 110, 50));
+
+        getContentPane().add(pnlMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 630));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbInstitutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbInstitutoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbInstitutoActionPerformed
-
     private void txtNombreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreMousePressed
-        txtNombre.setForeground(new java.awt.Color(0,0,0));
-        if(txtNombre.getText().equals("Ingrese nombre del curso")){
+        txtNombre.setForeground(new Color(0,0,0));
+        if(txtNombre.getText().equals("Ingrese un nombre")){
             txtNombre.setText("");
         }
     }//GEN-LAST:event_txtNombreMousePressed
 
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-
-    }//GEN-LAST:event_txtNombreActionPerformed
-
     private void txtUrlMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUrlMousePressed
-        txtUrl.setForeground(new java.awt.Color(0,0,0));
-        if(txtUrl.getText().equals("Ingrese URL del curso")){
+        txtUrl.setForeground(new Color(0,0,0));
+        if(txtUrl.getText().equals("Ingrese un URL")){
             txtUrl.setText("");
         }
     }//GEN-LAST:event_txtUrlMousePressed
-
-    private void txtUrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUrlActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUrlActionPerformed
 
     private void cargarInstitutos() {
         try {
@@ -332,9 +292,56 @@ private void cargarPrevias() {
     }
 }
 
-    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        if (txtNombre.getText().trim().isEmpty() || txtNombre.getText().equals("Ingrese nombre del curso") ||
-            txtUrl.getText().trim().isEmpty() || txtUrl.getText().equals("Ingrese URL del curso") ||
+    private void lblAltaCursoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaCursoMouseClicked
+
+    }//GEN-LAST:event_lblAltaCursoMouseClicked
+
+    private void lblAltaCursoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaCursoMouseEntered
+
+    }//GEN-LAST:event_lblAltaCursoMouseEntered
+
+    private void lblAltaCursoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaCursoMouseExited
+
+    }//GEN-LAST:event_lblAltaCursoMouseExited
+
+    private void cbInstitutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbInstitutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbInstitutoActionPerformed
+
+    private void lblUsuarios1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarios1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblUsuarios1MouseClicked
+
+    private void lblUsuarios1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarios1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblUsuarios1MouseEntered
+
+    private void lblUsuarios1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarios1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblUsuarios1MouseExited
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtUrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUrlActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUrlActionPerformed
+
+    private void txtFechaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFechaMousePressed
+        txtFecha.setForeground(new Color(0,0,0));
+        if(txtFecha.getText().equals("DD/MM/AAAA")){
+            txtFecha.setText("");
+        }
+    }//GEN-LAST:event_txtFechaMousePressed
+
+    private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaActionPerformed
+
+    private void btnAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccActionPerformed
+        if (txtNombre.getText().trim().isEmpty() ||
+            txtUrl.getText().trim().isEmpty() ||
             txtAreaDescripcion.getText().trim().isEmpty() ||
             txtFecha.getText().trim().isEmpty() ||
             cbInstituto.getSelectedIndex() == -1) {
@@ -357,7 +364,7 @@ private void cargarPrevias() {
             );
             return;
         }
-
+        
         try {
             IControlador icon = Fabrica.getInstance().getIControlador();
             String nombre = txtNombre.getText().trim();
@@ -402,33 +409,12 @@ private void cargarPrevias() {
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al guardar el curso: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_btnAceptarActionPerformed
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaActionPerformed
-
-    private void lblAltaCursoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaCursoMouseClicked
-
-    }//GEN-LAST:event_lblAltaCursoMouseClicked
-
-    private void lblAltaCursoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaCursoMouseEntered
-
-    }//GEN-LAST:event_lblAltaCursoMouseEntered
-
-    private void lblAltaCursoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaCursoMouseExited
-
-    }//GEN-LAST:event_lblAltaCursoMouseExited
+        } 
+    }//GEN-LAST:event_btnAccActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAceptar;
-    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnAcc;
     private javax.swing.JComboBox<String> cbInstituto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -440,10 +426,11 @@ private void cargarPrevias() {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel lblAltaCurso;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblUsuarios1;
     private javax.swing.JList<String> lstPrevias;
+    private javax.swing.JPanel pnlMain;
     private javax.swing.JSpinner spnCreditos;
     private javax.swing.JSpinner spnDuracion;
     private javax.swing.JSpinner spnHoras;
@@ -451,5 +438,12 @@ private void cargarPrevias() {
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtUrl;
+    private javax.swing.JSeparator usersSeparator;
+    private javax.swing.JSeparator usersSeparator1;
+    private javax.swing.JSeparator usersSeparator2;
+    private javax.swing.JSeparator usersSeparator3;
+    private javax.swing.JSeparator usersSeparator4;
+    private javax.swing.JSeparator usersSeparator5;
+    private javax.swing.JSeparator usersSeparator6;
     // End of variables declaration//GEN-END:variables
 }

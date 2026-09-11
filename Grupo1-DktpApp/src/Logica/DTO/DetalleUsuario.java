@@ -12,6 +12,7 @@ public class DetalleUsuario {
     private final LocalDate fechaNacimiento;
     private final String tipoUsuario; 
     private final String instituto;   // solo aplica a Docente, null si no corresponde
+    private final String rutaImagen;
 
     private final List<String> cursos;
     private final List<String> ediciones;
@@ -19,7 +20,8 @@ public class DetalleUsuario {
 
     public DetalleUsuario(String nickname, String nombre, String apellido, String email,
             LocalDate fechaNacimiento, String tipoUsuario, String instituto,
-            List<String> cursos, List<String> ediciones, List<String> programas) {
+            List<String> cursos, List<String> ediciones, List<String> programas,
+            String rutaImagen) {
         this.nickname = nickname;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -30,6 +32,7 @@ public class DetalleUsuario {
         this.cursos = cursos;
         this.ediciones = ediciones;
         this.programas = programas;
+        this.rutaImagen = rutaImagen;
     }
 
     public String getNickname() {
@@ -58,6 +61,10 @@ public class DetalleUsuario {
 
     public String getInstituto() {
         return instituto;
+    }
+
+    public String getRutaImagen() {
+        return rutaImagen;
     }
 
     public List<String> getCursos() {

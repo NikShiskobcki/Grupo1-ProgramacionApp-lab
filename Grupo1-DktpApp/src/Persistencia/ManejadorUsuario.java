@@ -127,7 +127,8 @@ public class ManejadorUsuario {
                         new UsuarioResumen(
                                 u.getNickname(),
                                 u.getNombre() + " " + u.getApellido(),
-                                tipo
+                                tipo,
+                                u.getRutaImagen()
                         )
                 );
             }
@@ -248,7 +249,8 @@ public class ManejadorUsuario {
                     instituto,
                     cursos,
                     ediciones,
-                    programas
+                    programas,
+                    usuario.getRutaImagen()
             );
 
         } finally {
@@ -287,7 +289,8 @@ public class ManejadorUsuario {
                     usuario.getNombre(),
                     usuario.getApellido(),
                     usuario.getFechaNacimiento(),
-                    instituto
+                    instituto,
+                    usuario.getRutaImagen()
             );
 
         } finally {
@@ -300,7 +303,8 @@ public class ManejadorUsuario {
             String nombre,
             String apellido,
             LocalDate fechaNacimiento,
-            String nombreInstituto) {
+            String nombreInstituto,
+            String rutaImagen) {
 
         EntityManager em = emf.createEntityManager();
         EntityTransaction t = em.getTransaction();
@@ -317,6 +321,7 @@ public class ManejadorUsuario {
             usuario.setNombre(nombre);
             usuario.setApellido(apellido);
             usuario.setFechaNacimiento(fechaNacimiento);
+            usuario.setRutaImagen(rutaImagen);
 
             if (usuario instanceof Docente) {
 

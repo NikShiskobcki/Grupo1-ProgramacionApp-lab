@@ -5,9 +5,12 @@ import Logica.DTO.DetalleUsuario;
 import Logica.DTO.UsuarioResumen;
 import Logica.controladores.Fabrica;
 import Logica.controladores.IControlador;
+import java.awt.Image;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class IFConsultaUsuario extends javax.swing.JInternalFrame {
@@ -31,8 +34,9 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
         for (UsuarioResumen u : usuariosCache) {
             model.addElement(u.toString());
         }
-        lstUsuarios.setModel(model);
-        txtDetalle.setText("Seleccione un usuario de la lista para ver su información.");
+lstUsuarios.setModel(model);
+        txtDetalle.setText("Seleccione un usuario de la lista para ver su informaci�n.");
+        lblImagenPreview.setIcon(null);
     }
 
     /**
@@ -97,8 +101,12 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
         lblDetalleUsuario = new javax.swing.JLabel();
         jScrollPaneDetalle = new javax.swing.JScrollPane();
         txtDetalle = new javax.swing.JTextArea();
+        usersSeparator = new javax.swing.JSeparator();
+        usersSeparator1 = new javax.swing.JSeparator();
+        lblImagenPreview = new javax.swing.JLabel();
+        usersSeparator2 = new javax.swing.JSeparator();
 
-        setBorder(null);
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         setToolTipText("");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(910, 640));
@@ -166,15 +174,16 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
         lblListaUsuarios.setText("Usuarios registrados");
         getContentPane().add(lblListaUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 65, 280, 25));
 
+        lstUsuarios.setBorder(null);
         lstUsuarios.addListSelectionListener(this::lstUsuariosValueChanged);
         jScrollPaneUsuarios.setViewportView(lstUsuarios);
 
-        getContentPane().add(jScrollPaneUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 280, 280));
+        getContentPane().add(jScrollPaneUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 280, 480));
 
         lblDetalleUsuario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblDetalleUsuario.setForeground(new java.awt.Color(35, 71, 75));
         lblDetalleUsuario.setText("Detalle del usuario");
-        getContentPane().add(lblDetalleUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 65, 530, 25));
+        getContentPane().add(lblDetalleUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 530, 25));
 
         txtDetalle.setEditable(false);
         txtDetalle.setColumns(20);
@@ -184,7 +193,19 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
         txtDetalle.setWrapStyleWord(true);
         jScrollPaneDetalle.setViewportView(txtDetalle);
 
-        getContentPane().add(jScrollPaneDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 520, 280));
+        getContentPane().add(jScrollPaneDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, 520, 270));
+
+        usersSeparator.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 570, 520, 10));
+
+        usersSeparator1.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, 180, 10));
+
+        lblImagenPreview.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(lblImagenPreview, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, 180, 180));
+
+        usersSeparator2.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 570, 280, 10));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -221,6 +242,7 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
         int index = lstUsuarios.getSelectedIndex();
         if (index < 0 || index >= usuariosCache.size()) {
             txtDetalle.setText("Seleccione un usuario de la lista para ver su información.");
+            lblImagenPreview.setIcon(null);
             return;
         }
 
@@ -231,10 +253,12 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
             DetalleUsuario detalle = ic.consultarUsuario(nickname);
             if (detalle == null) {
                 txtDetalle.setText("No se encontró información para el usuario seleccionado.");
+                lblImagenPreview.setIcon(null);
                 return;
             }
             txtDetalle.setText(formatearDetalle(detalle));
             txtDetalle.setCaretPosition(0);
+            lblImagenPreview.setIcon(crearIconoRedimensionado(detalle.getRutaImagen()));
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(
             this, "Ocurrió un error al consultar el usuario: " + ex.getMessage(),
@@ -243,16 +267,33 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_lstUsuariosValueChanged
 
+    private ImageIcon crearIconoRedimensionado(String ruta) {
+        if (ruta == null || ruta.trim().isEmpty()) {
+            return null;
+        }
+        File f = new File(ruta);
+        if (!f.exists()) {
+            return null;
+        }
+        ImageIcon icono = new ImageIcon(ruta);
+        Image img = icono.getImage().getScaledInstance(lblImagenPreview.getWidth(), lblImagenPreview.getHeight(), Image.SCALE_SMOOTH);
+        return new ImageIcon(img);
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPaneDetalle;
     private javax.swing.JScrollPane jScrollPaneUsuarios;
     private javax.swing.JLabel lblDetalleUsuario;
+    private javax.swing.JLabel lblImagenPreview;
     private javax.swing.JLabel lblListaUsuarios;
     private javax.swing.JLabel lblUsuarios;
     private javax.swing.JLabel lblUsuarios1;
     private javax.swing.JList<String> lstUsuarios;
     private javax.swing.JTextArea txtDetalle;
+    private javax.swing.JSeparator usersSeparator;
+    private javax.swing.JSeparator usersSeparator1;
+    private javax.swing.JSeparator usersSeparator2;
     // End of variables declaration//GEN-END:variables
 }
