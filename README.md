@@ -9,7 +9,7 @@ Para levantar en mac:
 1- cd a la carpeta 
 2- export DISPLAY=0 
 3- /opt/X11/bin/xhost +
-4- docker compose up
+4- docker compose up (con xquartz abierto)
 
 
 
