@@ -1,25 +1,3 @@
--- ==========================================================================
--- DDL MANUAL DE REFERENCIA (OPCIONAL - NO se ejecuta automáticamente)
--- ==========================================================================
--- Este archivo NO está en la carpeta init/, así que MariaDB no lo corre solo.
---
--- Está pensado como referencia por si en algún momento el equipo decide
--- desactivar la generación automática de EclipseLink
--- (eclipselink.ddl-generation) y manejar el esquema a mano.
---
--- Si llega ese caso:
---   1. En persistence.xml, cambiá:
---        eclipselink.ddl-generation = none
---   2. Copiá este archivo a init/02-ddl.sql
---   3. Completalo/ajustalo con las tablas reales que necesites
---   4. Reconstruí el contenedor desde cero (docker compose down -v && up -d --build)
---
--- Basado en las entidades del proyecto (Grupo1-DktpApp/src/Logica/Entidades):
--- hoy solo "Instituto" está anotada @Entity; el resto (Curso, Docente,
--- EdicionCurso, Estudiante, ProgramaFormacion, Usuario) todavía están
--- comentadas (//@Entity), así que ni siquiera se estarían creando aún.
--- ==========================================================================
-
 USE edext;
 
 CREATE TABLE IF NOT EXISTS instituto (
