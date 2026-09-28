@@ -116,6 +116,7 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
     txtFechaFin.setText("");
     txtCupo.setText("");
     txtFechaPublicacion.setText("");
+    txtInscriptos.setText("");
 
     lstDocentes.setModel(new DefaultListModel<>());
 }
@@ -151,6 +152,8 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
             detalle.getFechaPublicacion().toString()
     );
 
+    txtInscriptos.setText(String.valueOf(detalle.getCantidadInscriptos()));
+
     DefaultListModel<String> modelo = new DefaultListModel<>();
 
     for (String docente : detalle.getDocentes()) {
@@ -181,6 +184,7 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
         txtFechaFin = new javax.swing.JTextField();
         txtCupo = new javax.swing.JTextField();
         txtFechaPublicacion = new javax.swing.JTextField();
+        txtInscriptos = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstDocentes = new javax.swing.JList<>();
@@ -189,6 +193,7 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblUsuarios = new javax.swing.JLabel();
         lblUsuarios1 = new javax.swing.JLabel();
@@ -200,9 +205,10 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
         usersSeparator6 = new javax.swing.JSeparator();
         usersSeparator7 = new javax.swing.JSeparator();
         usersSeparator8 = new javax.swing.JSeparator();
+        usersSeparator9 = new javax.swing.JSeparator();
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        setPreferredSize(new java.awt.Dimension(910, 910));
+        setPreferredSize(new java.awt.Dimension(910, 950));
         setVisible(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -269,7 +275,13 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
         txtFechaPublicacion.setText("jTextField5");
         txtFechaPublicacion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         txtFechaPublicacion.setPreferredSize(new java.awt.Dimension(120, 26));
-        getContentPane().add(txtFechaPublicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 270, 30));
+        getContentPane().add(txtFechaPublicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 460, 270, 30));
+
+        txtInscriptos.setEditable(false);
+        txtInscriptos.setText("jTextField6");
+        txtInscriptos.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        txtInscriptos.setPreferredSize(new java.awt.Dimension(80, 26));
+        getContentPane().add(txtInscriptos, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 270, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(35, 71, 75));
@@ -308,7 +320,12 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(35, 71, 75));
         jLabel10.setText("Fecha publicación:");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, -1, -1));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 470, -1, -1));
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(35, 71, 75));
+        jLabel11.setText("Inscriptos:");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(35, 71, 75));
 
@@ -366,7 +383,7 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 60));
 
         usersSeparator1.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, 270, 10));
+        getContentPane().add(usersSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 490, 270, 10));
 
         usersSeparator2.setForeground(new java.awt.Color(35, 71, 75));
         getContentPane().add(usersSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, 350, 10));
@@ -388,6 +405,9 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
 
         usersSeparator8.setForeground(new java.awt.Color(35, 71, 75));
         getContentPane().add(usersSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 270, 10));
+
+        usersSeparator9.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, 270, 10));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -448,6 +468,7 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cmbInstituto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -465,6 +486,7 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtFechaFin;
     private javax.swing.JTextField txtFechaInicio;
     private javax.swing.JTextField txtFechaPublicacion;
+    private javax.swing.JTextField txtInscriptos;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JSeparator usersSeparator1;
     private javax.swing.JSeparator usersSeparator2;
@@ -474,5 +496,6 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator usersSeparator6;
     private javax.swing.JSeparator usersSeparator7;
     private javax.swing.JSeparator usersSeparator8;
+    private javax.swing.JSeparator usersSeparator9;
     // End of variables declaration//GEN-END:variables
 }

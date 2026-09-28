@@ -1,31 +1,37 @@
 
 package Presentacion;
 
+import Logica.DTO.CursoResumen;
+import Logica.DTO.DetalleCurso;
+import Logica.DTO.DetalleEdicionCurso;
+import Logica.DTO.DetalleProgramaFormacion;
 import Logica.DTO.DetalleUsuario;
+import Logica.DTO.ElementoResumen;
 import Logica.DTO.UsuarioResumen;
 import Logica.controladores.Fabrica;
 import Logica.controladores.IControlador;
+import java.awt.Image;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class IFConsultaUsuario extends javax.swing.JInternalFrame {
 
+    private final IControlador control;
 
     private List<UsuarioResumen> usuariosCache = new ArrayList<>();
 
-
     public IFConsultaUsuario() {
+        this.control = Fabrica.getInstance().getIControlador();
         initComponents();
         cargarUsuarios();
     }
 
-    
-
     private void cargarUsuarios() {
-        IControlador ic = Fabrica.getInstance().getIControlador();
-        usuariosCache = ic.listarUsuarios();
+        usuariosCache = control.listarUsuarios();
 
         DefaultListModel<String> model = new DefaultListModel<>();
         for (UsuarioResumen u : usuariosCache) {
@@ -33,10 +39,14 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
         }
         lstUsuarios.setModel(model);
         txtDetalle.setText("Seleccione un usuario de la lista para ver su información.");
+        lblImagenPreview.setIcon(null);
+        limpiarListasRelacionadas();
     }
 
     /**
-     * Arma el texto de detalle a partir del DTO devuelto por el controlador.
+     * Arma el texto de detalle con los datos básicos del usuario.
+     * Los cursos, ediciones y programas asociados se muestran aparte, en
+     * listas navegables (ver cargarListasRelacionadas).
      */
     private String formatearDetalle(DetalleUsuario detalle) {
         StringBuilder sb = new StringBuilder();
@@ -48,35 +58,58 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
 
         if ("Docente".equals(detalle.getTipoUsuario())) {
             sb.append("Instituto: ").append(detalle.getInstituto()).append("\n");
-
-            sb.append("\nCursos registrados:\n");
-            agregarListado(sb, detalle.getCursos());
-
-            sb.append("\nEdiciones de cursos registradas:\n");
-            agregarListado(sb, detalle.getEdiciones());
-
-            sb.append("\nProgramas de formación registrados:\n");
-            agregarListado(sb, detalle.getProgramas());
-
-        } else {
-            sb.append("\nEdiciones de cursos en las que se inscribió:\n");
-            agregarListado(sb, detalle.getEdiciones());
-
-            sb.append("\nProgramas de formación en los que se inscribió:\n");
-            agregarListado(sb, detalle.getProgramas());
         }
 
         return sb.toString();
     }
 
-    private void agregarListado(StringBuilder sb, List<String> items) {
-        if (items == null || items.isEmpty()) {
-            sb.append("  (sin registros)\n");
-            return;
+    /**
+     * Carga las listas de cursos, ediciones y programas del usuario
+     * seleccionado, mostrando/ocultando la sección de cursos según
+     * corresponda (solo aplica a Docente).
+     */
+    private void cargarListasRelacionadas(DetalleUsuario detalle) {
+        boolean esDocente = "Docente".equals(detalle.getTipoUsuario());
+
+        lblCursosSeccion.setVisible(esDocente);
+        jScrollPaneCursosUsuario.setVisible(esDocente);
+        btnVerCurso.setVisible(esDocente);
+
+        lblEdicionesSeccion.setText(esDocente
+                ? "Edi. de curso registradas"
+                : "Edi. inscripto");
+        lblProgramasSeccion.setText(esDocente
+                ? "Prog. formacion registrados"
+                : "Prog. inscripto");
+
+        DefaultListModel<ElementoResumen> modelCursos = new DefaultListModel<>();
+        for (ElementoResumen c : detalle.getCursos()) {
+            modelCursos.addElement(c);
         }
-        for (String item : items) {
-            sb.append("  - ").append(item).append("\n");
+        lstCursosUsuario.setModel(modelCursos);
+
+        DefaultListModel<ElementoResumen> modelEdiciones = new DefaultListModel<>();
+        for (ElementoResumen e : detalle.getEdiciones()) {
+            modelEdiciones.addElement(e);
         }
+        lstEdicionesUsuario.setModel(modelEdiciones);
+
+        DefaultListModel<ElementoResumen> modelProgramas = new DefaultListModel<>();
+        for (ElementoResumen p : detalle.getProgramas()) {
+            modelProgramas.addElement(p);
+        }
+        lstProgramasUsuario.setModel(modelProgramas);
+    }
+
+    private void limpiarListasRelacionadas() {
+        lblCursosSeccion.setVisible(true);
+        jScrollPaneCursosUsuario.setVisible(true);
+        btnVerCurso.setVisible(true);
+        lblEdicionesSeccion.setText("Ediciones de curso");
+        lblProgramasSeccion.setText("Programas de formación");
+        lstCursosUsuario.setModel(new DefaultListModel<>());
+        lstEdicionesUsuario.setModel(new DefaultListModel<>());
+        lstProgramasUsuario.setModel(new DefaultListModel<>());
     }
 
     /**
@@ -99,12 +132,30 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
         txtDetalle = new javax.swing.JTextArea();
         usersSeparator = new javax.swing.JSeparator();
         usersSeparator1 = new javax.swing.JSeparator();
+        lblImagenPreview = new javax.swing.JLabel();
+        usersSeparator2 = new javax.swing.JSeparator();
+        usersSeparator3 = new javax.swing.JSeparator();
+        lblCursosSeccion = new javax.swing.JLabel();
+        jScrollPaneCursosUsuario = new javax.swing.JScrollPane();
+        lstCursosUsuario = new javax.swing.JList<>();
+        btnVerCurso = new javax.swing.JButton();
+        lblEdicionesSeccion = new javax.swing.JLabel();
+        jScrollPaneEdicionesUsuario = new javax.swing.JScrollPane();
+        lstEdicionesUsuario = new javax.swing.JList<>();
+        btnVerEdicion = new javax.swing.JButton();
+        lblProgramasSeccion = new javax.swing.JLabel();
+        jScrollPaneProgramasUsuario = new javax.swing.JScrollPane();
+        lstProgramasUsuario = new javax.swing.JList<>();
+        btnVerPrograma = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        setClosable(true);
+        setIconifiable(true);
+        setResizable(true);
         setToolTipText("");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMinimumSize(new java.awt.Dimension(910, 640));
-        setPreferredSize(new java.awt.Dimension(910, 700));
+        setMinimumSize(new java.awt.Dimension(910, 780));
+        setPreferredSize(new java.awt.Dimension(910, 820));
         setVisible(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -149,7 +200,7 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
                 .addComponent(lblUsuarios)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(819, Short.MAX_VALUE))
+                .addContainerGap(679, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,7 +212,7 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 50));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 50));
 
         lblListaUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblListaUsuarios.setForeground(new java.awt.Color(35, 71, 75));
@@ -172,12 +223,12 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
         lstUsuarios.addListSelectionListener(this::lstUsuariosValueChanged);
         jScrollPaneUsuarios.setViewportView(lstUsuarios);
 
-        getContentPane().add(jScrollPaneUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 280, 380));
+        getContentPane().add(jScrollPaneUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 280, 660));
 
         lblDetalleUsuario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblDetalleUsuario.setForeground(new java.awt.Color(35, 71, 75));
         lblDetalleUsuario.setText("Detalle del usuario");
-        getContentPane().add(lblDetalleUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 65, 530, 25));
+        getContentPane().add(lblDetalleUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 530, 25));
 
         txtDetalle.setEditable(false);
         txtDetalle.setColumns(20);
@@ -187,13 +238,73 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
         txtDetalle.setWrapStyleWord(true);
         jScrollPaneDetalle.setViewportView(txtDetalle);
 
-        getContentPane().add(jScrollPaneDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 520, 270));
+        getContentPane().add(jScrollPaneDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, 520, 160));
 
         usersSeparator.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 520, 10));
+        getContentPane().add(usersSeparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 450, 520, 10));
 
         usersSeparator1.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 280, 10));
+        getContentPane().add(usersSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 180, 10));
+
+        lblImagenPreview.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(lblImagenPreview, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, 150, 150));
+
+        usersSeparator2.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 760, 280, 10));
+
+        usersSeparator3.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 620, 520, 10));
+
+        lblCursosSeccion.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        lblCursosSeccion.setForeground(new java.awt.Color(35, 71, 75));
+        lblCursosSeccion.setText("Cursos registrados");
+        getContentPane().add(lblCursosSeccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 468, 166, 20));
+
+        lstCursosUsuario.setBorder(null);
+        jScrollPaneCursosUsuario.setViewportView(lstCursosUsuario);
+
+        getContentPane().add(jScrollPaneCursosUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 493, 166, 80));
+
+        btnVerCurso.setBackground(new java.awt.Color(35, 71, 75));
+        btnVerCurso.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnVerCurso.setForeground(new java.awt.Color(255, 255, 255));
+        btnVerCurso.setText("Ver Detalle Curso");
+        btnVerCurso.addActionListener(this::btnVerCursoActionPerformed);
+        getContentPane().add(btnVerCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 580, 166, 35));
+
+        lblEdicionesSeccion.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        lblEdicionesSeccion.setForeground(new java.awt.Color(35, 71, 75));
+        lblEdicionesSeccion.setText("Ediciones de curso");
+        getContentPane().add(lblEdicionesSeccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(506, 468, 166, 20));
+
+        lstEdicionesUsuario.setBorder(null);
+        jScrollPaneEdicionesUsuario.setViewportView(lstEdicionesUsuario);
+
+        getContentPane().add(jScrollPaneEdicionesUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(506, 493, 166, 80));
+
+        btnVerEdicion.setBackground(new java.awt.Color(35, 71, 75));
+        btnVerEdicion.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnVerEdicion.setForeground(new java.awt.Color(255, 255, 255));
+        btnVerEdicion.setText("Ver Detalle Edición");
+        btnVerEdicion.addActionListener(this::btnVerEdicionActionPerformed);
+        getContentPane().add(btnVerEdicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 580, 166, 35));
+
+        lblProgramasSeccion.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        lblProgramasSeccion.setForeground(new java.awt.Color(35, 71, 75));
+        lblProgramasSeccion.setText("Programas de formación");
+        getContentPane().add(lblProgramasSeccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(682, 468, 168, 20));
+
+        lstProgramasUsuario.setBorder(null);
+        jScrollPaneProgramasUsuario.setViewportView(lstProgramasUsuario);
+
+        getContentPane().add(jScrollPaneProgramasUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(682, 493, 168, 80));
+
+        btnVerPrograma.setBackground(new java.awt.Color(35, 71, 75));
+        btnVerPrograma.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnVerPrograma.setForeground(new java.awt.Color(255, 255, 255));
+        btnVerPrograma.setText("Ver Detalle Programa");
+        btnVerPrograma.addActionListener(this::btnVerProgramaActionPerformed);
+        getContentPane().add(btnVerPrograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 580, 168, 35));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -230,20 +341,25 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
         int index = lstUsuarios.getSelectedIndex();
         if (index < 0 || index >= usuariosCache.size()) {
             txtDetalle.setText("Seleccione un usuario de la lista para ver su información.");
+            lblImagenPreview.setIcon(null);
+            limpiarListasRelacionadas();
             return;
         }
 
         String nickname = usuariosCache.get(index).getNickname();
-        IControlador ic = Fabrica.getInstance().getIControlador();
 
         try {
-            DetalleUsuario detalle = ic.consultarUsuario(nickname);
+            DetalleUsuario detalle = control.consultarUsuario(nickname);
             if (detalle == null) {
                 txtDetalle.setText("No se encontró información para el usuario seleccionado.");
+                lblImagenPreview.setIcon(null);
+                limpiarListasRelacionadas();
                 return;
             }
             txtDetalle.setText(formatearDetalle(detalle));
             txtDetalle.setCaretPosition(0);
+            lblImagenPreview.setIcon(crearIconoRedimensionado(detalle.getRutaImagen()));
+            cargarListasRelacionadas(detalle);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(
             this, "Ocurrió un error al consultar el usuario: " + ex.getMessage(),
@@ -252,18 +368,178 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_lstUsuariosValueChanged
 
+    /**
+     * Si el administrador selecciona un curso de los registrados por el
+     * usuario, se muestra su información detallada tal como se indica en
+     * el caso de uso Consulta de Curso.
+     */
+    private void btnVerCursoActionPerformed(java.awt.event.ActionEvent evt) {
+        ElementoResumen cursoSel = lstCursosUsuario.getSelectedValue();
+        if (cursoSel == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione un curso de la lista.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        DetalleCurso detalle = control.consultarCurso(cursoSel.getNombre());
+        if (detalle == null) {
+            JOptionPane.showMessageDialog(this, "No se encontró información para el curso seleccionado.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        JOptionPane.showMessageDialog(this, formatearDetalleCurso(detalle), "Consulta de Curso", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * Si el administrador selecciona una edición de curso del usuario, se
+     * muestra su información detallada tal como se indica en el caso de
+     * uso Consulta de Edición de Curso.
+     */
+    private void btnVerEdicionActionPerformed(java.awt.event.ActionEvent evt) {
+        ElementoResumen edicionSel = lstEdicionesUsuario.getSelectedValue();
+        if (edicionSel == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione una edición de la lista.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        DetalleEdicionCurso detalle = control.consultarEdicion(edicionSel.getNombre());
+        if (detalle == null) {
+            JOptionPane.showMessageDialog(this, "No se encontró la información de la edición.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        JOptionPane.showMessageDialog(this, formatearDetalleEdicion(detalle), "Consulta de Edición de Curso", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * Si el administrador selecciona un programa de formación del usuario,
+     * se muestra su información detallada tal como se indica en el caso de
+     * uso Consulta de Programa de Formación.
+     */
+    private void btnVerProgramaActionPerformed(java.awt.event.ActionEvent evt) {
+        ElementoResumen programaSel = lstProgramasUsuario.getSelectedValue();
+        if (programaSel == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione un programa de formación de la lista.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        DetalleProgramaFormacion detalle = control.consultarPrograma(programaSel.getNombre());
+        if (detalle == null) {
+            JOptionPane.showMessageDialog(this, "No se encontró información para el programa de formación.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        JOptionPane.showMessageDialog(this, formatearDetallePrograma(detalle), "Consulta de Programa de Formación", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private String formatearDetalleCurso(DetalleCurso detalle) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nombre: ").append(detalle.getNombre()).append("\n");
+        sb.append("Descripción: ").append(detalle.getDescripcion()).append("\n");
+        sb.append("Duración: ").append(detalle.getDuracion()).append(" meses\n");
+        sb.append("Horas: ").append(detalle.getCantidadHoras()).append("\n");
+        sb.append("Créditos: ").append(detalle.getCreditos()).append("\n");
+        sb.append("URL: ").append(detalle.getUrl()).append("\n");
+        sb.append("Fecha de alta: ").append(detalle.getFechaAlta()).append("\n");
+        sb.append("Instituto: ").append(detalle.getInstituto()).append("\n");
+        sb.append("Cantidad de inscriptos: ").append(detalle.getCantidadInscriptos()).append("\n");
+
+        sb.append("Previas: ");
+        if (detalle.getPrevias() == null || detalle.getPrevias().isEmpty()) {
+            sb.append("Ninguna\n");
+        } else {
+            sb.append(String.join(", ", detalle.getPrevias())).append("\n");
+        }
+
+        sb.append("Ediciones:\n");
+        agregarListado(sb, detalle.getEdiciones());
+
+        sb.append("Programas de formación:\n");
+        agregarListado(sb, detalle.getProgramas());
+
+        return sb.toString();
+    }
+
+    private String formatearDetalleEdicion(DetalleEdicionCurso detalle) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nombre de edición: ").append(detalle.getNombre()).append("\n");
+        sb.append("Curso asociado: ").append(detalle.getCurso()).append("\n");
+        sb.append("Fecha de inicio: ").append(detalle.getFechaInicio()).append("\n");
+        sb.append("Fecha de fin: ").append(detalle.getFechaFin()).append("\n");
+        sb.append("Cupo: ").append(detalle.getCupo() != null ? detalle.getCupo() : "Sin cupo definido").append("\n");
+        sb.append("Inscriptos: ").append(detalle.getCantidadInscriptos()).append("\n");
+        sb.append("Fecha de publicación: ").append(detalle.getFechaPublicacion()).append("\n");
+        sb.append("Docentes participantes:\n");
+        agregarListado(sb, detalle.getDocentes());
+        return sb.toString();
+    }
+
+    private String formatearDetallePrograma(DetalleProgramaFormacion detalle) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nombre de programa: ").append(detalle.getNombre()).append("\n");
+        sb.append("Descripción: ").append(detalle.getDescripcion()).append("\n");
+        sb.append("Período de vigencia: ").append(detalle.getFechaInicio()).append(" a ").append(detalle.getFechaFin()).append("\n");
+        sb.append("Fecha de alta: ").append(detalle.getFechaAlta()).append("\n");
+        sb.append("Cursos que lo integran:\n");
+        if (detalle.getCursos() == null || detalle.getCursos().isEmpty()) {
+            sb.append("  (sin cursos asociados)\n");
+        } else {
+            for (CursoResumen c : detalle.getCursos()) {
+                sb.append("  - ").append(c.toString()).append("\n");
+            }
+        }
+        return sb.toString();
+    }
+
+    private void agregarListado(StringBuilder sb, List<String> items) {
+        if (items == null || items.isEmpty()) {
+            sb.append("  (sin registros)\n");
+            return;
+        }
+        for (String item : items) {
+            sb.append("  - ").append(item).append("\n");
+        }
+    }
+
+    private ImageIcon crearIconoRedimensionado(String ruta) {
+        if (ruta == null || ruta.trim().isEmpty()) {
+            return null;
+        }
+        File f = new File(ruta);
+        if (!f.exists()) {
+            return null;
+        }
+        ImageIcon icono = new ImageIcon(ruta);
+        Image img = icono.getImage().getScaledInstance(lblImagenPreview.getWidth(), lblImagenPreview.getHeight(), Image.SCALE_SMOOTH);
+        return new ImageIcon(img);
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnVerCurso;
+    private javax.swing.JButton btnVerEdicion;
+    private javax.swing.JButton btnVerPrograma;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPaneCursosUsuario;
     private javax.swing.JScrollPane jScrollPaneDetalle;
+    private javax.swing.JScrollPane jScrollPaneEdicionesUsuario;
+    private javax.swing.JScrollPane jScrollPaneProgramasUsuario;
     private javax.swing.JScrollPane jScrollPaneUsuarios;
+    private javax.swing.JLabel lblCursosSeccion;
     private javax.swing.JLabel lblDetalleUsuario;
+    private javax.swing.JLabel lblEdicionesSeccion;
+    private javax.swing.JLabel lblImagenPreview;
     private javax.swing.JLabel lblListaUsuarios;
+    private javax.swing.JLabel lblProgramasSeccion;
     private javax.swing.JLabel lblUsuarios;
     private javax.swing.JLabel lblUsuarios1;
+    private javax.swing.JList<ElementoResumen> lstCursosUsuario;
+    private javax.swing.JList<ElementoResumen> lstEdicionesUsuario;
+    private javax.swing.JList<ElementoResumen> lstProgramasUsuario;
     private javax.swing.JList<String> lstUsuarios;
     private javax.swing.JTextArea txtDetalle;
     private javax.swing.JSeparator usersSeparator;
     private javax.swing.JSeparator usersSeparator1;
+    private javax.swing.JSeparator usersSeparator2;
+    private javax.swing.JSeparator usersSeparator3;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,10 +16,11 @@ public class DetalleEdicionCurso {
     private final LocalDate fechaPublicacion;
     private final String curso;
     private final List<String> docentes;
+    private final long cantidadInscriptos;
 
     public DetalleEdicionCurso(String nombre, LocalDate fechaInicio, LocalDate fechaFin,
                                Integer cupo, LocalDate fechaPublicacion, String curso,
-                               List<String> docentes) {
+                               List<String> docentes, long cantidadInscriptos) {
         this.nombre = nombre;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
@@ -27,6 +28,7 @@ public class DetalleEdicionCurso {
         this.fechaPublicacion = fechaPublicacion;
         this.curso = curso;
         this.docentes = docentes;
+        this.cantidadInscriptos = cantidadInscriptos;
     }
 
     public String getNombre() {
@@ -55,5 +57,12 @@ public class DetalleEdicionCurso {
 
     public List<String> getDocentes() {
         return docentes;
+    }
+
+    /**
+     * Cantidad de estudiantes inscriptos en esta edición de curso.
+     */
+    public long getCantidadInscriptos() {
+        return cantidadInscriptos;
     }
 }

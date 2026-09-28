@@ -153,18 +153,20 @@ public class Controlador implements IControlador {
 
     @Override
     public void altaUsuarioEstudiante(String nickname, String nombre, String apellido,
-            String email, LocalDate fechaNacimiento) {
+            String email, String contrasenia, LocalDate fechaNacimiento, String rutaImagen) {
 
-        Estudiante estudiante = new Estudiante(nickname, nombre, apellido, email, fechaNacimiento);
+        Estudiante estudiante = new Estudiante(nickname, nombre, apellido, email, contrasenia, fechaNacimiento);
+        estudiante.setRutaImagen(rutaImagen);
         manejadorUsuario.addUsuario(estudiante);
     }
 
     @Override
     public void altaUsuarioDocente(String nickname, String nombre, String apellido,
-            String email, LocalDate fechaNacimiento, String nombreInstituto) {
+            String email, String contrasenia, LocalDate fechaNacimiento, String nombreInstituto, String rutaImagen) {
 
         Instituto instituto = manejadorInstituto.buscarInstituto(nombreInstituto);
-        Docente docente = new Docente(nickname, nombre, apellido, email, fechaNacimiento, instituto);
+        Docente docente = new Docente(nickname, nombre, apellido, email, contrasenia, fechaNacimiento, instituto);
+        docente.setRutaImagen(rutaImagen);
         manejadorUsuario.addUsuario(docente);
     }
 
@@ -341,14 +343,15 @@ public void modificarInscripcionEdicion(Long idInscripcion, LocalDate nuevaFecha
 
     @Override
     public void modificarUsuario(String nickname, String nombre, String apellido,
-            LocalDate fechaNacimiento, String nombreInstituto) {
+            LocalDate fechaNacimiento, String nombreInstituto, String rutaImagen) {
 
         manejadorUsuario.actualizarUsuario(
                 nickname,
                 nombre,
                 apellido,
                 fechaNacimiento,
-                nombreInstituto
+                nombreInstituto,
+                rutaImagen
         );
     }
     

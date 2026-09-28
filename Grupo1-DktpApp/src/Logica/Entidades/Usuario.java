@@ -26,17 +26,23 @@ public abstract class Usuario implements Serializable {
     @Column(unique = true, nullable = false)
     private String email;
 
+    @Column(nullable = false)
+    private String contrasenia;
+
     private LocalDate fechaNacimiento;
+
+    private String rutaImagen;
 
     public Usuario() {
     }
 
     public Usuario(String nickname, String nombre, String apellido,
-                   String email, LocalDate fechaNacimiento) {
+                   String email, String contrasenia, LocalDate fechaNacimiento) {
         this.nickname = nickname;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
+        this.contrasenia = contrasenia;
         this.fechaNacimiento = fechaNacimiento;
     }
 
@@ -72,11 +78,27 @@ public abstract class Usuario implements Serializable {
 //        this.email = email;
 //    }
 
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+
     public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
     public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public String getRutaImagen() {
+        return rutaImagen;
+    }
+
+    public void setRutaImagen(String rutaImagen) {
+        this.rutaImagen = rutaImagen;
     }
 }
