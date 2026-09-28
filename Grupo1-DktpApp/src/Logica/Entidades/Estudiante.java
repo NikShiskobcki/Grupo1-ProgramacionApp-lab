@@ -40,7 +40,7 @@ private List<InscripcionEdicion> inscripcionesEdiciones = new ArrayList<>();
     }
 
     public Estudiante(String nickname, String nombre, String apellido,
-                      String email, LocalDate fechaNacimiento) {
-        super(nickname, nombre, apellido, email, fechaNacimiento);
+                      String email, String contrasenia, LocalDate fechaNacimiento) {
+        super(nickname, nombre, apellido, email, contrasenia, fechaNacimiento);
     }
 }
