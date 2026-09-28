@@ -1,6 +1,7 @@
 package Persistencia;
 
 import Logica.DTO.DetalleUsuario;
+import Logica.DTO.ElementoResumen;
 import Logica.DTO.UsuarioEdicion;
 import Logica.DTO.UsuarioResumen;
 import Logica.Entidades.Curso;
@@ -153,9 +154,9 @@ public class ManejadorUsuario {
             String tipoUsuario;
             String instituto = null;
 
-            List<String> cursos = new ArrayList<>();
-            List<String> ediciones = new ArrayList<>();
-            List<String> programas = new ArrayList<>();
+            List<ElementoResumen> cursos = new ArrayList<>();
+            List<ElementoResumen> ediciones = new ArrayList<>();
+            List<ElementoResumen> programas = new ArrayList<>();
 
             if (usuario instanceof Docente) {
 
@@ -167,20 +168,22 @@ public class ManejadorUsuario {
 
                 for (EdicionCurso edicion : docente.getEdiciones()) {
 
-                    ediciones.add(
+                    ediciones.add(new ElementoResumen(
+                            edicion.getNombre(),
                             edicion.getNombre()
                             + " (" + edicion.getFechaInicio()
                             + " a " + edicion.getFechaFin() + ")"
-                    );
+                    ));
 
                     Curso curso = edicion.getCurso();
 
                     if (nombresCursos.add(curso.getNombre())) {
-                        cursos.add(
+                        cursos.add(new ElementoResumen(
+                                curso.getNombre(),
                                 curso.getNombre()
                                 + " - "
                                 + curso.getDescripcion()
-                        );
+                        ));
                     }
                 }
 
@@ -199,11 +202,12 @@ public class ManejadorUsuario {
 
                     for (ProgramaFormacion programa : programasEncontrados) {
 
-                        programas.add(
+                        programas.add(new ElementoResumen(
+                                programa.getNombre(),
                                 programa.getNombre()
                                 + " (" + programa.getFechaInicio()
                                 + " a " + programa.getFechaFin() + ")"
-                        );
+                        ));
                     }
                 }
 
@@ -217,12 +221,13 @@ public class ManejadorUsuario {
 
                     EdicionCurso edicion = inscripcion.getEdicion();
 
-                    ediciones.add(
+                    ediciones.add(new ElementoResumen(
+                            edicion.getNombre(),
                             edicion.getNombre()
                             + " (inscripto el "
                             + inscripcion.getFechaInscripcion()
                             + ")"
-                    );
+                    ));
                 }
 
                 for (InscripcionPrograma inscripcion
@@ -230,12 +235,13 @@ public class ManejadorUsuario {
 
                     ProgramaFormacion programa = inscripcion.getPrograma();
 
-                    programas.add(
+                    programas.add(new ElementoResumen(
+                            programa.getNombre(),
                             programa.getNombre()
                             + " (inscripto el "
                             + inscripcion.getFechaInscripcion()
                             + ")"
-                    );
+                    ));
                 }
             }
 

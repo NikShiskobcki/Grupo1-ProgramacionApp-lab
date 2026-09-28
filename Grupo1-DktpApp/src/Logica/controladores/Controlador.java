@@ -153,19 +153,19 @@ public class Controlador implements IControlador {
 
     @Override
     public void altaUsuarioEstudiante(String nickname, String nombre, String apellido,
-            String email, LocalDate fechaNacimiento, String rutaImagen) {
+            String email, String contrasenia, LocalDate fechaNacimiento, String rutaImagen) {
 
-        Estudiante estudiante = new Estudiante(nickname, nombre, apellido, email, fechaNacimiento);
+        Estudiante estudiante = new Estudiante(nickname, nombre, apellido, email, contrasenia, fechaNacimiento);
         estudiante.setRutaImagen(rutaImagen);
         manejadorUsuario.addUsuario(estudiante);
     }
 
     @Override
     public void altaUsuarioDocente(String nickname, String nombre, String apellido,
-            String email, LocalDate fechaNacimiento, String nombreInstituto, String rutaImagen) {
+            String email, String contrasenia, LocalDate fechaNacimiento, String nombreInstituto, String rutaImagen) {
 
         Instituto instituto = manejadorInstituto.buscarInstituto(nombreInstituto);
-        Docente docente = new Docente(nickname, nombre, apellido, email, fechaNacimiento, instituto);
+        Docente docente = new Docente(nickname, nombre, apellido, email, contrasenia, fechaNacimiento, instituto);
         docente.setRutaImagen(rutaImagen);
         manejadorUsuario.addUsuario(docente);
     }

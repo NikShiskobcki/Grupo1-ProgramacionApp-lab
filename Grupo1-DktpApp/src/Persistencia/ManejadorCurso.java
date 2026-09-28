@@ -119,6 +119,13 @@ public class ManejadorCurso {
                 nombresProgramas.add(pf.getNombre());
             }
 
+            Long cantidadInscriptos = em.createQuery(
+                    "SELECT COUNT(i) FROM InscripcionEdicion i "
+                    + "WHERE i.edicion.curso.nombre = :nombreCurso",
+                    Long.class)
+                    .setParameter("nombreCurso", nombre)
+                    .getSingleResult();
+
             return new DetalleCurso(
                     curso.getNombre(),
                     curso.getDescripcion(),
@@ -130,7 +137,8 @@ public class ManejadorCurso {
                     curso.getInstituto() != null ? curso.getInstituto().getNombre() : "",
                     previas,
                     ediciones,
-                    nombresProgramas
+                    nombresProgramas,
+                    cantidadInscriptos != null ? cantidadInscriptos : 0L
             );
         } finally {
             em.close();

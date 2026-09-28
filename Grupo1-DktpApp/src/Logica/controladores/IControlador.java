@@ -63,6 +63,7 @@ public interface IControlador {
             String nombre,
             String apellido,
             String email,
+            String contrasenia,
             LocalDate fechaNacimiento,
             String rutaImagen
     );
@@ -72,6 +73,7 @@ public interface IControlador {
             String nombre,
             String apellido,
             String email,
+            String contrasenia,
             LocalDate fechaNacimiento,
             String nombreInstituto,
             String rutaImagen

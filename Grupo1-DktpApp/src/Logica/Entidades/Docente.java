@@ -34,9 +34,9 @@ public class Docente extends Usuario {
     }
 
     public Docente(String nickname, String nombre, String apellido,
-                   String email, LocalDate fechaNacimiento,
+                   String email, String contrasenia, LocalDate fechaNacimiento,
                    Instituto instituto) {
-        super(nickname, nombre, apellido, email, fechaNacimiento);
+        super(nickname, nombre, apellido, email, contrasenia, fechaNacimiento);
         this.instituto = instituto;
     }
 
