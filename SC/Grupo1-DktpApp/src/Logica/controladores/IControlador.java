@@ -93,7 +93,8 @@ public interface IControlador {
             String descripcion,
             LocalDate fechaInicio,
             LocalDate fechaFin,
-            LocalDate fechaAlta
+            LocalDate fechaAlta,
+            String rutaImagen
     );
 
 
@@ -120,7 +121,8 @@ public interface IControlador {
             LocalDate fechaFin,
             Integer cupo,
             String nombreCurso,
-            List<Docente> docentes
+            List<Docente> docentes,
+            String rutaImagen
     );
 
     List<EdicionCurso> listarEdicionesPorCurso(String nombreCurso);

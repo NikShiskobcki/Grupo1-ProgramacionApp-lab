@@ -197,7 +197,7 @@ public class Controlador implements IControlador {
 
     @Override
     public void altaPrograma(String nombre, String descripcion,
-            LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta){
+            LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta,String rutaImagen){
 
         ProgramaFormacion programa = new ProgramaFormacion(
                 nombre,
@@ -206,7 +206,7 @@ public class Controlador implements IControlador {
                 fechaFin,
                 fechaAlta
         );
-
+        programa.setRutaImagen(rutaImagen);
         manejadorProgramaFormacion.addPrograma(programa);
     }
 
@@ -260,7 +260,8 @@ public class Controlador implements IControlador {
             LocalDate fechaFin,
             Integer cupo,
             String nombreCurso,
-            List<Docente> docentes) {
+            List<Docente> docentes,
+            String rutaImagen) {
 
         Curso curso = manejadorCurso.buscarPorNombre(nombreCurso);
 

@@ -387,7 +387,7 @@ public class ManejadorUsuario {
         EntityManager em = emf.createEntityManager();
         try{
             List<Usuario> resultado = em.createQuery(
-                    "SELECT u FROM Usuario WHERE u.nickname = :dato OR u.email = :dato",
+                    "SELECT u FROM Usuario u WHERE u.nickname = :dato OR u.email = :dato",
                     Usuario.class)
                     .setParameter("dato", nicknameOMail)
                     .getResultList();

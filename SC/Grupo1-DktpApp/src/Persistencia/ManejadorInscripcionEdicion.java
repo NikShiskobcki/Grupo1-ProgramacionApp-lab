@@ -28,7 +28,7 @@ public class ManejadorInscripcionEdicion {
             List<InscripcionEdicion> inscripciones = em.createQuery(
                     "SELECT i FROM InscripcionEdicion i "
                     + "WHERE i.estudiante.nickname = :nickname "
-                    + "AND i.edicion.nombre = :nombreEdicion"
+                    + "AND i.edicion.nombre = :nombreEdicion "
                     + "AND (i.estado IS NULL OR i.estado <> Logica.Entidades.EstadoInscripcion.RECHAZADA)",
                     InscripcionEdicion.class)
                     .setParameter("nickname", nicknameEstudiante)

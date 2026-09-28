@@ -73,7 +73,7 @@ public class InscripcionEdicion implements Serializable {
     }
 
     public EstadoInscripcion getEstado() {
-        return estado;
+        return estado == null ? EstadoInscripcion.INSCRIPTO : estado;
     }
     
     
