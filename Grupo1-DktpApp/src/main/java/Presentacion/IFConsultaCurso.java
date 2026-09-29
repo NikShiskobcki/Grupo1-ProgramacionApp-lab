@@ -287,6 +287,7 @@ public class IFConsultaCurso extends javax.swing.JInternalFrame {
         sb.append("Fecha de inicio: ").append(detalleEd.getFechaInicio()).append("\n");
         sb.append("Fecha de fin: ").append(detalleEd.getFechaFin()).append("\n");
         sb.append("Cupo: ").append(detalleEd.getCupo() != null ? detalleEd.getCupo() : "Sin cupo definido").append("\n");
+        sb.append("Inscriptos: ").append(detalleEd.getCantidadInscriptos()).append("\n");
         sb.append("Fecha de publicación: ").append(detalleEd.getFechaPublicacion()).append("\n");
         sb.append("Docentes participantes:\n");
         if (detalleEd.getDocentes() == null || detalleEd.getDocentes().isEmpty()) {
@@ -369,6 +370,7 @@ public class IFConsultaCurso extends javax.swing.JInternalFrame {
         sb.append("URL: ").append(detalle.getUrl()).append("\n");
         sb.append("Fecha de alta: ").append(detalle.getFechaAlta()).append("\n");
         sb.append("Instituto: ").append(detalle.getInstituto()).append("\n");
+        sb.append("Cantidad de inscriptos: ").append(detalle.getCantidadInscriptos()).append("\n");
 
         sb.append("Previas: ");
         if (detalle.getPrevias() == null || detalle.getPrevias().isEmpty()) {

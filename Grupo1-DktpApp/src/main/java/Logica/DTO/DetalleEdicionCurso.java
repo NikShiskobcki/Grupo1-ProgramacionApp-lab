@@ -16,10 +16,12 @@ public class DetalleEdicionCurso {
     private final LocalDate fechaPublicacion;
     private final String curso;
     private final List<String> docentes;
+    private final long cantidadInscriptos;
+    private final String rutaImagen;
 
     public DetalleEdicionCurso(String nombre, LocalDate fechaInicio, LocalDate fechaFin,
                                Integer cupo, LocalDate fechaPublicacion, String curso,
-                               List<String> docentes) {
+                               List<String> docentes, long cantidadInscriptos,String rutaImagen) {
         this.nombre = nombre;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
@@ -27,6 +29,8 @@ public class DetalleEdicionCurso {
         this.fechaPublicacion = fechaPublicacion;
         this.curso = curso;
         this.docentes = docentes;
+        this.cantidadInscriptos = cantidadInscriptos;
+        this.rutaImagen = rutaImagen;
     }
 
     public String getNombre() {
@@ -56,4 +60,17 @@ public class DetalleEdicionCurso {
     public List<String> getDocentes() {
         return docentes;
     }
+
+    /**
+     * Cantidad de estudiantes inscriptos en esta edición de curso.
+     */
+    public long getCantidadInscriptos() {
+        return cantidadInscriptos;
+    }
+
+    public String getRutaImagen() {
+        return rutaImagen;
+    }
+    
+    
 }

@@ -6,6 +6,8 @@ import Logica.DTO.DetalleEdicionCurso;
 
 import Logica.DTO.DetalleProgramaFormacion;
 import Logica.DTO.DetalleUsuario;
+import Logica.DTO.InscripcionResumen;
+import Logica.DTO.ResultadoInscripcion;
 import Logica.DTO.UsuarioEdicion;
 import Logica.DTO.UsuarioResumen;
 import Logica.Entidades.Instituto;
@@ -14,6 +16,7 @@ import Logica.Entidades.Docente;
 import Logica.Entidades.EdicionCurso;
 import Logica.Entidades.Estudiante;
 import Logica.Entidades.InscripcionEdicion;
+import Logica.Entidades.InscripcionPrograma;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -43,7 +46,9 @@ public interface IControlador {
             String url,
             LocalDate fechaAlta,
             Instituto instituto,
-            List<Curso> previas
+            List<Curso> previas,
+            List<String> nombresCategorias,
+            String rutaImagen
     );
 
     DetalleCurso consultarCurso(String nombreCurso);
@@ -63,6 +68,7 @@ public interface IControlador {
             String nombre,
             String apellido,
             String email,
+            String contrasenia,
             LocalDate fechaNacimiento,
             String rutaImagen
     );
@@ -72,6 +78,7 @@ public interface IControlador {
             String nombre,
             String apellido,
             String email,
+            String contrasenia,
             LocalDate fechaNacimiento,
             String nombreInstituto,
             String rutaImagen
@@ -86,7 +93,8 @@ public interface IControlador {
             String descripcion,
             LocalDate fechaInicio,
             LocalDate fechaFin,
-            LocalDate fechaAlta
+            LocalDate fechaAlta,
+            String rutaImagen
     );
 
 
@@ -113,7 +121,8 @@ public interface IControlador {
             LocalDate fechaFin,
             Integer cupo,
             String nombreCurso,
-            List<Docente> docentes
+            List<Docente> docentes,
+            String rutaImagen
     );
 
     List<EdicionCurso> listarEdicionesPorCurso(String nombreCurso);
@@ -135,10 +144,14 @@ public interface IControlador {
         String nicknameEstudiante,
         String nombreEdicion);
     
+    List<InscripcionResumen> listarInscripcionesPorEdicion(String nombreEdicion, boolean ordenarPorPrioridad);
+    
+    void seleccionarEstudiante(Long idInscripcion, boolean aceptado);
+    
 // Consulta de Usuario
     List<UsuarioResumen> listarUsuarios();
 
-    DetalleUsuario consultarUsuario(String nickname);
+    DetalleUsuario consultarUsuario(String nickname, String nicknameConsulta);
 
 
     // Modificar Datos de Usuario
@@ -152,4 +165,26 @@ public interface IControlador {
             String nombreInstituto,
             String rutaImagen
     );
+    
+    //categorias
+    void altaCategoria(String nombre);
+    boolean existeCategoria(String nombre);
+    List<String> listarNombresCategorias();
+    
+    //iniciar sesion
+    UsuarioResumen iniciarSesion(String nicknameOEmail, String contrasenia);
+    
+    //listar inscripciones por edicion
+    List<InscripcionResumen> listarAceptadosPorEdicion(String nombreEdicion);
+    
+    //listar resultados inscripciones por estudiante
+    List<ResultadoInscripcion> listarResultadosPorEstudiante(String nicknameEstudiante);
+    
+   //inscripcion programa formacion
+    InscripcionPrograma buscarInscripcionPrograma(String nicknameEstudiante, String nombrePrograma);
+    void inscribirEstudiantePrograma(String nicknameEstudiante, String nombrePrograma, LocalDate fechaInscripcion);
+    
+    //seguir y dejar de seguir usuarios
+    void seguirUsuario(String nicknameSeguidor, String nicknameSeguido);
+    void dejarDeSeguirUsuario(String nicknameSeguidor, String nicknameSeguido);
 }

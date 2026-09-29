@@ -22,9 +22,9 @@ public class Docente extends Usuario {
     @ManyToMany(mappedBy = "docentes")
     private List<EdicionCurso> ediciones = new ArrayList<>();
 
-    public void setEdiciones(List<EdicionCurso> ediciones) {
-        this.ediciones = ediciones;
-    }
+//    public void setEdiciones(List<EdicionCurso> ediciones) {
+//        this.ediciones = ediciones;
+//    }
 
     public List<EdicionCurso> getEdiciones() {
         return ediciones;
@@ -34,9 +34,9 @@ public class Docente extends Usuario {
     }
 
     public Docente(String nickname, String nombre, String apellido,
-                   String email, LocalDate fechaNacimiento,
+                   String email, String contrasenia, LocalDate fechaNacimiento,
                    Instituto instituto) {
-        super(nickname, nombre, apellido, email, fechaNacimiento);
+        super(nickname, nombre, apellido, email, contrasenia, fechaNacimiento);
         this.instituto = instituto;
     }
 

@@ -98,6 +98,7 @@ public class CargadorDatosPrueba {
                         "Eleven",
                         "Twelve",
                         "eleven11@gmail.com",
+                        "pass1234",
                         LocalDate.of(1971, 12, 31)
                 )
         );
@@ -110,6 +111,7 @@ public class CargadorDatosPrueba {
                         "Gerardo",
                         "Costas",
                         "gcostas@gmail.com",
+                        "pass1234",
                         LocalDate.of(1983, 11, 15)
                 )
         );
@@ -122,6 +124,7 @@ public class CargadorDatosPrueba {
                         "Rodrigo",
                         "Cotelo",
                         "rcotelo@yahoo.com",
+                        "pass1234",
                         LocalDate.of(1975, 8, 2)
                 )
         );
@@ -134,6 +137,7 @@ public class CargadorDatosPrueba {
                         "Cecilia",
                         "Garrido",
                         "cgarrido@hotmail.com",
+                        "pass1234",
                         LocalDate.of(1987, 9, 12)
                 )
         );
@@ -146,6 +150,7 @@ public class CargadorDatosPrueba {
                         "Jeff",
                         "Williams",
                         "jwilliams@gmail.com",
+                        "pass1234",
                         LocalDate.of(1964, 11, 27)
                 )
         );
@@ -158,6 +163,7 @@ public class CargadorDatosPrueba {
                         "Adrian",
                         "Weiss",
                         "aweiss@hotmail.com",
+                        "pass1234",
                         LocalDate.of(1978, 12, 23)
                 )
         );
@@ -189,6 +195,7 @@ public class CargadorDatosPrueba {
                         "Walter",
                         "White",
                         "heisenberg@gmail.com",
+                        "pass1234",
                         LocalDate.of(1956, 3, 7),
                         inco
                 )
@@ -202,6 +209,7 @@ public class CargadorDatosPrueba {
                         "Obi-Wan",
                         "Kenobi",
                         "benKenobi@gmail.com",
+                        "pass1234",
                         LocalDate.of(1914, 4, 2),
                         inco
                 )
@@ -215,6 +223,7 @@ public class CargadorDatosPrueba {
                         "Emma",
                         "Watson",
                         "e.watson@gmail.com",
+                        "pass1234",
                         LocalDate.of(1990, 4, 15),
                         inco
                 )
@@ -228,6 +237,7 @@ public class CargadorDatosPrueba {
                         "Gregory",
                         "House",
                         "greghouse@gmail.com",
+                        "pass1234",
                         LocalDate.of(1959, 5, 15),
                         electrica
                 )
@@ -241,6 +251,7 @@ public class CargadorDatosPrueba {
                         "Tim",
                         "Cook",
                         "tim.cook@apple.com",
+                        "pass1234",
                         LocalDate.of(1960, 11, 1),
                         imerl
                 )
@@ -254,6 +265,7 @@ public class CargadorDatosPrueba {
                         "Daniel",
                         "Riccio",
                         "dan.riccio@gmail.com",
+                        "pass1234",
                         LocalDate.of(1963, 7, 5),
                         imerl
                 )
@@ -267,6 +279,7 @@ public class CargadorDatosPrueba {
                         "Philip",
                         "Schiller",
                         "schiller@gmail.com",
+                        "pass1234",
                         LocalDate.of(1961, 10, 7),
                         impii
                 )
@@ -280,6 +293,7 @@ public class CargadorDatosPrueba {
                         "Bruce",
                         "Sewell",
                         "sewell@gmail.com",
+                        "pass1234",
                         LocalDate.of(1959, 12, 3),
                         disi
                 )
@@ -293,6 +307,7 @@ public class CargadorDatosPrueba {
                         "Adriana",
                         "García",
                         "agarcia@gmail.com",
+                        "pass1234",
                         LocalDate.of(1978, 7, 28),
                         disi
                 )

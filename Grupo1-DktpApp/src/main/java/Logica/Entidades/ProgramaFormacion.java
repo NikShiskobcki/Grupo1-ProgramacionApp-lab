@@ -23,6 +23,7 @@ public class ProgramaFormacion implements Serializable {
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
     private LocalDate fechaAlta;
+    private String rutaImagen;
 
     @ManyToMany
     @JoinTable(
@@ -48,16 +49,23 @@ private List<InscripcionPrograma> inscripciones = new ArrayList<>();
 
     public ProgramaFormacion() {
     }
+    
+    public ProgramaFormacion(String nombre, String descripcion,
+            LocalDate fechaInicio, LocalDate fechaFin,
+            LocalDate fechaAlta) {
+        this(nombre, descripcion, fechaInicio, fechaFin, fechaAlta, null);
+    }
 
     public ProgramaFormacion(String nombre, String descripcion,
                              LocalDate fechaInicio, LocalDate fechaFin,
-                             LocalDate fechaAlta) {
+                             LocalDate fechaAlta, String rutaImagen) {
 
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.fechaAlta = fechaAlta;
+        this.rutaImagen = rutaImagen;
     }
 
 
@@ -87,6 +95,13 @@ private List<InscripcionPrograma> inscripciones = new ArrayList<>();
         return cursos;
     }
 
+    public String getRutaImagen() {
+        return rutaImagen;
+    }
+
+
+    
+
 
     // SETTERS
 
@@ -112,5 +127,9 @@ private List<InscripcionPrograma> inscripciones = new ArrayList<>();
 
     public void setCursos(List<Curso> cursos) {
         this.cursos = cursos;
+    }
+    
+    public void setRutaImagen(String rutaImagen) {
+        this.rutaImagen = rutaImagen;
     }
 }

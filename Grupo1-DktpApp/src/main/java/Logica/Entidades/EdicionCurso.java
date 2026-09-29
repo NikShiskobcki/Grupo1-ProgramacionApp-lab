@@ -28,6 +28,7 @@ public class EdicionCurso implements Serializable {
     private LocalDate fechaFin;
     private Integer cupo;
     private LocalDate fechaPublicacion;
+    private String rutaImagen;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "curso_nombre", nullable = false)
@@ -56,11 +57,17 @@ public class EdicionCurso implements Serializable {
 
     public EdicionCurso() {
     }
+    
+    public EdicionCurso(String nombre, LocalDate fechaInicio,
+            LocalDate fechaFin, Integer cupo,
+            LocalDate fechaPublicacion, Curso curso) {
+        this(nombre, fechaInicio, fechaFin, cupo, fechaPublicacion, curso, null);
+    }
 
 
     public EdicionCurso(String nombre, LocalDate fechaInicio,
                         LocalDate fechaFin, Integer cupo,
-                        LocalDate fechaPublicacion, Curso curso) {
+                        LocalDate fechaPublicacion, Curso curso, String rutaImagen) {
 
         this.nombre = nombre;
         this.fechaInicio = fechaInicio;
@@ -68,6 +75,7 @@ public class EdicionCurso implements Serializable {
         this.cupo = cupo;
         this.fechaPublicacion = fechaPublicacion;
         this.curso = curso;
+        this.rutaImagen = rutaImagen;
     }
 
 
@@ -101,6 +109,13 @@ public class EdicionCurso implements Serializable {
         return docentes;
     }
 
+    public String getRutaImagen() {
+        return rutaImagen;
+    }
+
+   
+    
+
 
     // SETTERS
 
@@ -130,5 +145,9 @@ public class EdicionCurso implements Serializable {
 
     public void setDocentes(List<Docente> docentes) {
         this.docentes = docentes;
+    }
+    
+    public void setRutaImagen(String rutaImagen) {
+        this.rutaImagen = rutaImagen;
     }
 }

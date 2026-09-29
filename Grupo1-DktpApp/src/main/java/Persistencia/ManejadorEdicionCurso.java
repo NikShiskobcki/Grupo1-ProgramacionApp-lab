@@ -116,6 +116,13 @@ public class ManejadorEdicionCurso {
                 );
             }
 
+            Long cantidadInscriptos = em.createQuery(
+                    "SELECT COUNT(i) FROM InscripcionEdicion i "
+                    + "WHERE i.edicion.nombre = :nombreEdicion",
+                    Long.class)
+                    .setParameter("nombreEdicion", nombre)
+                    .getSingleResult();
+
             return new DetalleEdicionCurso(
                 edicion.getNombre(),
                 edicion.getFechaInicio(),
@@ -125,7 +132,9 @@ public class ManejadorEdicionCurso {
                 edicion.getCurso() != null
                     ? edicion.getCurso().getNombre()
                     : "",
-                docentes
+                docentes,
+                cantidadInscriptos != null ? cantidadInscriptos : 0L,
+                edicion.getRutaImagen()
             );
 
         } finally {

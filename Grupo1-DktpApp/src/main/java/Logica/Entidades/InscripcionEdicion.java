@@ -7,6 +7,8 @@ package Logica.Entidades;
 import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,6 +33,9 @@ public class InscripcionEdicion implements Serializable {
     @ManyToOne(optional = false)
     @JoinColumn(name = "edicion_nombre", nullable = false)
     private EdicionCurso edicion;
+    
+    @Enumerated(EnumType.STRING)
+    private EstadoInscripcion estado = EstadoInscripcion.INSCRIPTO;
 
 
     // CONSTRUCTORES
@@ -67,22 +72,34 @@ public class InscripcionEdicion implements Serializable {
         return edicion;
     }
 
+    public EstadoInscripcion getEstado() {
+        return estado == null ? EstadoInscripcion.INSCRIPTO : estado;
+    }
+    
+    
+
 
     // SETTERS
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
     public void setFechaInscripcion(LocalDate fechaInscripcion) {
         this.fechaInscripcion = fechaInscripcion;
     }
 
-    public void setEstudiante(Estudiante estudiante) {
-        this.estudiante = estudiante;
-    }
+//    public void setEstudiante(Estudiante estudiante) {
+//        this.estudiante = estudiante;
+//    }
 
-    public void setEdicion(EdicionCurso edicion) {
-        this.edicion = edicion;
+//    public void setEdicion(EdicionCurso edicion) {
+//        this.edicion = edicion;
+//    }
+
+    public void setEstado(EstadoInscripcion estado) {
+        this.estado = estado;
     }
+    
+    
 }

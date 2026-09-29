@@ -20,12 +20,15 @@ public class DetalleCurso {
     private final List<String> previas;
     private final List<String> ediciones;
     private final List<String> programas;
+    private final long cantidadInscriptos;
+    private final List<String> categorias;
+    private final String rutaImagen;
 
     public DetalleCurso(String nombre, String descripcion, int duracion,
                         int cantidadHoras, int creditos, String url,
                         LocalDate fechaAlta, String instituto,
                         List<String> previas, List<String> ediciones,
-                        List<String> programas) {
+                        List<String> programas, long cantidadInscriptos, List<String> categorias,String rutaImagen) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.duracion = duracion;
@@ -37,6 +40,9 @@ public class DetalleCurso {
         this.previas = previas;
         this.ediciones = ediciones;
         this.programas = programas;
+        this.cantidadInscriptos = cantidadInscriptos;
+        this.categorias = categorias;
+        this.rutaImagen = rutaImagen;
     }
 
     public String getNombre() {
@@ -82,5 +88,25 @@ public class DetalleCurso {
     public List<String> getProgramas() {
         return programas;
     }
+
+    public String getRutaImagen() {
+        return rutaImagen;
+    }
+    
+    
+
+    /**
+     * Cantidad total de estudiantes inscriptos en las ediciones de este
+     * curso (suma de inscriptos de todas sus ediciones).
+     */
+    public long getCantidadInscriptos() {
+        return cantidadInscriptos;
+    }
+
+    public List<String> getCategorias() {
+        return categorias;
+    }
+    
+    
 }
 

@@ -27,11 +27,7 @@ private List<Curso> cursos = new ArrayList<>();
     public void setCursos(List<Curso> cursos) {
         this.cursos = cursos;
     }
-
-    public List<Curso> getCursos() {
-        return cursos;
-    }
-
+ 
     public Instituto() {
     }
 
@@ -42,7 +38,7 @@ private List<Curso> cursos = new ArrayList<>();
     public String getNombre() {
         return nombre;
     }
-
+/*
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -54,4 +50,5 @@ private List<Curso> cursos = new ArrayList<>();
     public void setDocentes(List<Docente> docentes) {
         this.docentes = docentes;
     }
+*/
 }
