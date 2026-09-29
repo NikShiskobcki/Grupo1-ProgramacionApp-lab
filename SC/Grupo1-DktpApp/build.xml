@@ -124,4 +124,20 @@
     </jacoco:report>
 </target>
 
+<target name="-post-compile" depends="jar-logica"/>
+
+<target name="jar-logica" depends="compile">
+    <mkdir dir="dist"/>
+    <jar destfile="dist/ServidorCentral.jar">
+        <!-- Clases de la lógica, persistencia y modelo -->
+        <fileset dir="${build.classes.dir}">
+            <include name="Logica/**"/>
+            <include name="Persistencia/**"/>
+            <include name="META-INF/**"/>
+            <!-- Excluimos la interfaz gráfica de escritorio -->
+            <exclude name="Presentacion/**"/>
+        </fileset>
+    </jar>
+</target>
+
 </project>
