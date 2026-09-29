@@ -76,8 +76,7 @@ public void testDTOsGettersYToString() {
             LocalDate.of(2026, 1, 1), "INCO",
             java.util.Arrays.asList("Previa1"),
             java.util.Arrays.asList("Edicion1"),
-            java.util.Arrays.asList("Prog1"),
-            5L
+            java.util.Arrays.asList("Prog1")
     );
     org.junit.Assert.assertEquals("Curso Test", detCurso.getNombre());
     org.junit.Assert.assertEquals("Desc Test", detCurso.getDescripcion());
@@ -90,14 +89,12 @@ public void testDTOsGettersYToString() {
     org.junit.Assert.assertFalse(detCurso.getPrevias().isEmpty());
     org.junit.Assert.assertFalse(detCurso.getEdiciones().isEmpty());
     org.junit.Assert.assertFalse(detCurso.getProgramas().isEmpty());
-    org.junit.Assert.assertEquals(5L, detCurso.getCantidadInscriptos());
 
     // 2. DetalleEdicionCurso
     Logica.DTO.DetalleEdicionCurso detEd = new Logica.DTO.DetalleEdicionCurso(
             "Edicion Test", LocalDate.of(2026, 3, 1), LocalDate.of(2026, 6, 1),
             20, LocalDate.of(2026, 2, 1), "Curso Test",
-            java.util.Arrays.asList("Docente1"),
-            3L
+            java.util.Arrays.asList("Docente1")
     );
     org.junit.Assert.assertEquals("Edicion Test", detEd.getNombre());
     org.junit.Assert.assertEquals(LocalDate.of(2026, 3, 1), detEd.getFechaInicio());
@@ -106,7 +103,6 @@ public void testDTOsGettersYToString() {
     org.junit.Assert.assertEquals(LocalDate.of(2026, 2, 1), detEd.getFechaPublicacion());
     org.junit.Assert.assertEquals("Curso Test", detEd.getCurso());
     org.junit.Assert.assertFalse(detEd.getDocentes().isEmpty());
-    org.junit.Assert.assertEquals(3L, detEd.getCantidadInscriptos());
 
     // 3. DetalleUsuario
     Logica.DTO.DetalleUsuario detUsr = new Logica.DTO.DetalleUsuario(
@@ -180,7 +176,7 @@ public void testDTOsGettersYToString() {
        //estudiante
        String nickEst = "est_nick_test_"+ System.currentTimeMillis();
        String mailEst = "est_mail_test_"+ System.currentTimeMillis();
-       controlador.altaUsuarioEstudiante(nickEst,"est_nom_test","est_ap_test",mailEst, "pass1234", LocalDate.of(2026,1,1),null);
+       controlador.altaUsuarioEstudiante(nickEst,"est_nom_test","est_ap_test",mailEst, LocalDate.of(2026,1,1),null);
        assertTrue(controlador.existeNickname(nickEst));
        assertTrue(controlador.existeEmail(mailEst));
        assertFalse(controlador.listarEstudiantes().isEmpty());
@@ -188,7 +184,7 @@ public void testDTOsGettersYToString() {
        //docente
        String nickDoc = "doc_nick_test_"+ System.currentTimeMillis();
        String mailDoc = "doc_mail_test_"+ System.currentTimeMillis();
-       controlador.altaUsuarioDocente(nickDoc, "doc_nom_test", "doc_ap_test", mailDoc, "pass1234", LocalDate.of(2026,1,1), instNom,null);
+       controlador.altaUsuarioDocente(nickDoc, "doc_nom_test", "doc_ap_test", mailDoc, LocalDate.of(2026,1,1), instNom,null);
        assertTrue(controlador.existeNickname(nickDoc));
        assertFalse(controlador.listarDocentesPorInstituto(instNom).isEmpty());
        
@@ -308,7 +304,7 @@ public void testDTOsGettersYToString() {
        //docente
        String nickDoc = "doc_nick_test_"+ System.currentTimeMillis();
        String mailDoc = "doc_mail_test_"+ System.currentTimeMillis();
-       controlador.altaUsuarioDocente(nickDoc, "doc_nom_test", "doc_ap_test", mailDoc, "pass1234", LocalDate.of(2026,1,1), instNombre,null);
+       controlador.altaUsuarioDocente(nickDoc, "doc_nom_test", "doc_ap_test", mailDoc, LocalDate.of(2026,1,1), instNombre,null);
        List<Docente> docentes = controlador.listarDocentesPorInstituto(instNombre);
        
        String cursoNombre = "nom_curso_test_"+System.currentTimeMillis();
@@ -330,7 +326,7 @@ public void testDTOsGettersYToString() {
        //inscripcion de estudiante a edicion
        String nickEst = "est_nick_test_"+System.currentTimeMillis();
        String mailEst = "est_mail_test_"+System.currentTimeMillis();
-       controlador.altaUsuarioEstudiante(nickEst, "nom_est", "ap_est", mailEst + "mail_test", "pass1234", LocalDate.of(2001, 2, 2),null);
+       controlador.altaUsuarioEstudiante(nickEst, "nom_est", "ap_est", mailEst + "mail_test", LocalDate.of(2001, 2, 2),null);
        controlador.inscribirEstudianteEdicion(nickEst, edicionNombre, LocalDate.now());
        InscripcionEdicion inscripcion = controlador.buscarInscripcionEdicion(nickEst, edicionNombre);
         if (inscripcion != null && inscripcion.getId() != null) {
@@ -373,17 +369,17 @@ public void testDTOsGettersYToString() {
     
        String nick = "user_dup" + sufijo;
        String mail = "mail_dup" + sufijo;
-       controlador.altaUsuarioEstudiante(nick, "Nombre", "Apellido", mail, "pass1234", LocalDate.of(2000, 1, 1),null);
+       controlador.altaUsuarioEstudiante(nick, "Nombre", "Apellido", mail, LocalDate.of(2000, 1, 1),null);
 
        // nick y mail duplicado
        try {
-           controlador.altaUsuarioEstudiante(nick, "Otro", "Otro", "nuevo@mail.com", "pass1234", LocalDate.of(2000, 1, 1),null);
+           controlador.altaUsuarioEstudiante(nick, "Otro", "Otro", "nuevo@mail.com", LocalDate.of(2000, 1, 1),null);
        } catch (Exception e) {
            assertNotNull(e);
        }
 
        try {
-           controlador.altaUsuarioEstudiante("otro_nick" + sufijo, "Otro", "Otro", mail, "pass1234", LocalDate.of(2000, 1, 1),null);
+           controlador.altaUsuarioEstudiante("otro_nick" + sufijo, "Otro", "Otro", mail, LocalDate.of(2000, 1, 1),null);
        } catch (Exception e) {
            assertNotNull(e);
        }

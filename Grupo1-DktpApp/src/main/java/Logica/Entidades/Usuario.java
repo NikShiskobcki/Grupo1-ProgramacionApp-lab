@@ -1,17 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 // Usuario.java
 package Logica.Entidades;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -32,6 +33,14 @@ public abstract class Usuario implements Serializable {
     private LocalDate fechaNacimiento;
 
     private String rutaImagen;
+    
+    @ManyToMany
+    @JoinTable(
+            name = "USUARIO_SEGUIDOS",
+            joinColumns = @JoinColumn(name = "seguidor_nickname"),
+            inverseJoinColumns = @JoinColumn(name = "seguido_nickname")
+    )
+    private List<Usuario> seguidos = new ArrayList<>();
 
     public Usuario() {
     }
@@ -66,6 +75,16 @@ public abstract class Usuario implements Serializable {
         return apellido;
     }
 
+    public List<Usuario> getSeguidos() {
+        return seguidos;
+    }
+
+    public void setSeguidos(List<Usuario> seguidos) {
+        this.seguidos = seguidos;
+    }
+    
+    
+
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
@@ -74,9 +93,9 @@ public abstract class Usuario implements Serializable {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 
     public String getContrasenia() {
         return contrasenia;

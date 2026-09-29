@@ -615,7 +615,7 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
                 fechaFin,
                 cupo,
                 nombreCurso,
-                docentesSeleccionados
+                docentesSeleccionados,null
         );
 
         JOptionPane.showMessageDialog(

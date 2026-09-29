@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import Logica.Entidades.Instituto;
 import Logica.Entidades.Curso;
 import java.awt.Color;
+import java.util.ArrayList;
 /**
  *
  * @author Usuario
@@ -402,7 +403,7 @@ private void cargarPrevias() {
             .collect(java.util.stream.Collectors.toList());
 
             //Invocar alta en la lógica
-            icon.altaCurso(nombre, descripcion, duracion, horas, creditos, url, fechaAlta, institutoSeleccionado, previasSeleccionadas);
+            icon.altaCurso(nombre, descripcion, duracion, horas, creditos, url, fechaAlta, institutoSeleccionado, previasSeleccionadas, new ArrayList<>(),null);
 
             JOptionPane.showMessageDialog(this, "Curso registrado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();

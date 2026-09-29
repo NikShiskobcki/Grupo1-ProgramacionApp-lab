@@ -349,7 +349,7 @@ public class IFConsultaUsuario extends javax.swing.JInternalFrame {
         String nickname = usuariosCache.get(index).getNickname();
 
         try {
-            DetalleUsuario detalle = control.consultarUsuario(nickname);
+            DetalleUsuario detalle = control.consultarUsuario(nickname,null);
             if (detalle == null) {
                 txtDetalle.setText("No se encontró información para el usuario seleccionado.");
                 lblImagenPreview.setIcon(null);

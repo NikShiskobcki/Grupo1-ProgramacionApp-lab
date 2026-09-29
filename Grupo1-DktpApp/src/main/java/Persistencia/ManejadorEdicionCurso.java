@@ -133,7 +133,8 @@ public class ManejadorEdicionCurso {
                     ? edicion.getCurso().getNombre()
                     : "",
                 docentes,
-                cantidadInscriptos != null ? cantidadInscriptos : 0L
+                cantidadInscriptos != null ? cantidadInscriptos : 0L,
+                edicion.getRutaImagen()
             );
 
         } finally {

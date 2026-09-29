@@ -1,7 +1,7 @@
 package Persistencia;
 
 import Logica.DTO.DetalleCurso;
-import Logica.Entidades.EdicionCurso;
+import Logica.Entidades.Categoria;
 import Logica.Entidades.ProgramaFormacion;
 import java.util.ArrayList;
 
@@ -99,6 +99,11 @@ public class ManejadorCurso {
             for (Curso previa : curso.getPrevias()) {
                 previas.add(previa.getNombre());
             }
+            
+            List<String> categorias = new ArrayList<>();
+            for (Categoria cat:curso.getCategorias()){
+                categorias.add(cat.getNombre());
+            }
 
             
             List<String> ediciones = em.createQuery(
@@ -138,7 +143,8 @@ public class ManejadorCurso {
                     previas,
                     ediciones,
                     nombresProgramas,
-                    cantidadInscriptos != null ? cantidadInscriptos : 0L
+                    cantidadInscriptos != null ? cantidadInscriptos : 0L,
+                    categorias, curso.getRutaImagen()
             );
         } finally {
             em.close();

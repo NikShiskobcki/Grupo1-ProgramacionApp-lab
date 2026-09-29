@@ -2,6 +2,7 @@ package Persistencia;
 
 import Logica.DTO.CursoResumen;
 import Logica.DTO.DetalleProgramaFormacion;
+import Logica.Entidades.Categoria;
 import Logica.Entidades.Curso;
 import Logica.Entidades.ProgramaFormacion;
 import java.util.ArrayList;
@@ -10,6 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import Logica.excepciones.*;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class ManejadorProgramaFormacion {
 
@@ -86,17 +89,35 @@ public class ManejadorProgramaFormacion {
             ProgramaFormacion programa = em.find(ProgramaFormacion.class, nombre);
             if (programa == null) return null;
             List<CursoResumen> cursos = new ArrayList<>();
+            //treeset evita repetidos y los ordena
+            Set<String> categoriasSet = new TreeSet<>();
             for (Curso curso : programa.getCursos()){
                 cursos.add(new CursoResumen(curso.getNombre(), curso.getInstituto().getNombre()));
+                for (Categoria cat:curso.getCategorias()){
+                    categoriasSet.add(cat.getNombre());
+                }
             }
+            List<String> categorias = new ArrayList<>(categoriasSet);
+            
             return new DetalleProgramaFormacion(
                 programa.getNombre(),
                 programa.getDescripcion(),
                 programa.getFechaInicio(),
                 programa.getFechaFin(),
                 programa.getFechaAlta(),
-                cursos
+                cursos,
+                categorias,
+                programa.getRutaImagen()
             );
+        }finally{
+            em.close();
+        }
+    }
+    
+    public ProgramaFormacion buscarPrograma(String nombre){
+        EntityManager em = emf.createEntityManager();
+        try{
+            return em.find(ProgramaFormacion.class,nombre);
         }finally{
             em.close();
         }

@@ -17,11 +17,12 @@ public class DetalleUsuario {
     private final List<ElementoResumen> cursos;
     private final List<ElementoResumen> ediciones;
     private final List<ElementoResumen> programas;
+    private final List<ElementoResumen> inscripcionesRechazadas;
 
     public DetalleUsuario(String nickname, String nombre, String apellido, String email,
             LocalDate fechaNacimiento, String tipoUsuario, String instituto,
             List<ElementoResumen> cursos, List<ElementoResumen> ediciones, List<ElementoResumen> programas,
-            String rutaImagen) {
+            String rutaImagen,List<ElementoResumen> inscripcionesRechazadas) {
         this.nickname = nickname;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -33,6 +34,7 @@ public class DetalleUsuario {
         this.ediciones = ediciones;
         this.programas = programas;
         this.rutaImagen = rutaImagen;
+        this.inscripcionesRechazadas = inscripcionesRechazadas;
     }
 
     public String getNickname() {
@@ -66,6 +68,12 @@ public class DetalleUsuario {
     public String getRutaImagen() {
         return rutaImagen;
     }
+
+    public List<ElementoResumen> getInscripcionesRechazadas() {
+        return inscripcionesRechazadas;
+    }
+    
+    
 
     /**
      * Cursos registrados por el usuario (solo aplica a Docente).

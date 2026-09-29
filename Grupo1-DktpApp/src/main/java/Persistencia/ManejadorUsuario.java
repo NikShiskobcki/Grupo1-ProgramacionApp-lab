@@ -7,6 +7,7 @@ import Logica.DTO.UsuarioResumen;
 import Logica.Entidades.Curso;
 import Logica.Entidades.Docente;
 import Logica.Entidades.EdicionCurso;
+import Logica.Entidades.EstadoInscripcion;
 import Logica.Entidades.Estudiante;
 import Logica.Entidades.Instituto;
 import Logica.Entidades.InscripcionEdicion;
@@ -141,7 +142,7 @@ public class ManejadorUsuario {
         }
     }
 
-    public DetalleUsuario buscarDetalleUsuario(String nickname) {
+    public DetalleUsuario buscarDetalleUsuario(String nickname, String nicknameConsulta) {
         EntityManager em = emf.createEntityManager();
 
         try {
@@ -150,6 +151,7 @@ public class ManejadorUsuario {
             if (usuario == null) {
                 return null;
             }
+            boolean esPropioPerfil = nickname.equals(nicknameConsulta);
 
             String tipoUsuario;
             String instituto = null;
@@ -157,6 +159,7 @@ public class ManejadorUsuario {
             List<ElementoResumen> cursos = new ArrayList<>();
             List<ElementoResumen> ediciones = new ArrayList<>();
             List<ElementoResumen> programas = new ArrayList<>();
+            List<ElementoResumen> rechazadas = new ArrayList<>();
 
             if (usuario instanceof Docente) {
 
@@ -220,28 +223,23 @@ public class ManejadorUsuario {
                         : estudiante.getInscripcionesEdiciones()) {
 
                     EdicionCurso edicion = inscripcion.getEdicion();
+                    EstadoInscripcion estado = inscripcion.getEstado();
 
-                    ediciones.add(new ElementoResumen(
+                    ElementoResumen resumen = new ElementoResumen(
                             edicion.getNombre(),
                             edicion.getNombre()
                             + " (inscripto el "
                             + inscripcion.getFechaInscripcion()
                             + ")"
-                    ));
-                }
+                    );
 
-                for (InscripcionPrograma inscripcion
-                        : estudiante.getInscripcionesProgramas()) {
-
-                    ProgramaFormacion programa = inscripcion.getPrograma();
-
-                    programas.add(new ElementoResumen(
-                            programa.getNombre(),
-                            programa.getNombre()
-                            + " (inscripto el "
-                            + inscripcion.getFechaInscripcion()
-                            + ")"
-                    ));
+                    if (estado == EstadoInscripcion.RECHAZADA) {
+                        if (esPropioPerfil) {
+                            rechazadas.add(resumen);
+                        }
+                    } else {
+                        ediciones.add(resumen);
+                    }
                 }
             }
 
@@ -256,7 +254,8 @@ public class ManejadorUsuario {
                     cursos,
                     ediciones,
                     programas,
-                    usuario.getRutaImagen()
+                    usuario.getRutaImagen(),
+                    rechazadas
             );
 
         } finally {
@@ -375,12 +374,77 @@ public class ManejadorUsuario {
     
     public Estudiante buscarEstudiante(String nickname) {
 
-    EntityManager em = emf.createEntityManager();
+        EntityManager em = emf.createEntityManager();
 
-    try {
-        return em.find(Estudiante.class, nickname);
-    } finally {
-        em.close();
+        try {
+            return em.find(Estudiante.class, nickname);
+        } finally {
+            em.close();
+        }
+    }   
+    
+    public UsuarioResumen autenticar(String nicknameOMail, String contrasenia){
+        EntityManager em = emf.createEntityManager();
+        try{
+            List<Usuario> resultado = em.createQuery(
+                    "SELECT u FROM Usuario u WHERE u.nickname = :dato OR u.email = :dato",
+                    Usuario.class)
+                    .setParameter("dato", nicknameOMail)
+                    .getResultList();
+            if (resultado.isEmpty()){
+                return null;
+            }
+            Usuario u = resultado.get(0);
+            if (!u.getContrasenia().equals(contrasenia)){
+                return null;
+            }
+            String tipo = (u instanceof Docente) ? "Docente" : "Estudiante";
+            return new UsuarioResumen(
+                    u.getNickname(),
+                    u.getNombre() + " " + u.getApellido(),
+                    tipo,
+                    u.getRutaImagen()
+            );
+        }finally{
+            em.close();
+        }
     }
-}
+    
+    public void seguirUsuario(String nicknameSeguidor, String nicknameSeguido){
+        EntityManager em=emf.createEntityManager();
+        EntityTransaction t= em.getTransaction();
+        try{
+            t.begin();
+            Usuario seguidor = em.find(Usuario.class, nicknameSeguidor);
+            Usuario seguido = em.find(Usuario.class, nicknameSeguido);
+            if (seguidor!=null && seguido!=null && !seguidor.getSeguidos().contains(seguido)){
+                seguidor.getSeguidos().add(seguido);
+            }
+            t.commit();
+        }catch(Exception e){
+            if (t.isActive()){t.rollback();}
+            throw new PersistenciaException("No se pudo seguir al usuario",e);
+        }finally{
+          em.close();  
+        }
+    }
+    
+    public void dejarDeSeguirUsuario(String nicknameSeguidor, String nicknameSeguido){
+        EntityManager em=emf.createEntityManager();
+        EntityTransaction t= em.getTransaction();
+        try{
+            t.begin();
+            Usuario seguidor = em.find(Usuario.class,nicknameSeguidor);
+            if (seguidor !=null){
+                seguidor.getSeguidos().removeIf(u->u.getNickname().equals(nicknameSeguido));
+            }
+            t.commit();
+        }catch(Exception e){
+            if (t.isActive()){t.rollback();}
+            throw new PersistenciaException("No se pudo dejar de seguir al usuario",e);
+        }finally{
+            em.close();
+        }
+    }
+        
 }

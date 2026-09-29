@@ -30,8 +30,8 @@ public class Curso implements Serializable {
     private int creditos;
     private String url;
     private LocalDate fechaAlta;
-     
-
+    private String rutaImagen;
+    
     @ManyToOne(optional = false)
     @JoinColumn(name = "instituto_nombre", nullable = false)
     private Instituto instituto;
@@ -46,15 +46,30 @@ public class Curso implements Serializable {
 
     @OneToMany(mappedBy = "curso")
     private List<EdicionCurso> ediciones = new ArrayList<>();
+    
+    @ManyToMany
+    @JoinTable(
+            name = "CURSO_CATEGORIA",
+            joinColumns = @JoinColumn(name = "curso_nombre"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_nombre")
+    )
+    private List<Categoria> categorias= new ArrayList<>();
+     
 
+   
 
     public Curso() {
+    }
+    public Curso(String nombre, String descripcion, int duracion,
+            int cantidadHoras, int creditos, String url,
+            LocalDate fechaAlta, Instituto instituto) {
+        this(nombre, descripcion, duracion, cantidadHoras, creditos, url, fechaAlta, instituto, null);
     }
 
 
     public Curso(String nombre, String descripcion, int duracion,
                  int cantidadHoras, int creditos, String url,
-                 LocalDate fechaAlta, Instituto instituto) {
+                 LocalDate fechaAlta, Instituto instituto,String rutaImagen) {
 
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -64,6 +79,7 @@ public class Curso implements Serializable {
         this.url = url;
         this.fechaAlta = fechaAlta;
         this.instituto = instituto;
+        this.rutaImagen = rutaImagen;
     }
 
 
@@ -109,46 +125,66 @@ public class Curso implements Serializable {
         return ediciones;
     }
 
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public String getRutaImagen() {
+        return rutaImagen;
+    }
+    
+    
+    
+
 
     // SETTERS
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+//    public void setNombre(String nombre) {
+//        this.nombre = nombre;
+//    }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+//    public void setDescripcion(String descripcion) {
+//        this.descripcion = descripcion;
+//    }
 
-    public void setDuracion(int duracion) {
-        this.duracion = duracion;
-    }
+//    public void setDuracion(int duracion) {
+//        this.duracion = duracion;
+//    }
+//
+//    public void setCantidadHoras(int cantidadHoras) {
+//        this.cantidadHoras = cantidadHoras;
+//    }
 
-    public void setCantidadHoras(int cantidadHoras) {
-        this.cantidadHoras = cantidadHoras;
-    }
+//    public void setCreditos(int creditos) {
+//        this.creditos = creditos;
+//    }
+//
+//    public void setUrl(String url) {
+//        this.url = url;
+//    }
 
-    public void setCreditos(int creditos) {
-        this.creditos = creditos;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public void setFechaAlta(LocalDate fechaAlta) {
-        this.fechaAlta = fechaAlta;
-    }
-
-    public void setInstituto(Instituto instituto) {
-        this.instituto = instituto;
-    }
-
+//    public void setFechaAlta(LocalDate fechaAlta) {
+//        this.fechaAlta = fechaAlta;
+//    }
+//
+//    public void setInstituto(Instituto instituto) {
+//        this.instituto = instituto;
+//    }
+//
     public void setPrevias(List<Curso> previas) {
         this.previas = previas;
     }
-
-    public void setEdiciones(List<EdicionCurso> ediciones) {
-        this.ediciones = ediciones;
+//
+//    public void setEdiciones(List<EdicionCurso> ediciones) {
+//        this.ediciones = ediciones;
+//    }
+    
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
     }
+
+    public void setRutaImagen(String rutaImagen) {
+        this.rutaImagen = rutaImagen;
+    }
+    
 }

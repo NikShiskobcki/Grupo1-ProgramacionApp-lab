@@ -60,7 +60,7 @@ public class InscripcionPrograma implements Serializable {
 
     public Estudiante getEstudiante() {
         return estudiante;
-    }
+   }
 
     public ProgramaFormacion getPrograma() {
         return programa;
@@ -69,19 +69,19 @@ public class InscripcionPrograma implements Serializable {
 
     // SETTERS
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
     public void setFechaInscripcion(LocalDate fechaInscripcion) {
-        this.fechaInscripcion = fechaInscripcion;
+        this.fechaInscripcion = fechaInscripcion;    
     }
-
-    public void setEstudiante(Estudiante estudiante) {
-        this.estudiante = estudiante;
-    }
-
-    public void setPrograma(ProgramaFormacion programa) {
-        this.programa = programa;
-    }
+//
+//    public void setEstudiante(Estudiante estudiante) {
+//        this.estudiante = estudiante;
+//    }
+//
+//    public void setPrograma(ProgramaFormacion programa) {
+//        this.programa = programa;
+//    }
 }
