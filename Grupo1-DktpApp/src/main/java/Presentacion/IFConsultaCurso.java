@@ -8,6 +8,7 @@ import Logica.DTO.DetalleCurso;
 import Logica.DTO.DetalleEdicionCurso;
 import Logica.DTO.DetalleProgramaFormacion;
 import Logica.DTO.CursoResumen;
+import Logica.DTO.InscripcionResumen;
 import Logica.Entidades.Curso;
 import Logica.Entidades.Instituto;
 import Logica.controladores.Fabrica;
@@ -297,6 +298,26 @@ public class IFConsultaCurso extends javax.swing.JInternalFrame {
                 sb.append("  - ").append(doc).append("\n");
             }
         }
+        
+            // Estudiantes asociados a la edición
+        List<InscripcionResumen> inscripciones
+                = control.listarInscripcionesPorEdicion(edicionSel, false);
+
+        sb.append("Estudiantes asociados:\n");
+
+        if (inscripciones == null || inscripciones.isEmpty()) {
+            sb.append("  (sin estudiantes asociados)\n");
+        } else {
+            for (InscripcionResumen inscripcion : inscripciones) {
+                sb.append("  - ")
+                        .append(inscripcion.getNombreEstudiante())
+                        .append(" (")
+                        .append(inscripcion.getNicknameEstudiante())
+                        .append(") - ")
+                        .append(inscripcion.getEstado())
+                        .append("\n");
+            }
+        }
 
         JOptionPane.showMessageDialog(this, sb.toString(), "Consulta de Edición de Curso", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnVerDetalleEdicionActionPerformed
@@ -324,6 +345,15 @@ public class IFConsultaCurso extends javax.swing.JInternalFrame {
         } else {
             for (CursoResumen c : detalleProg.getCursos()) {
                 sb.append("  - ").append(c.toString()).append("\n");
+            }
+        }
+        sb.append("Categorías:\n");
+
+        if (detalleProg.getCategorias() == null || detalleProg.getCategorias().isEmpty()) {
+            sb.append("  (sin categorías)\n");
+        } else {
+            for (String categoria : detalleProg.getCategorias()) {
+                sb.append("  - ").append(categoria).append("\n");
             }
         }
 
@@ -377,6 +407,13 @@ public class IFConsultaCurso extends javax.swing.JInternalFrame {
             sb.append("Ninguna\n");
         } else {
             sb.append(String.join(", ", detalle.getPrevias())).append("\n");
+        }
+        
+        sb.append("Categorías: ");
+        if (detalle.getCategorias() == null || detalle.getCategorias().isEmpty()) {
+            sb.append("Ninguna\n");
+        } else {
+            sb.append(String.join(", ", detalle.getCategorias())).append("\n");
         }
 
         return sb.toString();

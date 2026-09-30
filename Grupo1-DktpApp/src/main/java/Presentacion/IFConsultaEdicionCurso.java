@@ -5,6 +5,7 @@
 package Presentacion;
 
 import Logica.DTO.DetalleEdicionCurso;
+import Logica.DTO.InscripcionResumen;
 import Logica.Entidades.Curso;
 import Logica.Entidades.EdicionCurso;
 import Logica.Entidades.Instituto;
@@ -119,6 +120,8 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
     txtInscriptos.setText("");
 
     lstDocentes.setModel(new DefaultListModel<>());
+    lstEstudiantes.setModel(new DefaultListModel<>());
+    
 }
     
     private void mostrarDatosEdicion() {
@@ -159,8 +162,23 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
     for (String docente : detalle.getDocentes()) {
         modelo.addElement(docente);
     }
+    
+        List<InscripcionResumen> inscripciones
+                = controlador.listarInscripcionesPorEdicion(nombreEdicion, false);
 
-    lstDocentes.setModel(modelo);
+        DefaultListModel<String> modeloEstudiantes = new DefaultListModel<>();
+
+        for (InscripcionResumen inscripcion : inscripciones) {
+            modeloEstudiantes.addElement(
+                    inscripcion.getNombreEstudiante()
+                    + " (" + inscripcion.getNicknameEstudiante() + ")"
+                    + " - " + inscripcion.getEstado()
+            );
+        }
+
+        lstEstudiantes.setModel(modeloEstudiantes);
+
+        lstDocentes.setModel(modelo);
 }
 
     /**
@@ -185,6 +203,8 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
         txtCupo = new javax.swing.JTextField();
         txtFechaPublicacion = new javax.swing.JTextField();
         txtInscriptos = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        usersSeparator9 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstDocentes = new javax.swing.JList<>();
@@ -193,7 +213,6 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblUsuarios = new javax.swing.JLabel();
         lblUsuarios1 = new javax.swing.JLabel();
@@ -205,7 +224,9 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
         usersSeparator6 = new javax.swing.JSeparator();
         usersSeparator7 = new javax.swing.JSeparator();
         usersSeparator8 = new javax.swing.JSeparator();
-        usersSeparator9 = new javax.swing.JSeparator();
+        jLabel12 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lstEstudiantes = new javax.swing.JList<>();
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         setPreferredSize(new java.awt.Dimension(910, 950));
@@ -283,10 +304,18 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
         txtInscriptos.setPreferredSize(new java.awt.Dimension(80, 26));
         getContentPane().add(txtInscriptos, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 270, 30));
 
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(35, 71, 75));
+        jLabel11.setText("Inscriptos:");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, -1, -1));
+
+        usersSeparator9.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, 270, 10));
+
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(35, 71, 75));
         jLabel5.setText("DOCENTES: ");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 240, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 240, 100, -1));
 
         lstDocentes.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -295,7 +324,7 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(lstDocentes);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 270, 270, 190));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 270, 300, 150));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(35, 71, 75));
@@ -321,11 +350,6 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
         jLabel10.setForeground(new java.awt.Color(35, 71, 75));
         jLabel10.setText("Fecha publicación:");
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 470, -1, -1));
-
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(35, 71, 75));
-        jLabel11.setText("Inscriptos:");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(35, 71, 75));
 
@@ -406,8 +430,19 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
         usersSeparator8.setForeground(new java.awt.Color(35, 71, 75));
         getContentPane().add(usersSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 270, 10));
 
-        usersSeparator9.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, 270, 10));
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(35, 71, 75));
+        jLabel12.setText("ESTUDIANTES: ");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 430, 100, -1));
+
+        lstEstudiantes.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(lstEstudiantes);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 460, 300, 150));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -469,6 +504,7 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -479,9 +515,11 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblUsuarios;
     private javax.swing.JLabel lblUsuarios1;
     private javax.swing.JList<String> lstDocentes;
+    private javax.swing.JList<String> lstEstudiantes;
     private javax.swing.JTextField txtCupo;
     private javax.swing.JTextField txtFechaFin;
     private javax.swing.JTextField txtFechaInicio;

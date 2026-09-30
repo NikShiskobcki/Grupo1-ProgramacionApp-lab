@@ -23,6 +23,7 @@ public class JFMain extends javax.swing.JFrame {
         pnlMenuEdiciones.setVisible(false);
         pnlMenuProgramas.setVisible(false);
         pnlMenuInstituciones.setVisible(false);
+        pnlMenuCategorias.setVisible(false); 
     }
     
     private void abrirInternalFrame(javax.swing.JInternalFrame ventana) {
@@ -32,8 +33,20 @@ public class JFMain extends javax.swing.JFrame {
         frame.dispose();
     }
 
+    // Quita borde y barra superior del JInternalFrame
+    ventana.setBorder(null);
+
+    if (ventana.getUI() instanceof javax.swing.plaf.basic.BasicInternalFrameUI ui) {
+        ui.setNorthPane(null);
+    }
+
+    // Hace que ocupe todo el DesktopPane
+    ventana.setSize(dpPrincipal.getSize());
+    ventana.setLocation(0, 0);
+
     dpPrincipal.add(ventana);
     ventana.setVisible(true);
+    
 }
     
     private void cerrarSubmenus() {
@@ -42,6 +55,7 @@ public class JFMain extends javax.swing.JFrame {
         pnlMenuEdiciones.setVisible(false);
         pnlMenuProgramas.setVisible(false);
         pnlMenuInstituciones.setVisible(false);
+        pnlMenuCategorias.setVisible(false); 
     }
 
     @SuppressWarnings("unchecked")
@@ -79,6 +93,10 @@ public class JFMain extends javax.swing.JFrame {
         lblAltaInstituto = new javax.swing.JLabel();
         lblCargarDatosPrueba = new javax.swing.JLabel();
         separatorDatosPrueba = new javax.swing.JSeparator();
+        lblCategorias = new javax.swing.JLabel();
+        CategoriaSeparator = new javax.swing.JSeparator();
+        pnlMenuCategorias = new javax.swing.JPanel();
+        lblAltaCategoria = new javax.swing.JLabel();
         pnlTopPanel = new javax.swing.JPanel();
         btnSalir = new javax.swing.JLabel();
         lblUsuarios1 = new javax.swing.JLabel();
@@ -443,6 +461,48 @@ public class JFMain extends javax.swing.JFrame {
         separatorDatosPrueba.setPreferredSize(new java.awt.Dimension(250, 1));
         pnlOpcionesMenu.add(separatorDatosPrueba);
 
+        lblCategorias.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblCategorias.setForeground(new java.awt.Color(206, 206, 206));
+        lblCategorias.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblCategorias.setText("Categorias");
+        lblCategorias.setBorder(javax.swing.BorderFactory.createEmptyBorder(7, 14, 7, 0));
+        lblCategorias.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCategorias.setMaximumSize(new java.awt.Dimension(32767, 40));
+        lblCategorias.setMinimumSize(new java.awt.Dimension(119, 39));
+        lblCategorias.setPreferredSize(new java.awt.Dimension(260, 40));
+        lblCategorias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCategoriasMouseClicked(evt);
+            }
+        });
+        pnlOpcionesMenu.add(lblCategorias);
+
+        CategoriaSeparator.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 12, 1, 1));
+        CategoriaSeparator.setMaximumSize(new java.awt.Dimension(32767, 1));
+        CategoriaSeparator.setPreferredSize(new java.awt.Dimension(250, 1));
+        pnlOpcionesMenu.add(CategoriaSeparator);
+
+        pnlMenuCategorias.setBackground(new java.awt.Color(47, 93, 98));
+        pnlMenuCategorias.setAlignmentX(0.0F);
+        pnlMenuCategorias.setMaximumSize(new java.awt.Dimension(32767, 35));
+        pnlMenuCategorias.setPreferredSize(new java.awt.Dimension(260, 35));
+        pnlMenuCategorias.setLayout(new java.awt.GridLayout(1, 1, 0, 2));
+
+        lblAltaCategoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblAltaCategoria.setForeground(new java.awt.Color(242, 242, 242));
+        lblAltaCategoria.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblAltaCategoria.setText("Alta de categoria");
+        lblAltaCategoria.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        lblAltaCategoria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblAltaCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAltaCategoriaMouseClicked(evt);
+            }
+        });
+        pnlMenuCategorias.add(lblAltaCategoria);
+
+        pnlOpcionesMenu.add(pnlMenuCategorias);
+
         pnlLeftPanel.add(pnlOpcionesMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 440));
 
         getContentPane().add(pnlLeftPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 230, 680));
@@ -507,7 +567,7 @@ public class JFMain extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addComponent(lblUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(913, 913, 913)
-                .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(54, 54, 54))
         );
         pnlTopPanelLayout.setVerticalGroup(
@@ -524,7 +584,7 @@ public class JFMain extends javax.swing.JFrame {
 
         btnSalir.getAccessibleContext().setAccessibleName("x");
 
-        getContentPane().add(pnlTopPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1150, 60));
+        getContentPane().add(pnlTopPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, 60));
 
         pnlCenterPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -536,10 +596,10 @@ public class JFMain extends javax.swing.JFrame {
         );
         dpPrincipalLayout.setVerticalGroup(
             dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 650, Short.MAX_VALUE)
+            .addGap(0, 680, Short.MAX_VALUE)
         );
 
-        pnlCenterPanel.add(dpPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 910, 650));
+        pnlCenterPanel.add(dpPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 910, 680));
 
         getContentPane().add(pnlCenterPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, 910, 710));
 
@@ -759,6 +819,25 @@ public class JFMain extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblUsuarios1MouseExited
 
+    private void lblAltaCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaCategoriaMouseClicked
+        IFAltaCategoria frame = new IFAltaCategoria(controlador);
+        abrirInternalFrame(frame);
+        /*frame.setBorder(null);
+        ((javax.swing.plaf.basic.BasicInternalFrameUI) frame.getUI()).setNorthPane(null);
+        frame.setSize(dpPrincipal.getSize());
+        frame.setLocation(0, 0);*/
+    }//GEN-LAST:event_lblAltaCategoriaMouseClicked
+
+    private void lblCategoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCategoriasMouseClicked
+         boolean estabaAbierto = pnlMenuCategorias.isVisible();
+
+        cerrarSubmenus();
+
+        pnlMenuCategorias.setVisible(!estabaAbierto);
+        pnlMenuCategorias.getParent().revalidate();
+        pnlMenuCategorias.getParent().repaint();
+    }//GEN-LAST:event_lblCategoriasMouseClicked
+
 
 
 
@@ -770,17 +849,20 @@ public class JFMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSeparator CategoriaSeparator;
     private javax.swing.JLabel btnSalir;
     private javax.swing.JSeparator cursosSeparator;
     private javax.swing.JDesktopPane dpPrincipal;
     private javax.swing.JSeparator editionSeparator;
     private javax.swing.JSeparator institutionSeparator;
     private javax.swing.JLabel lblAgregarCursoPrograma;
+    private javax.swing.JLabel lblAltaCategoria;
     private javax.swing.JLabel lblAltaCurso;
     private javax.swing.JLabel lblAltaEdicion;
     private javax.swing.JLabel lblAltaInstituto;
     private javax.swing.JLabel lblAltaUsuario;
     private javax.swing.JLabel lblCargarDatosPrueba;
+    private javax.swing.JLabel lblCategorias;
     private javax.swing.JLabel lblConsultaCurso;
     private javax.swing.JLabel lblConsultaEdicion;
     private javax.swing.JLabel lblConsultaPrograma;
@@ -796,6 +878,7 @@ public class JFMain extends javax.swing.JFrame {
     private javax.swing.JLabel lblUsuarios1;
     private javax.swing.JPanel pnlCenterPanel;
     private javax.swing.JPanel pnlLeftPanel;
+    private javax.swing.JPanel pnlMenuCategorias;
     private javax.swing.JPanel pnlMenuCursos;
     private javax.swing.JPanel pnlMenuEdiciones;
     private javax.swing.JPanel pnlMenuInstituciones;
