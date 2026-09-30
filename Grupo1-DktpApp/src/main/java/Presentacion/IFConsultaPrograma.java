@@ -18,10 +18,22 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
      */
     public IFConsultaPrograma() {
         initComponents();
+        agregarCamposCategorias();
         treeCursos.setModel(new DefaultTreeModel(null));
         cargarProgramas();
     }
         
+    // Campos de categorías (fuera del código generado por el Form Editor)
+    private final javax.swing.JLabel lblCategoriasTitulo = new javax.swing.JLabel("Categorías:");
+    private final javax.swing.JLabel lblCategoriasValor = new javax.swing.JLabel("");
+
+    private void agregarCamposCategorias() {
+        lblCategoriasTitulo.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        lblCategoriasTitulo.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(lblCategoriasTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, -1, -1));
+        getContentPane().add(lblCategoriasValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 370, 420, -1));
+    }
+
     private void cargarProgramas(){
         IControlador icon = Fabrica.getInstance().getIControlador();
         List<String> nombres = icon.listarProgramas();
@@ -189,7 +201,11 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
         lblFechaInicio.setText(detalle.getFechaInicio().toString());
         lblFechaFin.setText(detalle.getFechaFin().toString());
         lblFechaAlta.setText(detalle.getFechaAlta().toString());
-        
+
+        List<String> categorias = detalle.getCategorias();
+        lblCategoriasValor.setText(categorias == null || categorias.isEmpty()
+                ? "(sin categorías)" : String.join(", ", categorias));
+
         List<CursoResumen> cursos = detalle.getCursos();
         
         DefaultMutableTreeNode root = new DefaultMutableTreeNode(detalle.getNombre());

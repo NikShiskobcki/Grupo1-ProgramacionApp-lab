@@ -312,7 +312,7 @@ private void cargarPrevias() {
         for (Curso c : cursos) {
             model.addElement(c.getNombre());
         }
-        lstCategorias.setModel(model);
+        lstPrevias1.setModel(model);
     } catch (Exception e) {
         System.err.println("Error al cargar cursos para previas: " + e.getMessage());
     }
@@ -422,7 +422,7 @@ private void cargarPrevias() {
                 return;
             }
 
-            List<String> nombresPrevias = lstCategorias.getSelectedValuesList();
+            List<String> nombresPrevias = lstPrevias1.getSelectedValuesList();
             List<Curso> previasSeleccionadas = icon.listarCursos().stream()
             .filter(c -> nombresPrevias.contains(c.getNombre()))
             .collect(java.util.stream.Collectors.toList());
