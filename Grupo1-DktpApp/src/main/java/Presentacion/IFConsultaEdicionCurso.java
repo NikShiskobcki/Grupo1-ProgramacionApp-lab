@@ -24,7 +24,6 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
      */
     public IFConsultaEdicionCurso(IControlador controlador) {
         initComponents();
-        agregarCamposCategorias();
          this.controlador = controlador;
 
     cmbInstituto.removeAllItems();
@@ -41,17 +40,6 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
     cargarInstitutos();
     }
     
-    // Campos de categorías (fuera del código generado por el Form Editor)
-    private final javax.swing.JLabel lblCategoriasTitulo = new javax.swing.JLabel("Categorías:");
-    private final javax.swing.JLabel lblCategoriasValor = new javax.swing.JLabel("");
-
-    private void agregarCamposCategorias() {
-        lblCategoriasTitulo.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        lblCategoriasTitulo.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(lblCategoriasTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 510, -1, -1));
-        getContentPane().add(lblCategoriasValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 510, 270, -1));
-    }
-
     private void cargarInstitutos() {
 
     List<Instituto> institutos = controlador.listarInstitutos();
@@ -243,11 +231,10 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
         usersSeparator7 = new javax.swing.JSeparator();
         usersSeparator8 = new javax.swing.JSeparator();
         jLabel12 = new javax.swing.JLabel();
+        lblCategoriasTitulo = new javax.swing.JLabel();
+        lblCategoriasValor = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         lstEstudiantes = new javax.swing.JList<>();
-        txtFechaPublicacion1 = new javax.swing.JTextField();
-        usersSeparator10 = new javax.swing.JSeparator();
-        jLabel13 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         setPreferredSize(new java.awt.Dimension(910, 950));
@@ -456,6 +443,14 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
         jLabel12.setText("ESTUDIANTES: ");
         getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 430, 100, -1));
 
+        lblCategoriasTitulo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCategoriasTitulo.setForeground(new java.awt.Color(35, 71, 75));
+        lblCategoriasTitulo.setText("Categorías:");
+        getContentPane().add(lblCategoriasTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 510, -1, -1));
+
+        getContentPane().add(lblCategoriasValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 510, 270, -1));
+
+
         lstEstudiantes.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -464,20 +459,6 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(lstEstudiantes);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 460, 300, 150));
-
-        txtFechaPublicacion1.setEditable(false);
-        txtFechaPublicacion1.setText("jTextField5");
-        txtFechaPublicacion1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        txtFechaPublicacion1.setPreferredSize(new java.awt.Dimension(120, 26));
-        getContentPane().add(txtFechaPublicacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 460, 270, 30));
-
-        usersSeparator10.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 490, 270, 10));
-
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(35, 71, 75));
-        jLabel13.setText("Fecha publicación:");
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 470, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -540,7 +521,8 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel lblCategoriasTitulo;
+    private javax.swing.JLabel lblCategoriasValor;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -560,11 +542,9 @@ public class IFConsultaEdicionCurso extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtFechaFin;
     private javax.swing.JTextField txtFechaInicio;
     private javax.swing.JTextField txtFechaPublicacion;
-    private javax.swing.JTextField txtFechaPublicacion1;
     private javax.swing.JTextField txtInscriptos;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JSeparator usersSeparator1;
-    private javax.swing.JSeparator usersSeparator10;
     private javax.swing.JSeparator usersSeparator2;
     private javax.swing.JSeparator usersSeparator3;
     private javax.swing.JSeparator usersSeparator4;

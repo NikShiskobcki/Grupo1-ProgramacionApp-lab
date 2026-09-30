@@ -123,7 +123,7 @@ public class IFAltaCurso extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(lstCategorias);
 
-        pnlMain.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 370, 160, 230));
+        pnlMain.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 370, 160, 230));
 
         jLabel3.setText("Instituto");
         pnlMain.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, -1, -1));
@@ -137,8 +137,10 @@ public class IFAltaCurso extends javax.swing.JInternalFrame {
         jLabel6.setText("Cantidad de Creditos");
         pnlMain.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 210, -1, -1));
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(35, 71, 75));
         jLabel7.setText("Categorias");
-        pnlMain.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 340, -1, 30));
+        pnlMain.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, -1, 30));
 
         jLabel8.setText("Descripcion");
         pnlMain.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, -1, -1));
@@ -256,6 +258,8 @@ public class IFAltaCurso extends javax.swing.JInternalFrame {
 
         pnlMain.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, 160, 230));
 
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(35, 71, 75));
         jLabel10.setText("Previas");
         pnlMain.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, -1, 30));
 
