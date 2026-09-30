@@ -8,6 +8,7 @@ Logica\Entidades\InscripcionEdicion.class
 Presentacion\JFMain$9.class
 Presentacion\IFAltaInstituto$1.class
 Logica\Entidades\Usuario_.class
+Presentacion\IFAltaCategoria$2.class
 Presentacion\JFMain$10.class
 Presentacion\JFMain$20.class
 Logica\Entidades\InscripcionEdicion_.class
@@ -19,6 +20,7 @@ Logica\Entidades\EdicionCurso_.class
 Presentacion\JFMain$1.class
 Presentacion\JFMain$16.class
 Presentacion\IFAltaEdicionCurso$4.class
+Presentacion\IFAltaCurso$6.class
 Presentacion\IFConsultaEdicionCurso$2.class
 Persistencia\ManejadorCurso.class
 Logica\DTO\DetalleCurso.class
@@ -32,6 +34,7 @@ Presentacion\IFAltaUsuario$9.class
 Presentacion\IFInscripcionEdicionCurso$1.class
 Logica\DTO\UsuarioResumen.class
 Presentacion\IFAltaUsuario$6.class
+Presentacion\IFAltaCategoria.class
 Presentacion\IFAltaEdicionCurso$1.class
 Logica\excepciones\NombreDuplicadoException.class
 Logica\Entidades\Categoria_.class
@@ -46,6 +49,7 @@ Persistencia\ManejadorEdicionCurso.class
 Presentacion\IFAltaUsuario$10.class
 Presentacion\JFMain$12.class
 Presentacion\JFMain$22.class
+Presentacion\IFAltaCategoria$1.class
 Presentacion\IFConsultaCurso$1.class
 Presentacion\JFMain$11.class
 Logica\controladores\Fabrica.class
@@ -57,6 +61,7 @@ Presentacion\IFAltaCurso$1.class
 Persistencia\ManejadorInscripcionEdicion.class
 Presentacion\IFAltaUsuario$4.class
 Presentacion\JFMain$18.class
+Presentacion\JFMain$23.class
 Presentacion\IFConsultaUsuario$1.class
 Presentacion\JFMain$5.class
 Presentacion\IFAltaEdicionCurso.class
@@ -86,6 +91,7 @@ Logica\DTO\InscripcionResumen.class
 Logica\DTO\ElementoResumen.class
 Presentacion\IFAltaUsuario$2.class
 Presentacion\JFMain$21.class
+Presentacion\JFMain$24.class
 Logica\DTO\DetalleEdicionCurso.class
 Presentacion\IFAltaCurso$2.class
 Logica\Entidades\Curso_.class
@@ -112,6 +118,7 @@ Presentacion\IFAltaUsuario$12.class
 Presentacion\IFModificarUsuario.class
 Logica\DTO\DetalleUsuario.class
 Presentacion\IFAgregarCursoAPrograma$2.class
+Presentacion\IFConsultaEdicionCurso$4.class
 Logica\Entidades\EstadoInscripcion.class
 Logica\Entidades\ProgramaFormacion_.class
 Presentacion\JFMain$14.class

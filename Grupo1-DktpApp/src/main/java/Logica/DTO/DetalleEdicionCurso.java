@@ -18,10 +18,19 @@ public class DetalleEdicionCurso {
     private final List<String> docentes;
     private final long cantidadInscriptos;
     private final String rutaImagen;
+    private final List<String> categorias;
 
     public DetalleEdicionCurso(String nombre, LocalDate fechaInicio, LocalDate fechaFin,
                                Integer cupo, LocalDate fechaPublicacion, String curso,
                                List<String> docentes, long cantidadInscriptos,String rutaImagen) {
+        this(nombre, fechaInicio, fechaFin, cupo, fechaPublicacion, curso,
+             docentes, cantidadInscriptos, rutaImagen, new java.util.ArrayList<>());
+    }
+
+    public DetalleEdicionCurso(String nombre, LocalDate fechaInicio, LocalDate fechaFin,
+                               Integer cupo, LocalDate fechaPublicacion, String curso,
+                               List<String> docentes, long cantidadInscriptos,String rutaImagen,
+                               List<String> categorias) {
         this.nombre = nombre;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
@@ -31,6 +40,7 @@ public class DetalleEdicionCurso {
         this.docentes = docentes;
         this.cantidadInscriptos = cantidadInscriptos;
         this.rutaImagen = rutaImagen;
+        this.categorias = categorias;
     }
 
     public String getNombre() {
@@ -70,6 +80,11 @@ public class DetalleEdicionCurso {
 
     public String getRutaImagen() {
         return rutaImagen;
+    }
+
+    /** Categorías del curso al que pertenece la edición. */
+    public List<String> getCategorias() {
+        return categorias;
     }
     
     

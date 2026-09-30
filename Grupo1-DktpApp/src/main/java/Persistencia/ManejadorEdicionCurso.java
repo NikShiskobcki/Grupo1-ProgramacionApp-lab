@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import Logica.DTO.DetalleEdicionCurso;
+import Logica.Entidades.Categoria;
 import Logica.Entidades.Docente;
 import Logica.excepciones.NombreDuplicadoException;
 import Logica.excepciones.PersistenciaException;
@@ -123,6 +124,13 @@ public class ManejadorEdicionCurso {
                     .setParameter("nombreEdicion", nombre)
                     .getSingleResult();
 
+            List<String> categorias = new ArrayList<>();
+            if (edicion.getCurso() != null) {
+                for (Categoria cat : edicion.getCurso().getCategorias()) {
+                    categorias.add(cat.getNombre());
+                }
+            }
+
             return new DetalleEdicionCurso(
                 edicion.getNombre(),
                 edicion.getFechaInicio(),
@@ -134,7 +142,8 @@ public class ManejadorEdicionCurso {
                     : "",
                 docentes,
                 cantidadInscriptos != null ? cantidadInscriptos : 0L,
-                edicion.getRutaImagen()
+                edicion.getRutaImagen(),
+                categorias
             );
 
         } finally {
