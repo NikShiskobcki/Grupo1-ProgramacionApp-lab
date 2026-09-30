@@ -8,11 +8,15 @@ C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-Dktp
 C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-DktpApp\src\main\java\Logica\DTO\DetalleProgramaFormacion.java
 C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-DktpApp\src\main\java\Logica\DTO\DetalleUsuario.java
 C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-DktpApp\src\main\java\Logica\DTO\ElementoResumen.java
+C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-DktpApp\src\main\java\Logica\DTO\InscripcionResumen.java
+C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-DktpApp\src\main\java\Logica\DTO\ResultadoInscripcion.java
 C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-DktpApp\src\main\java\Logica\DTO\UsuarioEdicion.java
 C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-DktpApp\src\main\java\Logica\DTO\UsuarioResumen.java
+C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-DktpApp\src\main\java\Logica\Entidades\Categoria.java
 C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-DktpApp\src\main\java\Logica\Entidades\Curso.java
 C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-DktpApp\src\main\java\Logica\Entidades\Docente.java
 C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-DktpApp\src\main\java\Logica\Entidades\EdicionCurso.java
+C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-DktpApp\src\main\java\Logica\Entidades\EstadoInscripcion.java
 C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-DktpApp\src\main\java\Logica\Entidades\Estudiante.java
 C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-DktpApp\src\main\java\Logica\Entidades\InscripcionEdicion.java
 C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-DktpApp\src\main\java\Logica\Entidades\InscripcionPrograma.java
@@ -23,6 +27,7 @@ C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-Dktp
 C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-DktpApp\src\main\java\Logica\excepciones\NombreDuplicadoException.java
 C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-DktpApp\src\main\java\Logica\excepciones\PersistenciaException.java
 C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-DktpApp\src\main\java\Logica\excepciones\RelacionInvalidaException.java
+C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-DktpApp\src\main\java\Persistencia\ManejadorCategoria.java
 C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-DktpApp\src\main\java\Persistencia\ManejadorCurso.java
 C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-DktpApp\src\main\java\Persistencia\ManejadorEdicionCurso.java
 C:\Users\samio\OneDrive\Documentos\GitHub\Grupo1-ProgramacionApp-lab\Grupo1-DktpApp\src\main\java\Persistencia\ManejadorInscripcionEdicion.java

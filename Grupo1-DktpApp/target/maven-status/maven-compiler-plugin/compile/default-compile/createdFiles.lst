@@ -34,6 +34,7 @@ Logica\DTO\UsuarioResumen.class
 Presentacion\IFAltaUsuario$6.class
 Presentacion\IFAltaEdicionCurso$1.class
 Logica\excepciones\NombreDuplicadoException.class
+Logica\Entidades\Categoria_.class
 Presentacion\IFModificarUsuario$1.class
 Presentacion\IFAltaUsuario$3.class
 Presentacion\IFConsultaCurso$2.class
@@ -51,6 +52,7 @@ Logica\controladores\Fabrica.class
 Logica\Entidades\Curso.class
 Presentacion\IFAltaPrograma$2.class
 Presentacion\IFModificarUsuario$2.class
+Logica\Entidades\Categoria.class
 Presentacion\IFAltaCurso$1.class
 Persistencia\ManejadorInscripcionEdicion.class
 Presentacion\IFAltaUsuario$4.class
@@ -80,6 +82,7 @@ Presentacion\IFConsultaUsuario$2.class
 Logica\Entidades\InscripcionPrograma.class
 Presentacion\JFMain$17.class
 Presentacion\JFMain.class
+Logica\DTO\InscripcionResumen.class
 Logica\DTO\ElementoResumen.class
 Presentacion\IFAltaUsuario$2.class
 Presentacion\JFMain$21.class
@@ -87,6 +90,7 @@ Logica\DTO\DetalleEdicionCurso.class
 Presentacion\IFAltaCurso$2.class
 Logica\Entidades\Curso_.class
 Presentacion\IFAltaUsuario$11.class
+Persistencia\ManejadorCategoria.class
 Presentacion\JFMain$7.class
 Presentacion\IFAltaCurso$5.class
 Logica\DTO\DetalleProgramaFormacion.class
@@ -95,6 +99,7 @@ Presentacion\IFConsultaCurso.class
 Presentacion\JFMain$15.class
 Logica\Entidades\Instituto.class
 Logica\controladores\IControlador.class
+Logica\DTO\ResultadoInscripcion.class
 Presentacion\IFAltaPrograma.class
 Logica\Entidades\Docente_.class
 Presentacion\IFAgregarCursoAPrograma.class
@@ -107,6 +112,7 @@ Presentacion\IFAltaUsuario$12.class
 Presentacion\IFModificarUsuario.class
 Logica\DTO\DetalleUsuario.class
 Presentacion\IFAgregarCursoAPrograma$2.class
+Logica\Entidades\EstadoInscripcion.class
 Logica\Entidades\ProgramaFormacion_.class
 Presentacion\JFMain$14.class
 Presentacion\JFMain$8.class
