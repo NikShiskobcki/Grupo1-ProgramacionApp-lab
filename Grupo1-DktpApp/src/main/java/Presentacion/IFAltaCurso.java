@@ -22,9 +22,8 @@ import java.util.ArrayList;
  */
 public class IFAltaCurso extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form IFAltaCurso
-     */
+    IControlador icon = Fabrica.getInstance().getIControlador();
+    
     public IFAltaCurso() {
         initComponents();
         
@@ -33,6 +32,7 @@ public class IFAltaCurso extends javax.swing.JInternalFrame {
         
         cargarInstitutos();
         cargarPrevias();
+        cargarCategorias(); 
     }
 
     /**
@@ -54,7 +54,7 @@ public class IFAltaCurso extends javax.swing.JInternalFrame {
         spnHoras = new javax.swing.JSpinner();
         spnCreditos = new javax.swing.JSpinner();
         jScrollPane2 = new javax.swing.JScrollPane();
-        lstPrevias = new javax.swing.JList<>();
+        lstCategorias = new javax.swing.JList<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -75,6 +75,9 @@ public class IFAltaCurso extends javax.swing.JInternalFrame {
         usersSeparator5 = new javax.swing.JSeparator();
         usersSeparator6 = new javax.swing.JSeparator();
         btnAcc = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        lstPrevias1 = new javax.swing.JList<>();
+        jLabel10 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         setPreferredSize(new java.awt.Dimension(910, 910));
@@ -113,14 +116,14 @@ public class IFAltaCurso extends javax.swing.JInternalFrame {
         spnCreditos.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         pnlMain.add(spnCreditos, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 200, 50, 30));
 
-        lstPrevias.setModel(new javax.swing.AbstractListModel<String>() {
+        lstCategorias.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(lstPrevias);
+        jScrollPane2.setViewportView(lstCategorias);
 
-        pnlMain.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, 440, 230));
+        pnlMain.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 370, 160, 230));
 
         jLabel3.setText("Instituto");
         pnlMain.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, -1, -1));
@@ -134,8 +137,8 @@ public class IFAltaCurso extends javax.swing.JInternalFrame {
         jLabel6.setText("Cantidad de Creditos");
         pnlMain.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 210, -1, -1));
 
-        jLabel7.setText("Previas");
-        pnlMain.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, -1, 30));
+        jLabel7.setText("Categorias");
+        pnlMain.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 340, -1, 30));
 
         jLabel8.setText("Descripcion");
         pnlMain.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, -1, -1));
@@ -242,7 +245,19 @@ public class IFAltaCurso extends javax.swing.JInternalFrame {
         btnAcc.setText("Aceptar");
         btnAcc.setBorderPainted(false);
         btnAcc.addActionListener(this::btnAccActionPerformed);
-        pnlMain.add(btnAcc, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 550, 110, 50));
+        pnlMain.add(btnAcc, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 550, 110, 50));
+
+        lstPrevias1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(lstPrevias1);
+
+        pnlMain.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, 160, 230));
+
+        jLabel10.setText("Previas");
+        pnlMain.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, -1, 30));
 
         getContentPane().add(pnlMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 630));
 
@@ -277,6 +292,16 @@ public class IFAltaCurso extends javax.swing.JInternalFrame {
         System.err.println("Error al cargar institutos: " + e.getMessage());
     }
 }
+    
+    private void cargarCategorias() {
+    DefaultListModel<String> modelo = new DefaultListModel<>();
+
+    for (String categoria : icon.listarNombresCategorias()) {
+        modelo.addElement(categoria);
+    }
+
+    lstCategorias.setModel(modelo);
+}
 
 private void cargarPrevias() {
     try {
@@ -287,7 +312,7 @@ private void cargarPrevias() {
         for (Curso c : cursos) {
             model.addElement(c.getNombre());
         }
-        lstPrevias.setModel(model);
+        lstCategorias.setModel(model);
     } catch (Exception e) {
         System.err.println("Error al cargar cursos para previas: " + e.getMessage());
     }
@@ -367,7 +392,7 @@ private void cargarPrevias() {
         }
         
         try {
-            IControlador icon = Fabrica.getInstance().getIControlador();
+            
             String nombre = txtNombre.getText().trim();
 
             // 3. Validar existencia previa del curso Regla del CU
@@ -397,13 +422,14 @@ private void cargarPrevias() {
                 return;
             }
 
-            List<String> nombresPrevias = lstPrevias.getSelectedValuesList();
+            List<String> nombresPrevias = lstCategorias.getSelectedValuesList();
             List<Curso> previasSeleccionadas = icon.listarCursos().stream()
             .filter(c -> nombresPrevias.contains(c.getNombre()))
             .collect(java.util.stream.Collectors.toList());
+            List<String> categoriasSeleccionadas = lstCategorias.getSelectedValuesList();
 
             //Invocar alta en la lógica
-            icon.altaCurso(nombre, descripcion, duracion, horas, creditos, url, fechaAlta, institutoSeleccionado, previasSeleccionadas, new ArrayList<>(),null);
+            icon.altaCurso(nombre, descripcion, duracion, horas, creditos, url, fechaAlta, institutoSeleccionado, previasSeleccionadas,categoriasSeleccionadas,null);
 
             JOptionPane.showMessageDialog(this, "Curso registrado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
@@ -418,6 +444,7 @@ private void cargarPrevias() {
     private javax.swing.JButton btnAcc;
     private javax.swing.JComboBox<String> cbInstituto;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -429,8 +456,10 @@ private void cargarPrevias() {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblUsuarios1;
-    private javax.swing.JList<String> lstPrevias;
+    private javax.swing.JList<String> lstCategorias;
+    private javax.swing.JList<String> lstPrevias1;
     private javax.swing.JPanel pnlMain;
     private javax.swing.JSpinner spnCreditos;
     private javax.swing.JSpinner spnDuracion;
