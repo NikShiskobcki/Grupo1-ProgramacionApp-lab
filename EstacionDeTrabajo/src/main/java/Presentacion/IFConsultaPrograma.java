@@ -18,22 +18,10 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
      */
     public IFConsultaPrograma() {
         initComponents();
-        agregarCamposCategorias();
         treeCursos.setModel(new DefaultTreeModel(null));
         cargarProgramas();
     }
         
-    // Campos de categorías (fuera del código generado por el Form Editor)
-    private final javax.swing.JLabel lblCategoriasTitulo = new javax.swing.JLabel("Categorías:");
-    private final javax.swing.JLabel lblCategoriasValor = new javax.swing.JLabel("");
-
-    private void agregarCamposCategorias() {
-        lblCategoriasTitulo.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        lblCategoriasTitulo.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(lblCategoriasTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, -1, -1));
-        getContentPane().add(lblCategoriasValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 370, 420, -1));
-    }
-
     private void cargarProgramas(){
         IControlador icon = Fabrica.getInstance().getIControlador();
         List<String> nombres = icon.listarProgramas();
@@ -63,6 +51,8 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        lblCategoriasTitulo = new javax.swing.JLabel();
+        lblCategoriasValor = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         treeCursos = new javax.swing.JTree();
         jPanel2 = new javax.swing.JPanel();
@@ -117,6 +107,14 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
         jLabel4.setForeground(new java.awt.Color(35, 71, 75));
         jLabel4.setText("Fecha Alta:");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, -1, -1));
+
+        lblCategoriasTitulo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblCategoriasTitulo.setForeground(new java.awt.Color(35, 71, 75));
+        lblCategoriasTitulo.setText("Categorías:");
+        getContentPane().add(lblCategoriasTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, -1, -1));
+
+        getContentPane().add(lblCategoriasValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 370, 420, -1));
+
 
         jLabel5.setText("Cursos:");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 80, -1, -1));
@@ -283,6 +281,8 @@ public class IFConsultaPrograma extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel lblCategoriasTitulo;
+    private javax.swing.JLabel lblCategoriasValor;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;

@@ -91,12 +91,12 @@ public class JFMain extends javax.swing.JFrame {
         institutionSeparator = new javax.swing.JSeparator();
         pnlMenuInstituciones = new javax.swing.JPanel();
         lblAltaInstituto = new javax.swing.JLabel();
-        lblCargarDatosPrueba = new javax.swing.JLabel();
-        separatorDatosPrueba = new javax.swing.JSeparator();
         lblCategorias = new javax.swing.JLabel();
         CategoriaSeparator = new javax.swing.JSeparator();
         pnlMenuCategorias = new javax.swing.JPanel();
         lblAltaCategoria = new javax.swing.JLabel();
+        lblCargarDatosPrueba = new javax.swing.JLabel();
+        separatorDatosPrueba = new javax.swing.JSeparator();
         pnlTopPanel = new javax.swing.JPanel();
         btnSalir = new javax.swing.JLabel();
         lblUsuarios1 = new javax.swing.JLabel();
@@ -442,25 +442,6 @@ public class JFMain extends javax.swing.JFrame {
 
         pnlOpcionesMenu.add(pnlMenuInstituciones);
 
-        lblCargarDatosPrueba.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblCargarDatosPrueba.setForeground(new java.awt.Color(206, 206, 206));
-        lblCargarDatosPrueba.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblCargarDatosPrueba.setText("Cargar datos");
-        lblCargarDatosPrueba.setBorder(javax.swing.BorderFactory.createEmptyBorder(7, 14, 7, 0));
-        lblCargarDatosPrueba.setMaximumSize(new java.awt.Dimension(32767, 40));
-        lblCargarDatosPrueba.setPreferredSize(new java.awt.Dimension(260, 40));
-        lblCargarDatosPrueba.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCargarDatosPruebaMouseClicked(evt);
-            }
-        });
-        pnlOpcionesMenu.add(lblCargarDatosPrueba);
-
-        separatorDatosPrueba.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 12, 1, 1));
-        separatorDatosPrueba.setMaximumSize(new java.awt.Dimension(32767, 1));
-        separatorDatosPrueba.setPreferredSize(new java.awt.Dimension(250, 1));
-        pnlOpcionesMenu.add(separatorDatosPrueba);
-
         lblCategorias.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblCategorias.setForeground(new java.awt.Color(206, 206, 206));
         lblCategorias.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -502,6 +483,25 @@ public class JFMain extends javax.swing.JFrame {
         pnlMenuCategorias.add(lblAltaCategoria);
 
         pnlOpcionesMenu.add(pnlMenuCategorias);
+
+        lblCargarDatosPrueba.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblCargarDatosPrueba.setForeground(new java.awt.Color(206, 206, 206));
+        lblCargarDatosPrueba.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblCargarDatosPrueba.setText("Cargar datos");
+        lblCargarDatosPrueba.setBorder(javax.swing.BorderFactory.createEmptyBorder(7, 14, 7, 0));
+        lblCargarDatosPrueba.setMaximumSize(new java.awt.Dimension(32767, 40));
+        lblCargarDatosPrueba.setPreferredSize(new java.awt.Dimension(260, 40));
+        lblCargarDatosPrueba.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCargarDatosPruebaMouseClicked(evt);
+            }
+        });
+        pnlOpcionesMenu.add(lblCargarDatosPrueba);
+
+        separatorDatosPrueba.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 12, 1, 1));
+        separatorDatosPrueba.setMaximumSize(new java.awt.Dimension(32767, 1));
+        separatorDatosPrueba.setPreferredSize(new java.awt.Dimension(250, 1));
+        pnlOpcionesMenu.add(separatorDatosPrueba);
 
         pnlLeftPanel.add(pnlOpcionesMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 440));
 

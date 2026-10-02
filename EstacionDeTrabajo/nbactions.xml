@@ -8,7 +8,8 @@
         </goals>
         <properties>
             <exec.executable>java</exec.executable>
-            <exec.args>-cp "${project.build.outputDirectory};${project.basedir}/lib/*;${project.basedir}/dist/lib/*" Presentacion.JFMain</exec.args>
+            <exec.args>-classpath %classpath Presentacion.JFMain</exec.args>
+            <exec.classpathScope>compile</exec.classpathScope>
         </properties>
     </action>
 </actions>
