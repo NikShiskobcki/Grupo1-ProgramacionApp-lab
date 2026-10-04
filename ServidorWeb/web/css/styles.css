@@ -286,3 +286,23 @@ body {
 .header-container { flex-wrap: wrap; }
 /* styles.css define .btn sin borde: se restituye para los botones "outline" de Bootstrap */
 .edext-main .btn-outline-secondary { border: 1px solid var(--bs-btn-border-color); }
+
+/* Toggler de Bootstrap en el header (fondo oscuro -> ícono y borde claros) */
+.main-header .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+.main-header .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,0.85)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+.main-header .navbar-toggler:focus {
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+}
+
+/* En pantallas chicas, header-search y header-user pasan a ocupar todo el ancho */
+@media (max-width: 991.98px) {
+    .main-header .header-search form,
+    .main-header .header-search { width: 100%; }
+    .main-header .header-user,
+    .main-header .user-menu,
+    .main-header .auth-buttons { flex-wrap: wrap; width: 100%; }
+}

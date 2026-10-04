@@ -1,2 +1,14 @@
+<<<<<<< HEAD
 target/
 .DS_Store
+=======
+/Grupo1-DktpApp/nbproject/private/
+/Grupo1-DktpApp/build/
+/Grupo1-DktpApp/dist/
+/Grupo1-DktpApp/Grupo1-DktpApp/nbproject/private/
+.DS_Store
+/SC/Grupo1-DktpApp/nbproject/private/
+/SC/Grupo1-DktpApp/build/
+/SC/Grupo1-DktpApp/dist/
+/Grupo1-WebApp/target/
+>>>>>>> 205de3b284305a60309516c320b7e78ba916522d
