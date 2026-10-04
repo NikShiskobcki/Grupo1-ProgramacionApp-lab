@@ -241,6 +241,20 @@ public class ManejadorUsuario {
                         ediciones.add(resumen);
                     }
                 }
+
+                // Programas de formación en los que el estudiante se inscribió
+                for (Logica.Entidades.InscripcionPrograma ip
+                        : estudiante.getInscripcionesProgramas()) {
+
+                    ProgramaFormacion programa = ip.getPrograma();
+
+                    programas.add(new ElementoResumen(
+                            programa.getNombre(),
+                            programa.getNombre()
+                            + " (" + programa.getFechaInicio()
+                            + " a " + programa.getFechaFin() + ")"
+                    ));
+                }
             }
 
             return new DetalleUsuario(
