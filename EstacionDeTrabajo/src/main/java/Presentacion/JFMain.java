@@ -16,13 +16,14 @@ public class JFMain extends javax.swing.JFrame {
         controlador= Fabrica.getInstance().getIControlador(); 
         
         //Oculte la tpOptions para que tengamos un solo dpPrincipal!!!!
-        tpOptionPages.setVisible(false);
+        //tpOptionPages.setVisible(false);
         
         pnlMenuUsuarios.setVisible(false);
         pnlMenuCursos.setVisible(false);
         pnlMenuEdiciones.setVisible(false);
         pnlMenuProgramas.setVisible(false);
         pnlMenuInstituciones.setVisible(false);
+        pnlMenuCategorias.setVisible(false); 
     }
     
     private void abrirInternalFrame(javax.swing.JInternalFrame ventana) {
@@ -32,8 +33,20 @@ public class JFMain extends javax.swing.JFrame {
         frame.dispose();
     }
 
+    // Quita borde y barra superior del JInternalFrame
+    ventana.setBorder(null);
+
+    if (ventana.getUI() instanceof javax.swing.plaf.basic.BasicInternalFrameUI ui) {
+        ui.setNorthPane(null);
+    }
+
+    // Hace que ocupe todo el DesktopPane
+    ventana.setSize(dpPrincipal.getSize());
+    ventana.setLocation(0, 0);
+
     dpPrincipal.add(ventana);
     ventana.setVisible(true);
+    
 }
     
     private void cerrarSubmenus() {
@@ -42,6 +55,7 @@ public class JFMain extends javax.swing.JFrame {
         pnlMenuEdiciones.setVisible(false);
         pnlMenuProgramas.setVisible(false);
         pnlMenuInstituciones.setVisible(false);
+        pnlMenuCategorias.setVisible(false); 
     }
 
     @SuppressWarnings("unchecked")
@@ -77,32 +91,25 @@ public class JFMain extends javax.swing.JFrame {
         institutionSeparator = new javax.swing.JSeparator();
         pnlMenuInstituciones = new javax.swing.JPanel();
         lblAltaInstituto = new javax.swing.JLabel();
+        lblCategorias = new javax.swing.JLabel();
+        CategoriaSeparator = new javax.swing.JSeparator();
+        pnlMenuCategorias = new javax.swing.JPanel();
+        lblAltaCategoria = new javax.swing.JLabel();
         lblCargarDatosPrueba = new javax.swing.JLabel();
         separatorDatosPrueba = new javax.swing.JSeparator();
         pnlTopPanel = new javax.swing.JPanel();
         btnSalir = new javax.swing.JLabel();
+        lblUsuarios1 = new javax.swing.JLabel();
         pnlCenterPanel = new javax.swing.JPanel();
         dpPrincipal = new javax.swing.JDesktopPane();
-        tpOptionPages = new javax.swing.JTabbedPane();
-        pnlTab1 = new javax.swing.JPanel();
-        dpCRUDUsuarios = new javax.swing.JDesktopPane();
-        btnAltaUsuario = new javax.swing.JButton();
-        btnConsultaUsuario = new javax.swing.JButton();
-        btnModificarUsuario = new javax.swing.JButton();
-        pnlTab2 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        dpCRUDcursos = new javax.swing.JDesktopPane();
-        pnlTab3 = new javax.swing.JPanel();
-        pnlTab4 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        pnlTab5 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        dpCRUDinstitutos = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("EDEXT");
         setBackground(new java.awt.Color(255, 255, 255));
         setLocationByPlatform(true);
+        setMinimumSize(new java.awt.Dimension(10, 10));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1150, 700));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlLeftPanel.setBackground(new java.awt.Color(47, 93, 98));
@@ -435,6 +442,48 @@ public class JFMain extends javax.swing.JFrame {
 
         pnlOpcionesMenu.add(pnlMenuInstituciones);
 
+        lblCategorias.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblCategorias.setForeground(new java.awt.Color(206, 206, 206));
+        lblCategorias.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblCategorias.setText("Categorias");
+        lblCategorias.setBorder(javax.swing.BorderFactory.createEmptyBorder(7, 14, 7, 0));
+        lblCategorias.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCategorias.setMaximumSize(new java.awt.Dimension(32767, 40));
+        lblCategorias.setMinimumSize(new java.awt.Dimension(119, 39));
+        lblCategorias.setPreferredSize(new java.awt.Dimension(260, 40));
+        lblCategorias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCategoriasMouseClicked(evt);
+            }
+        });
+        pnlOpcionesMenu.add(lblCategorias);
+
+        CategoriaSeparator.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 12, 1, 1));
+        CategoriaSeparator.setMaximumSize(new java.awt.Dimension(32767, 1));
+        CategoriaSeparator.setPreferredSize(new java.awt.Dimension(250, 1));
+        pnlOpcionesMenu.add(CategoriaSeparator);
+
+        pnlMenuCategorias.setBackground(new java.awt.Color(47, 93, 98));
+        pnlMenuCategorias.setAlignmentX(0.0F);
+        pnlMenuCategorias.setMaximumSize(new java.awt.Dimension(32767, 35));
+        pnlMenuCategorias.setPreferredSize(new java.awt.Dimension(260, 35));
+        pnlMenuCategorias.setLayout(new java.awt.GridLayout(1, 1, 0, 2));
+
+        lblAltaCategoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblAltaCategoria.setForeground(new java.awt.Color(242, 242, 242));
+        lblAltaCategoria.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblAltaCategoria.setText("Alta de categoria");
+        lblAltaCategoria.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        lblAltaCategoria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblAltaCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAltaCategoriaMouseClicked(evt);
+            }
+        });
+        pnlMenuCategorias.add(lblAltaCategoria);
+
+        pnlOpcionesMenu.add(pnlMenuCategorias);
+
         lblCargarDatosPrueba.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblCargarDatosPrueba.setForeground(new java.awt.Color(206, 206, 206));
         lblCargarDatosPrueba.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -495,14 +544,31 @@ public class JFMain extends javax.swing.JFrame {
             }
         });
 
+        lblUsuarios1.setFont(new java.awt.Font("Wide Latin", 0, 18)); // NOI18N
+        lblUsuarios1.setForeground(new java.awt.Color(255, 255, 255));
+        lblUsuarios1.setText("EDEXT");
+        lblUsuarios1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblUsuarios1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblUsuarios1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblUsuarios1MouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlTopPanelLayout = new javax.swing.GroupLayout(pnlTopPanel);
         pnlTopPanel.setLayout(pnlTopPanelLayout);
         pnlTopPanelLayout.setHorizontalGroup(
             pnlTopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTopPanelLayout.createSequentialGroup()
-                .addGap(1092, 1092, 1092)
-                .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                .addGap(19, 19, 19))
+                .addGap(14, 14, 14)
+                .addComponent(lblUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(913, 913, 913)
+                .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(54, 54, 54))
         );
         pnlTopPanelLayout.setVerticalGroup(
             pnlTopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -510,11 +576,15 @@ public class JFMain extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(pnlTopPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnSalir.getAccessibleContext().setAccessibleName("x");
 
-        getContentPane().add(pnlTopPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1150, 60));
+        getContentPane().add(pnlTopPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, 60));
 
         pnlCenterPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -522,195 +592,22 @@ public class JFMain extends javax.swing.JFrame {
         dpPrincipal.setLayout(dpPrincipalLayout);
         dpPrincipalLayout.setHorizontalGroup(
             dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 890, Short.MAX_VALUE)
+            .addGap(0, 910, Short.MAX_VALUE)
         );
         dpPrincipalLayout.setVerticalGroup(
             dpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 680, Short.MAX_VALUE)
         );
 
-        pnlCenterPanel.add(dpPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, -1, 680));
+        pnlCenterPanel.add(dpPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 910, 680));
 
-        tpOptionPages.setBackground(new java.awt.Color(255, 255, 255));
-        tpOptionPages.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
-
-        pnlTab1.setBackground(new java.awt.Color(255, 255, 255));
-        pnlTab1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        dpCRUDUsuarios.setMaximumSize(new java.awt.Dimension(32767, 1));
-        dpCRUDUsuarios.setPreferredSize(new java.awt.Dimension(250, 1));
-
-        javax.swing.GroupLayout dpCRUDUsuariosLayout = new javax.swing.GroupLayout(dpCRUDUsuarios);
-        dpCRUDUsuarios.setLayout(dpCRUDUsuariosLayout);
-        dpCRUDUsuariosLayout.setHorizontalGroup(
-            dpCRUDUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 910, Short.MAX_VALUE)
-        );
-        dpCRUDUsuariosLayout.setVerticalGroup(
-            dpCRUDUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 680, Short.MAX_VALUE)
-        );
-
-        pnlTab1.add(dpCRUDUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 910, 680));
-
-        btnAltaUsuario.setText("Agregar Usuario");
-        btnAltaUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAltaUsuarioMouseClicked(evt);
-            }
-        });
-        btnAltaUsuario.addActionListener(this::btnAltaUsuarioActionPerformed);
-        pnlTab1.add(btnAltaUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
-
-        btnConsultaUsuario.setText("Consulta Usuario");
-        btnConsultaUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnConsultaUsuarioMouseClicked(evt);
-            }
-        });
-        pnlTab1.add(btnConsultaUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, -1, -1));
-
-        btnModificarUsuario.setText("Modificar Usuario");
-        btnModificarUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnModificarUsuarioMouseClicked(evt);
-            }
-        });
-        pnlTab1.add(btnModificarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
-
-        tpOptionPages.addTab("tab1", pnlTab1);
-
-        pnlTab2.setBackground(new java.awt.Color(255, 255, 255));
-
-        jButton2.setText("Agregar Curso");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
-
-        javax.swing.GroupLayout dpCRUDcursosLayout = new javax.swing.GroupLayout(dpCRUDcursos);
-        dpCRUDcursos.setLayout(dpCRUDcursosLayout);
-        dpCRUDcursosLayout.setHorizontalGroup(
-            dpCRUDcursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 736, Short.MAX_VALUE)
-        );
-        dpCRUDcursosLayout.setVerticalGroup(
-            dpCRUDcursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 467, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout pnlTab2Layout = new javax.swing.GroupLayout(pnlTab2);
-        pnlTab2.setLayout(pnlTab2Layout);
-        pnlTab2Layout.setHorizontalGroup(
-            pnlTab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTab2Layout.createSequentialGroup()
-                .addGroup(pnlTab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlTab2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton2))
-                    .addGroup(pnlTab2Layout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addComponent(dpCRUDcursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(509, Short.MAX_VALUE))
-        );
-        pnlTab2Layout.setVerticalGroup(
-            pnlTab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTab2Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dpCRUDcursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(185, Short.MAX_VALUE))
-        );
-
-        tpOptionPages.addTab("tab2", pnlTab2);
-
-        pnlTab3.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout pnlTab3Layout = new javax.swing.GroupLayout(pnlTab3);
-        pnlTab3.setLayout(pnlTab3Layout);
-        pnlTab3Layout.setHorizontalGroup(
-            pnlTab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1342, Short.MAX_VALUE)
-        );
-        pnlTab3Layout.setVerticalGroup(
-            pnlTab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 705, Short.MAX_VALUE)
-        );
-
-        tpOptionPages.addTab("tab3", pnlTab3);
-
-        pnlTab4.setBackground(new java.awt.Color(255, 255, 255));
-
-        jButton3.setText("Agregar Programa de formacion");
-
-        javax.swing.GroupLayout pnlTab4Layout = new javax.swing.GroupLayout(pnlTab4);
-        pnlTab4.setLayout(pnlTab4Layout);
-        pnlTab4Layout.setHorizontalGroup(
-            pnlTab4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTab4Layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(jButton3)
-                .addContainerGap(1077, Short.MAX_VALUE))
-        );
-        pnlTab4Layout.setVerticalGroup(
-            pnlTab4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTab4Layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(jButton3)
-                .addContainerGap(618, Short.MAX_VALUE))
-        );
-
-        tpOptionPages.addTab("tab4", pnlTab4);
-
-        pnlTab5.setBackground(new java.awt.Color(255, 255, 255));
-
-        jButton4.setText("Alta Instituto");
-        jButton4.addActionListener(this::jButton4ActionPerformed);
-
-        javax.swing.GroupLayout dpCRUDinstitutosLayout = new javax.swing.GroupLayout(dpCRUDinstitutos);
-        dpCRUDinstitutos.setLayout(dpCRUDinstitutosLayout);
-        dpCRUDinstitutosLayout.setHorizontalGroup(
-            dpCRUDinstitutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 689, Short.MAX_VALUE)
-        );
-        dpCRUDinstitutosLayout.setVerticalGroup(
-            dpCRUDinstitutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 429, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout pnlTab5Layout = new javax.swing.GroupLayout(pnlTab5);
-        pnlTab5.setLayout(pnlTab5Layout);
-        pnlTab5Layout.setHorizontalGroup(
-            pnlTab5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTab5Layout.createSequentialGroup()
-                .addGroup(pnlTab5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlTab5Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jButton4))
-                    .addGroup(pnlTab5Layout.createSequentialGroup()
-                        .addGap(82, 82, 82)
-                        .addComponent(dpCRUDinstitutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(571, Short.MAX_VALUE))
-        );
-        pnlTab5Layout.setVerticalGroup(
-            pnlTab5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTab5Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dpCRUDinstitutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(188, Short.MAX_VALUE))
-        );
-
-        tpOptionPages.addTab("tab5", pnlTab5);
-
-        pnlCenterPanel.add(tpOptionPages, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, -1, 740));
-
-        getContentPane().add(pnlCenterPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 1220, 1010));
+        getContentPane().add(pnlCenterPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, 910, 710));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuariosMouseClicked
-         tpOptionPages.setSelectedIndex(0);
+         //tpOptionPages.setSelectedIndex(0);
         boolean estabaAbierto = pnlMenuUsuarios.isVisible();
 
         cerrarSubmenus();
@@ -769,7 +666,7 @@ public class JFMain extends javax.swing.JFrame {
     }//GEN-LAST:event_lblEdicionesMouseEntered
 
     private void lblProgramasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProgramasMouseClicked
-        //tpOptionPages.setSelectedIndex(3);
+
         boolean estabaAbierto = pnlMenuProgramas.isVisible();
 
         cerrarSubmenus();
@@ -805,34 +702,6 @@ public class JFMain extends javax.swing.JFrame {
     private void lblInstitucionesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInstitucionesMouseExited
         lblInstituciones.setForeground(Color.LIGHT_GRAY);
     }//GEN-LAST:event_lblInstitucionesMouseExited
-private void limpiarDesktopPane() {
-    for (JInternalFrame frame : dpCRUDUsuarios.getAllFrames()) {
-        frame.dispose();
-    }
-}
-    private void btnAltaUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAltaUsuarioMouseClicked
-        limpiarDesktopPane();
-        IFAltaUsuario au = new IFAltaUsuario();
-        dpCRUDUsuarios.add(au);
-        au.setVisible(true);
-    
-        //au.setVisible(true);
-    }//GEN-LAST:event_btnAltaUsuarioMouseClicked
-
-    private void btnConsultaUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultaUsuarioMouseClicked
-        limpiarDesktopPane();
-        IFConsultaUsuario cu = new IFConsultaUsuario();
-        dpCRUDUsuarios.add(cu);
-        cu.setVisible(true);
-        
-    }//GEN-LAST:event_btnConsultaUsuarioMouseClicked
-
-    private void btnModificarUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarUsuarioMouseClicked
-        limpiarDesktopPane();
-        IFModificarUsuario mu = new IFModificarUsuario();
-        dpCRUDUsuarios.add(mu);
-        mu.setVisible(true);
-    }//GEN-LAST:event_btnModificarUsuarioMouseClicked
 
     private void pnlTopPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlTopPanelMousePressed
         xMouse =evt.getX();
@@ -856,30 +725,6 @@ private void limpiarDesktopPane() {
     private void btnSalirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseExited
        btnSalir.setBackground(new Color(35, 71, 75));
     }//GEN-LAST:event_btnSalirMouseExited
-
-    private void btnAltaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAltaUsuarioActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        for (javax.swing.JInternalFrame f : dpCRUDcursos.getAllFrames()) {
-    f.dispose();
-}
-
-    IFAltaCurso ac = new IFAltaCurso();
-    dpCRUDcursos.add(ac);
-    ac.setVisible(true);
-    
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-    for (javax.swing.JInternalFrame f : dpCRUDinstitutos.getAllFrames()) {
-    f.dispose();
-}
-
-IFAltaInstituto ai = new IFAltaInstituto();
-dpCRUDinstitutos.add(ai);
-ai.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
 
 
     private void lblAltaCursoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaCursoMouseClicked
@@ -962,6 +807,40 @@ ai.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
     }//GEN-LAST:event_lblCargarDatosPruebaMouseClicked
 
 
+    private void lblUsuarios1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarios1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblUsuarios1MouseClicked
+
+    private void lblUsuarios1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarios1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblUsuarios1MouseEntered
+
+    private void lblUsuarios1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarios1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblUsuarios1MouseExited
+
+    private void lblAltaCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaCategoriaMouseClicked
+        IFAltaCategoria frame = new IFAltaCategoria(controlador);
+        abrirInternalFrame(frame);
+        /*frame.setBorder(null);
+        ((javax.swing.plaf.basic.BasicInternalFrameUI) frame.getUI()).setNorthPane(null);
+        frame.setSize(dpPrincipal.getSize());
+        frame.setLocation(0, 0);*/
+    }//GEN-LAST:event_lblAltaCategoriaMouseClicked
+
+    private void lblCategoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCategoriasMouseClicked
+         boolean estabaAbierto = pnlMenuCategorias.isVisible();
+
+        cerrarSubmenus();
+
+        pnlMenuCategorias.setVisible(!estabaAbierto);
+        pnlMenuCategorias.getParent().revalidate();
+        pnlMenuCategorias.getParent().repaint();
+    }//GEN-LAST:event_lblCategoriasMouseClicked
+
+
+
+
 
     public static void main(String args[]) {
         
@@ -970,26 +849,20 @@ ai.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAltaUsuario;
-    private javax.swing.JButton btnConsultaUsuario;
-    private javax.swing.JButton btnModificarUsuario;
+    private javax.swing.JSeparator CategoriaSeparator;
     private javax.swing.JLabel btnSalir;
     private javax.swing.JSeparator cursosSeparator;
-    private javax.swing.JDesktopPane dpCRUDUsuarios;
-    private javax.swing.JDesktopPane dpCRUDcursos;
-    private javax.swing.JDesktopPane dpCRUDinstitutos;
     private javax.swing.JDesktopPane dpPrincipal;
     private javax.swing.JSeparator editionSeparator;
     private javax.swing.JSeparator institutionSeparator;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel lblAgregarCursoPrograma;
+    private javax.swing.JLabel lblAltaCategoria;
     private javax.swing.JLabel lblAltaCurso;
     private javax.swing.JLabel lblAltaEdicion;
     private javax.swing.JLabel lblAltaInstituto;
     private javax.swing.JLabel lblAltaUsuario;
     private javax.swing.JLabel lblCargarDatosPrueba;
+    private javax.swing.JLabel lblCategorias;
     private javax.swing.JLabel lblConsultaCurso;
     private javax.swing.JLabel lblConsultaEdicion;
     private javax.swing.JLabel lblConsultaPrograma;
@@ -1002,23 +875,19 @@ ai.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
     private javax.swing.JLabel lblModificarUsuario;
     private javax.swing.JLabel lblProgramas;
     private javax.swing.JLabel lblUsuarios;
+    private javax.swing.JLabel lblUsuarios1;
     private javax.swing.JPanel pnlCenterPanel;
     private javax.swing.JPanel pnlLeftPanel;
+    private javax.swing.JPanel pnlMenuCategorias;
     private javax.swing.JPanel pnlMenuCursos;
     private javax.swing.JPanel pnlMenuEdiciones;
     private javax.swing.JPanel pnlMenuInstituciones;
     private javax.swing.JPanel pnlMenuProgramas;
     private javax.swing.JPanel pnlMenuUsuarios;
     private javax.swing.JPanel pnlOpcionesMenu;
-    private javax.swing.JPanel pnlTab1;
-    private javax.swing.JPanel pnlTab2;
-    private javax.swing.JPanel pnlTab3;
-    private javax.swing.JPanel pnlTab4;
-    private javax.swing.JPanel pnlTab5;
     private javax.swing.JPanel pnlTopPanel;
     private javax.swing.JSeparator programsSeparator;
     private javax.swing.JSeparator separatorDatosPrueba;
-    private javax.swing.JTabbedPane tpOptionPages;
     private javax.swing.JSeparator usersSeparator;
     // End of variables declaration//GEN-END:variables
 }

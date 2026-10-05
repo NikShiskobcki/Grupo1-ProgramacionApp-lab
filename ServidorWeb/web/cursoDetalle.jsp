@@ -70,7 +70,7 @@
                     <ul class="editions-list">
                         <% for (String ed : curso.getEdiciones()) { %>
                             <li>
-                                <span><%= ed %></span>
+                                <a href="<%= request.getContextPath() %>/edicion-detalle?nombre=<%= java.net.URLEncoder.encode(ed, "UTF-8") %>"><%= ed %></a>
                                 <% if (user != null && "Estudiante".equalsIgnoreCase(user.getTipo())) { %>
                                     <form action="<%= request.getContextPath() %>/inscribir-edicion" method="post" style="display:inline;">
                                         <input type="hidden" name="nombreEdicion" value="<%= ed %>">
@@ -91,7 +91,7 @@
                 <% if (curso.getProgramas() != null && !curso.getProgramas().isEmpty()) { %>
                     <ul>
                         <% for (String prog : curso.getProgramas()) { %>
-                            <li><%= prog %></li>
+                            <li><a href="<%= request.getContextPath() %>/programa-detalle?nombre=<%= java.net.URLEncoder.encode(prog, "UTF-8") %>"><%= prog %></a></li>
                         <% } %>
                     </ul>
                 <% } else { %>
