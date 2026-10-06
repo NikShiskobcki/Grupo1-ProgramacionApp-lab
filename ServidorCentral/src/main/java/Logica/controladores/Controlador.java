@@ -5,16 +5,22 @@ import Logica.DTO.DetalleEdicionCurso;
 
 import Logica.DTO.DetalleProgramaFormacion;
 import Logica.DTO.DetalleUsuario;
+import Logica.DTO.InscripcionResumen;
+import Logica.DTO.ResultadoInscripcion;
 import Logica.DTO.UsuarioEdicion;
 import Logica.DTO.UsuarioResumen;
 import Logica.DatosPrueba.CargadorDatosPrueba;
+import Logica.Entidades.Categoria;
 import Logica.Entidades.Docente;
 import Logica.Entidades.Estudiante;
 import Logica.Entidades.Instituto;
 import Logica.Entidades.Curso;
 import Logica.Entidades.EdicionCurso;
+import Logica.Entidades.EstadoInscripcion;
 import Logica.Entidades.InscripcionEdicion;
+import Logica.Entidades.InscripcionPrograma;
 import Logica.Entidades.ProgramaFormacion;
+import Persistencia.ManejadorCategoria;
 
 import Persistencia.ManejadorCurso;
 import Persistencia.ManejadorEdicionCurso;
@@ -46,6 +52,7 @@ public class Controlador implements IControlador {
     private final ManejadorProgramaFormacion manejadorProgramaFormacion;
     private final ManejadorInscripcionEdicion manejadorInscripcionEdicion;
     private final ManejadorInscripcionPrograma manejadorInscripcionPrograma;
+    private final ManejadorCategoria manejadorCategoria;
     private CargadorDatosPrueba cargadorDatosPrueba;
 
     // Constructor privado para aplicar Singleton
@@ -61,19 +68,18 @@ public class Controlador implements IControlador {
         manejadorProgramaFormacion = new ManejadorProgramaFormacion(emf);
         manejadorInscripcionEdicion = new ManejadorInscripcionEdicion(emf);
         manejadorInscripcionPrograma = new ManejadorInscripcionPrograma(emf);
-        
+        manejadorCategoria = new ManejadorCategoria(emf);
+
         cargadorDatosPrueba = new CargadorDatosPrueba(
-        manejadorInstituto,
-        manejadorUsuario,
-        manejadorCurso,
-        manejadorEdicionCurso,
-        manejadorInscripcionEdicion,
-        manejadorProgramaFormacion
+                manejadorInstituto,
+                manejadorUsuario,
+                manejadorCurso,
+                manejadorEdicionCurso,
+                manejadorInscripcionEdicion,
+                manejadorProgramaFormacion
         );
 
     }
-    
-  
 
     public static Controlador getInstance() {
 
@@ -103,8 +109,8 @@ public class Controlador implements IControlador {
     public List<Curso> listarCursos() {
         return manejadorCurso.listarCursos();
     }
-    
-       @Override
+
+    @Override
     public DetalleCurso consultarCurso(String nombreCurso) {
         return manejadorCurso.buscarDetalleCurso(nombreCurso);
     }
@@ -118,11 +124,23 @@ public class Controlador implements IControlador {
     public void altaCurso(String nombre, String descripcion, int duracion,
             int cantidadHoras, int creditos, String url,
             LocalDate fechaAlta, Instituto instituto,
-            List<Curso> previas) {
+            List<Curso> previas, List<String> nombresCategorias, String rutaImagen) {
 
         Curso curso = new Curso(nombre, descripcion, duracion, cantidadHoras,
                 creditos, url, fechaAlta, instituto);
         curso.setPrevias(previas);
+        curso.setRutaImagen(rutaImagen);
+
+        List<Categoria> categorias = new ArrayList<>();
+        if (nombresCategorias != null) {
+            for (String nombreCategoria : nombresCategorias) {
+                Categoria cat = manejadorCategoria.buscarPorNombre(nombreCategoria);
+                if (cat != null) {
+                    categorias.add(cat);
+                }
+            }
+        }
+        curso.setCategorias(categorias);
         manejadorCurso.addCurso(curso);
     }
 
@@ -153,29 +171,31 @@ public class Controlador implements IControlador {
 
     @Override
     public void altaUsuarioEstudiante(String nickname, String nombre, String apellido,
-            String email, LocalDate fechaNacimiento) {
+            String email, String contrasenia, LocalDate fechaNacimiento, String rutaImagen) {
 
-        Estudiante estudiante = new Estudiante(nickname, nombre, apellido, email, fechaNacimiento);
+        Estudiante estudiante = new Estudiante(nickname, nombre, apellido, email, contrasenia, fechaNacimiento);
+        estudiante.setRutaImagen(rutaImagen);
         manejadorUsuario.addUsuario(estudiante);
     }
 
     @Override
     public void altaUsuarioDocente(String nickname, String nombre, String apellido,
-            String email, LocalDate fechaNacimiento, String nombreInstituto) {
+            String email, String contrasenia, LocalDate fechaNacimiento, String nombreInstituto, String rutaImagen) {
 
         Instituto instituto = manejadorInstituto.buscarInstituto(nombreInstituto);
-        Docente docente = new Docente(nickname, nombre, apellido, email, fechaNacimiento, instituto);
+        Docente docente = new Docente(nickname, nombre, apellido, email, contrasenia, fechaNacimiento, instituto);
+        docente.setRutaImagen(rutaImagen);
         manejadorUsuario.addUsuario(docente);
     }
 
     @Override
-    public boolean existePrograma(String nombre){
+    public boolean existePrograma(String nombre) {
         return manejadorProgramaFormacion.existePrograma(nombre);
     }
 
     @Override
     public void altaPrograma(String nombre, String descripcion,
-            LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta){
+            LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String rutaImagen) {
 
         ProgramaFormacion programa = new ProgramaFormacion(
                 nombre,
@@ -184,12 +204,12 @@ public class Controlador implements IControlador {
                 fechaFin,
                 fechaAlta
         );
-
+        programa.setRutaImagen(rutaImagen);
         manejadorProgramaFormacion.addPrograma(programa);
     }
 
     @Override
-    public List<String> listarProgramas(){
+    public List<String> listarProgramas() {
         List<ProgramaFormacion> programas = manejadorProgramaFormacion.listarProgramas();
         List<String> nombres = new ArrayList<>();
 
@@ -201,21 +221,18 @@ public class Controlador implements IControlador {
     }
 
     @Override
-    public void agregarCursoAPrograma(String nombrePrograma, String nombreCurso){
+    public void agregarCursoAPrograma(String nombrePrograma, String nombreCurso) {
         manejadorProgramaFormacion.agregarCursoAPrograma(nombrePrograma, nombreCurso);
     }
-    
+
     @Override
-    public DetalleProgramaFormacion consultarPrograma(String nombre){
+    public DetalleProgramaFormacion consultarPrograma(String nombre) {
         return manejadorProgramaFormacion.buscarDetallePrograma(nombre);
     }
-
-
 
     // =========================
     // EDICIONES
     // =========================
-
     @Override
     public List<Curso> listarCursosPorInstituto(String nombreInstituto) {
         return manejadorCurso.listarCursosPorInstituto(nombreInstituto);
@@ -238,7 +255,8 @@ public class Controlador implements IControlador {
             LocalDate fechaFin,
             Integer cupo,
             String nombreCurso,
-            List<Docente> docentes) {
+            List<Docente> docentes,
+            String rutaImagen) {
 
         Curso curso = manejadorCurso.buscarPorNombre(nombreCurso);
 
@@ -268,72 +286,72 @@ public class Controlador implements IControlador {
         return manejadorEdicionCurso.buscarEdicionCompleta(nombre);
     }
 
-  @Override
+    @Override
     public DetalleEdicionCurso consultarEdicion(String nombreEdicion) {
         return manejadorEdicionCurso.buscarDetalleEdicion(nombreEdicion);
     }
-    
+
     @Override
     public List<EdicionCurso> listarEdicionesVigentesPorCurso(String nombreCurso) {
-    return manejadorEdicionCurso.listarEdicionesVigentesPorCurso(nombreCurso);
-}
-    
+        return manejadorEdicionCurso.listarEdicionesVigentesPorCurso(nombreCurso);
+    }
+
     @Override
     public List<Estudiante> listarEstudiantes() {
-    return manejadorUsuario.listarEstudiantes();
+        return manejadorUsuario.listarEstudiantes();
     }
 
     // =========================
     // CONSULTA DE USUARIO
     // =========================
-
     @Override
     public List<UsuarioResumen> listarUsuarios() {
         return manejadorUsuario.listarUsuarios();
     }
 
     @Override
-    public DetalleUsuario consultarUsuario(String nickname) {
-        return manejadorUsuario.buscarDetalleUsuario(nickname);
+    public DetalleUsuario consultarUsuario(String nickname, String nicknameConsulta) {
+        return manejadorUsuario.buscarDetalleUsuario(nickname, nicknameConsulta);
     }
-    
+
     @Override
-    public InscripcionEdicion buscarInscripcionEdicion (String nicknameEstudiante,
-        String nombreEdicion) {
-        
-        return manejadorInscripcionEdicion.buscarInscripcion(nicknameEstudiante,nombreEdicion);
-}
+    public InscripcionEdicion buscarInscripcionEdicion(String nicknameEstudiante,
+            String nombreEdicion) {
+
+        return manejadorInscripcionEdicion.buscarInscripcion(nicknameEstudiante, nombreEdicion);
+    }
+
     @Override
-public void inscribirEstudianteEdicion(
-        String nicknameEstudiante,
-        String nombreEdicion,
-        LocalDate fechaInscripcion) {
+    public void inscribirEstudianteEdicion(
+            String nicknameEstudiante,
+            String nombreEdicion,
+            LocalDate fechaInscripcion) {
 
-    Estudiante estudiante =
-            manejadorUsuario.buscarEstudiante(nicknameEstudiante);
+        Estudiante estudiante
+                = manejadorUsuario.buscarEstudiante(nicknameEstudiante);
 
-    EdicionCurso edicion =
-            manejadorEdicionCurso.buscarPorNombre(nombreEdicion);
+        EdicionCurso edicion
+                = manejadorEdicionCurso.buscarPorNombre(nombreEdicion);
 
-    InscripcionEdicion inscripcion =
-            new InscripcionEdicion(
-                    fechaInscripcion,
-                    estudiante,
-                    edicion
-            );
+        InscripcionEdicion inscripcion
+                = new InscripcionEdicion(
+                        fechaInscripcion,
+                        estudiante,
+                        edicion
+                );
 
-    manejadorInscripcionEdicion.addInscripcion(inscripcion);
-}
+        manejadorInscripcionEdicion.addInscripcion(inscripcion);
+    }
+
     @Override
-public void modificarInscripcionEdicion(Long idInscripcion, LocalDate nuevaFecha) {
+    public void modificarInscripcionEdicion(Long idInscripcion, LocalDate nuevaFecha) {
 
-    manejadorInscripcionEdicion.modificarInscripcion(idInscripcion,nuevaFecha);
-}
+        manejadorInscripcionEdicion.modificarInscripcion(idInscripcion, nuevaFecha);
+    }
 
     // =========================
     // MODIFICAR USUARIO
     // =========================
-
     @Override
     public UsuarioEdicion buscarUsuarioParaEditar(String nickname) {
         return manejadorUsuario.buscarUsuarioParaEditar(nickname);
@@ -341,19 +359,107 @@ public void modificarInscripcionEdicion(Long idInscripcion, LocalDate nuevaFecha
 
     @Override
     public void modificarUsuario(String nickname, String nombre, String apellido,
-            LocalDate fechaNacimiento, String nombreInstituto) {
+            LocalDate fechaNacimiento, String nombreInstituto, String rutaImagen) {
 
         manejadorUsuario.actualizarUsuario(
                 nickname,
                 nombre,
                 apellido,
                 fechaNacimiento,
-                nombreInstituto
+                nombreInstituto,
+                rutaImagen
         );
     }
-    
+
+    // =========================
+    // ALTA CATEGORIA
+    // =========================
+    @Override
+    public void altaCategoria(String nombre) {
+        manejadorCategoria.addCategoria(new Categoria(nombre));
+    }
+
+    @Override
+    public boolean existeCategoria(String nombre) {
+        return manejadorCategoria.existeCategoria(nombre);
+    }
+
+    @Override
+    public List<String> listarNombresCategorias() {
+        List<String> nombres = new ArrayList<>();
+        for (Categoria c : manejadorCategoria.listarCategorias()) {
+            nombres.add(c.getNombre());
+        }
+        return nombres;
+    }
+
+    // =========================
+    // INICIO SESION
+    // =========================
+    @Override
+    public UsuarioResumen iniciarSesion(String nicknameOEmail, String contrasenia) {
+        return manejadorUsuario.autenticar(nicknameOEmail, contrasenia);
+    }
+
+    // =========================
+    // INSCRIPCIONES
+    // =========================
+    @Override
+    public List<InscripcionResumen> listarInscripcionesPorEdicion(String nombreEdicion, boolean ordenarPorPrioridad) {
+        return manejadorInscripcionEdicion.listarInscripcionesPorEdicion(nombreEdicion, ordenarPorPrioridad);
+    }
+
+    @Override
+    public void seleccionarEstudiante(Long idInscripcion, boolean aceptado) {
+        EstadoInscripcion estado = aceptado ? EstadoInscripcion.ACEPTADA : EstadoInscripcion.RECHAZADA;
+        manejadorInscripcionEdicion.actualizarEstado(idInscripcion, estado);
+    }
+
+    @Override
+    public List<InscripcionResumen> listarAceptadosPorEdicion(String nombreEdicion) {
+        List<InscripcionResumen> insc = manejadorInscripcionEdicion.listarInscripcionesPorEdicion(nombreEdicion, false);
+        List<InscripcionResumen> aceptados = new ArrayList<>();
+        for (InscripcionResumen i : insc) {
+            if ("ACEPTADA".equals(i.getEstado())) {
+                aceptados.add(i);
+            }
+        }
+        return aceptados;
+    }
+
+    @Override
+    public List<ResultadoInscripcion> listarResultadosPorEstudiante(String nicknameEstudiante) {
+        return manejadorInscripcionEdicion.listarResultadosPorEstudiante(nicknameEstudiante);
+    }
+
+    @Override
+    public InscripcionPrograma buscarInscripcionPrograma(String nicknameEstudiante, String nombrePrograma) {
+        return manejadorInscripcionPrograma.buscarInscripcion(nicknameEstudiante, nombrePrograma);
+    }
+
+    @Override
+    public void inscribirEstudiantePrograma(String nicknameEstudiante, String nombrePrograma, LocalDate fechaInscripcion) {
+        Estudiante estudiante = manejadorUsuario.buscarEstudiante(nicknameEstudiante);
+        ProgramaFormacion programa = manejadorProgramaFormacion.buscarPrograma(nombrePrograma);
+        InscripcionPrograma inscripcion = new InscripcionPrograma(fechaInscripcion, estudiante, programa);
+        manejadorInscripcionPrograma.addInscripcion(inscripcion);
+    }
+
+    // =========================
+    // SEGUIR Y DEJAR DE SEGUIR
+    // =========================
+    @Override
+    public void seguirUsuario(String nicknameSeguidor, String nicknameSeguido) {
+        manejadorUsuario.seguirUsuario(nicknameSeguidor, nicknameSeguido);
+    }
+
+    @Override
+    public void dejarDeSeguirUsuario(String nicknameSeguidor, String nicknameSeguido) {
+        manejadorUsuario.dejarDeSeguirUsuario(nicknameSeguidor, nicknameSeguido);
+    }
+
     @Override
     public void cargarDatosPrueba() {
-    cargadorDatosPrueba.cargar();
-}
+        cargadorDatosPrueba.cargar();
+    }
 }

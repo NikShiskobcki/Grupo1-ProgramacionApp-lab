@@ -286,3 +286,47 @@ body {
 .header-container { flex-wrap: wrap; }
 /* styles.css define .btn sin borde: se restituye para los botones "outline" de Bootstrap */
 .edext-main .btn-outline-secondary { border: 1px solid var(--bs-btn-border-color); }
+
+.home-layout {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.home-sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    background: var(--primary-light);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.home-sidebar .nav-group {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 20px;
+}
+
+.home-sidebar .nav-group:last-child {
+    margin-bottom: 0;
+}
+
+.home-sidebar .nav-title {
+    display: block;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+.home-sidebar .nav-item {
+    display: block;
+    width: 100%;
+    color: var(--white) !important;
+}
+
+.home-content {
+    flex: 1;
+    min-width: 0;
+}

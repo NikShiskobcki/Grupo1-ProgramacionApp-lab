@@ -1,4 +1,3 @@
-
 package Logica.controladores;
 
 import Logica.DTO.DetalleCurso;
@@ -24,8 +23,8 @@ import java.util.List;
 public interface IControlador {
 
     void cargarDatosPrueba();
-    void altaInstituto(String nombre);
 
+    void altaInstituto(String nombre);
 
     // Alta de Curso
     List<Instituto> listarInstitutos();
@@ -35,7 +34,6 @@ public interface IControlador {
     List<Curso> listarCursosPorInstituto(String nombreInstituto);
 
     boolean existeCurso(String nombre);
-    
 
     void altaCurso(
             String nombre,
@@ -52,9 +50,8 @@ public interface IControlador {
     );
 
     DetalleCurso consultarCurso(String nombreCurso);
-    
-    boolean existeInstituto(String nombre);
 
+    boolean existeInstituto(String nombre);
 
     // Alta de Usuario
     List<String> listarNombresInstitutos();
@@ -84,7 +81,6 @@ public interface IControlador {
             String rutaImagen
     );
 
-
     // Alta Programa Formacion
     boolean existePrograma(String nombre);
 
@@ -97,7 +93,6 @@ public interface IControlador {
             String rutaImagen
     );
 
-
     // Agregar curso a Programa Formacion
     List<String> listarProgramas();
 
@@ -105,10 +100,9 @@ public interface IControlador {
             String nombrePrograma,
             String nombreCurso
     );
-    
+
     // Consulta Programa de Formacion
     DetalleProgramaFormacion consultarPrograma(String nombre);
-
 
     // Alta y Consulta de Edicion
     List<Docente> listarDocentesPorInstituto(String nombreInstituto);
@@ -130,29 +124,28 @@ public interface IControlador {
     EdicionCurso buscarEdicion(String nombre);
 
     DetalleEdicionCurso consultarEdicion(String nombreEdicion);
-    
-    void inscribirEstudianteEdicion(String nicknameEstudiante,String nombreEdicion,LocalDate fechaInscripcion);
-    
+
+    void inscribirEstudianteEdicion(String nicknameEstudiante, String nombreEdicion, LocalDate fechaInscripcion);
+
     void modificarInscripcionEdicion(Long idInscripcion, LocalDate nuevaFecha);
-    
+
     //Inscripcion a edición 
     List<EdicionCurso> listarEdicionesVigentesPorCurso(String nombreCurso);
-    
+
     List<Estudiante> listarEstudiantes();
-    
+
     InscripcionEdicion buscarInscripcionEdicion(
-        String nicknameEstudiante,
-        String nombreEdicion);
-    
+            String nicknameEstudiante,
+            String nombreEdicion);
+
     List<InscripcionResumen> listarInscripcionesPorEdicion(String nombreEdicion, boolean ordenarPorPrioridad);
-    
+
     void seleccionarEstudiante(Long idInscripcion, boolean aceptado);
-    
+
 // Consulta de Usuario
     List<UsuarioResumen> listarUsuarios();
 
     DetalleUsuario consultarUsuario(String nickname, String nicknameConsulta);
-
 
     // Modificar Datos de Usuario
     UsuarioEdicion buscarUsuarioParaEditar(String nickname);
@@ -165,26 +158,30 @@ public interface IControlador {
             String nombreInstituto,
             String rutaImagen
     );
-    
+
     //categorias
     void altaCategoria(String nombre);
+
     boolean existeCategoria(String nombre);
+
     List<String> listarNombresCategorias();
-    
+
     //iniciar sesion
     UsuarioResumen iniciarSesion(String nicknameOEmail, String contrasenia);
-    
+
     //listar inscripciones por edicion
     List<InscripcionResumen> listarAceptadosPorEdicion(String nombreEdicion);
-    
+
     //listar resultados inscripciones por estudiante
     List<ResultadoInscripcion> listarResultadosPorEstudiante(String nicknameEstudiante);
-    
-   //inscripcion programa formacion
+
+    //inscripcion programa formacion
     InscripcionPrograma buscarInscripcionPrograma(String nicknameEstudiante, String nombrePrograma);
+
     void inscribirEstudiantePrograma(String nicknameEstudiante, String nombrePrograma, LocalDate fechaInscripcion);
-    
+
     //seguir y dejar de seguir usuarios
     void seguirUsuario(String nicknameSeguidor, String nicknameSeguido);
+
     void dejarDeSeguirUsuario(String nicknameSeguidor, String nicknameSeguido);
 }
