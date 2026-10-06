@@ -110,6 +110,7 @@ body {
     gap: 8px;
 }
 
+/*Oscurecer al poner el cursor encima */
 .nav-title { font-weight: bold; color: #a2d5d8; }
 .nav-item {
     color: var(--white);
@@ -162,6 +163,8 @@ body {
     flex-direction: column;
     transition: transform 0.2s, box-shadow 0.2s;
 }
+
+/*Elevar la card y oscurecer una teca*/
 .card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);

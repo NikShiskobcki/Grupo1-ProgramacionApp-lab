@@ -1,42 +1,47 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="Logica.DTO.DetalleCurso" %>
 <%@ page import="Logica.DTO.UsuarioResumen" %>
+<%@ page import="util.Html" %>
 <jsp:include page="header.jsp" />
 
 <%
     DetalleCurso curso = (DetalleCurso) request.getAttribute("detalleCurso");
     UsuarioResumen user = (UsuarioResumen) session.getAttribute("usuarioLogueado");
+    String urlCurso = (curso != null && curso.getUrl() != null) ? curso.getUrl().trim() : "";
+    boolean urlSegura = urlCurso.toLowerCase().startsWith("http://") || urlCurso.toLowerCase().startsWith("https://");
 %>
 
 <% if (curso != null) { %>
 <div class="detail-container">
     <div class="detail-header">
         <div class="detail-title-group">
-            <span class="card-badge"><%= curso.getInstituto() %></span>
-            <h1><%= curso.getNombre() %></h1>
-            <p class="detail-url"><a href="<%= curso.getUrl() %>" target="_blank">🌐 <%= curso.getUrl() %></a></p>
+            <span class="card-badge"><%= Html.esc(curso.getInstituto()) %></span>
+            <h1><%= Html.esc(curso.getNombre()) %></h1>
+            <% if (urlSegura) { %><p class="detail-url"><a href="<%= Html.esc(urlCurso) %>" target="_blank" rel="noopener">🌐 <%= Html.esc(urlCurso) %></a></p><% } %>
         </div>
         <% if (curso.getRutaImagen() != null && !curso.getRutaImagen().trim().isEmpty()) { %>
-            <img src="<%= curso.getRutaImagen() %>" alt="<%= curso.getNombre() %>" class="detail-img">
+            <img src="<%= Html.imagen(request.getContextPath(), curso.getRutaImagen()) %>" alt="<%= Html.esc(curso.getNombre()) %>" class="detail-img" onerror="this.style.display='none'">
         <% } %>
     </div>
 
     <% if ("inscripto".equals(request.getParameter("msg"))) { %>
         <div class="alert alert-success">¡Inscripción realizada con éxito! Estado: Inscripto.</div>
+    <% } else if ("creado".equals(request.getParameter("msg"))) { %>
+        <div class="alert alert-success">¡Curso creado con éxito!</div>
     <% } else if (request.getParameter("err") != null) { %>
-        <div class="alert alert-error"><%= request.getParameter("err") %></div>
+        <div class="alert alert-error"><%= Html.esc(request.getParameter("err")) %></div>
     <% } %>
 
     <div class="detail-grid">
         <div class="detail-main">
             <h3>Descripción</h3>
-            <p><%= curso.getDescripcion() %></p>
+            <p><%= Html.esc(curso.getDescripcion()) %></p>
 
             <h3>Categorías Asociadas</h3>
             <div class="tags-container">
                 <% if (curso.getCategorias() != null && !curso.getCategorias().isEmpty()) { 
                     for (String cat : curso.getCategorias()) { %>
-                        <span class="tag"><%= cat %></span>
+                        <span class="tag"><%= Html.esc(cat) %></span>
                 <%  } 
                 } else { %>
                     <span>Sin categorías asignadas</span>
@@ -47,7 +52,7 @@
             <ul>
                 <% if (curso.getPrevias() != null && !curso.getPrevias().isEmpty()) { 
                     for (String previa : curso.getPrevias()) { %>
-                        <li><a href="<%= request.getContextPath() %>/curso-detalle?nombre=<%= java.net.URLEncoder.encode(previa, "UTF-8") %>"><%= previa %></a></li>
+                        <li><a href="<%= request.getContextPath() %>/curso-detalle?nombre=<%= Html.url(previa) %>"><%= Html.esc(previa) %></a></li>
                 <%  } 
                 } else { %>
                     <li>Ninguna previa requerida</li>
@@ -70,11 +75,11 @@
                     <ul class="editions-list">
                         <% for (String ed : curso.getEdiciones()) { %>
                             <li>
-                                <a href="<%= request.getContextPath() %>/edicion-detalle?nombre=<%= java.net.URLEncoder.encode(ed, "UTF-8") %>"><%= ed %></a>
+                                <a href="<%= request.getContextPath() %>/edicion-detalle?nombre=<%= Html.url(ed) %>"><%= Html.esc(ed) %></a>
                                 <% if (user != null && "Estudiante".equalsIgnoreCase(user.getTipo())) { %>
                                     <form action="<%= request.getContextPath() %>/inscribir-edicion" method="post" style="display:inline;">
-                                        <input type="hidden" name="nombreEdicion" value="<%= ed %>">
-                                        <input type="hidden" name="nombreCurso" value="<%= curso.getNombre() %>">
+                                        <input type="hidden" name="nombreEdicion" value="<%= Html.esc(ed) %>">
+                                        <input type="hidden" name="nombreCurso" value="<%= Html.esc(curso.getNombre()) %>">
                                         <button type="submit" class="btn btn-sm btn-primary">Inscribirme</button>
                                     </form>
                                 <% } %>
@@ -91,7 +96,7 @@
                 <% if (curso.getProgramas() != null && !curso.getProgramas().isEmpty()) { %>
                     <ul>
                         <% for (String prog : curso.getProgramas()) { %>
-                            <li><a href="<%= request.getContextPath() %>/programa-detalle?nombre=<%= java.net.URLEncoder.encode(prog, "UTF-8") %>"><%= prog %></a></li>
+                            <li><a href="<%= request.getContextPath() %>/programa-detalle?nombre=<%= Html.url(prog) %>"><%= Html.esc(prog) %></a></li>
                         <% } %>
                     </ul>
                 <% } else { %>

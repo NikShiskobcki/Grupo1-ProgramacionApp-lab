@@ -231,7 +231,7 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
                 return; 
             }
             
-            icon.altaPrograma(nombre, descripcion, fechaInicio, fechaFin, LocalDate.now(),null);
+            icon.altaPrograma(nombre, descripcion, fechaInicio, fechaFin, LocalDate.now(),null,null);
             JOptionPane.showMessageDialog(this, "Programa de Formacion creado", "Exito", JOptionPane.INFORMATION_MESSAGE);
            
         }catch (Exception e){
