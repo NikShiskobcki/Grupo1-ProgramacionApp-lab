@@ -24,6 +24,7 @@ public class ProgramaFormacion implements Serializable {
     private LocalDate fechaFin;
     private LocalDate fechaAlta;
     private String rutaImagen;
+    private String nicknameDocente;
 
     @ManyToMany
     @JoinTable(
@@ -99,9 +100,11 @@ private List<InscripcionPrograma> inscripciones = new ArrayList<>();
         return rutaImagen;
     }
 
-
+    public String getNicknameDocente() {
+        return nicknameDocente;
+    }
     
-
+    
 
     // SETTERS
 
@@ -132,4 +135,10 @@ private List<InscripcionPrograma> inscripciones = new ArrayList<>();
     public void setRutaImagen(String rutaImagen) {
         this.rutaImagen = rutaImagen;
     }
+
+    public void setNicknameDocente(String nicknameDocente) {
+        this.nicknameDocente = nicknameDocente;
+    }
+    
+    
 }

@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/index.jsp");
             return;
         }
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/login.jsp").forward(request, response);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class LoginServlet extends HttpServlet {
 
         if (usuario == null || usuario.trim().isEmpty() || contrasenia == null || contrasenia.trim().isEmpty()) {
             request.setAttribute("error", "Debe ingresar usuario/email y contraseña.");
-            request.getRequestDispatcher("/index.jsp").forward(request, response);
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
             return;
         }
 
@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/index.jsp");
         } else {
             request.setAttribute("error", "Credenciales inválidas. Verifique sus datos.");
-            request.getRequestDispatcher("/index.jsp").forward(request, response);
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
     }
 }

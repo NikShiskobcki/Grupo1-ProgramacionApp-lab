@@ -83,6 +83,20 @@ public class ManejadorProgramaFormacion {
         }
     }
     
+    public List<ProgramaFormacion> listarProgramasCreados(String nicknameDocente){
+        EntityManager em = emf.createEntityManager();
+        try{
+            return em.createQuery(
+                    "SELECT p FROM ProgramaFormacion p "
+                    + "WHERE p.nicknameDocente = :nick ORDER BY p.nombre",
+                    ProgramaFormacion.class)
+                    .setParameter("nick",nicknameDocente)
+                    .getResultList();
+        }finally{
+            em.close();
+        }
+    }
+    
     public DetalleProgramaFormacion buscarDetallePrograma(String nombre){
         EntityManager em = emf.createEntityManager();
         try{
