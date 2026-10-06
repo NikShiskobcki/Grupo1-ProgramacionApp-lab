@@ -31,11 +31,20 @@
         <% } %>
     </div>
 
-    <% if (sidebarUser != null) { %>
-    <div class="nav-group">
-        <span class="nav-title">Inscripciones</span>
-        <a class="nav-item" href="<%= request.getContextPath() %>/buscar">Inscribirme</a>
-        <a class="nav-item" href="<%= request.getContextPath() %>/perfil">Resultados</a>
-    </div>
-    <% } %>
+        <% if (sidebarUser != null) { %>
+        <% if ("Docente".equalsIgnoreCase(sidebarUser.getTipo())) { %>
+        <div class="nav-group">
+            <span class="nav-title">Cursos</span>
+            <a class="nav-item" href="<%= request.getContextPath() %>/alta-curso">Alta Curso</a>
+            <a class="nav-item" href="<%= request.getContextPath() %>/alta-edicion">Alta Edición</a>
+            <a class="nav-item" href="<%= request.getContextPath() %>/alta-programa">Alta Programa</a>
+        </div>
+        <% } else { %>
+        <div class="nav-group">
+            <span class="nav-title">Inscripciones</span>
+            <a class="nav-item" href="<%= request.getContextPath() %>/buscar">Inscribirme</a>
+            <a class="nav-item" href="<%= request.getContextPath() %>/perfil">Resultados</a>
+        </div>
+        <% } %>
+        <% } %>
 </aside>

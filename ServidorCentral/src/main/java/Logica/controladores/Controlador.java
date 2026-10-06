@@ -5,6 +5,7 @@ import Logica.DTO.DetalleEdicionCurso;
 
 import Logica.DTO.DetalleProgramaFormacion;
 import Logica.DTO.DetalleUsuario;
+import Logica.DTO.ElementoResumen;
 import Logica.DTO.InscripcionResumen;
 import Logica.DTO.ResultadoInscripcion;
 import Logica.DTO.UsuarioEdicion;
@@ -195,7 +196,7 @@ public class Controlador implements IControlador {
 
     @Override
     public void altaPrograma(String nombre, String descripcion,
-            LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String rutaImagen) {
+            LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String rutaImagen, String nicknameDocente) {
 
         ProgramaFormacion programa = new ProgramaFormacion(
                 nombre,
@@ -205,6 +206,8 @@ public class Controlador implements IControlador {
                 fechaAlta
         );
         programa.setRutaImagen(rutaImagen);
+        programa.setNicknameDocente(nicknameDocente);
+        
         manejadorProgramaFormacion.addPrograma(programa);
     }
 
@@ -218,6 +221,16 @@ public class Controlador implements IControlador {
         }
 
         return nombres;
+    }
+    
+    @Override
+    public List<ElementoResumen> listarProgramasCreados(String nicknameDocente){
+        List<ElementoResumen> resultado = new ArrayList<>();
+        
+        for (ProgramaFormacion p : manejadorProgramaFormacion.listarProgramasCreados(nicknameDocente)){
+            resultado.add(new ElementoResumen(p.getNombre(), p.getNombre()+" ("+p.getFechaInicio()+" - "+p.getFechaFin()+")"));
+        }
+        return resultado;
     }
 
     @Override

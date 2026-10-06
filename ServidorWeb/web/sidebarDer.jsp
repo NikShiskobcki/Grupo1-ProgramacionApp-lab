@@ -4,15 +4,26 @@
 <%@ page import="Logica.DTO.ElementoResumen" %>
 <%@ page import="Logica.controladores.Fabrica" %>
 <%@ page import="Logica.controladores.IControlador" %>
+<%@ page import="java.util.List" %>
 <%@ page import="util.Html" %>
+
 
 <%
    UsuarioResumen sidebarDerUser = (UsuarioResumen) session.getAttribute("usuarioLogueado");
    DetalleUsuario sidebarDerDetalle = null;
+   List<ElementoResumen> sidebarDerProgramas = null;
+   boolean sidebarDerEsDocente = false;
+
    if (sidebarDerUser != null) {
        IControlador sidebarDerControl = Fabrica.getInstance().getIControlador();
-       sidebarDerDetalle = sidebarDerControl.consultarUsuario(
-               sidebarDerUser.getNickname(), sidebarDerUser.getNickname());
+       String sidebarDerNick = sidebarDerUser.getNickname();
+
+       sidebarDerDetalle = sidebarDerControl.consultarUsuario(sidebarDerNick, sidebarDerNick);
+       sidebarDerEsDocente = "Docente".equalsIgnoreCase(sidebarDerUser.getTipo());
+
+       sidebarDerProgramas = sidebarDerEsDocente
+               ? sidebarDerControl.listarProgramasCreados(sidebarDerNick)
+               : sidebarDerDetalle.getProgramas();
    }
    String sidebarDerCtx = request.getContextPath();
 %>
@@ -33,11 +44,11 @@
     </div>
 
     <div class="nav-group">
-        <span class="nav-title">Programas de formación</span>
-        <% if (sidebarDerDetalle.getProgramas().isEmpty()) { %>
+        <span class="nav-title"><%= sidebarDerEsDocente ? "Programas creados" : "Programas de formación" %></span>
+        <% if (sidebarDerProgramas.isEmpty()) { %>
         <span class="nav-empty">No hay programas.</span>
         <% } else { %>
-        <% for (ElementoResumen p : sidebarDerDetalle.getProgramas()) { %>
+        <% for (ElementoResumen p : sidebarDerProgramas) { %>
         <a class="nav-item cat" href="<%= sidebarDerCtx %>/programa-detalle?nombre=<%= Html.url(p.getNombre()) %>">
             <%= Html.esc(p.getNombre()) %>
         </a>

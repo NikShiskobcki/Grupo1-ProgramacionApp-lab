@@ -5,6 +5,7 @@ import Logica.DTO.DetalleEdicionCurso;
 
 import Logica.DTO.DetalleProgramaFormacion;
 import Logica.DTO.DetalleUsuario;
+import Logica.DTO.ElementoResumen;
 import Logica.DTO.InscripcionResumen;
 import Logica.DTO.ResultadoInscripcion;
 import Logica.DTO.UsuarioEdicion;
@@ -90,11 +91,14 @@ public interface IControlador {
             LocalDate fechaInicio,
             LocalDate fechaFin,
             LocalDate fechaAlta,
-            String rutaImagen
+            String rutaImagen,
+            String nicknameDocente
     );
 
     // Agregar curso a Programa Formacion
     List<String> listarProgramas();
+    
+    List<ElementoResumen> listarProgramasCreados(String nicknameDocente);
 
     void agregarCursoAPrograma(
             String nombrePrograma,
