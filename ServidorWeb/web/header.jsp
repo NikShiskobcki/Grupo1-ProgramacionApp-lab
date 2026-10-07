@@ -18,18 +18,28 @@
 <header class="main-header">
     <div class="header-container">
         <div class="brand">
-            <a href="<%= request.getContextPath() %>/index.jsp">
-                <span class="brand-logo">🎓</span>
-                <span class="brand-name">ed<strong>Ext</strong></span>
-            </a>
-        </div>
+                <a href="<%= request.getContextPath() %>/index.jsp">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
+                         class="brand-logo bi bi-mortarboard-fill" viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917z"/>
+                        <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466z"/>
+                    </svg>
+                    <span class="brand-name">ed<strong>Ext</strong></span>
+                </a>
+            </div>
+
 
         <div class="header-search">
-            <form action="<%= request.getContextPath() %>/buscar" method="get">
-                <input type="text" name="q" placeholder="Buscar cursos, programas" value="<%= Html.esc(request.getParameter("q")) %>">
-                <button type="submit" aria-label="Buscar">🔍</button>
-            </form>
-        </div>
+                        <form action="<%= request.getContextPath() %>/buscar" method="get">
+                            <input type="text" name="q" placeholder="Buscar cursos, programas" value="<%= Html.esc(request.getParameter("q")) %>">
+                            <button type="submit" aria-label="Buscar">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="#ffffff"
+                                     class="bi bi-search" viewBox="0 0 16 16" aria-hidden="true">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
 
         <div class="header-user">
             <a href="<%= request.getContextPath() %>/usuarios" class="btn btn-outline">Usuarios</a>

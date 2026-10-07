@@ -42,12 +42,38 @@ public class AltaUsuarioServlet extends HttpServlet {
         String fechaNacStr = request.getParameter("fechaNacimiento");
         String instituto = request.getParameter("instituto");
 
-        if (nickname == null || nickname.trim().isEmpty() ||
-            email == null || email.trim().isEmpty() ||
-            password == null || password.trim().isEmpty() ||
-            confirmPassword == null || !password.equals(confirmPassword)) {
-            
-            request.setAttribute("error", "Datos incompletos o las contraseñas no coinciden.");
+        boolean esDocente = "Docente".equalsIgnoreCase(tipo);
+
+        if (isBlank(nickname) || isBlank(nombre) || isBlank(apellido) || isBlank(email)
+                || isBlank(password) || isBlank(confirmPassword) || isBlank(fechaNacStr)) {
+            request.setAttribute("error", "Debe completar todos los campos obligatorios.");
+            doGet(request, response);
+            return;
+        }
+
+        if (!password.trim().equals(confirmPassword.trim())) {
+            request.setAttribute("error", "Las contraseñas no coinciden.");
+            doGet(request, response);
+            return;
+        }
+
+        if (esDocente && isBlank(instituto)) {
+            request.setAttribute("error", "Debe seleccionar el instituto al que pertenece.");
+            doGet(request, response);
+            return;
+        }
+
+        LocalDate fechaNac;
+        try {
+            fechaNac = LocalDate.parse(fechaNacStr.trim());
+        } catch (DateTimeParseException e) {
+            request.setAttribute("error", "La fecha de nacimiento ingresada no es válida.");
+            doGet(request, response);
+            return;
+        }
+
+        if (fechaNac.isAfter(LocalDate.now())) {
+            request.setAttribute("error", "La fecha de nacimiento no puede ser posterior a la fecha actual.");
             doGet(request, response);
             return;
         }
@@ -64,16 +90,9 @@ public class AltaUsuarioServlet extends HttpServlet {
             return;
         }
 
-        LocalDate fechaNac;
         try {
-            fechaNac = LocalDate.parse(fechaNacStr);
-        } catch (DateTimeParseException | NullPointerException e) {
-            fechaNac = LocalDate.now().minusYears(20);
-        }
-
-        try {
-            if ("Docente".equalsIgnoreCase(tipo)) {
-                control.altaUsuarioDocente(nickname.trim(), nombre.trim(), apellido.trim(), email.trim(), password.trim(), fechaNac, instituto, null);
+            if (esDocente) {
+                control.altaUsuarioDocente(nickname.trim(), nombre.trim(), apellido.trim(), email.trim(), password.trim(), fechaNac, instituto.trim(), null);
             } else {
                 control.altaUsuarioEstudiante(nickname.trim(), nombre.trim(), apellido.trim(), email.trim(), password.trim(), fechaNac, null);
             }
@@ -84,5 +103,9 @@ public class AltaUsuarioServlet extends HttpServlet {
             request.setAttribute("error", "Error al registrar usuario: " + e.getMessage());
             doGet(request, response);
         }
+    }
+
+    private static boolean isBlank(String s) {
+        return s == null || s.trim().isEmpty();
     }
 }
