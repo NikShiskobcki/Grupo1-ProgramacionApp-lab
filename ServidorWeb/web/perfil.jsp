@@ -27,6 +27,10 @@
     DetalleUsuario perfil = (DetalleUsuario) request.getAttribute("detalleUsuario");
     Boolean esPropio = (Boolean) request.getAttribute("esPropioPerfil");
     if (esPropio == null) esPropio = false;
+    Boolean puedeSeguirAttr = (Boolean) request.getAttribute("puedeSeguir");
+    boolean puedeSeguir = puedeSeguirAttr != null && puedeSeguirAttr;
+    Boolean siguiendoAttr = (Boolean) request.getAttribute("siguiendo");
+    boolean siguiendo = siguiendoAttr != null && siguiendoAttr;
     String ctx = request.getContextPath();
 
     Map<String, String> estados = (Map<String, String>) request.getAttribute("estadosInscripcion");
@@ -43,6 +47,19 @@
     <% if ("modificado".equals(request.getParameter("msg"))) { %>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             Tus datos se actualizaron correctamente.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>
+    <% } %>
+
+    <% String msgSeguir = request.getParameter("msg");
+       if ("seguido".equals(msgSeguir) || "dejado".equals(msgSeguir)) { %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= "seguido".equals(msgSeguir) ? "Ahora seguís a este usuario." : "Dejaste de seguir a este usuario." %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>
+    <% } else if ("errorseguir".equals(msgSeguir)) { %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            No se pudo completar la operación. Intentá nuevamente.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
         </div>
     <% } %>
@@ -71,6 +88,18 @@
 
             <% if (esPropio) { %>
                 <a href="<%= ctx %>/modificar-perfil" class="btn btn-primary">✎ Modificar mis datos</a>
+            <% } %>
+            <% if (puedeSeguir) { %>
+                <form method="post" action="<%= ctx %>/seguir-usuario" class="m-0">
+                    <input type="hidden" name="user" value="<%= Html.esc(perfil.getNickname()) %>">
+                    <% if (siguiendo) { %>
+                        <input type="hidden" name="accion" value="dejar">
+                        <button type="submit" class="btn btn-outline-secondary">✖ Dejar de seguir</button>
+                    <% } else { %>
+                        <input type="hidden" name="accion" value="seguir">
+                        <button type="submit" class="btn btn-primary">＋ Seguir</button>
+                    <% } %>
+                </form>
             <% } %>
         </div>
     </div>

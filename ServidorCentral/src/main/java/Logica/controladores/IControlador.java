@@ -188,4 +188,6 @@ public interface IControlador {
     void seguirUsuario(String nicknameSeguidor, String nicknameSeguido);
 
     void dejarDeSeguirUsuario(String nicknameSeguidor, String nicknameSeguido);
+
+    boolean sigueAUsuario(String nicknameSeguidor, String nicknameSeguido);
 }
