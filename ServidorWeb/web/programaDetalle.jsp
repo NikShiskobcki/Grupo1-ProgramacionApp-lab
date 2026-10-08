@@ -12,6 +12,11 @@
 <% if (p != null) {
     String img = Html.imagen(ctx, p.getRutaImagen());
 %>
+
+<% if ("creado".equals(request.getParameter("msg"))) { %>
+<div class="alert alert-success">Programa de formación creado con éxito!</div>
+<% } %>
+
 <div class="container-fluid px-0">
     <div class="edext-panel p-4">
         <div class="row g-4">
