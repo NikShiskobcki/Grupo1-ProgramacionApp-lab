@@ -17,6 +17,7 @@ import Logica.Entidades.Usuario;
 import Logica.excepciones.EntidadNoEncontradaException;
 import Logica.excepciones.NombreDuplicadoException;
 import Logica.excepciones.PersistenciaException;
+import Logica.excepciones.RelacionInvalidaException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -424,7 +425,26 @@ public class ManejadorUsuario {
         }
     }
     
+    public boolean sigueAUsuario(String nicknameSeguidor, String nicknameSeguido){
+        EntityManager em = emf.createEntityManager();
+        try{
+            Long cantidad = em.createQuery(
+                    "SELECT COUNT(s) FROM Usuario u JOIN u.seguidos s "
+                    + "WHERE u.nickname = :seguidor AND s.nickname = :seguido",
+                    Long.class)
+                    .setParameter("seguidor", nicknameSeguidor)
+                    .setParameter("seguido", nicknameSeguido)
+                    .getSingleResult();
+            return cantidad > 0;
+        }finally{
+            em.close();
+        }
+    }
+
     public void seguirUsuario(String nicknameSeguidor, String nicknameSeguido){
+        if (nicknameSeguidor != null && nicknameSeguidor.equals(nicknameSeguido)){
+            throw new RelacionInvalidaException("Un usuario no puede seguirse a sí mismo.", null);
+        }
         EntityManager em=emf.createEntityManager();
         EntityTransaction t= em.getTransaction();
         try{

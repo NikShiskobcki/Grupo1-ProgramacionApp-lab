@@ -62,6 +62,13 @@ public class ConsultaUsuarioServlet extends HttpServlet {
         request.setAttribute("detalleUsuario", detalle);
         request.setAttribute("esPropioPerfil", propio);
 
+        // Seguir / dejar de seguir: solo un usuario con sesión, sobre el perfil de otro
+        boolean puedeSeguir = quienConsulta != null && !propio;
+        request.setAttribute("puedeSeguir", puedeSeguir);
+        if (puedeSeguir) {
+            request.setAttribute("siguiendo", control.sigueAUsuario(quienConsulta, detalle.getNickname()));
+        }
+
         if (propio) {
             if ("Estudiante".equalsIgnoreCase(detalle.getTipoUsuario())) {
                 // US-05: estado de cada inscripción (Inscripto / Aceptada / Rechazada)
