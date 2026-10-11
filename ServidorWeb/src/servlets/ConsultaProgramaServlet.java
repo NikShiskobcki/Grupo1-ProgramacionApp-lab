@@ -22,13 +22,13 @@ public class ConsultaProgramaServlet extends HttpServlet {
             throws ServletException, IOException {
         String nombre = request.getParameter("nombre");
         if (nombre == null || nombre.trim().isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/index.jsp");
+            response.sendRedirect(request.getContextPath() + "/buscar#programas");
             return;
         }
         DetalleProgramaFormacion detalle = control.consultarPrograma(nombre.trim());
         if (detalle == null) {
             request.setAttribute("error", "El programa de formación solicitado no fue encontrado.");
-            request.getRequestDispatcher("/index.jsp").forward(request, response);
+            request.getRequestDispatcher("/programaDetalle.jsp").forward(request, response);
             return;
         }
         request.setAttribute("detallePrograma", detalle);
