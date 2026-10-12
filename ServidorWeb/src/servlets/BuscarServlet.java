@@ -3,6 +3,7 @@ package servlets;
 import Logica.controladores.Fabrica;
 import Logica.controladores.IControlador;
 import Logica.Entidades.Curso;
+import Logica.DTO.DetalleProgramaFormacion;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,7 +46,36 @@ public class BuscarServlet extends HttpServlet {
         } else {
             resultados.sort((c1, c2) -> c1.getNombre().compareToIgnoreCase(c2.getNombre()));
         }
+        
+        //para ver programas
+        List<DetalleProgramaFormacion> programas = new ArrayList<>();
+        List<String> nombresProgramas = control.listarProgramas();
+        if (nombresProgramas != null) {
+            for (String nombre : nombresProgramas) {
+                DetalleProgramaFormacion p = control.consultarPrograma(nombre);
+                if (p == null) {
+                    continue;
+                }
+                if (query == null || query.trim().isEmpty()
+                        || p.getNombre().toLowerCase().contains(query.toLowerCase())
+                        || (p.getDescripcion() != null && p.getDescripcion().toLowerCase().contains(query.toLowerCase()))) {
+                    programas.add(p);
+                }
+            }
+        }
 
+        if ("fecha".equalsIgnoreCase(orden)) {
+            programas.sort((p1, p2) -> {
+                if (p1.getFechaAlta() == null || p2.getFechaAlta() == null) {
+                    return 0;
+                }
+                return p2.getFechaAlta().compareTo(p1.getFechaAlta());
+            });
+        } else {
+            programas.sort((p1, p2) -> p1.getNombre().compareToIgnoreCase(p2.getNombre()));
+        }
+
+        request.setAttribute("programas", programas);
         request.setAttribute("query", query != null ? query : "");
         request.setAttribute("orden", orden != null ? orden : "alfa");
         request.setAttribute("resultados", resultados);

@@ -38,6 +38,13 @@
         <% if (sidebarUser != null && "Docente".equalsIgnoreCase(sidebarUser.getTipo())) { %>
         <a class="nav-item" href="<%= request.getContextPath() %>/alta-curso">Alta Curso</a>
         <a class="nav-item" href="<%= request.getContextPath() %>/alta-edicion">Alta Edición</a>
+        <% } %>
+    </div>
+    
+    <div class="nav-group">
+        <span class="nav-title">Programas</span>
+        <a class="nav-item" href="<%= request.getContextPath() %>/buscar#programas">Consultar Programa</a>
+        <% if (sidebarUser != null && "Docente".equalsIgnoreCase(sidebarUser.getTipo())) { %>
         <a class="nav-item" href="<%= request.getContextPath() %>/alta-programa">Alta Programa</a>
         <% } %>
     </div>

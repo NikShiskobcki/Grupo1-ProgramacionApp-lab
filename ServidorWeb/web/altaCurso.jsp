@@ -107,12 +107,12 @@
                     </div>
                 </div>
 
-                <div class="col-6">
-                    <button type="submit" class="btn btn-primary w-100">Aceptar</button>
-                </div>
-                <div class="col-6">
-                    <a href="<%= request.getContextPath() %>/index.jsp" class="btn btn-danger w-100 text-center">Cancelar</a>
-                </div>
+                    <div class="col-6">
+                        <a href="<%= request.getContextPath() %>/index.jsp" class="btn btn-danger w-100 text-center">Cancelar</a>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-primary w-100">Aceptar</button>
+                    </div>
             </form>
         </div>
     </div>

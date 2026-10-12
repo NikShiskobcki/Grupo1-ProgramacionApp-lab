@@ -7,7 +7,7 @@
     <div class="home-content">
         <div class="hero-banner">
             <h2>Bienvenido a ed<span>Ext</span></h2>
-            <a href="<%= request.getContextPath() %>/buscar" class="btn btn-outline">Explorar cursos</a>
+            <a href="<%= request.getContextPath() %>/buscar" class="btn btn-outline">Explorar cursos y programas</a>
         </div>
     </div>
 
