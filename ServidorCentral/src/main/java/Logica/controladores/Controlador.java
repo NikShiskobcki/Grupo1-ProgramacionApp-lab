@@ -467,6 +467,11 @@ public void modificarInscripcionEdicion(Long idInscripcion, LocalDate nuevaFecha
     }
     
     @Override
+    public boolean sigueAUsuario(String nicknameSeguidor, String nicknameSeguido) {
+        return manejadorUsuario.sigueAUsuario(nicknameSeguidor, nicknameSeguido);
+    }
+
+    @Override
     public void cargarDatosPrueba() {
     cargadorDatosPrueba.cargar();
 }
