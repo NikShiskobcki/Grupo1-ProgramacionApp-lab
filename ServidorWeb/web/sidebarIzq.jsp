@@ -37,8 +37,16 @@
         <a class="nav-item" href="<%= request.getContextPath() %>/consulta-curso">Consultar Curso</a>
         <% if (sidebarUser != null && "Docente".equalsIgnoreCase(sidebarUser.getTipo())) { %>
         <a class="nav-item" href="<%= request.getContextPath() %>/alta-curso">Alta Curso</a>
+        <% } %>
+    </div>
+    
+    <div class="nav-group">
+        <span class="nav-title">Ediciones de curso</span>
+         <a class="nav-item" href="<%= request.getContextPath() %>/consulta-edicion">Consultar Edición </a>
+        <% if (sidebarUser != null && "Docente".equalsIgnoreCase(sidebarUser.getTipo())) { %>
         <a class="nav-item" href="<%= request.getContextPath() %>/alta-edicion">Alta Edición</a>
         <% } %>
+       
     </div>
     
     <div class="nav-group">
@@ -52,7 +60,7 @@
     <% if (sidebarUser != null && !"Docente".equalsIgnoreCase(sidebarUser.getTipo())) { %>
     <div class="nav-group">
         <span class="nav-title">Inscripciones</span>
-        <a class="nav-item" href="<%= request.getContextPath() %>/buscar">Inscribirme</a>
+        <a class="nav-item" href="<%= request.getContextPath() %>/inscribir-edicion">Inscribrime</a>  
         <a class="nav-item" href="<%= request.getContextPath() %>/perfil">Resultados</a>
     </div>
     <% } %>
