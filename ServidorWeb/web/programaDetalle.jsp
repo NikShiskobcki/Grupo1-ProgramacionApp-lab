@@ -15,7 +15,7 @@
 <div class="detail-container">
     <div class="detail-header">
         <div class="detail-title-group">
-            <span class="card-badge">Programa de formación</span>
+            <span class="card-badge">Programa de formacion</span>
             <h1><%= Html.esc(p.getNombre()) %></h1>
         </div>
         <% if (!img.isEmpty()) { %>
@@ -24,22 +24,25 @@
     </div>
 
     <% if ("creado".equals(request.getParameter("msg"))) { %>
-    <div class="alert alert-success">¡Programa de formación creado con éxito!</div>
+    <div class="alert alert-success">Programa de formacion creado con exito!</div>
+    <% } %>
+    <% if ("cursos".equals(request.getParameter("msg"))) { %>
+    <div class="alert alert-success">Cursos agregados al programa con exito!</div>
     <% } %>
 
     <div class="detail-grid">
         <div class="detail-main">
-            <h3>Descripción</h3>
+            <h3>Descripcion</h3>
             <p><%= Html.esc(p.getDescripcion()) %></p>
 
-            <h3>Categorías Asociadas</h3>
+            <h3>Categorias Asociadas</h3>
             <div class="tags-container">
                 <% if (p.getCategorias() != null && !p.getCategorias().isEmpty()) {
                     for (String cat : p.getCategorias()) { %>
                 <span class="tag"><%= Html.esc(cat) %></span>
                 <%  }
                 } else { %>
-                <span>Sin categorías asignadas</span>
+                <span>Sin categorias asignadas</span>
                 <% } %>
             </div>
 
@@ -53,14 +56,14 @@
                 </li>
                 <%  }
                 } else { %>
-                <li>Este programa todavía no tiene cursos.</li>
+                <li>Este programa todavia no tiene cursos.</li>
                     <% } %>
             </ul>
         </div>
 
         <div class="detail-sidebar">
             <div class="sidebar-box">
-                <h4>Información del Programa</h4>
+                <h4>Informacion del Programa</h4>
                 <p><strong>Vigencia:</strong> <%= Html.esc(p.getFechaInicio()) %> a <%= Html.esc(p.getFechaFin()) %></p>
                 <p><strong>Fecha de Alta:</strong> <%= Html.esc(p.getFechaAlta()) %></p>
             </div>

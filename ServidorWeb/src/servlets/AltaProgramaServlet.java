@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,7 +27,8 @@ public class AltaProgramaServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
-        request.getRequestDispatcher("/altaPrograma.jsp").forward(request,response);
+        cargarCursos(request);
+        request.getRequestDispatcher("/altaPrograma.jsp").forward(request, response);
     }
     
     @Override
@@ -48,6 +51,8 @@ public class AltaProgramaServlet extends HttpServlet {
         request.setAttribute("v_descripcion",descripcion);
         request.setAttribute("v_fInicio",fInicioStr);
         request.setAttribute("v_fFin",fFinStr);
+        String[] cursosSel = request.getParameterValues("curso");
+        request.setAttribute("v_cursos", cursosSel == null ? new ArrayList<String>() : Arrays.asList(cursosSel));
         
         if (nombre.isEmpty()||descripcion.isEmpty()|| fInicioStr.isEmpty()||fFinStr.isEmpty()){
             error(request,response,"Debe completar todos los campos obligatorios");
@@ -77,6 +82,17 @@ public class AltaProgramaServlet extends HttpServlet {
             error(request,response,"No se pudo dar de alta al Programa de Formacion: "+ e.getMessage());
             return;
         }
+        if (cursosSel != null) {
+            try {
+                for (String curso : cursosSel) {
+                    icon.agregarCursoAPrograma(nombre, curso);
+                }
+            } catch (Exception e) {
+                response.sendRedirect(request.getContextPath() + "/agregar-curso-programa?programa="
+                        + URLEncoder.encode(nombre, "UTF-8"));
+                return;
+            }
+        }
         response.sendRedirect(request.getContextPath() + "/programa-detalle?msg=creado&nombre="
                 + URLEncoder.encode(nombre,"UTF-8"));
     }
@@ -85,6 +101,7 @@ public class AltaProgramaServlet extends HttpServlet {
     private void error(HttpServletRequest request, HttpServletResponse response, String mensaje)
             throws ServletException, IOException{
         request.setAttribute("error",mensaje);
+        cargarCursos(request);
         request.getRequestDispatcher("/altaPrograma.jsp").forward(request,response);
     }
     
@@ -97,6 +114,11 @@ public class AltaProgramaServlet extends HttpServlet {
     
     private static String trim(String s){
         return s == null ? "" : s.trim();
+    }
+    
+   //lista de cursos
+    private void cargarCursos(HttpServletRequest request) {
+        request.setAttribute("cursos", icon.listarCursos());
     }
     
 }

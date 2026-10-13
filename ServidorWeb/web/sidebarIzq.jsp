@@ -46,6 +46,7 @@
         <a class="nav-item" href="<%= request.getContextPath() %>/buscar#programas">Consultar Programa</a>
         <% if (sidebarUser != null && "Docente".equalsIgnoreCase(sidebarUser.getTipo())) { %>
         <a class="nav-item" href="<%= request.getContextPath() %>/alta-programa">Alta Programa</a>
+        <a class="nav-item" href="<%= request.getContextPath() %>/agregar-curso-programa">Agregar Curso a Programa</a>
         <% } %>
     </div>
 
