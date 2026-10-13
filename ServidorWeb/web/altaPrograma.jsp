@@ -1,6 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="util.Html" %>
+<%@ page import="java.util.List" %>
+<%@ page import="Logica.Entidades.Curso" %>
 <jsp:include page="header.jsp" />
+
+<%
+    List<Curso> cursos = (List<Curso>) request.getAttribute("cursos");
+    List<String> cursosSel = (List<String>) request.getAttribute("v_cursos");
+%>
 
 <div class="home-layout">
     <jsp:include page="sidebarIzq.jsp" />
@@ -38,13 +45,36 @@
                     <input type="date" class="form-control" id="fechaFin" name="fechaFin" required
                            value="<%= Html.esc(request.getAttribute("v_fFin")) %>">
                 </div>
+                
+                <div class="col-12">
+                    <label class="form-label">Cursos del programa <span class="text-muted">(opcional, podés agregarlos después)</span></label>
+                    <% if (cursos == null || cursos.isEmpty()) { %>
+                        <p class="text-muted">Todavia no hay cursos en la plataforma.</p>
+                    <% } else { %>
+                        <div class="list-group" style="max-height:220px; overflow-y:auto;">
+                            <% for (Curso c : cursos) { %>
+                                <label class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>
+                                    <input class="form-check-input me-2" type="checkbox" name="curso"
+                                            value="<%= Html.esc(c.getNombre()) %>"
+                                            <%= (cursosSel != null && cursosSel.contains(c.getNombre())) ? "checked" : "" %>>
+                                    <%= Html.esc(c.getNombre()) %>
+                                </span>
+                                <span class="badge text-bg-secondary">
+                                    <%= c.getInstituto() != null ? Html.esc(c.getInstituto().getNombre()) : "General" %>
+                                </span>
+                                </label>
+                            <% } %>
+                        </div>
+                    <% } %>
+                </div>
 
-                    <div class="col-6">
-                        <a href="<%= request.getContextPath() %>/index.jsp" class="btn btn-danger w-100 text-center">Cancelar</a>
-                    </div>
-                    <div class="col-6">
-                        <button type="submit" class="btn btn-primary w-100">Aceptar</button>
-                    </div>
+                <div class="col-6">
+                    <a href="<%= request.getContextPath() %>/index.jsp" class="btn btn-danger w-100 text-center">Cancelar</a>
+                </div>
+                <div class="col-6">
+                    <button type="submit" class="btn btn-primary w-100">Aceptar</button>
+                </div>
             </form>
         </div>
     </div>

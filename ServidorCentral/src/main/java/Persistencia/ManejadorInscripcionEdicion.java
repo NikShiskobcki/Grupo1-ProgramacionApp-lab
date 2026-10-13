@@ -22,79 +22,49 @@ public class ManejadorInscripcionEdicion {
         this.emf = emf;
     }
     
-public InscripcionEdicion buscarInscripcion(
-        String nicknameEstudiante, String nombreEdicion) {
+    public InscripcionEdicion buscarInscripcion(String nicknameEstudiante,String nombreEdicion) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            List<InscripcionEdicion> inscripciones = em.createQuery(
+                    "SELECT i FROM InscripcionEdicion i "
+                    + "WHERE i.estudiante.nickname = :nickname "
+                    + "AND i.edicion.nombre = :nombreEdicion "
+                    + "AND (i.estado IS NULL OR i.estado <> Logica.Entidades.EstadoInscripcion.RECHAZADA)",
+                    InscripcionEdicion.class)
+                    .setParameter("nickname", nicknameEstudiante)
+                    .setParameter("nombreEdicion", nombreEdicion)
+                    .getResultList();
 
-    EntityManager em = emf.createEntityManager();
+            if (inscripciones.isEmpty()) {
+                return null;
+            }
 
-    try {
-        List<InscripcionEdicion> inscripciones = em.createQuery(
-                "SELECT i FROM InscripcionEdicion i "
-                + "WHERE i.estudiante.nickname = :nickname "
-                + "AND i.edicion.nombre = :nombreEdicion "
-                + "ORDER BY i.id",
-                InscripcionEdicion.class)
-                .setParameter("nickname", nicknameEstudiante)
-                .setParameter("nombreEdicion", nombreEdicion)
-                .getResultList();
+            return inscripciones.get(0);
 
-        return inscripciones.isEmpty() ? null : inscripciones.get(0);
-
-    } finally {
-        em.close();
+        } finally {
+            em.close();
+        }
     }
-}
     
-public void addInscripcion(InscripcionEdicion inscripcion) {
-    EntityManager em = emf.createEntityManager();
-    EntityTransaction t = em.getTransaction();
+    public void addInscripcion(InscripcionEdicion inscripcion) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction t = em.getTransaction();
 
-    try {
-        t.begin();
+        try {
+            t.begin();
+            em.persist(inscripcion);
+            t.commit();
 
-        Logica.Entidades.EdicionCurso edicion = em.find(
-                Logica.Entidades.EdicionCurso.class,
-                inscripcion.getEdicion().getNombre(),
-                javax.persistence.LockModeType.PESSIMISTIC_WRITE);
+        } catch (Exception e) {
+            if (t.isActive()) {
+                t.rollback();
+            }
+            throw new PersistenciaException("No se pudo guardar la inscripcion",e);
 
-        if (edicion == null) {
-            throw new IllegalArgumentException("La edición no existe.");
+        } finally {
+            em.close();
         }
-
-        long existentes = em.createQuery(
-                "SELECT COUNT(i) FROM InscripcionEdicion i "
-                + "WHERE i.estudiante.nickname = :nickname "
-                + "AND i.edicion.nombre = :edicion",
-                Long.class)
-                .setParameter("nickname",
-                        inscripcion.getEstudiante().getNickname())
-                .setParameter("edicion", edicion.getNombre())
-                .getSingleResult();
-
-        if (existentes > 0) {
-            throw new IllegalArgumentException(
-                    "Ya existe una inscripción a esta edición.");
-        }
-
-        em.persist(inscripcion);
-        t.commit();
-
-    } catch (Exception e) {
-        if (t.isActive()) {
-            t.rollback();
-        }
-
-        if (e instanceof IllegalArgumentException) {
-            throw (IllegalArgumentException) e;
-        }
-
-        throw new PersistenciaException(
-                "No se pudo guardar la inscripción.", e);
-
-    } finally {
-        em.close();
     }
-}
     
     public void modificarInscripcion(Long idInscripcion,LocalDate nuevaFecha) {
         EntityManager em = emf.createEntityManager();

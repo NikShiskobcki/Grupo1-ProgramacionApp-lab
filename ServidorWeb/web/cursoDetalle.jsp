@@ -77,7 +77,11 @@
                             <li>
                                 <a href="<%= request.getContextPath() %>/edicion-detalle?nombre=<%= Html.url(ed) %>"><%= Html.esc(ed) %></a>
                                 <% if (user != null && "Estudiante".equalsIgnoreCase(user.getTipo())) { %>
-                                    <a class="btn btn-sm btn-primary" href="<%= request.getContextPath() %>/inscribir-edicion?curso=<%= Html.url(curso.getNombre()) %>&edicion=<%= Html.url(ed) %>">Inscribirme</a>
+                                    <form action="<%= request.getContextPath() %>/inscribir-edicion" method="post" style="display:inline;">
+                                        <input type="hidden" name="nombreEdicion" value="<%= Html.esc(ed) %>">
+                                        <input type="hidden" name="nombreCurso" value="<%= Html.esc(curso.getNombre()) %>">
+                                        <button type="submit" class="btn btn-sm btn-primary">Inscribirme</button>
+                                    </form>
                                 <% } %>
                             </li>
                         <% } %>

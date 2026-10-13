@@ -69,6 +69,10 @@ public class ConsultaUsuarioServlet extends HttpServlet {
             request.setAttribute("siguiendo", control.sigueAUsuario(quienConsulta, detalle.getNickname()));
         }
 
+        // Seguidos y seguidores: visibles en el perfil de cualquier usuario
+        request.setAttribute("seguidos", control.listarSeguidos(detalle.getNickname()));
+        request.setAttribute("seguidores", control.listarSeguidores(detalle.getNickname()));
+
         if (propio) {
             if ("Estudiante".equalsIgnoreCase(detalle.getTipoUsuario())) {
                 // US-05: estado de cada inscripción (Inscripto / Aceptada / Rechazada)

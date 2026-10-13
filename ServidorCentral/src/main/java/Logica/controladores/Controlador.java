@@ -497,10 +497,28 @@ public void inscribirEstudianteEdicion(
     public void dejarDeSeguirUsuario(String nicknameSeguidor, String nicknameSeguido) {
         manejadorUsuario.dejarDeSeguirUsuario(nicknameSeguidor, nicknameSeguido);
     }
-
+    
     @Override
     public boolean sigueAUsuario(String nicknameSeguidor, String nicknameSeguido) {
         return manejadorUsuario.sigueAUsuario(nicknameSeguidor, nicknameSeguido);
+    }
+
+    @Override
+    public List<UsuarioResumen> listarSeguidos(String nickname) {
+        return manejadorUsuario.listarSeguidos(nickname);
+    }
+
+    @Override
+    public List<UsuarioResumen> listarSeguidores(String nickname) {
+        return manejadorUsuario.listarSeguidores(nickname);
+    }
+
+    // =========================
+    // CAMBIAR CONTRASEÑA
+    // =========================
+    @Override
+    public boolean cambiarContrasenia(String nickname, String contraseniaActual, String contraseniaNueva) {
+        return manejadorUsuario.cambiarContrasenia(nickname, contraseniaActual, contraseniaNueva);
     }
 
     @Override

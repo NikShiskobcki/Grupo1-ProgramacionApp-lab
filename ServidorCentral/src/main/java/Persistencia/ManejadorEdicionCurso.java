@@ -14,50 +14,46 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ManejadorEdicionCurso {
-
     private final EntityManagerFactory emf;
-
+    
     public ManejadorEdicionCurso(EntityManagerFactory emf) {
         this.emf = emf;
     }
-
+    
     public EdicionCurso buscarPorNombre(String nombre) {
         EntityManager em = emf.createEntityManager();
         try {
             return em.find(EdicionCurso.class, nombre);
-        } finally {
+        }finally {
             em.close();
         }
     }
-
+    
     public void addEdicion(EdicionCurso edicion) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction t = em.getTransaction();
-
+    
         try {
             t.begin();
             em.persist(edicion);
             t.commit();
-        } catch (Exception e) {
+        }catch (Exception e) {
             if (t.isActive()) {
                 t.rollback();
             }
 
-            if (NombreDuplicadoException.esNombreDuplicado(e)) {
-                throw new NombreDuplicadoException("Ya existe una edicion con ese nombre", e);
-            } else {
+            if (NombreDuplicadoException.esNombreDuplicado(e)){
+                throw new NombreDuplicadoException("Ya existe una edicion con ese nombre",e);
+            }else{
                 throw new PersistenciaException("No se pudo guardar la edicion", e);
             }
-        } finally {
+        }finally {
             em.close();
         }
     }
-
-    public List<EdicionCurso> listarEdicionesVigentesPorCurso(
-            String nombreCurso) {
-
+    
+    public List<EdicionCurso> listarEdicionesVigentesPorCurso(String nombreCurso) {
         EntityManager em = emf.createEntityManager();
-
         try {
             return em.createQuery(
                     "SELECT e FROM EdicionCurso e "
@@ -66,15 +62,13 @@ public class ManejadorEdicionCurso {
                     + "ORDER BY e.nombre",
                     EdicionCurso.class)
                     .setParameter("nombreCurso", nombreCurso)
-                    .setParameter("hoy", LocalDate.now(
-                            java.time.ZoneId.of("America/Montevideo")))
+                    .setParameter("hoy", LocalDate.now())
                     .getResultList();
-
         } finally {
             em.close();
         }
     }
-
+    
     public List<EdicionCurso> listarEdicionesPorCurso(String nombreCurso) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -89,7 +83,7 @@ public class ManejadorEdicionCurso {
             em.close();
         }
     }
-
+    
     public EdicionCurso buscarEdicionCompleta(String nombre) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -104,7 +98,7 @@ public class ManejadorEdicionCurso {
             em.close();
         }
     }
-
+    
     public DetalleEdicionCurso buscarDetalleEdicion(String nombre) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -117,9 +111,9 @@ public class ManejadorEdicionCurso {
 
             for (Docente d : edicion.getDocentes()) {
                 docentes.add(
-                        d.getNombre() + " "
-                        + d.getApellido() + " ("
-                        + d.getNickname() + ")"
+                    d.getNombre() + " " +
+                    d.getApellido() + " (" +
+                    d.getNickname() + ")"
                 );
             }
 
@@ -138,25 +132,25 @@ public class ManejadorEdicionCurso {
             }
 
             return new DetalleEdicionCurso(
-                    edicion.getNombre(),
-                    edicion.getFechaInicio(),
-                    edicion.getFechaFin(),
-                    edicion.getCupo(),
-                    edicion.getFechaPublicacion(),
-                    edicion.getCurso() != null
+                edicion.getNombre(),
+                edicion.getFechaInicio(),
+                edicion.getFechaFin(),
+                edicion.getCupo(),
+                edicion.getFechaPublicacion(),
+                edicion.getCurso() != null
                     ? edicion.getCurso().getNombre()
                     : "",
-                    docentes,
-                    cantidadInscriptos != null ? cantidadInscriptos : 0L,
-                    edicion.getRutaImagen(),
-                    categorias
+                docentes,
+                cantidadInscriptos != null ? cantidadInscriptos : 0L,
+                edicion.getRutaImagen(),
+                categorias
             );
 
         } finally {
             em.close();
         }
     }
-
+    
     public EdicionCurso buscarEdicionVigentePorCurso(String nombreCurso) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -177,14 +171,13 @@ public class ManejadorEdicionCurso {
             em.close();
         }
     }
-
     public void agregarDocente(String nombreEdicion, String nicknameDocente) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction t = em.getTransaction();
 
         try {
             t.begin();
-
+            
             EdicionCurso edicion = em.find(EdicionCurso.class, nombreEdicion);
             Docente docente = em.find(Docente.class, nicknameDocente);
 
@@ -199,7 +192,7 @@ public class ManejadorEdicionCurso {
             if (t.isActive()) {
                 t.rollback();
             }
-            throw new PersistenciaException("No se pudo agregar el docente", e);
+            throw new PersistenciaException("No se pudo agregar el docente",e);
         } finally {
             em.close();
         }
