@@ -281,7 +281,8 @@ public class Controlador implements IControlador {
                 fechaFin,
                 cupo,
                 fechaPublicacion,
-                curso
+                curso,
+                rutaImagen
         );
 
         edicion.setDocentes(docentes);
@@ -334,27 +335,53 @@ public class Controlador implements IControlador {
         return manejadorInscripcionEdicion.buscarInscripcion(nicknameEstudiante, nombreEdicion);
     }
 
-    @Override
-    public void inscribirEstudianteEdicion(
-            String nicknameEstudiante,
-            String nombreEdicion,
-            LocalDate fechaInscripcion) {
+@Override
+public void inscribirEstudianteEdicion(
+        String nicknameEstudiante,
+        String nombreEdicion,
+        LocalDate fechaInscripcion) {
 
-        Estudiante estudiante
-                = manejadorUsuario.buscarEstudiante(nicknameEstudiante);
+    Estudiante estudiante =
+            manejadorUsuario.buscarEstudiante(nicknameEstudiante);
 
-        EdicionCurso edicion
-                = manejadorEdicionCurso.buscarPorNombre(nombreEdicion);
-
-        InscripcionEdicion inscripcion
-                = new InscripcionEdicion(
-                        fechaInscripcion,
-                        estudiante,
-                        edicion
-                );
-
-        manejadorInscripcionEdicion.addInscripcion(inscripcion);
+    if (estudiante == null) {
+        throw new IllegalArgumentException(
+                "El estudiante no existe.");
     }
+
+    EdicionCurso edicion =
+            manejadorEdicionCurso.buscarPorNombre(nombreEdicion);
+
+    if (edicion == null) {
+        throw new IllegalArgumentException(
+                "La edición no existe.");
+    }
+
+    LocalDate hoy = LocalDate.now(
+            java.time.ZoneId.of("America/Montevideo"));
+
+    if (edicion.getFechaInicio() == null
+            || edicion.getFechaFin() == null
+            || hoy.isBefore(edicion.getFechaInicio())
+            || hoy.isAfter(edicion.getFechaFin())) {
+
+        throw new IllegalArgumentException(
+                "Solo se permite la inscripción a una edición vigente.");
+    }
+
+    if (fechaInscripcion == null) {
+        throw new IllegalArgumentException(
+                "Debe indicar una fecha de inscripción.");
+    }
+
+    InscripcionEdicion inscripcion = new InscripcionEdicion(
+            fechaInscripcion,
+            estudiante,
+            edicion
+    );
+
+    manejadorInscripcionEdicion.addInscripcion(inscripcion);
+}
 
     @Override
     public void modificarInscripcionEdicion(Long idInscripcion, LocalDate nuevaFecha) {
