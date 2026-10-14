@@ -31,6 +31,8 @@ services:
       - mariadb
 
   tomcat:
+    environment:
+      IMAGENES_DIR: /var/lib/edext/imagenes
     image: tomcat:9.0-jdk21-temurin
     container_name: tomcat_stack
     restart: unless-stopped
@@ -46,7 +48,10 @@ services:
         read_only: true
         bind:
           create_host_path: false
+      - imagenes_data:/var/lib/edext/imagenes
 
 volumes:
+  imagenes_data:
+    driver: local
   mariadb_data:
     driver: local

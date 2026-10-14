@@ -21,7 +21,7 @@
             <div class="alert alert-error"><%= Html.esc(request.getAttribute("error")) %></div>
             <% } %>
 
-            <form action="<%= request.getContextPath() %>/alta-programa" method="post" class="row g-3">
+            <form action="<%= request.getContextPath() %>/alta-programa" method="post" enctype="multipart/form-data" class="row g-3">
 
                 <div class="col-12">
                     <label for="nombre" class="form-label">Nombre (único):</label>
@@ -68,7 +68,21 @@
                         </div>
                     <% } %>
                 </div>
+                <div class="col-12">
+                    <label for="imagenArchivo" class="form-label">Imagen desde tu PC (opcional):</label>
+                    <input type="file" class="form-control" id="imagenArchivo" name="imagenArchivo"
+                            accept="image/jpeg,image/png">
+                    <small class="text-muted">
+                        JPG o PNG, hasta 5 MB. Elegí un archivo o ingresá una URL, no ambas.
+                        Si el formulario vuelve con un error, seleccioná el archivo nuevamente.
+                    </small>
+                </div>
 
+                <div class="col-12">
+                    <label for="imagen" class="form-label">URL de la imagen (opcional):</label>
+                    <input type="url" class="form-control" id="imagen" name="imagen" placeholder="https://..."
+                        value="<%= Html.esc(request.getAttribute("v_imagen")) %>">
+                </div>
                 <div class="col-6">
                     <a href="<%= request.getContextPath() %>/index.jsp" class="btn btn-danger w-100 text-center">Cancelar</a>
                 </div>

@@ -37,6 +37,7 @@
             <form id="formAltaEdicion"
                   action="${pageContext.request.contextPath}/alta-edicion"
                   method="post"
+                  enctype="multipart/form-data"
                   class="row g-3">
 
                 <div class="col-md-6">
@@ -181,7 +182,23 @@
                                value="<%= Html.esc(nickname) %>">
                     <% } %>
                 </div>
+                <div class="col-12">
+                    <label for="imagenArchivo" class="form-label"> Imagen desde tu PC (opcional): </label>
+                    
+                    <input type="file" id="imagenArchivo" name="imagenArchivo"
+                           class="form-control"
+                           accept="image/jpeg,image/png"
+                           aria-describedby="ayudaImagenArchivo errorImagenArchivo">
 
+                    <small id="ayudaImagenArchivo" class="text-muted">
+                         JPG o PNG, hasta 5 MB. Elegí un archivo o ingresá una URL,
+                         no ambas opciones.
+                        Si el formulario vuelve con un error, seleccioná el archivo nuevamente.
+                    </small>
+
+                    <div id="errorImagenArchivo" class="invalid-feedback"></div>
+                </div>
+                
                 <div class="col-12">
                     <label for="imagen" class="form-label">
                         URL de la imagen (opcional):
@@ -368,38 +385,118 @@ document.addEventListener("DOMContentLoaded", () => {
 
     docentes.addEventListener("change", validarDocentes);
 
-    function actualizarPreview() {
-        clearTimeout(esperaImagen);
-        const version = ++versionImagen;
+const imagenArchivo = document.getElementById("imagenArchivo");
+const errorImagenArchivo =
+        document.getElementById("errorImagenArchivo");
 
-        contenedorPreview.hidden = true;
-        avisoImagen.hidden = true;
-        preview.removeAttribute("src");
+let urlArchivoPreview = null;
 
-        const url = imagen.value.trim();
-        if (!url || !urlValida(url)) return;
+function validarArchivo() {
+    const archivo = imagenArchivo.files[0];
+    let mensaje = "";
 
-        esperaImagen = setTimeout(() => {
-            const prueba = new Image();
+    if (archivo) {
+        if (imagen.value.trim()) {
+            mensaje = "Elegí un archivo o una URL, no ambas opciones.";
 
-            prueba.onload = () => {
-                if (version !== versionImagen) return;
-                preview.src = url;
-                contenedorPreview.hidden = false;
-                avisoImagen.hidden = true;
-            };
+        } else if (archivo.size === 0) {
+            mensaje = "El archivo está vacío.";
 
-            prueba.onerror = () => {
-                if (version !== versionImagen) return;
-                avisoImagen.hidden = false;
-            };
+        } else if (archivo.size > 5 * 1024 * 1024) {
+            mensaje = "La imagen no puede superar los 5 MB.";
 
-            prueba.src = url;
-        }, 500);
+        } else if (!/\.(jpe?g|png)$/i.test(archivo.name)) {
+            mensaje = "Seleccioná una imagen JPG o PNG.";
+        }
     }
 
-    imagen.addEventListener("input", actualizarPreview);
-    imagen.addEventListener("change", actualizarPreview);
+    imagenArchivo.setCustomValidity(mensaje);
+    imagenArchivo.classList.toggle("is-invalid", mensaje !== "");
+    imagenArchivo.setAttribute(
+            "aria-invalid", String(mensaje !== ""));
+
+    errorImagenArchivo.textContent = mensaje;
+    return mensaje === "";
+}
+
+function actualizarPreview() {
+    clearTimeout(esperaImagen);
+    const version = ++versionImagen;
+
+    contenedorPreview.hidden = true;
+    avisoImagen.hidden = true;
+    preview.removeAttribute("src");
+
+    if (urlArchivoPreview) {
+        URL.revokeObjectURL(urlArchivoPreview);
+        urlArchivoPreview = null;
+    }
+
+    if (!validarArchivo()) return;
+
+    const archivo = imagenArchivo.files[0];
+    const url = imagen.value.trim();
+
+    if (!archivo && (!url || !urlValida(url))) return;
+
+    let fuente;
+
+    if (archivo) {
+        urlArchivoPreview = URL.createObjectURL(archivo);
+        fuente = urlArchivoPreview;
+    } else {
+        fuente = url;
+    }
+
+    esperaImagen = setTimeout(() => {
+        const prueba = new Image();
+
+        prueba.onload = () => {
+            if (version !== versionImagen) return;
+
+            if (archivo &&
+                (prueba.naturalWidth > 4096 ||
+                 prueba.naturalHeight > 4096 ||
+                 prueba.naturalWidth * prueba.naturalHeight > 16000000)) {
+
+                const mensaje =
+                        "La imagen supera las dimensiones permitidas.";
+
+                imagenArchivo.setCustomValidity(mensaje);
+                imagenArchivo.classList.add("is-invalid");
+                imagenArchivo.setAttribute("aria-invalid", "true");
+                errorImagenArchivo.textContent = mensaje;
+                return;
+            }
+
+            preview.src = fuente;
+            contenedorPreview.hidden = false;
+            avisoImagen.hidden = true;
+        };
+
+        prueba.onerror = () => {
+            if (version !== versionImagen) return;
+
+            avisoImagen.hidden = false;
+
+            if (archivo) {
+                const mensaje =
+                        "No se pudo leer el archivo como imagen.";
+
+                imagenArchivo.setCustomValidity(mensaje);
+                imagenArchivo.classList.add("is-invalid");
+                imagenArchivo.setAttribute("aria-invalid", "true");
+                errorImagenArchivo.textContent = mensaje;
+            }
+        };
+
+        prueba.src = fuente;
+    }, archivo ? 0 : 500);
+}
+
+imagenArchivo.addEventListener("change", actualizarPreview);
+imagen.addEventListener("input", actualizarPreview);
+imagen.addEventListener("change", actualizarPreview);
 
     async function cargarOpciones(cursoAnterior = "", docentesAnteriores = []) {
         if (solicitudOpciones) solicitudOpciones.abort();
@@ -534,6 +631,12 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", event => {
         if (cargando) {
             event.preventDefault();
+            return;
+        }
+        
+        if (!validarArchivo()) {
+            event.preventDefault();
+            imagenArchivo.focus();
             return;
         }
 

@@ -17,6 +17,8 @@ import javax.servlet.http.HttpSession;
  * Solo un Estudiante/Docente con sesión iniciada puede ejecutarlo (POST /seguir-usuario).
  * Parámetros: user = nickname del usuario objetivo, accion = "seguir" | "dejar".
  * El seguidor siempre sale de la sesión (nunca del formulario).
+ * Si el pedido trae el encabezado X-Requested-With: fetch (AJAX desde main.js) responde JSON
+ * {"ok":true|false,"accion":"seguir|dejar"}; si no, redirige al perfil con ?msg=... como antes.
  */
 @WebServlet("/seguir-usuario")
 public class SeguirUsuarioServlet extends HttpServlet {
@@ -35,12 +37,19 @@ public class SeguirUsuarioServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String ctx = request.getContextPath();
+        // Pedido AJAX (fetch de main.js): responde JSON. Sin JS se mantiene el redirect de siempre.
+        boolean ajax = "fetch".equals(request.getHeader("X-Requested-With"));
 
         HttpSession session = request.getSession(false);
         UsuarioResumen usr = (session != null)
                 ? (UsuarioResumen) session.getAttribute("usuarioLogueado") : null;
         if (usr == null) {
-            response.sendRedirect(ctx + "/login");
+            if (ajax) {
+                responderJson(response, HttpServletResponse.SC_UNAUTHORIZED,
+                        "{\"ok\":false,\"login\":\"" + ctx + "/login\"}");
+            } else {
+                response.sendRedirect(ctx + "/login");
+            }
             return;
         }
 
@@ -49,7 +58,11 @@ public class SeguirUsuarioServlet extends HttpServlet {
 
         // El usuario a seguir debe existir
         if (objetivo.isEmpty() || control.consultarUsuario(objetivo, null) == null) {
-            response.sendRedirect(ctx + "/usuarios");
+            if (ajax) {
+                responderJson(response, HttpServletResponse.SC_NOT_FOUND, "{\"ok\":false}");
+            } else {
+                response.sendRedirect(ctx + "/usuarios");
+            }
             return;
         }
 
@@ -57,23 +70,44 @@ public class SeguirUsuarioServlet extends HttpServlet {
 
         // Nadie puede seguirse a sí mismo
         if (objetivo.equals(usr.getNickname())) {
-            response.sendRedirect(destino + "&msg=errorseguir");
+            terminar(response, ajax, false, accion, destino + "&msg=errorseguir");
             return;
         }
 
         try {
             if ("seguir".equals(accion)) {
                 control.seguirUsuario(usr.getNickname(), objetivo);
-                response.sendRedirect(destino + "&msg=seguido");
+                terminar(response, ajax, true, accion, destino + "&msg=seguido");
             } else if ("dejar".equals(accion)) {
                 control.dejarDeSeguirUsuario(usr.getNickname(), objetivo);
-                response.sendRedirect(destino + "&msg=dejado");
+                terminar(response, ajax, true, accion, destino + "&msg=dejado");
             } else {
-                response.sendRedirect(destino + "&msg=errorseguir");
+                terminar(response, ajax, false, accion, destino + "&msg=errorseguir");
             }
         } catch (Exception e) {
-            response.sendRedirect(destino + "&msg=errorseguir");
+            terminar(response, ajax, false, accion, destino + "&msg=errorseguir");
         }
+    }
+
+    /** AJAX: JSON con el resultado. No AJAX: redirect al perfil con el mensaje. */
+    private static void terminar(HttpServletResponse response, boolean ajax, boolean ok,
+                                 String accion, String urlRedirect) throws IOException {
+        if (!ajax) {
+            response.sendRedirect(urlRedirect);
+            return;
+        }
+        String a = "seguir".equals(accion) ? "seguir" : ("dejar".equals(accion) ? "dejar" : "");
+        responderJson(response, ok ? HttpServletResponse.SC_OK : HttpServletResponse.SC_BAD_REQUEST,
+                "{\"ok\":" + ok + ",\"accion\":\"" + a + "\"}");
+    }
+
+    private static void responderJson(HttpServletResponse response, int status, String json)
+            throws IOException {
+        response.setStatus(status);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.setHeader("Cache-Control", "no-store");
+        response.getWriter().print(json);
     }
 
     private static String trim(String s) {
