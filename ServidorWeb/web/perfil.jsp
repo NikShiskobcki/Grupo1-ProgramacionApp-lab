@@ -2,6 +2,7 @@
 <%@ page import="Logica.DTO.DetalleUsuario" %>
 <%@ page import="Logica.DTO.ElementoResumen" %>
 <%@ page import="Logica.DTO.InscripcionResumen" %>
+<%@ page import="Logica.DTO.UsuarioResumen" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="util.Html" %>
@@ -33,6 +34,11 @@
     boolean siguiendo = siguiendoAttr != null && siguiendoAttr;
     String ctx = request.getContextPath();
 
+    List<UsuarioResumen> seguidos = (List<UsuarioResumen>) request.getAttribute("seguidos");
+    List<UsuarioResumen> seguidores = (List<UsuarioResumen>) request.getAttribute("seguidores");
+    int cantSeguidos = (seguidos != null) ? seguidos.size() : 0;
+    int cantSeguidores = (seguidores != null) ? seguidores.size() : 0;
+
     Map<String, String> estados = (Map<String, String>) request.getAttribute("estadosInscripcion");
     Map<String, List<InscripcionResumen>> aceptadosPorEdicion =
             (Map<String, List<InscripcionResumen>>) request.getAttribute("aceptadosPorEdicion");
@@ -47,6 +53,13 @@
     <% if ("modificado".equals(request.getParameter("msg"))) { %>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             Tus datos se actualizaron correctamente.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>
+    <% } %>
+
+    <% if ("contrasenia".equals(request.getParameter("msg"))) { %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Tu contraseña se cambió correctamente.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
         </div>
     <% } %>
@@ -82,12 +95,13 @@
                 </p>
                 <p class="mb-1 text-muted">✉ <%= Html.esc(perfil.getEmail()) %></p>
                 <% if (docente && perfil.getInstituto() != null && !perfil.getInstituto().isEmpty()) { %>
-                    <p class="mb-0 text-muted">🏛 Instituto: <strong><%= Html.esc(perfil.getInstituto()) %></strong></p>
+                    <p class="mb-0 text-muted">Instituto: <strong><%= Html.esc(perfil.getInstituto()) %></strong></p>
                 <% } %>
             </div>
 
             <% if (esPropio) { %>
                 <a href="<%= ctx %>/modificar-perfil" class="btn btn-primary">✎ Modificar mis datos</a>
+                <a href="<%= ctx %>/cambiar-contrasenia" class="btn btn-outline-secondary">Cambiar contraseña</a>
             <% } %>
             <% if (puedeSeguir) { %>
                 <form method="post" action="<%= ctx %>/seguir-usuario" class="m-0">
@@ -117,6 +131,18 @@
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="btn-programas" data-bs-toggle="tab" data-bs-target="#tab-programas"
                     type="button" role="tab" aria-controls="tab-programas" aria-selected="false">Programas</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="btn-seguidos" data-bs-toggle="tab" data-bs-target="#tab-seguidos"
+                    type="button" role="tab" aria-controls="tab-seguidos" aria-selected="false">
+                Seguidos <span class="badge text-bg-secondary ms-1"><%= cantSeguidos %></span>
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="btn-seguidores" data-bs-toggle="tab" data-bs-target="#tab-seguidores"
+                    type="button" role="tab" aria-controls="tab-seguidores" aria-selected="false">
+                Seguidores <span class="badge text-bg-secondary ms-1"><%= cantSeguidores %></span>
+            </button>
         </li>
     </ul>
 
@@ -261,6 +287,55 @@
                 <p class="text-muted mb-0">No tiene programas de formación asociados.</p>
             <% } %>
         </div>
+
+        <!-- SEGUIDOS Y SEGUIDORES -->
+        <%
+            String[] idsTab = {"seguidos", "seguidores"};
+            List<List<UsuarioResumen>> listasTab = new java.util.ArrayList<>();
+            listasTab.add(seguidos);
+            listasTab.add(seguidores);
+            String[] titulosTab = {
+                esPropio ? "Usuarios que seguís" : "Usuarios que sigue",
+                esPropio ? "Usuarios que te siguen" : "Usuarios que lo siguen"
+            };
+            String[] vaciosTab = {
+                esPropio ? "Todavía no seguís a ningún usuario." : "Todavía no sigue a ningún usuario.",
+                esPropio ? "Todavía no te sigue ningún usuario." : "Todavía no lo sigue ningún usuario."
+            };
+            for (int k = 0; k < idsTab.length; k++) {
+                List<UsuarioResumen> lista = listasTab.get(k);
+        %>
+        <div class="tab-pane fade" id="tab-<%= idsTab[k] %>" role="tabpanel" aria-labelledby="btn-<%= idsTab[k] %>" tabindex="0">
+            <h5 class="mb-3"><%= titulosTab[k] %></h5>
+            <% if (lista != null && !lista.isEmpty()) { %>
+                <div class="row g-3">
+                    <% for (UsuarioResumen u : lista) {
+                           String imgU = Html.imagen(ctx, u.getRutaImagen());
+                           boolean docenteU = "Docente".equalsIgnoreCase(u.getTipo());
+                    %>
+                    <div class="col-12 col-md-6">
+                        <a href="<%= ctx %>/perfil?user=<%= Html.url(u.getNickname()) %>"
+                           class="edext-panel p-3 d-flex align-items-center gap-3 text-decoration-none h-100 text-reset">
+                            <% if (!imgU.isEmpty()) { %>
+                                <img src="<%= imgU %>" alt="" class="avatar-sm" onerror="imgFallback(this)">
+                                <span class="avatar-sm-ph" style="display:none;">👤</span>
+                            <% } else { %>
+                                <span class="avatar-sm-ph">👤</span>
+                            <% } %>
+                            <div class="flex-grow-1 text-truncate">
+                                <div class="fw-semibold text-truncate"><%= Html.esc(u.getNombreCompleto()) %></div>
+                                <div class="small text-muted">@<%= Html.esc(u.getNickname()) %></div>
+                            </div>
+                            <span class="badge <%= docenteU ? "text-bg-info" : "text-bg-secondary" %>"><%= Html.esc(u.getTipo()) %></span>
+                        </a>
+                    </div>
+                    <% } %>
+                </div>
+            <% } else { %>
+                <p class="text-muted mb-0"><%= vaciosTab[k] %></p>
+            <% } %>
+        </div>
+        <% } %>
     </div>
 </div>
 <% } else { %>

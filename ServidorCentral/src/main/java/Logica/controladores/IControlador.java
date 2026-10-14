@@ -190,4 +190,12 @@ public interface IControlador {
     void dejarDeSeguirUsuario(String nicknameSeguidor, String nicknameSeguido);
 
     boolean sigueAUsuario(String nicknameSeguidor, String nicknameSeguido);
+
+    // seguidos y seguidores de un usuario
+    List<UsuarioResumen> listarSeguidos(String nickname);
+
+    List<UsuarioResumen> listarSeguidores(String nickname);
+
+    // cambiar contraseña (false si la contraseña actual no coincide)
+    boolean cambiarContrasenia(String nickname, String contraseniaActual, String contraseniaNueva);
 }
