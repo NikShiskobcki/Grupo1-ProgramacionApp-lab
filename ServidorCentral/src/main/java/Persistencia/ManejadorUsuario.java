@@ -480,5 +480,82 @@ public class ManejadorUsuario {
             em.close();
         }
     }
-        
+
+    // Seguidos / seguidores de un usuario
+    public List<UsuarioResumen> listarSeguidos(String nickname){
+        EntityManager em = emf.createEntityManager();
+        try{
+            List<Usuario> lista = em.createQuery(
+                    "SELECT s FROM Usuario u JOIN u.seguidos s "
+                    + "WHERE u.nickname = :nick ORDER BY s.nickname",
+                    Usuario.class)
+                    .setParameter("nick", nickname)
+                    .getResultList();
+            return aResumenes(lista);
+        }finally{
+            em.close();
+        }
+    }
+
+    public List<UsuarioResumen> listarSeguidores(String nickname){
+        EntityManager em = emf.createEntityManager();
+        try{
+            List<Usuario> lista = em.createQuery(
+                    "SELECT u FROM Usuario u JOIN u.seguidos s "
+                    + "WHERE s.nickname = :nick ORDER BY u.nickname",
+                    Usuario.class)
+                    .setParameter("nick", nickname)
+                    .getResultList();
+            return aResumenes(lista);
+        }finally{
+            em.close();
+        }
+    }
+
+    private List<UsuarioResumen> aResumenes(List<Usuario> usuarios){
+        List<UsuarioResumen> resumenes = new ArrayList<>();
+        for (Usuario u : usuarios){
+            String tipo = (u instanceof Docente) ? "Docente" : "Estudiante";
+            resumenes.add(new UsuarioResumen(
+                    u.getNickname(),
+                    u.getNombre() + " " + u.getApellido(),
+                    tipo,
+                    u.getRutaImagen()
+            ));
+        }
+        return resumenes;
+    }
+
+    /**
+     * Cambia la contraseña de un usuario.
+     * @return true si se cambió; false si la contraseña actual no coincide.
+     * @throws EntidadNoEncontradaException si el usuario no existe.
+     */
+    public boolean cambiarContrasenia(String nickname, String contraseniaActual, String contraseniaNueva){
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction t = em.getTransaction();
+        try{
+            t.begin();
+            Usuario u = em.find(Usuario.class, nickname);
+            if (u == null){
+                throw new EntidadNoEncontradaException("El usuario no existe.", null);
+            }
+            if (contraseniaActual == null || !u.getContrasenia().equals(contraseniaActual)){
+                t.rollback();
+                return false;
+            }
+            u.setContrasenia(contraseniaNueva);
+            t.commit();
+            return true;
+        }catch(EntidadNoEncontradaException e){
+            if (t.isActive()){t.rollback();}
+            throw e;
+        }catch(Exception e){
+            if (t.isActive()){t.rollback();}
+            throw new PersistenciaException("No se pudo cambiar la contraseña", e);
+        }finally{
+            em.close();
+        }
+    }
+
 }

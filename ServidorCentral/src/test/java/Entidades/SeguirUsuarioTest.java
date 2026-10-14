@@ -1,8 +1,11 @@
 package Entidades;
 
 import Logica.controladores.Controlador;
+import Logica.DTO.UsuarioResumen;
 import Logica.excepciones.PersistenciaException;
 import java.time.LocalDate;
+import java.util.List;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -69,5 +72,60 @@ public class SeguirUsuarioTest {
         assertFalse(controlador.sigueAUsuario(a, fantasma));
         controlador.dejarDeSeguirUsuario(fantasma, a);
         assertFalse(controlador.sigueAUsuario(fantasma, a));
+    }
+
+    @Test
+    public void testListarSeguidosYSeguidores() {
+        String a = nuevoEstudiante("lst_a");
+        String b = nuevoEstudiante("lst_b");
+        String c = nuevoEstudiante("lst_c");
+
+        assertTrue(controlador.listarSeguidos(a).isEmpty());
+        assertTrue(controlador.listarSeguidores(a).isEmpty());
+
+        controlador.seguirUsuario(a, b);
+        controlador.seguirUsuario(a, c);
+        controlador.seguirUsuario(b, a);
+
+        List<UsuarioResumen> seguidosDeA = controlador.listarSeguidos(a);
+        assertEquals(2, seguidosDeA.size());
+        assertEquals(b, seguidosDeA.get(0).getNickname());
+        assertEquals(c, seguidosDeA.get(1).getNickname());
+        assertEquals("Estudiante", seguidosDeA.get(0).getTipo());
+
+        List<UsuarioResumen> seguidoresDeA = controlador.listarSeguidores(a);
+        assertEquals(1, seguidoresDeA.size());
+        assertEquals(b, seguidoresDeA.get(0).getNickname());
+
+        assertEquals(1, controlador.listarSeguidores(c).size());
+        assertTrue(controlador.listarSeguidos(c).isEmpty());
+
+        controlador.dejarDeSeguirUsuario(a, b);
+        assertEquals(1, controlador.listarSeguidos(a).size());
+        assertTrue(controlador.listarSeguidores(b).isEmpty());
+    }
+
+    @Test
+    public void testCambiarContrasenia() {
+        String a = nuevoEstudiante("pwd");
+
+        // Contraseña actual incorrecta: no cambia
+        assertFalse(controlador.cambiarContrasenia(a, "otra", "nueva"));
+        assertTrue(controlador.iniciarSesion(a, "clave") != null);
+
+        // Contraseña actual correcta: cambia
+        assertTrue(controlador.cambiarContrasenia(a, "clave", "nueva"));
+        assertTrue(controlador.iniciarSesion(a, "clave") == null);
+        assertTrue(controlador.iniciarSesion(a, "nueva") != null);
+    }
+
+    @Test
+    public void testCambiarContraseniaUsuarioInexistente() {
+        try {
+            controlador.cambiarContrasenia("fantasma_" + System.nanoTime(), "x", "y");
+            fail("Debía lanzar excepción con un usuario inexistente");
+        } catch (PersistenciaException e) {
+            assertTrue(e.getMessage().contains("no existe"));
+        }
     }
 }

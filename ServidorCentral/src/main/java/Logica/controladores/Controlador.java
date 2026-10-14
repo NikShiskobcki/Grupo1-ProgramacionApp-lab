@@ -504,6 +504,24 @@ public void inscribirEstudianteEdicion(
     }
 
     @Override
+    public List<UsuarioResumen> listarSeguidos(String nickname) {
+        return manejadorUsuario.listarSeguidos(nickname);
+    }
+
+    @Override
+    public List<UsuarioResumen> listarSeguidores(String nickname) {
+        return manejadorUsuario.listarSeguidores(nickname);
+    }
+
+    // =========================
+    // CAMBIAR CONTRASEÑA
+    // =========================
+    @Override
+    public boolean cambiarContrasenia(String nickname, String contraseniaActual, String contraseniaNueva) {
+        return manejadorUsuario.cambiarContrasenia(nickname, contraseniaActual, contraseniaNueva);
+    }
+
+    @Override
     public void cargarDatosPrueba() {
         cargadorDatosPrueba.cargar();
     }
