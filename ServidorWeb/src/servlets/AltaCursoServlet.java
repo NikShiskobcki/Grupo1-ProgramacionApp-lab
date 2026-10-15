@@ -8,20 +8,29 @@ import Logica.controladores.Fabrica;
 import Logica.controladores.IControlador;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+import util.Imagenes;
 
 /** Caso de uso: Alta de Curso (actor: Docente). */
 @WebServlet("/alta-curso")
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 6L * 1024 * 1024,
+        maxRequestSize = 7L * 1024 * 1024
+)
 public class AltaCursoServlet extends HttpServlet {
 
     private final IControlador control = Fabrica.getInstance().getIControlador();
@@ -48,6 +57,12 @@ public class AltaCursoServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
+        try {
+            request.getParts();
+        } catch (IllegalStateException e) {
+            error(request, response, docente, "El archivo o formulario supera el tamaño permitido. Seleccioná una imagen de hasta 5 MB.");
+            return;
+        }
 
         String nombre = trim(request.getParameter("nombre"));
         String descripcion = trim(request.getParameter("descripcion"));
@@ -58,7 +73,8 @@ public class AltaCursoServlet extends HttpServlet {
         String nombreInstituto = trim(request.getParameter("instituto"));
         String[] previasSel = request.getParameterValues("previas");
         String[] categoriasSel = request.getParameterValues("categorias");
-
+        String imagenUrl = trim(request.getParameter("imagen"));
+        
         // Se conservan los datos ingresados para que el docente pueda corregirlos
         request.setAttribute("v_nombre", nombre);
         request.setAttribute("v_descripcion", descripcion);
@@ -69,7 +85,8 @@ public class AltaCursoServlet extends HttpServlet {
         request.setAttribute("v_instituto", nombreInstituto);
         request.setAttribute("v_previas", previasSel == null ? new ArrayList<String>() : Arrays.asList(previasSel));
         request.setAttribute("v_categorias", categoriasSel == null ? new ArrayList<String>() : Arrays.asList(categoriasSel));
-
+        request.setAttribute("v_imagen", imagenUrl);
+        
         // ---- Validaciones ----
         if (nombre.isEmpty() || descripcion.isEmpty() || duracionStr.isEmpty() || horasStr.isEmpty()
                 || creditosStr.isEmpty() || url.isEmpty() || nombreInstituto.isEmpty()) {
@@ -128,11 +145,58 @@ public class AltaCursoServlet extends HttpServlet {
 
         List<String> categorias = categoriasSel == null
                 ? new ArrayList<String>() : new ArrayList<>(Arrays.asList(categoriasSel));
+        Part archivo = request.getPart("imagenArchivo");
+        boolean hayArchivo = archivo != null
+                && archivo.getSubmittedFileName() != null
+                && !archivo.getSubmittedFileName().trim().isEmpty();
+
+        if (hayArchivo && !imagenUrl.isEmpty()) {
+            error(request, response, docente, "Elegí una imagen desde tu PC o ingresá una URL, pero no ambas opciones.");
+            return;
+        }
+
+        if (!imagenUrl.isEmpty()) {
+            try {
+                URI uri = URI.create(imagenUrl);
+                if (uri.getHost() == null || uri.getUserInfo() != null
+                        || !("http".equalsIgnoreCase(uri.getScheme()) || "https".equalsIgnoreCase(uri.getScheme()))) {
+                    error(request, response, docente, "La imagen debe tener una URL http:// o https:// válida.");
+                    return;
+                }
+            } catch (IllegalArgumentException e) {
+                error(request, response, docente, "La URL de la imagen no es válida.");
+                return;
+            }
+        }
+
+        String rutaImagen = imagenUrl.isEmpty() ? null : imagenUrl;
+        String imagenGuardada = null;
+
+        if (hayArchivo) {
+            try {
+                imagenGuardada = Imagenes.guardar(archivo);
+                rutaImagen = imagenGuardada;
+            } catch (IllegalArgumentException e) {
+                error(request, response, docente, e.getMessage());
+                return;
+            } catch (IOException e) {
+                log("No se pudo guardar el archivo de imagen", e);
+                error(request, response, docente, "No se pudo guardar la imagen. Intentá nuevamente.");
+                return;
+            }
+        }
 
         try {
             control.altaCurso(nombre, descripcion, duracion, horas, creditos, url,
-                    LocalDate.now(), instituto, previas, categorias, null);
+                    LocalDate.now(), instituto, previas, categorias, rutaImagen);
         } catch (Exception e) {
+            if (imagenGuardada != null) {
+                try {
+                    Imagenes.eliminar(imagenGuardada);
+                } catch (IOException ex) {
+                    log("No se pudo eliminar una imagen de un alta fallida", ex);
+                }
+            }
             error(request, response, docente, "No se pudo dar de alta el curso: " + e.getMessage());
             return;
         }

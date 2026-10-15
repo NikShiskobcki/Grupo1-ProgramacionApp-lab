@@ -15,8 +15,9 @@
         <div class="alert alert-error"><%= request.getAttribute("error") %></div>
     <% } %>
 
-    <form action="<%= request.getContextPath() %>/registro" method="post" id="formRegistro" class="row g-3">
-
+    <form action="<%= request.getContextPath() %>/registro" method="post" id="formRegistro"
+          enctype="multipart/form-data" class="row g-3">
+        
         <div class="col-12">
             <label class="form-label d-block">Tipo de Usuario:</label>
             <div class="form-check form-check-inline">
@@ -74,7 +75,20 @@
                 } %>
             </select>
         </div>
+            <div class="col-12">
+                <label for="imagenArchivo" class="form-label">Imagen de perfil desde tu PC (opcional):</label>
+                <input type="file" class="form-control" id="imagenArchivo" name="imagenArchivo"
+                       accept="image/jpeg,image/png">
+                <small class="text-muted">
+                    JPG o PNG, hasta 5 MB. Elegí un archivo o ingresá una URL, no ambas.
+                    Si el formulario vuelve con un error, seleccioná el archivo nuevamente.
+                </small>
+            </div>
 
+            <div class="col-12">
+                <label for="imagen" class="form-label">URL de la imagen de perfil (opcional):</label>
+                <input type="url" class="form-control" id="imagen" name="imagen" placeholder="https://...">
+            </div>
         <div class="col-12">
             <button type="submit" class="btn btn-primary w-100">Completar Registro</button>
         </div>

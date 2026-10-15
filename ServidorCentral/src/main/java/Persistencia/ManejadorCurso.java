@@ -177,4 +177,26 @@ public class ManejadorCurso {
             em.close();
         }
     }
+    
+    public void agregarCategoria(String nombreCurso, String nombreCategoria) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction t = em.getTransaction();
+        try {
+            t.begin();
+            Curso curso = em.find(Curso.class, nombreCurso);
+            Categoria categoria = em.find(Categoria.class, nombreCategoria);
+            if (curso != null && categoria != null
+                    && !curso.getCategorias().contains(categoria)) {
+                curso.getCategorias().add(categoria);
+            }
+            t.commit();
+        } catch (Exception e) {
+            if (t.isActive()) {
+                t.rollback();
+            }
+            throw new PersistenciaException("Error al agregar la categoria al curso", e);
+        } finally {
+            em.close();
+        }
+    }
 }

@@ -31,9 +31,17 @@
                class="edext-panel p-3 d-flex align-items-center gap-3 text-decoration-none h-100 text-reset">
                 <% if (!img.isEmpty()) { %>
                     <img src="<%= img %>" alt="" class="avatar-sm" onerror="imgFallback(this)">
-                    <span class="avatar-sm-ph" style="display:none;">👤</span>
+                    <span class="avatar-sm-ph" style="display:none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                        </svg>
+                    </span>
                 <% } else { %>
-                    <span class="avatar-sm-ph">👤</span>
+                <span class="avatar-sm-ph">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                    </svg>
+                </span>
                 <% } %>
                 <div class="flex-grow-1 text-truncate">
                     <div class="fw-semibold text-truncate"><%= Html.esc(u.getNombreCompleto()) %></div>

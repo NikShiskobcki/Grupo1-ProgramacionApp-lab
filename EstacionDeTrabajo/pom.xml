@@ -53,6 +53,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.toedter</groupId>
+            <artifactId>jcalendar</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.netbeans.external</groupId>
             <artifactId>AbsoluteLayout</artifactId>
             <version>1.0</version>
@@ -77,7 +83,7 @@
                         </manifest>
 
                         <manifestEntries>
-                            <Class-Path>lib/ServidorCentral.jar lib/AbsoluteLayout.jar</Class-Path>
+                            <Class-Path>lib/ServidorCentral.jar lib/AbsoluteLayout.jar lib/jcalendar-1.4.jar</Class-Path>
                         </manifestEntries>
                     </archive>
                 </configuration>

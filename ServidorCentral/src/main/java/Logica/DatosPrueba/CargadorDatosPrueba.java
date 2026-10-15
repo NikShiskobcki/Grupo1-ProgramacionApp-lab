@@ -1,47 +1,45 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Logica.DatosPrueba;
 
+import Logica.Entidades.Categoria;
 import Logica.Entidades.Curso;
 import Logica.Entidades.Docente;
 import Logica.Entidades.EdicionCurso;
+import Logica.Entidades.EstadoInscripcion;
 import Logica.Entidades.Estudiante;
 import Logica.Entidades.InscripcionEdicion;
+import Logica.Entidades.InscripcionPrograma;
 import Logica.Entidades.Instituto;
 import Logica.Entidades.ProgramaFormacion;
+import Persistencia.ManejadorCategoria;
 import java.time.LocalDate;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 
 import Persistencia.ManejadorCurso;
 import Persistencia.ManejadorEdicionCurso;
 import Persistencia.ManejadorInscripcionEdicion;
+import Persistencia.ManejadorInscripcionPrograma;
 import Persistencia.ManejadorUsuario;
 import Persistencia.ManejadorInstituto;
 import Persistencia.ManejadorProgramaFormacion;
 
-/**
- *
- * @author xnahu
- */
 public class CargadorDatosPrueba {
 
-     private final ManejadorInstituto manejadorInstituto;
+    private final ManejadorInstituto manejadorInstituto;
     private final ManejadorUsuario manejadorUsuario;
     private final ManejadorCurso manejadorCurso;
     private final ManejadorEdicionCurso manejadorEdicionCurso;
     private final ManejadorInscripcionEdicion manejadorInscripcionEdicion;
     private final ManejadorProgramaFormacion manejadorProgramaFormacion;
-
+    private final ManejadorCategoria manejadorCategoria;
+    private final ManejadorInscripcionPrograma manejadorInscripcionPrograma;
+    
     public CargadorDatosPrueba(
             ManejadorInstituto manejadorInstituto,
             ManejadorUsuario manejadorUsuario,
             ManejadorCurso manejadorCurso,
             ManejadorEdicionCurso manejadorEdicionCurso, ManejadorInscripcionEdicion manejadorInscripcionEdicion,
-            ManejadorProgramaFormacion manejadorProgramaFormacion) {
+            ManejadorProgramaFormacion manejadorProgramaFormacion,
+            ManejadorCategoria manejadorCategoria,
+            ManejadorInscripcionPrograma manejadorInscripcionPrograma) {
 
         this.manejadorInstituto = manejadorInstituto;
         this.manejadorUsuario = manejadorUsuario;
@@ -49,271 +47,327 @@ public class CargadorDatosPrueba {
         this.manejadorEdicionCurso = manejadorEdicionCurso;
         this.manejadorInscripcionEdicion = manejadorInscripcionEdicion;
         this.manejadorProgramaFormacion = manejadorProgramaFormacion;
-        
-        
+        this.manejadorCategoria = manejadorCategoria;
+        this.manejadorInscripcionPrograma = manejadorInscripcionPrograma;
     }
 
     public void cargar() {
         cargarInstitutos();
         cargarUsuarios();
+        cargarSeguidores();
         cargarCursos();
+        cargarCategorias();
+        cargarCategoriasCursos();
         cargarPrevias();
         cargarEdiciones();
         cargarDocentesEdiciones();
         cargarInscripciones(); 
         cargarProgramas();
-
+        cargarInscripcionesProgramas();
         
     }
     
     private void cargarInstitutos() {
 
-    String[] nombres = {
-        "INCO",
-        "IMERL",
-        "Física",
-        "IMPII",
-        "Eléctrica",
-        "DISI"
-    };
+        String[] nombres = {
+            "INCO",
+            "IMERL",
+            "Física",
+            "IMPII",
+            "Eléctrica",
+            "DISI"
+        };
 
-    for (String nombre : nombres) {
-
-        if (manejadorInstituto.buscarPorNombre(nombre) == null) {
-            manejadorInstituto.addInstituto(
-                    new Instituto(nombre)
-            );
+        for (String nombre : nombres) {
+            if (manejadorInstituto.buscarPorNombre(nombre) == null) {
+                manejadorInstituto.addInstituto(
+                        new Instituto(nombre)
+                );
+            }
         }
     }
-}
-
- private void cargarUsuarios() {
-
-    // ESTUDIANTES
-
-    if (!manejadorUsuario.existeNickname("eleven11")) {
-        manejadorUsuario.addUsuario(
-                new Estudiante(
-                        "eleven11",
-                        "Eleven",
-                        "Twelve",
-                        "eleven11@gmail.com",
-                        "pass1234",
-                        LocalDate.of(1971, 12, 31)
-                )
-        );
+    
+    private void cargarCategorias() {
+        String[] nombres = {"Social", "Industrial", "Educativo", "Interdisciplinario"};
+        for (String nombre : nombres) {
+            if (manejadorCategoria.buscarPorNombre(nombre) == null) {
+                manejadorCategoria.addCategoria(new Categoria(nombre));
+            }
+        }
     }
 
-    if (!manejadorUsuario.existeNickname("costas")) {
-        manejadorUsuario.addUsuario(
-                new Estudiante(
-                        "costas",
-                        "Gerardo",
-                        "Costas",
-                        "gcostas@gmail.com",
-                        "pass1234",
-                        LocalDate.of(1983, 11, 15)
-                )
-        );
+    private void cargarCategoriasCursos() {
+        String c3 = "Dalavuelta";
+        String c4 = "Extensionismo Industrial";
+        String c5 = "Inclusión Energética";
+        String c6 = "Flor del Ceibo";
+        String c7 = "Taller de robótica educativa.";
+        String c8 = "Participación en investigación sobre el empleo del juego Komikan como recurso didáctico en la Escuela";
+        String c9 = "Herramientas de apoyo a la enseñanza de inglés. Instalación y evaluación";
+        String c10 = "MicroBit";
+
+        for (String c : new String[]{c3, c7, c9}) {
+            manejadorCurso.agregarCategoria(c, "Social");
+        }
+        for (String c : new String[]{c4, c5, c10}) {
+            manejadorCurso.agregarCategoria(c, "Industrial");
+        }
+        for (String c : new String[]{c6, c7, c8, c9, c10}) {
+            manejadorCurso.agregarCategoria(c, "Educativo");
+        }
+        manejadorCurso.agregarCategoria(c6, "Interdisciplinario");
+    }
+    
+    private void cargarSeguidores() {
+        seguir("eleven11", "roro", "heisenberg", "waston");
+        seguir("costas", "chechi", "jeffw", "benkenobi", "danny", "phils");
+        seguir("roro", "costas", "weiss");
+        seguir("chechi", "eleven11", "jeffw", "house");
+        seguir("jeffw", "eleven11");
+        seguir("weiss", "costas", "heisenberg", "timmy");
+        seguir("heisenberg", "roro");
+        seguir("benkenobi", "danny");
+        seguir("waston", "roro", "weiss", "heisenberg");
+        seguir("house", "jeffw", "weiss", "benkenobi");
+        seguir("timmy", "eleven11", "chechi", "jeffw");
+        seguir("danny", "costas", "weiss", "heisenberg");
+        seguir("phils", "bruces");
+        seguir("bruces", "phils");
+        seguir("adri", "heisenberg");
     }
 
-    if (!manejadorUsuario.existeNickname("roro")) {
-        manejadorUsuario.addUsuario(
-                new Estudiante(
-                        "roro",
-                        "Rodrigo",
-                        "Cotelo",
-                        "rcotelo@yahoo.com",
-                        "pass1234",
-                        LocalDate.of(1975, 8, 2)
-                )
-        );
+    private void seguir(String seguidor, String... seguidos) {
+        for (String seguido : seguidos) {
+            manejadorUsuario.seguirUsuario(seguidor, seguido);
+        }
     }
 
-    if (!manejadorUsuario.existeNickname("chechi")) {
-        manejadorUsuario.addUsuario(
-                new Estudiante(
-                        "chechi",
-                        "Cecilia",
-                        "Garrido",
-                        "cgarrido@hotmail.com",
-                        "pass1234",
-                        LocalDate.of(1987, 9, 12)
-                )
-        );
-    }
+    private void cargarUsuarios() {
+       // ESTUDIANTES
 
-    if (!manejadorUsuario.existeNickname("jeffw")) {
-        manejadorUsuario.addUsuario(
-                new Estudiante(
-                        "jeffw",
-                        "Jeff",
-                        "Williams",
-                        "jwilliams@gmail.com",
-                        "pass1234",
-                        LocalDate.of(1964, 11, 27)
-                )
-        );
-    }
+       if (!manejadorUsuario.existeNickname("eleven11")) {
+           manejadorUsuario.addUsuario(
+                   new Estudiante(
+                           "eleven11",
+                           "Eleven",
+                           "Twelve",
+                           "eleven11@gmail.com",
+                           "1234",
+                           LocalDate.of(1971, 12, 31)
+                   )
+           );
+       }
 
-    if (!manejadorUsuario.existeNickname("weiss")) {
-        manejadorUsuario.addUsuario(
-                new Estudiante(
-                        "weiss",
-                        "Adrian",
-                        "Weiss",
-                        "aweiss@hotmail.com",
-                        "pass1234",
-                        LocalDate.of(1978, 12, 23)
-                )
-        );
-    }
+       if (!manejadorUsuario.existeNickname("costas")) {
+           manejadorUsuario.addUsuario(
+                   new Estudiante(
+                           "costas",
+                           "Gerardo",
+                           "Costas",
+                           "gcostas@gmail.com",
+                           "1234",
+                           LocalDate.of(1983, 11, 15)
+                   )
+           );
+       }
 
-    // INSTITUTOS PARA LOS DOCENTES
+       if (!manejadorUsuario.existeNickname("roro")) {
+           manejadorUsuario.addUsuario(
+                   new Estudiante(
+                           "roro",
+                           "Rodrigo",
+                           "Cotelo",
+                           "rcotelo@yahoo.com",
+                           "1234",
+                           LocalDate.of(1975, 8, 2)
+                   )
+           );
+       }
 
-    Instituto inco =
-            manejadorInstituto.buscarPorNombre("INCO");
+       if (!manejadorUsuario.existeNickname("chechi")) {
+           manejadorUsuario.addUsuario(
+                   new Estudiante(
+                           "chechi",
+                           "Cecilia",
+                           "Garrido",
+                           "cgarrido@hotmail.com",
+                           "1234",
+                           LocalDate.of(1987, 9, 12)
+                   )
+           );
+       }
 
-    Instituto imerl =
-            manejadorInstituto.buscarPorNombre("IMERL");
+       if (!manejadorUsuario.existeNickname("jeffw")) {
+           manejadorUsuario.addUsuario(
+                   new Estudiante(
+                           "jeffw",
+                           "Jeff",
+                           "Williams",
+                           "jwilliams@gmail.com",
+                           "1234",
+                           LocalDate.of(1964, 11, 27)
+                   )
+           );
+       }
 
-    Instituto impii =
-            manejadorInstituto.buscarPorNombre("IMPII");
+       if (!manejadorUsuario.existeNickname("weiss")) {
+           manejadorUsuario.addUsuario(
+                   new Estudiante(
+                           "weiss",
+                           "Adrian",
+                           "Weiss",
+                           "aweiss@hotmail.com",
+                           "1234",
+                           LocalDate.of(1978, 12, 23)
+                   )
+           );
+       }
 
-    Instituto electrica =
-            manejadorInstituto.buscarPorNombre("Eléctrica");
+       // INSTITUTOS PARA LOS DOCENTES
 
-    Instituto disi =
-            manejadorInstituto.buscarPorNombre("DISI");
+       Instituto inco =
+               manejadorInstituto.buscarPorNombre("INCO");
 
-    // DOCENTES
+       Instituto imerl =
+               manejadorInstituto.buscarPorNombre("IMERL");
 
-    if (!manejadorUsuario.existeNickname("heisenberg")) {
-        manejadorUsuario.addUsuario(
-                new Docente(
-                        "heisenberg",
-                        "Walter",
-                        "White",
-                        "heisenberg@gmail.com",
-                        "pass1234",
-                        LocalDate.of(1956, 3, 7),
-                        inco
-                )
-        );
-    }
+       Instituto impii =
+               manejadorInstituto.buscarPorNombre("IMPII");
 
-    if (!manejadorUsuario.existeNickname("benkenobi")) {
-        manejadorUsuario.addUsuario(
-                new Docente(
-                        "benkenobi",
-                        "Obi-Wan",
-                        "Kenobi",
-                        "benKenobi@gmail.com",
-                        "pass1234",
-                        LocalDate.of(1914, 4, 2),
-                        inco
-                )
-        );
-    }
+       Instituto electrica =
+               manejadorInstituto.buscarPorNombre("Eléctrica");
 
-    if (!manejadorUsuario.existeNickname("waston")) {
-        manejadorUsuario.addUsuario(
-                new Docente(
-                        "waston",
-                        "Emma",
-                        "Watson",
-                        "e.watson@gmail.com",
-                        "pass1234",
-                        LocalDate.of(1990, 4, 15),
-                        inco
-                )
-        );
-    }
+       Instituto disi =
+               manejadorInstituto.buscarPorNombre("DISI");
 
-    if (!manejadorUsuario.existeNickname("house")) {
-        manejadorUsuario.addUsuario(
-                new Docente(
-                        "house",
-                        "Gregory",
-                        "House",
-                        "greghouse@gmail.com",
-                        "pass1234",
-                        LocalDate.of(1959, 5, 15),
-                        electrica
-                )
-        );
-    }
+       // DOCENTES
 
-    if (!manejadorUsuario.existeNickname("timmy")) {
-        manejadorUsuario.addUsuario(
-                new Docente(
-                        "timmy",
-                        "Tim",
-                        "Cook",
-                        "tim.cook@apple.com",
-                        "pass1234",
-                        LocalDate.of(1960, 11, 1),
-                        imerl
-                )
-        );
-    }
+       if (!manejadorUsuario.existeNickname("heisenberg")) {
+           manejadorUsuario.addUsuario(
+                   new Docente(
+                           "heisenberg",
+                           "Walter",
+                           "White",
+                           "heisenberg@gmail.com",
+                           "1234",
+                           LocalDate.of(1956, 3, 7),
+                           inco
+                   )
+           );
+       }
 
-    if (!manejadorUsuario.existeNickname("danny")) {
-        manejadorUsuario.addUsuario(
-                new Docente(
-                        "danny",
-                        "Daniel",
-                        "Riccio",
-                        "dan.riccio@gmail.com",
-                        "pass1234",
-                        LocalDate.of(1963, 7, 5),
-                        imerl
-                )
-        );
-    }
+       if (!manejadorUsuario.existeNickname("benkenobi")) {
+           manejadorUsuario.addUsuario(
+                   new Docente(
+                           "benkenobi",
+                           "Obi-Wan",
+                           "Kenobi",
+                           "benKenobi@gmail.com",
+                           "1234",
+                           LocalDate.of(1914, 4, 2),
+                           inco
+                   )
+           );
+       }
 
-    if (!manejadorUsuario.existeNickname("phils")) {
-        manejadorUsuario.addUsuario(
-                new Docente(
-                        "phils",
-                        "Philip",
-                        "Schiller",
-                        "schiller@gmail.com",
-                        "pass1234",
-                        LocalDate.of(1961, 10, 7),
-                        impii
-                )
-        );
-    }
+       if (!manejadorUsuario.existeNickname("waston")) {
+           manejadorUsuario.addUsuario(
+                   new Docente(
+                           "waston",
+                           "Emma",
+                           "Watson",
+                           "e.watson@gmail.com",
+                           "1234",
+                           LocalDate.of(1990, 4, 15),
+                           inco
+                   )
+           );
+       }
 
-    if (!manejadorUsuario.existeNickname("bruces")) {
-        manejadorUsuario.addUsuario(
-                new Docente(
-                        "bruces",
-                        "Bruce",
-                        "Sewell",
-                        "sewell@gmail.com",
-                        "pass1234",
-                        LocalDate.of(1959, 12, 3),
-                        disi
-                )
-        );
-    }
+       if (!manejadorUsuario.existeNickname("house")) {
+           manejadorUsuario.addUsuario(
+                   new Docente(
+                           "house",
+                           "Gregory",
+                           "House",
+                           "greghouse@gmail.com",
+                           "1234",
+                           LocalDate.of(1959, 5, 15),
+                           electrica
+                   )
+           );
+       }
 
-    if (!manejadorUsuario.existeNickname("adri")) {
-        manejadorUsuario.addUsuario(
-                new Docente(
-                        "adri",
-                        "Adriana",
-                        "García",
-                        "agarcia@gmail.com",
-                        "pass1234",
-                        LocalDate.of(1978, 7, 28),
-                        disi
-                )
-        );
-    }
-}   
+       if (!manejadorUsuario.existeNickname("timmy")) {
+           manejadorUsuario.addUsuario(
+                   new Docente(
+                           "timmy",
+                           "Tim",
+                           "Cook",
+                           "tim.cook@apple.com",
+                           "1234",
+                           LocalDate.of(1960, 11, 1),
+                           imerl
+                   )
+           );
+       }
+
+       if (!manejadorUsuario.existeNickname("danny")) {
+           manejadorUsuario.addUsuario(
+                   new Docente(
+                           "danny",
+                           "Daniel",
+                           "Riccio",
+                           "dan.riccio@gmail.com",
+                           "1234",
+                           LocalDate.of(1963, 7, 5),
+                           imerl
+                   )
+           );
+       }
+
+       if (!manejadorUsuario.existeNickname("phils")) {
+           manejadorUsuario.addUsuario(
+                   new Docente(
+                           "phils",
+                           "Philip",
+                           "Schiller",
+                           "schiller@gmail.com",
+                           "1234",
+                           LocalDate.of(1961, 10, 7),
+                           impii
+                   )
+           );
+       }
+
+       if (!manejadorUsuario.existeNickname("bruces")) {
+           manejadorUsuario.addUsuario(
+                   new Docente(
+                           "bruces",
+                           "Bruce",
+                           "Sewell",
+                           "sewell@gmail.com",
+                           "1234",
+                           LocalDate.of(1959, 12, 3),
+                           disi
+                   )
+           );
+       }
+
+       if (!manejadorUsuario.existeNickname("adri")) {
+           manejadorUsuario.addUsuario(
+                   new Docente(
+                           "adri",
+                           "Adriana",
+                           "García",
+                           "agarcia@gmail.com",
+                           "1234",
+                           LocalDate.of(1978, 7, 28),
+                           disi
+                   )
+           );
+       }
+   }   
     private void cargarCursos() {
 
     Instituto imerl =
@@ -758,283 +812,110 @@ public class CargadorDatosPrueba {
     }
 }
     private void cargarInscripciones() {
+        final EstadoInscripcion A = EstadoInscripcion.ACEPTADA;
+        final EstadoInscripcion R = EstadoInscripcion.RECHAZADA;
+        final EstadoInscripcion I = EstadoInscripcion.INSCRIPTO;
 
-    agregarInscripcionSiNoExiste(
-            "eleven11",
-            "Flor del Ceibo - 2010",
-            LocalDate.of(2010, 2, 20)
-    );
+        String e1 = "Flor del Ceibo - 2010";
+        String e2 = "Flor del Ceibo - 2012";
+        String e3 = "Flor del Ceibo - 2025";
+        String e4 = "Dalavuelta - 2025";
+        String e5 = "Extensionismo Industrial - 2025";
+        String e6 = "Inclusión Energética - 2026";
+        String e7 = "Taller de robótica educativa - 2024";
+        String e8 = "Taller de robótica educativa - 2026";
+        String e9 = "Taller de robótica educativa - 2026-2";
+        String e10 = "Participación en investigación sobre el empleo del juego Komikan como recurso didáctico en la Escuela - 2026";
+        String e11 = "Herramientas de apoyo a la enseñanza de inglés. Instalación y evaluación - 26";
+        String e12 = "MicroBit - 2026";
+        String e13 = "Talleres plenarios - 2026";
+        String e14 = "Seminarios de Resolución de Problemas - 2026";
 
-    agregarInscripcionSiNoExiste(
-            "chechi",
-            "Flor del Ceibo - 2010",
-            LocalDate.of(2010, 2, 25)
-    );
+        // E1
+        inscribir("eleven11", e1, 2010, 2, 20, A);
+        inscribir("chechi", e1, 2010, 2, 25, A);
+        // E2
+        inscribir("costas", e2, 2012, 7, 12, A);
+        inscribir("roro", e2, 2012, 7, 15, R);
+        inscribir("weiss", e2, 2012, 7, 30, A);
+        // E3
+        inscribir("roro", e3, 2025, 3, 10, A);
+        inscribir("jeffw", e3, 2025, 3, 15, A);
+        // E4
+        inscribir("chechi", e4, 2024, 7, 25, A);
+        inscribir("eleven11", e4, 2024, 7, 28, R);
+        inscribir("roro", e4, 2024, 8, 2, A);
+        inscribir("costas", e4, 2024, 8, 10, A);
+        inscribir("jeffw", e4, 2024, 8, 15, R);
+        // E5
+        inscribir("costas", e5, 2025, 7, 18, A);
+        inscribir("chechi", e5, 2025, 7, 20, A);
+        inscribir("eleven11", e5, 2025, 7, 29, A);
+        inscribir("weiss", e5, 2025, 8, 5, A);
+        // E6
+        inscribir("roro", e6, 2026, 2, 23, A);
+        inscribir("weiss", e6, 2026, 2, 25, R);
+        inscribir("chechi", e6, 2026, 2, 28, A);
+        inscribir("eleven11", e6, 2026, 3, 3, R);
+        // E7
+        inscribir("weiss", e7, 2024, 2, 18, R);
+        inscribir("roro", e7, 2024, 2, 20, R);
+        inscribir("eleven11", e7, 2024, 3, 3, A);
+        // E8
+        inscribir("jeffw", e8, 2026, 2, 18, A);
+        inscribir("costas", e8, 2026, 2, 22, A);
+        inscribir("roro", e8, 2026, 2, 23, R);
+        // E9
+        inscribir("weiss", e9, 2026, 8, 18, I);
+        inscribir("chechi", e9, 2026, 8, 22, I);
+        inscribir("roro", e9, 2026, 9, 3, I);
+        // E10
+        inscribir("chechi", e10, 2026, 7, 13, A);
+        inscribir("weiss", e10, 2026, 7, 20, A);
+        inscribir("roro", e10, 2026, 7, 22, A);
+        // E11
+        inscribir("weiss", e11, 2026, 6, 4, I);
+        inscribir("eleven11", e11, 2026, 7, 18, I);
+        inscribir("jeffw", e11, 2026, 8, 20, I);
+        // E12
+        inscribir("chechi", e12, 2026, 7, 12, I);
+        inscribir("roro", e12, 2026, 7, 14, I);
+        inscribir("eleven11", e12, 2026, 7, 25, I);
+        inscribir("jeffw", e12, 2026, 8, 5, I);
+        // E13
+        inscribir("costas", e13, 2026, 3, 5, R);
+        inscribir("weiss", e13, 2026, 3, 4, A);
+        inscribir("roro", e13, 2026, 3, 7, A);
+        // E14
+        inscribir("weiss", e14, 2026, 7, 15, A);
+        inscribir("costas", e14, 2026, 7, 20, R);
+        inscribir("roro", e14, 2026, 8, 6, A);
+        inscribir("chechi", e14, 2026, 8, 30, R);
+    }
 
-    agregarInscripcionSiNoExiste(
-            "costas",
-            "Flor del Ceibo - 2012",
-            LocalDate.of(2012, 7, 12)
-    );
+    private void inscribir(String nickname, String edicion,
+            int anio, int mes, int dia, EstadoInscripcion estado) {
+        agregarInscripcionSiNoExiste(nickname, edicion, LocalDate.of(anio, mes, dia), estado);
+    }
+    
+    private void agregarInscripcionSiNoExiste(
+            String nicknameEstudiante,
+            String nombreEdicion,
+            LocalDate fechaInscripcion,
+            EstadoInscripcion estado) {
 
-    agregarInscripcionSiNoExiste(
-            "roro",
-            "Flor del Ceibo - 2012",
-            LocalDate.of(2012, 7, 15)
-    );
+        if (manejadorInscripcionEdicion.buscarInscripcion(nicknameEstudiante, nombreEdicion) != null) {
+            return;
+        }
 
-    agregarInscripcionSiNoExiste(
-            "weiss",
-            "Flor del Ceibo - 2012",
-            LocalDate.of(2012, 7, 30)
-    );
+        Estudiante estudiante = manejadorUsuario.buscarEstudiante(nicknameEstudiante);
+        EdicionCurso edicion = manejadorEdicionCurso.buscarPorNombre(nombreEdicion);
 
-    agregarInscripcionSiNoExiste(
-            "roro",
-            "Flor del Ceibo - 2025",
-            LocalDate.of(2025, 3, 10)
-    );
+        InscripcionEdicion inscripcion = new InscripcionEdicion(fechaInscripcion, estudiante, edicion);
+        inscripcion.setEstado(estado);
 
-    agregarInscripcionSiNoExiste(
-            "jeffw",
-            "Flor del Ceibo - 2025",
-            LocalDate.of(2025, 3, 15)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "chechi",
-            "Dalavuelta - 2025",
-            LocalDate.of(2024, 7, 25)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "eleven11",
-            "Dalavuelta - 2025",
-            LocalDate.of(2024, 7, 28)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "roro",
-            "Dalavuelta - 2025",
-            LocalDate.of(2024, 8, 2)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "costas",
-            "Dalavuelta - 2025",
-            LocalDate.of(2024, 8, 10)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "jeffw",
-            "Dalavuelta - 2025",
-            LocalDate.of(2024, 8, 15)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "costas",
-            "Extensionismo Industrial - 2025",
-            LocalDate.of(2025, 7, 18)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "chechi",
-            "Extensionismo Industrial - 2025",
-            LocalDate.of(2025, 7, 20)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "eleven11",
-            "Extensionismo Industrial - 2025",
-            LocalDate.of(2025, 7, 29)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "weiss",
-            "Extensionismo Industrial - 2025",
-            LocalDate.of(2025, 8, 5)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "roro",
-            "Inclusión Energética - 2026",
-            LocalDate.of(2026, 2, 23)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "weiss",
-            "Inclusión Energética - 2026",
-            LocalDate.of(2026, 2, 25)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "chechi",
-            "Inclusión Energética - 2026",
-            LocalDate.of(2026, 2, 28)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "eleven11",
-            "Inclusión Energética - 2026",
-            LocalDate.of(2026, 3, 3)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "weiss",
-            "Taller de robótica educativa - 2024",
-            LocalDate.of(2017, 2, 18)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "roro",
-            "Taller de robótica educativa - 2024",
-            LocalDate.of(2024, 2, 20)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "eleven11",
-            "Taller de robótica educativa - 2024",
-            LocalDate.of(2024, 3, 3)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "chechi",
-            "Taller de robótica educativa - 2024",
-            LocalDate.of(2024, 3, 5)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "jeffw",
-            "Taller de robótica educativa - 2026",
-            LocalDate.of(2026, 2, 18)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "costas",
-            "Taller de robótica educativa - 2026",
-            LocalDate.of(2026, 2, 22)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "weiss",
-            "Taller de robótica educativa - 2026-2",
-            LocalDate.of(2026, 8, 18)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "chechi",
-            "Taller de robótica educativa - 2026-2",
-            LocalDate.of(2026, 8, 22)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "roro",
-            "Taller de robótica educativa - 2026-2",
-            LocalDate.of(2026, 9, 3)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "chechi",
-            "Participación en investigación sobre el empleo del juego Komikan como recurso didáctico en la Escuela - 2026",
-            LocalDate.of(2026, 7, 13)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "weiss",
-            "Participación en investigación sobre el empleo del juego Komikan como recurso didáctico en la Escuela - 2026",
-            LocalDate.of(2026, 7, 20)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "roro",
-            "Participación en investigación sobre el empleo del juego Komikan como recurso didáctico en la Escuela - 2026",
-            LocalDate.of(2026, 7, 22)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "weiss",
-            "Herramientas de apoyo a la enseñanza de inglés. Instalación y evaluación - 26",
-            LocalDate.of(2026, 6, 4)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "eleven11",
-            "Herramientas de apoyo a la enseñanza de inglés. Instalación y evaluación - 26",
-            LocalDate.of(2026, 7, 18)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "jeffw",
-            "Herramientas de apoyo a la enseñanza de inglés. Instalación y evaluación - 26",
-            LocalDate.of(2026, 8, 20)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "chechi",
-            "MicroBit - 2026",
-            LocalDate.of(2026, 7, 12)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "roro",
-            "MicroBit - 2026",
-            LocalDate.of(2026, 7, 14)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "eleven11",
-            "MicroBit - 2026",
-            LocalDate.of(2026, 7, 25)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "jeffw",
-            "MicroBit - 2026",
-            LocalDate.of(2026, 8, 5)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "costas",
-            "Talleres plenarios - 2026",
-            LocalDate.of(2026, 3, 5)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "weiss",
-            "Talleres plenarios - 2026",
-            LocalDate.of(2026, 3, 4)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "roro",
-            "Talleres plenarios - 2026",
-            LocalDate.of(2026, 3, 7)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "weiss",
-            "Seminarios de Resolución de Problemas - 2026",
-            LocalDate.of(2026, 7, 15)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "costas",
-            "Seminarios de Resolución de Problemas - 2026",
-            LocalDate.of(2026, 7, 20)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "roro",
-            "Seminarios de Resolución de Problemas - 2026",
-            LocalDate.of(2026, 8, 6)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "chechi",
-            "Seminarios de Resolución de Problemas - 2026",
-            LocalDate.of(2026, 8, 30)
-    );
-}
+        manejadorInscripcionEdicion.addInscripcion(inscripcion);
+    }
     private void cargarProgramas() {
 
     if (!manejadorProgramaFormacion.existePrograma(
@@ -1130,6 +1011,38 @@ public class CargadorDatosPrueba {
             "MicroBit"
     );
 }
+    
+    private void cargarInscripcionesProgramas() {
+        String p1 = "EFI Ingeniería Mecánica";
+        String p2 = "Formación integral";
+        String p3 = "EFI Robótica";
+
+        agregarInscripcionProgramaSiNoExiste("eleven11", p1, LocalDate.of(2026, 4, 15));
+        agregarInscripcionProgramaSiNoExiste("chechi", p1, LocalDate.of(2026, 4, 20));
+
+        agregarInscripcionProgramaSiNoExiste("costas", p2, LocalDate.of(2026, 7, 10));
+        agregarInscripcionProgramaSiNoExiste("chechi", p2, LocalDate.of(2026, 7, 10));
+        agregarInscripcionProgramaSiNoExiste("eleven11", p2, LocalDate.of(2026, 7, 12));
+        agregarInscripcionProgramaSiNoExiste("weiss", p2, LocalDate.of(2026, 7, 15));
+        agregarInscripcionProgramaSiNoExiste("roro", p2, LocalDate.of(2026, 7, 18));
+
+        agregarInscripcionProgramaSiNoExiste("costas", p3, LocalDate.of(2026, 8, 11));
+        agregarInscripcionProgramaSiNoExiste("chechi", p3, LocalDate.of(2026, 8, 15));
+        agregarInscripcionProgramaSiNoExiste("roro", p3, LocalDate.of(2026, 8, 22));
+        agregarInscripcionProgramaSiNoExiste("jeffw", p3, LocalDate.of(2026, 8, 30));
+    }
+
+    private void agregarInscripcionProgramaSiNoExiste(String nicknameEstudiante,
+            String nombrePrograma,
+            LocalDate fecha) {
+        if (manejadorInscripcionPrograma.buscarInscripcion(nicknameEstudiante, nombrePrograma) != null) {
+            return;
+        }
+        Estudiante estudiante = manejadorUsuario.buscarEstudiante(nicknameEstudiante);
+        ProgramaFormacion programa = manejadorProgramaFormacion.buscarPrograma(nombrePrograma);
+        manejadorInscripcionPrograma.addInscripcion(
+                new InscripcionPrograma(fecha, estudiante, programa));
+    }
     
     private void agregarInscripcionSiNoExiste(
         String nicknameEstudiante,
