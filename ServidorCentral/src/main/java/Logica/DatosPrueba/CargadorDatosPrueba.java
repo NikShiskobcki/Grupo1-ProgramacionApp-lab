@@ -4,6 +4,7 @@ import Logica.Entidades.Categoria;
 import Logica.Entidades.Curso;
 import Logica.Entidades.Docente;
 import Logica.Entidades.EdicionCurso;
+import Logica.Entidades.EstadoInscripcion;
 import Logica.Entidades.Estudiante;
 import Logica.Entidades.InscripcionEdicion;
 import Logica.Entidades.InscripcionPrograma;
@@ -811,283 +812,110 @@ public class CargadorDatosPrueba {
     }
 }
     private void cargarInscripciones() {
+        final EstadoInscripcion A = EstadoInscripcion.ACEPTADA;
+        final EstadoInscripcion R = EstadoInscripcion.RECHAZADA;
+        final EstadoInscripcion I = EstadoInscripcion.INSCRIPTO;
 
-    agregarInscripcionSiNoExiste(
-            "eleven11",
-            "Flor del Ceibo - 2010",
-            LocalDate.of(2010, 2, 20)
-    );
+        String e1 = "Flor del Ceibo - 2010";
+        String e2 = "Flor del Ceibo - 2012";
+        String e3 = "Flor del Ceibo - 2025";
+        String e4 = "Dalavuelta - 2025";
+        String e5 = "Extensionismo Industrial - 2025";
+        String e6 = "Inclusión Energética - 2026";
+        String e7 = "Taller de robótica educativa - 2024";
+        String e8 = "Taller de robótica educativa - 2026";
+        String e9 = "Taller de robótica educativa - 2026-2";
+        String e10 = "Participación en investigación sobre el empleo del juego Komikan como recurso didáctico en la Escuela - 2026";
+        String e11 = "Herramientas de apoyo a la enseñanza de inglés. Instalación y evaluación - 26";
+        String e12 = "MicroBit - 2026";
+        String e13 = "Talleres plenarios - 2026";
+        String e14 = "Seminarios de Resolución de Problemas - 2026";
 
-    agregarInscripcionSiNoExiste(
-            "chechi",
-            "Flor del Ceibo - 2010",
-            LocalDate.of(2010, 2, 25)
-    );
+        // E1
+        inscribir("eleven11", e1, 2010, 2, 20, A);
+        inscribir("chechi", e1, 2010, 2, 25, A);
+        // E2
+        inscribir("costas", e2, 2012, 7, 12, A);
+        inscribir("roro", e2, 2012, 7, 15, R);
+        inscribir("weiss", e2, 2012, 7, 30, A);
+        // E3
+        inscribir("roro", e3, 2025, 3, 10, A);
+        inscribir("jeffw", e3, 2025, 3, 15, A);
+        // E4
+        inscribir("chechi", e4, 2024, 7, 25, A);
+        inscribir("eleven11", e4, 2024, 7, 28, R);
+        inscribir("roro", e4, 2024, 8, 2, A);
+        inscribir("costas", e4, 2024, 8, 10, A);
+        inscribir("jeffw", e4, 2024, 8, 15, R);
+        // E5
+        inscribir("costas", e5, 2025, 7, 18, A);
+        inscribir("chechi", e5, 2025, 7, 20, A);
+        inscribir("eleven11", e5, 2025, 7, 29, A);
+        inscribir("weiss", e5, 2025, 8, 5, A);
+        // E6
+        inscribir("roro", e6, 2026, 2, 23, A);
+        inscribir("weiss", e6, 2026, 2, 25, R);
+        inscribir("chechi", e6, 2026, 2, 28, A);
+        inscribir("eleven11", e6, 2026, 3, 3, R);
+        // E7
+        inscribir("weiss", e7, 2024, 2, 18, R);
+        inscribir("roro", e7, 2024, 2, 20, R);
+        inscribir("eleven11", e7, 2024, 3, 3, A);
+        // E8
+        inscribir("jeffw", e8, 2026, 2, 18, A);
+        inscribir("costas", e8, 2026, 2, 22, A);
+        inscribir("roro", e8, 2026, 2, 23, R);
+        // E9
+        inscribir("weiss", e9, 2026, 8, 18, I);
+        inscribir("chechi", e9, 2026, 8, 22, I);
+        inscribir("roro", e9, 2026, 9, 3, I);
+        // E10
+        inscribir("chechi", e10, 2026, 7, 13, A);
+        inscribir("weiss", e10, 2026, 7, 20, A);
+        inscribir("roro", e10, 2026, 7, 22, A);
+        // E11
+        inscribir("weiss", e11, 2026, 6, 4, I);
+        inscribir("eleven11", e11, 2026, 7, 18, I);
+        inscribir("jeffw", e11, 2026, 8, 20, I);
+        // E12
+        inscribir("chechi", e12, 2026, 7, 12, I);
+        inscribir("roro", e12, 2026, 7, 14, I);
+        inscribir("eleven11", e12, 2026, 7, 25, I);
+        inscribir("jeffw", e12, 2026, 8, 5, I);
+        // E13
+        inscribir("costas", e13, 2026, 3, 5, R);
+        inscribir("weiss", e13, 2026, 3, 4, A);
+        inscribir("roro", e13, 2026, 3, 7, A);
+        // E14
+        inscribir("weiss", e14, 2026, 7, 15, A);
+        inscribir("costas", e14, 2026, 7, 20, R);
+        inscribir("roro", e14, 2026, 8, 6, A);
+        inscribir("chechi", e14, 2026, 8, 30, R);
+    }
 
-    agregarInscripcionSiNoExiste(
-            "costas",
-            "Flor del Ceibo - 2012",
-            LocalDate.of(2012, 7, 12)
-    );
+    private void inscribir(String nickname, String edicion,
+            int anio, int mes, int dia, EstadoInscripcion estado) {
+        agregarInscripcionSiNoExiste(nickname, edicion, LocalDate.of(anio, mes, dia), estado);
+    }
+    
+    private void agregarInscripcionSiNoExiste(
+            String nicknameEstudiante,
+            String nombreEdicion,
+            LocalDate fechaInscripcion,
+            EstadoInscripcion estado) {
 
-    agregarInscripcionSiNoExiste(
-            "roro",
-            "Flor del Ceibo - 2012",
-            LocalDate.of(2012, 7, 15)
-    );
+        if (manejadorInscripcionEdicion.buscarInscripcion(nicknameEstudiante, nombreEdicion) != null) {
+            return;
+        }
 
-    agregarInscripcionSiNoExiste(
-            "weiss",
-            "Flor del Ceibo - 2012",
-            LocalDate.of(2012, 7, 30)
-    );
+        Estudiante estudiante = manejadorUsuario.buscarEstudiante(nicknameEstudiante);
+        EdicionCurso edicion = manejadorEdicionCurso.buscarPorNombre(nombreEdicion);
 
-    agregarInscripcionSiNoExiste(
-            "roro",
-            "Flor del Ceibo - 2025",
-            LocalDate.of(2025, 3, 10)
-    );
+        InscripcionEdicion inscripcion = new InscripcionEdicion(fechaInscripcion, estudiante, edicion);
+        inscripcion.setEstado(estado);
 
-    agregarInscripcionSiNoExiste(
-            "jeffw",
-            "Flor del Ceibo - 2025",
-            LocalDate.of(2025, 3, 15)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "chechi",
-            "Dalavuelta - 2025",
-            LocalDate.of(2024, 7, 25)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "eleven11",
-            "Dalavuelta - 2025",
-            LocalDate.of(2024, 7, 28)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "roro",
-            "Dalavuelta - 2025",
-            LocalDate.of(2024, 8, 2)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "costas",
-            "Dalavuelta - 2025",
-            LocalDate.of(2024, 8, 10)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "jeffw",
-            "Dalavuelta - 2025",
-            LocalDate.of(2024, 8, 15)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "costas",
-            "Extensionismo Industrial - 2025",
-            LocalDate.of(2025, 7, 18)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "chechi",
-            "Extensionismo Industrial - 2025",
-            LocalDate.of(2025, 7, 20)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "eleven11",
-            "Extensionismo Industrial - 2025",
-            LocalDate.of(2025, 7, 29)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "weiss",
-            "Extensionismo Industrial - 2025",
-            LocalDate.of(2025, 8, 5)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "roro",
-            "Inclusión Energética - 2026",
-            LocalDate.of(2026, 2, 23)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "weiss",
-            "Inclusión Energética - 2026",
-            LocalDate.of(2026, 2, 25)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "chechi",
-            "Inclusión Energética - 2026",
-            LocalDate.of(2026, 2, 28)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "eleven11",
-            "Inclusión Energética - 2026",
-            LocalDate.of(2026, 3, 3)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "weiss",
-            "Taller de robótica educativa - 2024",
-            LocalDate.of(2017, 2, 18)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "roro",
-            "Taller de robótica educativa - 2024",
-            LocalDate.of(2024, 2, 20)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "eleven11",
-            "Taller de robótica educativa - 2024",
-            LocalDate.of(2024, 3, 3)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "chechi",
-            "Taller de robótica educativa - 2024",
-            LocalDate.of(2024, 3, 5)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "jeffw",
-            "Taller de robótica educativa - 2026",
-            LocalDate.of(2026, 2, 18)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "costas",
-            "Taller de robótica educativa - 2026",
-            LocalDate.of(2026, 2, 22)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "weiss",
-            "Taller de robótica educativa - 2026-2",
-            LocalDate.of(2026, 8, 18)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "chechi",
-            "Taller de robótica educativa - 2026-2",
-            LocalDate.of(2026, 8, 22)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "roro",
-            "Taller de robótica educativa - 2026-2",
-            LocalDate.of(2026, 9, 3)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "chechi",
-            "Participación en investigación sobre el empleo del juego Komikan como recurso didáctico en la Escuela - 2026",
-            LocalDate.of(2026, 7, 13)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "weiss",
-            "Participación en investigación sobre el empleo del juego Komikan como recurso didáctico en la Escuela - 2026",
-            LocalDate.of(2026, 7, 20)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "roro",
-            "Participación en investigación sobre el empleo del juego Komikan como recurso didáctico en la Escuela - 2026",
-            LocalDate.of(2026, 7, 22)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "weiss",
-            "Herramientas de apoyo a la enseñanza de inglés. Instalación y evaluación - 26",
-            LocalDate.of(2026, 6, 4)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "eleven11",
-            "Herramientas de apoyo a la enseñanza de inglés. Instalación y evaluación - 26",
-            LocalDate.of(2026, 7, 18)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "jeffw",
-            "Herramientas de apoyo a la enseñanza de inglés. Instalación y evaluación - 26",
-            LocalDate.of(2026, 8, 20)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "chechi",
-            "MicroBit - 2026",
-            LocalDate.of(2026, 7, 12)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "roro",
-            "MicroBit - 2026",
-            LocalDate.of(2026, 7, 14)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "eleven11",
-            "MicroBit - 2026",
-            LocalDate.of(2026, 7, 25)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "jeffw",
-            "MicroBit - 2026",
-            LocalDate.of(2026, 8, 5)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "costas",
-            "Talleres plenarios - 2026",
-            LocalDate.of(2026, 3, 5)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "weiss",
-            "Talleres plenarios - 2026",
-            LocalDate.of(2026, 3, 4)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "roro",
-            "Talleres plenarios - 2026",
-            LocalDate.of(2026, 3, 7)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "weiss",
-            "Seminarios de Resolución de Problemas - 2026",
-            LocalDate.of(2026, 7, 15)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "costas",
-            "Seminarios de Resolución de Problemas - 2026",
-            LocalDate.of(2026, 7, 20)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "roro",
-            "Seminarios de Resolución de Problemas - 2026",
-            LocalDate.of(2026, 8, 6)
-    );
-
-    agregarInscripcionSiNoExiste(
-            "chechi",
-            "Seminarios de Resolución de Problemas - 2026",
-            LocalDate.of(2026, 8, 30)
-    );
-}
+        manejadorInscripcionEdicion.addInscripcion(inscripcion);
+    }
     private void cargarProgramas() {
 
     if (!manejadorProgramaFormacion.existePrograma(
