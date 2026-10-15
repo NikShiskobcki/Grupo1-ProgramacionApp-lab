@@ -55,6 +55,7 @@ public class BuscarSugerenciasServlet extends HttpServlet {
         q = (q == null) ? "" : q.trim().toLowerCase(Locale.ROOT);
 
         List<Sugerencia> encontradas = new ArrayList<>();
+        try {
         if (q.length() >= MIN_CARACTERES) {
             String ctx = request.getContextPath();
 
@@ -91,6 +92,12 @@ public class BuscarSugerenciasServlet extends HttpServlet {
                 if (a.prefijo != b.prefijo) return a.prefijo ? -1 : 1;
                 return a.nombre.compareToIgnoreCase(b.nombre);
             });
+        }
+        } catch (Exception e) {
+            getServletContext().log("Error al calcular sugerencias de búsqueda", e);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().print("[]");
+            return;
         }
 
         StringBuilder json = new StringBuilder("[");
