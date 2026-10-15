@@ -16,7 +16,7 @@
         <div class="row g-4">
             <% if (!img.isEmpty()) { %>
                 <div class="col-md-4">
-                    <img src="<%= img %>" alt="<%= Html.esc(ed.getNombre()) %>" class="img-fluid rounded detail-img-aside" onerror="this.style.display='none'">
+                    <img src="<%= img %>" alt="<%= Html.esc(ed.getNombre()) %>" class="img-fluid rounded" onerror="this.style.display='none'">
                 </div>
             <% } %>
             <div class="<%= img.isEmpty() ? "col-12" : "col-md-8" %>">

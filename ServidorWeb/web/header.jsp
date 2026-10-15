@@ -31,10 +31,7 @@
 
         <div class="header-search">
                         <form action="<%= request.getContextPath() %>/buscar" method="get">
-                            <input type="text" name="q" id="busquedaInput" placeholder="Buscar cursos, programas" autocomplete="off"
-                                   role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="busquedaSugerencias"
-                                   data-url="<%= request.getContextPath() %>/buscar-sugerencias"
-                                   value="<%= Html.esc(request.getParameter("q")) %>">
+                            <input type="text" name="q" placeholder="Buscar cursos, programas" value="<%= Html.esc(request.getParameter("q")) %>">
                             <button type="submit" aria-label="Buscar">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="#ffffff"
                                      class="bi bi-search" viewBox="0 0 16 16" aria-hidden="true">
@@ -42,7 +39,6 @@
                                 </svg>
                             </button>
                         </form>
-                        <ul id="busquedaSugerencias" class="search-suggestions" role="listbox" hidden></ul>
                     </div>
 
         <div class="header-user">

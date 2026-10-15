@@ -64,7 +64,6 @@
         </div>
     <% } %>
 
-    <div id="alertasSeguir"></div>
     <% String msgSeguir = request.getParameter("msg");
        if ("seguido".equals(msgSeguir) || "dejado".equals(msgSeguir)) { %>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -79,22 +78,14 @@
     <% } %>
 
     <!-- Cabecera del perfil -->
-<div class="edext-panel p-4 mb-4">
-    <div class="d-flex flex-wrap align-items-center gap-4">
-        <% if (!img.isEmpty()) { %>
-            <img src="<%= img %>" alt="Imagen de <%= Html.esc(perfil.getNickname()) %>" class="avatar-lg" onerror="imgFallback(this)">
-            <div class="avatar-ph" style="display:none;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                </svg>
-            </div>
-        <% } else { %>
-            <div class="avatar-ph">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                </svg>
-            </div>
-        <% } %>
+    <div class="edext-panel p-4 mb-4">
+        <div class="d-flex flex-wrap align-items-center gap-4">
+            <% if (!img.isEmpty()) { %>
+                <img src="<%= img %>" alt="Imagen de <%= Html.esc(perfil.getNickname()) %>" class="avatar-lg" onerror="imgFallback(this)">
+                <div class="avatar-ph" style="display:none;">👤</div>
+            <% } else { %>
+                <div class="avatar-ph">👤</div>
+            <% } %>
 
             <div class="flex-grow-1">
                 <h2 class="mb-1"><%= Html.esc(perfil.getNombre()) %> <%= Html.esc(perfil.getApellido()) %></h2>
@@ -113,7 +104,7 @@
                 <a href="<%= ctx %>/cambiar-contrasenia" class="btn btn-outline-secondary">Cambiar contraseña</a>
             <% } %>
             <% if (puedeSeguir) { %>
-                <form method="post" action="<%= ctx %>/seguir-usuario" class="m-0" id="formSeguir">
+                <form method="post" action="<%= ctx %>/seguir-usuario" class="m-0">
                     <input type="hidden" name="user" value="<%= Html.esc(perfil.getNickname()) %>">
                     <% if (siguiendo) { %>
                         <input type="hidden" name="accion" value="dejar">
@@ -150,7 +141,7 @@
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="btn-seguidores" data-bs-toggle="tab" data-bs-target="#tab-seguidores"
                     type="button" role="tab" aria-controls="tab-seguidores" aria-selected="false">
-                Seguidores <span class="badge text-bg-secondary ms-1" id="badgeSeguidores"><%= cantSeguidores %></span>
+                Seguidores <span class="badge text-bg-secondary ms-1"><%= cantSeguidores %></span>
             </button>
         </li>
     </ul>
@@ -322,31 +313,22 @@
                            String imgU = Html.imagen(ctx, u.getRutaImagen());
                            boolean docenteU = "Docente".equalsIgnoreCase(u.getTipo());
                     %>
-                    
                     <div class="col-12 col-md-6">
-    <a href="<%= ctx %>/perfil?user=<%= Html.url(u.getNickname()) %>"
-       class="edext-panel p-3 d-flex align-items-center gap-3 text-decoration-none h-100 text-reset">
-        <% if (!imgU.isEmpty()) { %>
-            <img src="<%= imgU %>" alt="" class="avatar-sm" onerror="imgFallback(this)">
-            <span class="avatar-sm-ph" style="display:none;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                </svg>
-            </span>
-        <% } else { %>
-            <span class="avatar-sm-ph">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                </svg>
-            </span>
-        <% } %>
-        <div class="flex-grow-1 text-truncate">
-            <div class="fw-semibold text-truncate"><%= Html.esc(u.getNombreCompleto()) %></div>
-            <div class="small text-muted">@<%= Html.esc(u.getNickname()) %></div>
-        </div>
-        <span class="badge <%= docenteU ? "text-bg-info" : "text-bg-secondary" %>"><%= Html.esc(u.getTipo()) %></span>
-    </a>
-</div>
+                        <a href="<%= ctx %>/perfil?user=<%= Html.url(u.getNickname()) %>"
+                           class="edext-panel p-3 d-flex align-items-center gap-3 text-decoration-none h-100 text-reset">
+                            <% if (!imgU.isEmpty()) { %>
+                                <img src="<%= imgU %>" alt="" class="avatar-sm" onerror="imgFallback(this)">
+                                <span class="avatar-sm-ph" style="display:none;">👤</span>
+                            <% } else { %>
+                                <span class="avatar-sm-ph">👤</span>
+                            <% } %>
+                            <div class="flex-grow-1 text-truncate">
+                                <div class="fw-semibold text-truncate"><%= Html.esc(u.getNombreCompleto()) %></div>
+                                <div class="small text-muted">@<%= Html.esc(u.getNickname()) %></div>
+                            </div>
+                            <span class="badge <%= docenteU ? "text-bg-info" : "text-bg-secondary" %>"><%= Html.esc(u.getTipo()) %></span>
+                        </a>
+                    </div>
                     <% } %>
                 </div>
             <% } else { %>

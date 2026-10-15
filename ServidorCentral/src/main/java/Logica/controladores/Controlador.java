@@ -454,6 +454,21 @@ public void inscribirEstudianteEdicion(
         EstadoInscripcion estado = aceptado ? EstadoInscripcion.ACEPTADA : EstadoInscripcion.RECHAZADA;
         manejadorInscripcionEdicion.actualizarEstado(idInscripcion, estado);
     }
+    
+    @Override
+public void seleccionarEstudiantesEdicion(
+        String nicknameDocente,
+        String nombreEdicion,
+        List<Long> aceptadas,
+        List<Long> rechazadas) {
+
+    manejadorInscripcionEdicion.seleccionarEstudiantesEdicion(
+            nicknameDocente,
+            nombreEdicion,
+            aceptadas,
+            rechazadas
+    );
+}
 
     @Override
     public List<InscripcionResumen> listarAceptadosPorEdicion(String nombreEdicion) {

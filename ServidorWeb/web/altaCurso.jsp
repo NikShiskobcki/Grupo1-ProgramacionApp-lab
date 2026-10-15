@@ -25,8 +25,7 @@
                 <div class="alert alert-error"><%= Html.esc(request.getAttribute("error")) %></div>
             <% } %>
 
-            <form action="<%= request.getContextPath() %>/alta-curso" method="post"
-                  enctype="multipart/form-data" class="row g-3">
+            <form action="<%= request.getContextPath() %>/alta-curso" method="post" class="row g-3">
 
                 <div class="col-md-6">
                     <label for="instituto" class="form-label">Instituto:</label>
@@ -106,21 +105,6 @@
                         <%  }
                         } %>
                     </div>
-                </div>
-
-                <div class="col-12">
-                    <label for="imagenArchivo" class="form-label">Imagen del curso desde tu PC (opcional):</label>
-                    <input type="file" class="form-control" id="imagenArchivo" name="imagenArchivo"
-                           accept="image/jpeg,image/png">
-                    <small class="text-muted">
-                        JPG o PNG, hasta 5 MB. Elegí un archivo o ingresá una URL, no ambas.
-                    </small>
-                </div>
-
-                <div class="col-12">
-                    <label for="imagen" class="form-label">URL de la imagen del curso (opcional):</label>
-                    <input type="url" class="form-control" id="imagen" name="imagen" placeholder="https://..."
-                           value="<%= Html.esc(request.getAttribute("v_imagen")) %>">
                 </div>
 
                     <div class="col-6">
