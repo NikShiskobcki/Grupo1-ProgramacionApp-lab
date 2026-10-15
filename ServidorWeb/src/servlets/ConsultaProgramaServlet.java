@@ -1,6 +1,7 @@
 package servlets;
 
 import Logica.DTO.DetalleProgramaFormacion;
+import Logica.DTO.UsuarioResumen;
 import Logica.controladores.Fabrica;
 import Logica.controladores.IControlador;
 
@@ -10,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /** Consulta de Programa de Formación (destino de la navegación desde el perfil de usuario). */
 @WebServlet("/programa-detalle")
@@ -32,6 +34,15 @@ public class ConsultaProgramaServlet extends HttpServlet {
             return;
         }
         request.setAttribute("detallePrograma", detalle);
+
+        HttpSession sesion = request.getSession(false);
+        UsuarioResumen usuario = (sesion != null)
+                ? (UsuarioResumen) sesion.getAttribute("usuarioLogueado") : null;
+        if (usuario != null && "Estudiante".equalsIgnoreCase(usuario.getTipo())) {
+            request.setAttribute("inscripcionPrograma",
+                    control.buscarInscripcionPrograma(usuario.getNickname(), nombre.trim()));
+        }
+
         request.getRequestDispatcher("/programaDetalle.jsp").forward(request, response);
     }
 }

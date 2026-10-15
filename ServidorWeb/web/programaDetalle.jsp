@@ -1,12 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="Logica.DTO.DetalleProgramaFormacion" %>
 <%@ page import="Logica.DTO.CursoResumen" %>
+<%@ page import="Logica.DTO.UsuarioResumen" %>
+<%@ page import="Logica.Entidades.InscripcionPrograma" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="util.Html" %>
 <jsp:include page="header.jsp" />
 
 <%
     DetalleProgramaFormacion p = (DetalleProgramaFormacion) request.getAttribute("detallePrograma");
     String ctx = request.getContextPath();
+    UsuarioResumen usuario = (UsuarioResumen) session.getAttribute("usuarioLogueado");
+    boolean esEstudiante = usuario != null && "Estudiante".equalsIgnoreCase(usuario.getTipo());
+    InscripcionPrograma inscripcion = (InscripcionPrograma) request.getAttribute("inscripcionPrograma");
 %>
 
 <% if (p != null) {
@@ -28,6 +34,13 @@
     <% } %>
     <% if ("cursos".equals(request.getParameter("msg"))) { %>
     <div class="alert alert-success">Cursos agregados al programa con exito!</div>
+    <% } %>
+    
+    <% if ("inscripto".equals(request.getParameter("msg"))) { %>
+    <div class="alert alert-success">Inscripcion al programa realizada con exito!</div>
+    <% } %>
+    <% if (request.getParameter("err") != null) { %>
+    <div class="alert alert-error"><%= Html.esc(request.getParameter("err")) %></div>
     <% } %>
 
     <div class="detail-grid">
@@ -67,6 +80,20 @@
                 <p><strong>Vigencia:</strong> <%= Html.esc(p.getFechaInicio()) %> a <%= Html.esc(p.getFechaFin()) %></p>
                 <p><strong>Fecha de Alta:</strong> <%= Html.esc(p.getFechaAlta()) %></p>
             </div>
+                <% if (esEstudiante) { %>
+                <div class="sidebar-box">
+                    <h4>Inscripcion</h4>
+                    <% if (inscripcion != null) { %>
+                    <p>Ya estas inscripto a este programa desde el
+                        <%= inscripcion.getFechaInscripcion().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) %>.</p>
+                        <% } else { %>
+                    <form action="<%= ctx %>/inscribir-programa" method="post">
+                        <input type="hidden" name="nombrePrograma" value="<%= Html.esc(p.getNombre()) %>">
+                        <button type="submit" class="btn btn-sm btn-primary">Inscribirme</button>
+                    </form>
+                    <% } %>
+                </div>
+                <% } %>
         </div>
     </div>
 </div>
