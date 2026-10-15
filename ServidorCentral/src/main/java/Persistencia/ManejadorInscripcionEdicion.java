@@ -205,4 +205,183 @@ public class ManejadorInscripcionEdicion {
             em.close();
         }
     }
+    
+    public void seleccionarEstudiantesEdicion(
+        String nicknameDocente,
+        String nombreEdicion,
+        List<Long> aceptadas,
+        List<Long> rechazadas) {
+
+    if (nicknameDocente == null || nicknameDocente.trim().isEmpty()) {
+        throw new IllegalArgumentException(
+                "Debe indicar el docente que realiza la selección.");
+    }
+
+    if (nombreEdicion == null || nombreEdicion.trim().isEmpty()) {
+        throw new IllegalArgumentException(
+                "Debe seleccionar una edición.");
+    }
+
+    if (aceptadas == null || rechazadas == null) {
+        throw new IllegalArgumentException(
+                "Las listas de selección no pueden ser nulas.");
+    }
+
+    // Copias propias: no modificamos las listas recibidas.
+    List<Long> idsAceptadas = new ArrayList<>(aceptadas);
+    List<Long> idsRechazadas = new ArrayList<>(rechazadas);
+
+    java.util.Set<Long> ids = new java.util.HashSet<>();
+
+    for (Long id : idsAceptadas) {
+        if (id == null || id <= 0 || !ids.add(id)) {
+            throw new IllegalArgumentException(
+                    "La selección contiene inscripciones inválidas o repetidas.");
+        }
+    }
+
+    for (Long id : idsRechazadas) {
+        if (id == null || id <= 0 || !ids.add(id)) {
+            throw new IllegalArgumentException(
+                    "Una inscripción no puede aparecer repetida "
+                    + "ni estar aceptada y rechazada a la vez.");
+        }
+    }
+
+    if (ids.isEmpty()) {
+        throw new IllegalArgumentException(
+                "Seleccioná al menos una inscripción para aceptar o rechazar.");
+    }
+
+    EntityManager em = emf.createEntityManager();
+    EntityTransaction transaccion = em.getTransaction();
+
+    try {
+        transaccion.begin();
+
+        // Serializa las selecciones concurrentes sobre esta edición.
+        Logica.Entidades.EdicionCurso edicion = em.find(
+                Logica.Entidades.EdicionCurso.class,
+                nombreEdicion,
+                javax.persistence.LockModeType.PESSIMISTIC_WRITE
+        );
+
+        if (edicion == null) {
+            throw new IllegalArgumentException(
+                    "La edición seleccionada no existe.");
+        }
+
+        boolean participa = false;
+
+        for (Logica.Entidades.Docente docente : edicion.getDocentes()) {
+            if (docente.getNickname().equals(nicknameDocente)) {
+                participa = true;
+                break;
+            }
+        }
+
+        if (!participa) {
+            throw new IllegalArgumentException(
+                    "Solo un docente participante puede seleccionar "
+                    + "estudiantes para esta edición.");
+        }
+
+        LocalDate hoy = LocalDate.now(
+                java.time.ZoneId.of("America/Montevideo"));
+
+        if (edicion.getFechaInicio() == null
+                || edicion.getFechaFin() == null
+                || hoy.isBefore(edicion.getFechaInicio())
+                || hoy.isAfter(edicion.getFechaFin())) {
+
+            throw new IllegalArgumentException(
+                    "La selección solo puede realizarse "
+                    + "sobre una edición vigente.");
+        }
+
+        List<Long> idsOrdenados = new ArrayList<>(ids);
+        java.util.Collections.sort(idsOrdenados);
+
+        java.util.Map<Long, InscripcionEdicion> inscripciones =
+                new java.util.HashMap<>();
+
+        // Primero validamos y bloqueamos todos los registros seleccionados.
+        for (Long id : idsOrdenados) {
+            InscripcionEdicion inscripcion = em.find(
+                    InscripcionEdicion.class,
+                    id,
+                    javax.persistence.LockModeType.PESSIMISTIC_WRITE
+            );
+
+            if (inscripcion == null) {
+                throw new IllegalArgumentException(
+                        "Una de las inscripciones ya no existe. "
+                        + "Recargá la página.");
+            }
+
+            if (!nombreEdicion.equals(
+                    inscripcion.getEdicion().getNombre())) {
+
+                throw new IllegalArgumentException(
+                        "Todas las inscripciones deben pertenecer "
+                        + "a la edición seleccionada.");
+            }
+
+            if (inscripcion.getEstado() != EstadoInscripcion.INSCRIPTO) {
+                throw new IllegalArgumentException(
+                        "Una de las inscripciones ya fue resuelta. "
+                        + "Recargá la página para ver su estado actual.");
+            }
+
+            inscripciones.put(id, inscripcion);
+        }
+
+        long aceptadosActuales = em.createQuery(
+                "SELECT COUNT(i) FROM InscripcionEdicion i "
+                + "WHERE i.edicion.nombre = :edicion "
+                + "AND i.estado = :estado",
+                Long.class)
+                .setParameter("edicion", nombreEdicion)
+                .setParameter("estado", EstadoInscripcion.ACEPTADA)
+                .getSingleResult();
+
+        Integer cupo = edicion.getCupo();
+
+        if (cupo != null
+                && aceptadosActuales + idsAceptadas.size() > cupo) {
+
+            throw new IllegalArgumentException(
+                    "La selección supera el cupo de la edición. "
+                    + "Cupo: " + cupo
+                    + ". Ya aceptados: " + aceptadosActuales
+                    + ". Nuevas aceptaciones: " + idsAceptadas.size() + ".");
+        }
+
+        // Aplicamos los cambios recién después de validar todo.
+        for (Long id : idsAceptadas) {
+            inscripciones.get(id).setEstado(EstadoInscripcion.ACEPTADA);
+        }
+
+        for (Long id : idsRechazadas) {
+            inscripciones.get(id).setEstado(EstadoInscripcion.RECHAZADA);
+        }
+
+        transaccion.commit();
+
+    } catch (Exception e) {
+        if (transaccion.isActive()) {
+            transaccion.rollback();
+        }
+
+        if (e instanceof IllegalArgumentException) {
+            throw (IllegalArgumentException) e;
+        }
+
+        throw new PersistenciaException(
+                "No se pudo guardar la selección de estudiantes.", e);
+
+    } finally {
+        em.close();
+    }
+}
 }

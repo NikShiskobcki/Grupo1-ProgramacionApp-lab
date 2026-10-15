@@ -37,9 +37,39 @@
         <a class="nav-item" href="<%= request.getContextPath() %>/consulta-curso">Consultar Curso</a>
         <% if (sidebarUser != null && "Docente".equalsIgnoreCase(sidebarUser.getTipo())) { %>
         <a class="nav-item" href="<%= request.getContextPath() %>/alta-curso">Alta Curso</a>
-        <a class="nav-item" href="<%= request.getContextPath() %>/alta-edicion">Alta Edición</a>
         <% } %>
     </div>
+    
+    <div class="nav-group">
+    <span class="nav-title">Ediciones de cursos</span>
+
+    <%-- Disponible para visitantes, estudiantes y docentes. --%>
+    <a class="nav-item"
+       href="<%= request.getContextPath() %>/consulta-edicion"> Consultar edición</a>
+
+    <% if (sidebarUser != null
+            && "Docente".equalsIgnoreCase(sidebarUser.getTipo())) { %>
+
+        <a class="nav-item" href="<%= request.getContextPath() %>/alta-edicion">Alta de edición</a>
+
+        <a class="nav-item"
+           href="<%= request.getContextPath() %>/seleccionar-estudiantes"> Seleccionar estudiantes </a>
+
+        <%-- Acceso existente desde el perfil propio del docente. --%>
+        <a class="nav-item" href="<%= request.getContextPath() %>/aceptados-edicion"> Ver estudiantes aceptados </a>
+
+    <% } %>
+
+    <% if (sidebarUser != null
+            && "Estudiante".equalsIgnoreCase(sidebarUser.getTipo())) { %>
+
+        <a class="nav-item" href="<%= request.getContextPath() %>/inscribir-edicion"> Inscripción a edición</a>
+
+        <%-- Acceso existente desde el perfil propio del estudiante. --%>
+        <a class="nav-item" href="<%= request.getContextPath() %>/mis-inscripciones"> Mis resultados de inscripción</a>
+
+    <% } %>
+</div>
     
     <div class="nav-group">
         <span class="nav-title">Programas</span>

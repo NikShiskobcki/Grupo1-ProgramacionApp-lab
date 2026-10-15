@@ -122,6 +122,13 @@ public interface IControlador {
             List<Docente> docentes,
             String rutaImagen
     );
+    
+    void seleccionarEstudiantesEdicion(
+        String nicknameDocente,
+        String nombreEdicion,
+        List<Long> aceptadas,
+        List<Long> rechazadas
+);
 
     List<EdicionCurso> listarEdicionesPorCurso(String nombreCurso);
 
