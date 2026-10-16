@@ -44,10 +44,8 @@ public final class Imagenes {
         return Paths.get(configurada).toAbsolutePath().normalize();
     }
 
-    
-     //Devuelve null si no se seleccionó un archivo
-     //Si existe, valida y guarda la imagen
-   
+    //Devuelve null si no se seleccionó un archivo
+    //Si existe, valida y guarda la imagen
     public static String guardar(Part archivo) throws IOException {
         if (archivo == null) {
             return null;
@@ -69,11 +67,20 @@ public final class Imagenes {
                     "La imagen no puede superar los 5 MB.");
         }
 
-        byte[] contenido;
-
         try (InputStream entrada = archivo.getInputStream()) {
-            contenido = entrada.readNBytes((int) MAX_BYTES + 1);
+            return guardar(entrada);
         }
+    }
+
+    // Guarda una imagen recibida desde un recurso del proyecto.
+    // Quien llama a este método debe cerrar el InputStream.
+    public static String guardar(InputStream recurso) throws IOException {
+        if (recurso == null) {
+            throw new IllegalArgumentException(
+                    "No se encontró el archivo de imagen.");
+        }
+
+        byte[] contenido = recurso.readNBytes((int) MAX_BYTES + 1);
 
         if (contenido.length > MAX_BYTES) {
             throw new IllegalArgumentException(
@@ -91,8 +98,8 @@ public final class Imagenes {
                         "No se pudo leer la imagen.");
             }
 
-            Iterator<ImageReader> lectores =
-                    ImageIO.getImageReaders(entrada);
+            Iterator<ImageReader> lectores
+                    = ImageIO.getImageReaders(entrada);
 
             if (!lectores.hasNext()) {
                 throw new IllegalArgumentException(
@@ -191,7 +198,6 @@ public final class Imagenes {
         }
     }
 
-    
     //Resuelve solamente nombres generados por esta utilidad.
     public static Path resolver(String nombre) {
         if (nombre == null || !NOMBRE_VALIDO.matcher(nombre).matches()) {
@@ -202,8 +208,7 @@ public final class Imagenes {
         return carpeta().resolve(nombre);
     }
 
- 
-     //Elimina una imagen local por ej si falla el alta.
+    //Elimina una imagen local por ej si falla el alta.
     public static void eliminar(String rutaImagen) throws IOException {
         if (rutaImagen == null || !rutaImagen.startsWith(PREFIJO)) {
             return;
