@@ -47,7 +47,7 @@ public class InscripcionProgramaServlet extends HttpServlet {
         }
         
         try {
-            icon.inscribirEstudiantePrograma(estudiante.getNickname(), nombrePrograma, LocalDate.now());
+            icon.inscribirEstudiantePrograma(estudiante.getNickname(), nombrePrograma, LocalDate.now(java.time.ZoneId.of("America/Montevideo")));
         } catch (Exception e) {
             redirigir(request, response, nombrePrograma,
                     "err", "No se pudo realizar la inscripcion: " + e.getMessage());

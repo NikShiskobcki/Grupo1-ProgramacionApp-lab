@@ -1,6 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="header.jsp" />
 
+<div class="home-layout">
+    <jsp:include page="sidebarIzq.jsp" />
+
+    <div class="home-content">
+
+
 <div class="auth-box">
     <h2>Iniciar Sesión en edExt</h2>
     <p class="auth-subtitle">Ingresa tus credenciales para acceder a tus funcionalidades.</p>
@@ -29,6 +35,10 @@
     <div class="auth-footer">
         ¿Aún no tienes cuenta? <a href="<%= request.getContextPath() %>/registro">Regístrate aquí</a>
     </div>
+</div>
+    </div>
+
+    <jsp:include page="sidebarDer.jsp" />
 </div>
 
 <jsp:include page="footer.jsp" />

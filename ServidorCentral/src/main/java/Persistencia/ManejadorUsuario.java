@@ -18,6 +18,7 @@ import Logica.excepciones.EntidadNoEncontradaException;
 import Logica.excepciones.NombreDuplicadoException;
 import Logica.excepciones.PersistenciaException;
 import Logica.excepciones.RelacionInvalidaException;
+import Logica.seguridad.Contrasenias;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -43,6 +44,10 @@ public class ManejadorUsuario {
         EntityTransaction t = em.getTransaction();
 
         try {
+            // La contraseña nunca se guarda en texto plano
+            if (usuario.getContrasenia() != null && !Contrasenias.esHash(usuario.getContrasenia())) {
+                usuario.setContrasenia(Contrasenias.hashear(usuario.getContrasenia()));
+            }
             t.begin();
             em.persist(usuario);
             t.commit();
@@ -410,8 +415,19 @@ public class ManejadorUsuario {
                 return null;
             }
             Usuario u = resultado.get(0);
-            if (!u.getContrasenia().equals(contrasenia)){
+            if (!Contrasenias.verificar(contrasenia, u.getContrasenia())){
                 return null;
+            }
+            // Cuenta heredada con contraseña en texto plano: se migra a hash al iniciar sesión
+            if (!Contrasenias.esHash(u.getContrasenia())){
+                EntityTransaction tm = em.getTransaction();
+                try {
+                    tm.begin();
+                    u.setContrasenia(Contrasenias.hashear(contrasenia));
+                    tm.commit();
+                } catch (Exception e) {
+                    if (tm.isActive()) { tm.rollback(); }
+                }
             }
             String tipo = (u instanceof Docente) ? "Docente" : "Estudiante";
             return new UsuarioResumen(
@@ -540,11 +556,11 @@ public class ManejadorUsuario {
             if (u == null){
                 throw new EntidadNoEncontradaException("El usuario no existe.", null);
             }
-            if (contraseniaActual == null || !u.getContrasenia().equals(contraseniaActual)){
+            if (!Contrasenias.verificar(contraseniaActual, u.getContrasenia())){
                 t.rollback();
                 return false;
             }
-            u.setContrasenia(contraseniaNueva);
+            u.setContrasenia(Contrasenias.hashear(contraseniaNueva));
             t.commit();
             return true;
         }catch(EntidadNoEncontradaException e){

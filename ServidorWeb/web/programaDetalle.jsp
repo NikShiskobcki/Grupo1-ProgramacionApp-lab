@@ -7,6 +7,12 @@
 <%@ page import="util.Html" %>
 <jsp:include page="header.jsp" />
 
+<div class="home-layout">
+    <jsp:include page="sidebarIzq.jsp" />
+
+    <div class="home-content">
+
+
 <%
     DetalleProgramaFormacion p = (DetalleProgramaFormacion) request.getAttribute("detallePrograma");
     String ctx = request.getContextPath();
@@ -103,5 +109,9 @@
 </div>
 <p><a href="<%= ctx %>/buscar#programas">← Volver a los programas</a></p>
 <% } %>
+    </div>
+
+    <jsp:include page="sidebarDer.jsp" />
+</div>
 
 <jsp:include page="footer.jsp" />

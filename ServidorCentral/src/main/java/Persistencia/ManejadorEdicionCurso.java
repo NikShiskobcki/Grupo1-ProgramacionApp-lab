@@ -62,7 +62,7 @@ public class ManejadorEdicionCurso {
                     + "ORDER BY e.nombre",
                     EdicionCurso.class)
                     .setParameter("nombreCurso", nombreCurso)
-                    .setParameter("hoy", LocalDate.now())
+                    .setParameter("hoy", LocalDate.now(java.time.ZoneId.of("America/Montevideo")))
                     .getResultList();
         } finally {
             em.close();
@@ -160,7 +160,7 @@ public class ManejadorEdicionCurso {
                     + "AND :hoy BETWEEN e.fechaInicio AND e.fechaFin",
                     EdicionCurso.class)
                     .setParameter("nombreCurso", nombreCurso)
-                    .setParameter("hoy", LocalDate.now())
+                    .setParameter("hoy", LocalDate.now(java.time.ZoneId.of("America/Montevideo")))
                     .getResultList();
 
             if (ediciones.isEmpty()) {

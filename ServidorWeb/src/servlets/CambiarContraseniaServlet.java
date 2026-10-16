@@ -47,10 +47,10 @@ public class CambiarContraseniaServlet extends HttpServlet {
             return;
         }
 
-        // Igual que en el alta y el login, las contraseñas se comparan sin espacios en los extremos
-        String actual = trim(request.getParameter("contraseniaActual"));
-        String nueva = trim(request.getParameter("contraseniaNueva"));
-        String confirmacion = trim(request.getParameter("confirmarContrasenia"));
+        // Las contraseñas se comparan exactamente como fueron ingresadas
+        String actual = valor(request.getParameter("contraseniaActual"));
+        String nueva = valor(request.getParameter("contraseniaNueva"));
+        String confirmacion = valor(request.getParameter("confirmarContrasenia"));
 
         String error = null;
         if (actual.isEmpty() || nueva.isEmpty() || confirmacion.isEmpty()) {
@@ -78,6 +78,11 @@ public class CambiarContraseniaServlet extends HttpServlet {
         }
 
         response.sendRedirect(request.getContextPath() + "/perfil?msg=contrasenia");
+    }
+
+    // Las contraseñas se usan tal cual (sin trim): un espacio puede ser parte de la clave
+    private static String valor(String s) {
+        return s == null ? "" : s;
     }
 
     private static String trim(String s) {

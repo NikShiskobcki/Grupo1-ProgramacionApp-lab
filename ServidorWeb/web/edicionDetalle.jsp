@@ -3,6 +3,12 @@
 <%@ page import="util.Html" %>
 <jsp:include page="header.jsp" />
 
+<div class="home-layout">
+    <jsp:include page="sidebarIzq.jsp" />
+
+    <div class="home-content">
+
+
 <%
     DetalleEdicionCurso ed = (DetalleEdicionCurso) request.getAttribute("detalleEdicion");
     String ctx = request.getContextPath();
@@ -16,7 +22,8 @@
         <div class="row g-4">
             <% if (!img.isEmpty()) { %>
                 <div class="col-md-4">
-                    <img src="<%= img %>" alt="<%= Html.esc(ed.getNombre()) %>" class="img-fluid rounded detail-img-aside" onerror="this.style.display='none'">                </div>
+                    <img src="<%= img %>" alt="<%= Html.esc(ed.getNombre()) %>" class="img-fluid rounded detail-img-aside" onerror="this.style.display='none'">
+                </div>
             <% } %>
             <div class="<%= img.isEmpty() ? "col-12" : "col-md-8" %>">
                 <h2 class="mb-1"><%= Html.esc(ed.getNombre()) %></h2>
@@ -65,5 +72,9 @@
 <% } else { %>
     <div class="alert alert-secondary">Edición no encontrada.</div>
 <% } %>
+    </div>
+
+    <jsp:include page="sidebarDer.jsp" />
+</div>
 
 <jsp:include page="footer.jsp" />

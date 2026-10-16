@@ -69,10 +69,26 @@ public final class Imagenes {
                     "La imagen no puede superar los 5 MB.");
         }
 
-        byte[] contenido;
-
         try (InputStream entrada = archivo.getInputStream()) {
-            contenido = entrada.readNBytes((int) MAX_BYTES + 1);
+            return guardar(entrada);
+        }
+    }
+
+    /**
+     * Valida y guarda una imagen leída desde cualquier InputStream
+     * (por ejemplo, un recurso del classpath). Es la misma lógica que usa
+     * guardar(Part), así los datos de prueba pasan por las mismas validaciones.
+     */
+    public static String guardar(InputStream entradaImagen) throws IOException {
+        if (entradaImagen == null) {
+            return null;
+        }
+
+        byte[] contenido = entradaImagen.readNBytes((int) MAX_BYTES + 1);
+
+        if (contenido.length == 0) {
+            throw new IllegalArgumentException(
+                    "El archivo de imagen está vacío.");
         }
 
         if (contenido.length > MAX_BYTES) {

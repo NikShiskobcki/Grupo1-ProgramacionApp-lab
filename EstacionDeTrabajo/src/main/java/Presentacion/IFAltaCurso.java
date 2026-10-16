@@ -4,6 +4,8 @@
  */
 package Presentacion;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import Logica.controladores.Fabrica;
 import Logica.controladores.IControlador;
 import java.util.List;
@@ -24,7 +26,9 @@ public class IFAltaCurso extends javax.swing.JInternalFrame {
     
     public IFAltaCurso() {
         initComponents();
-        FechaUtil.configurar(dcFecha);
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        //txtFecha.setText(LocalDate.now().format(formatter));
         
         cargarInstitutos();
         cargarPrevias();
@@ -64,7 +68,7 @@ public class IFAltaCurso extends javax.swing.JInternalFrame {
         usersSeparator = new javax.swing.JSeparator();
         txtUrl = new javax.swing.JTextField();
         usersSeparator1 = new javax.swing.JSeparator();
-        dcFecha = new com.toedter.calendar.JDateChooser();
+        txtFecha = new javax.swing.JTextField();
         usersSeparator2 = new javax.swing.JSeparator();
         usersSeparator3 = new javax.swing.JSeparator();
         usersSeparator4 = new javax.swing.JSeparator();
@@ -210,8 +214,17 @@ public class IFAltaCurso extends javax.swing.JInternalFrame {
         usersSeparator1.setForeground(new java.awt.Color(35, 71, 75));
         pnlMain.add(usersSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, 210, 10));
 
-        dcFecha.setDateFormatString("dd/MM/yyyy");
-        pnlMain.add(dcFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, 220, 30));
+        txtFecha.setBackground(new java.awt.Color(242, 242, 242));
+        txtFecha.setForeground(new java.awt.Color(153, 153, 153));
+        txtFecha.setText("DD/MM/AAAA");
+        txtFecha.setBorder(null);
+        txtFecha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtFechaMousePressed(evt);
+            }
+        });
+        txtFecha.addActionListener(this::txtFechaActionPerformed);
+        pnlMain.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, 220, 30));
 
         usersSeparator2.setForeground(new java.awt.Color(35, 71, 75));
         pnlMain.add(usersSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, 210, 10));
@@ -345,11 +358,22 @@ private void cargarPrevias() {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUrlActionPerformed
 
+    private void txtFechaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFechaMousePressed
+        txtFecha.setForeground(new Color(0,0,0));
+        if(txtFecha.getText().equals("DD/MM/AAAA")){
+            txtFecha.setText("");
+        }
+    }//GEN-LAST:event_txtFechaMousePressed
+
+    private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaActionPerformed
+
     private void btnAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccActionPerformed
         if (txtNombre.getText().trim().isEmpty() ||
             txtUrl.getText().trim().isEmpty() ||
             txtAreaDescripcion.getText().trim().isEmpty() ||
-            dcFecha.getDate() == null ||
+            txtFecha.getText().trim().isEmpty() ||
             cbInstituto.getSelectedIndex() == -1) {
 
             JOptionPane.showMessageDialog(
@@ -359,7 +383,17 @@ private void cargarPrevias() {
             return;
         }
 
-        LocalDate fechaAlta = FechaUtil.toLocalDate(dcFecha.getDate());
+        LocalDate fechaAlta;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        try {
+            fechaAlta = LocalDate.parse(txtFecha.getText().trim(), formatter);
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(
+                this, "El formato de fecha debe ser DD/MM/AAAA (ej. 18/08/2026).",
+                "Fecha Inválida", JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
         
         try {
             
@@ -409,6 +443,7 @@ private void cargarPrevias() {
         } 
     }//GEN-LAST:event_btnAccActionPerformed
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcc;
     private javax.swing.JComboBox<String> cbInstituto;
@@ -434,6 +469,7 @@ private void cargarPrevias() {
     private javax.swing.JSpinner spnDuracion;
     private javax.swing.JSpinner spnHoras;
     private javax.swing.JTextArea txtAreaDescripcion;
+    private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtUrl;
     private javax.swing.JSeparator usersSeparator;
@@ -443,6 +479,5 @@ private void cargarPrevias() {
     private javax.swing.JSeparator usersSeparator4;
     private javax.swing.JSeparator usersSeparator5;
     private javax.swing.JSeparator usersSeparator6;
-    private com.toedter.calendar.JDateChooser dcFecha;
     // End of variables declaration//GEN-END:variables
 }

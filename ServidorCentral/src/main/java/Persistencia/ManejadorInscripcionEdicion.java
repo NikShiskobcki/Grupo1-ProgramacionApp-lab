@@ -109,7 +109,7 @@ public class ManejadorInscripcionEdicion {
                 Long.class)
                 .setParameter("nickname", nicknameEstudiante)
                 .setParameter("nombreCurso", nombreCurso)
-                .setParameter("hoy", LocalDate.now())
+                .setParameter("hoy", LocalDate.now(java.time.ZoneId.of("America/Montevideo")))
                 .getSingleResult();
         }finally{
             em.close();

@@ -7,12 +7,13 @@ import Logica.Entidades.Curso;
 import Logica.Entidades.Docente;
 import Logica.controladores.IControlador;
 import Logica.Entidades.Instituto;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import com.toedter.calendar.JDateChooser;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 
 /**
  *
@@ -30,8 +31,8 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
         initComponents();
         this.controlador = controlador;
         
-        //Configuro los selectores de fecha (JCalendar) con la fecha actual como valor inicial
-        configurarFechas();
+        //Seteo valor inicial con la fecha actual y configuro maximos y minimos para los spinners
+        setearSpinnersFecha();
 
           //CmbInstituto
          cmbInstituto.removeAllItems();
@@ -48,16 +49,53 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
          cargarInstitutos();
     }
     
-    private void configurarFechas() {
-        LocalDate hoy = LocalDate.now();
-        for (JDateChooser dc : new JDateChooser[]{dcFechaInicio, dcFechaFin}) {
-            FechaUtil.configurar(dc);
-            // igual que antes: no se permiten años anteriores al actual
-            dc.setMinSelectableDate(FechaUtil.toDate(LocalDate.of(hoy.getYear(), 1, 1)));
-            dc.setMaxSelectableDate(FechaUtil.toDate(LocalDate.of(2100, 12, 31)));
-            dc.setDate(FechaUtil.toDate(hoy));
-        }
-    }
+    private void setearSpinnersFecha() {
+
+    LocalDate hoy = LocalDate.now();
+
+    spDiaInicio.setModel(
+            new javax.swing.SpinnerNumberModel(
+                    hoy.getDayOfMonth(), 1, 31, 1
+            )
+    );
+
+    spMesInicio.setModel(
+            new javax.swing.SpinnerNumberModel(
+                    hoy.getMonthValue(), 1, 12, 1
+            )
+    );
+
+    spAnioInicio.setModel(
+            new javax.swing.SpinnerNumberModel(
+                    hoy.getYear(), hoy.getYear(), 2100, 1
+            )
+    );
+
+    spDiaFin.setModel(
+            new javax.swing.SpinnerNumberModel(
+                    hoy.getDayOfMonth(), 1, 31, 1
+            )
+    );
+
+    spMesFin.setModel(
+            new javax.swing.SpinnerNumberModel(
+                    hoy.getMonthValue(), 1, 12, 1
+            )
+    );
+
+    spAnioFin.setModel(
+            new javax.swing.SpinnerNumberModel(
+                    hoy.getYear(), hoy.getYear(), 2100, 1
+            )
+    );
+    
+     // Mostrar el año sin separador
+    spAnioInicio.setEditor(
+            new JSpinner.NumberEditor(spAnioInicio, "0"));
+
+    spAnioFin.setEditor(
+            new JSpinner.NumberEditor(spAnioFin, "0"));
+}
     
     private void cargarInstitutos() {
 
@@ -153,8 +191,12 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
         lblFechaFin = new javax.swing.JLabel();
         lblCupo = new javax.swing.JLabel();
         txtNombreEdicion = new javax.swing.JTextField();
-        dcFechaInicio = new com.toedter.calendar.JDateChooser();
-        dcFechaFin = new com.toedter.calendar.JDateChooser();
+        spDiaInicio = new javax.swing.JSpinner();
+        spMesInicio = new javax.swing.JSpinner();
+        spAnioInicio = new javax.swing.JSpinner();
+        spAnioFin = new javax.swing.JSpinner();
+        spMesFin = new javax.swing.JSpinner();
+        spDiaFin = new javax.swing.JSpinner();
         txtCupo = new javax.swing.JTextField();
         btnAceptar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -164,7 +206,15 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
         usersSeparator1 = new javax.swing.JSeparator();
         usersSeparator2 = new javax.swing.JSeparator();
         usersSeparator3 = new javax.swing.JSeparator();
+        usersSeparator4 = new javax.swing.JSeparator();
+        usersSeparator5 = new javax.swing.JSeparator();
+        usersSeparator6 = new javax.swing.JSeparator();
+        usersSeparator7 = new javax.swing.JSeparator();
+        usersSeparator8 = new javax.swing.JSeparator();
+        usersSeparator9 = new javax.swing.JSeparator();
         usersSeparator10 = new javax.swing.JSeparator();
+        lblUsuarios7 = new javax.swing.JLabel();
+        lblUsuarios8 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         setClosable(true);
@@ -235,11 +285,23 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
         txtNombreEdicion.addActionListener(this::txtNombreEdicionActionPerformed);
         getContentPane().add(txtNombreEdicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 170, 300, 30));
 
-        dcFechaInicio.setDateFormatString("dd/MM/yyyy");
-        getContentPane().add(dcFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 230, 170, 36));
+        spDiaInicio.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        getContentPane().add(spDiaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 230, 50, 40));
 
-        dcFechaFin.setDateFormatString("dd/MM/yyyy");
-        getContentPane().add(dcFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 290, 170, 36));
+        spMesInicio.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        getContentPane().add(spMesInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, 50, 40));
+
+        spAnioInicio.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        getContentPane().add(spAnioInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 230, 50, 40));
+
+        spAnioFin.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        getContentPane().add(spAnioFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 290, 50, 40));
+
+        spMesFin.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        getContentPane().add(spMesFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 290, 50, 40));
+
+        spDiaFin.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        getContentPane().add(spDiaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 290, 50, 40));
 
         txtCupo.setPreferredSize(new java.awt.Dimension(80, 26));
         getContentPane().add(txtCupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 250, 60, 30));
@@ -318,8 +380,58 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
         usersSeparator3.setForeground(new java.awt.Color(35, 71, 75));
         getContentPane().add(usersSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 280, 60, 10));
 
+        usersSeparator4.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 50, 10));
+
+        usersSeparator5.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 270, 50, 10));
+
+        usersSeparator6.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, 50, 10));
+
+        usersSeparator7.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 330, 50, 10));
+
+        usersSeparator8.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 330, 50, 10));
+
+        usersSeparator9.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 270, 50, 10));
+
         usersSeparator10.setForeground(new java.awt.Color(35, 71, 75));
         getContentPane().add(usersSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 200, 300, 10));
+
+        lblUsuarios7.setForeground(new java.awt.Color(153, 153, 153));
+        lblUsuarios7.setText("DD/MM/AAAA");
+        lblUsuarios7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblUsuarios7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblUsuarios7MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblUsuarios7MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblUsuarios7MouseExited(evt);
+            }
+        });
+        getContentPane().add(lblUsuarios7, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, 90, 38));
+
+        lblUsuarios8.setForeground(new java.awt.Color(153, 153, 153));
+        lblUsuarios8.setText("DD/MM/AAAA");
+        lblUsuarios8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblUsuarios8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblUsuarios8MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblUsuarios8MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblUsuarios8MouseExited(evt);
+            }
+        });
+        getContentPane().add(lblUsuarios8, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, 90, 38));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -352,6 +464,7 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtNombreEdicionActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+
 
     // Validacion nombre de la edición
     String nombre = txtNombreEdicion.getText().trim();
@@ -391,13 +504,34 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
     String nombreCurso = cmbCurso.getSelectedItem().toString();
 
     // Validacion fechas
-    LocalDate fechaInicio = FechaUtil.toLocalDate(dcFechaInicio.getDate());
-    LocalDate fechaFin = FechaUtil.toLocalDate(dcFechaFin.getDate());
+    LocalDate fechaInicio;
+    LocalDate fechaFin;
 
-    if (fechaInicio == null || fechaFin == null) {
+    try {
+        int diaInicio = (Integer) spDiaInicio.getValue();
+        int mesInicio = (Integer) spMesInicio.getValue();
+        int anioInicio = (Integer) spAnioInicio.getValue();
+
+        fechaInicio = LocalDate.of(
+                anioInicio,
+                mesInicio,
+                diaInicio
+        );
+
+        int diaFin = (Integer) spDiaFin.getValue();
+        int mesFin = (Integer) spMesFin.getValue();
+        int anioFin = (Integer) spAnioFin.getValue();
+
+        fechaFin = LocalDate.of(
+                anioFin,
+                mesFin,
+                diaFin
+        );
+
+    } catch (DateTimeException e) {
         JOptionPane.showMessageDialog(
                 this,
-                "Debe seleccionar la fecha de inicio y la fecha de fin.",
+                "La fecha ingresada no es válida.",
                 "Error",
                 JOptionPane.ERROR_MESSAGE
         );
@@ -540,6 +674,31 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblUsuarios1MouseExited
 
+    private void lblUsuarios7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarios7MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblUsuarios7MouseClicked
+
+    private void lblUsuarios7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarios7MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblUsuarios7MouseEntered
+
+    private void lblUsuarios7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarios7MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblUsuarios7MouseExited
+
+    private void lblUsuarios8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarios8MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblUsuarios8MouseClicked
+
+    private void lblUsuarios8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarios8MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblUsuarios8MouseEntered
+
+    private void lblUsuarios8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarios8MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblUsuarios8MouseExited
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JComboBox<String> cmbCurso;
@@ -555,7 +714,15 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblNombreEdicion;
     private javax.swing.JLabel lblUsuarios;
     private javax.swing.JLabel lblUsuarios1;
+    private javax.swing.JLabel lblUsuarios7;
+    private javax.swing.JLabel lblUsuarios8;
     private javax.swing.JList<String> lstDocentes;
+    private javax.swing.JSpinner spAnioFin;
+    private javax.swing.JSpinner spAnioInicio;
+    private javax.swing.JSpinner spDiaFin;
+    private javax.swing.JSpinner spDiaInicio;
+    private javax.swing.JSpinner spMesFin;
+    private javax.swing.JSpinner spMesInicio;
     private javax.swing.JTextField txtCupo;
     private javax.swing.JTextField txtNombreEdicion;
     private javax.swing.JSeparator usersSeparator;
@@ -563,7 +730,11 @@ public class IFAltaEdicionCurso extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator usersSeparator10;
     private javax.swing.JSeparator usersSeparator2;
     private javax.swing.JSeparator usersSeparator3;
-    private com.toedter.calendar.JDateChooser dcFechaInicio;
-    private com.toedter.calendar.JDateChooser dcFechaFin;
+    private javax.swing.JSeparator usersSeparator4;
+    private javax.swing.JSeparator usersSeparator5;
+    private javax.swing.JSeparator usersSeparator6;
+    private javax.swing.JSeparator usersSeparator7;
+    private javax.swing.JSeparator usersSeparator8;
+    private javax.swing.JSeparator usersSeparator9;
     // End of variables declaration//GEN-END:variables
 }

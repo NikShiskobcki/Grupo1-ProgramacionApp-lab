@@ -323,17 +323,6 @@ body {
     background: var(--primary-light);
     border-radius: 12px;
     padding: 20px;
-    /* Paneles laterales fijos al desplazarse: quedan bajo el header (sticky) */
-    position: sticky;
-    top: 90px;
-    max-height: calc(100vh - 110px);
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
-}
-
-@media (max-width: 768px) {
-    .home-sidebar { position: static; max-height: none; overflow-y: visible; }
 }
 
 .home-sidebar .nav-group {
@@ -366,41 +355,12 @@ body {
     min-width: 0;
 }
 
-/* Sugerencias de búsqueda (AJAX) */
-.search-suggestions {
-    position: absolute;
-    top: calc(100% + 6px);
-    left: 0;
-    width: 100%;
-    min-width: 320px;
-    margin: 0;
-    padding: 4px 0;
-    list-style: none;
-    background: var(--white);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-    z-index: 1050;
-    max-height: 70vh;
-    overflow-y: auto;
+/* Paneles laterales presentes en todas las páginas: más ancho para 3 columnas
+   y apilado en pantallas chicas */
+.main-content.edext-main { max-width: 1400px; }
+.home-content > .auth-box { margin-top: 0; }
+
+@media (max-width: 991.98px) {
+    .home-layout { flex-direction: column; }
+    .home-sidebar { width: 100%; }
 }
-.search-suggestions[hidden] { display: none; }
-.search-suggestions li a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 14px;
-    color: var(--text-dark);
-    text-decoration: none;
-}
-.search-suggestions li.active a,
-.search-suggestions li a:hover { background: var(--bg-light); }
-.search-suggestions .sug-texto { display: flex; flex-direction: column; min-width: 0; }
-.search-suggestions .sug-nombre { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.search-suggestions .sug-detalle { font-size: 0.8rem; color: var(--text-muted); }
-.search-suggestions .sug-tipo {
-    font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
-    padding: 2px 8px; border-radius: 10px; color: var(--white); background: var(--accent-color);
-}
-.search-suggestions .sug-programa { background: var(--primary-light); }
-.search-suggestions .sin-resultados { padding: 10px 14px; color: var(--text-muted); font-size: 0.9rem; }

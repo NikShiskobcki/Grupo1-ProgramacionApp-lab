@@ -137,7 +137,7 @@ public class AltaProgramaServlet extends HttpServlet {
         }
 
         try {
-            icon.altaPrograma(nombre, descripcion, inicio, fin, LocalDate.now(), rutaImagen, docente.getNickname());
+            icon.altaPrograma(nombre, descripcion, inicio, fin, LocalDate.now(java.time.ZoneId.of("America/Montevideo")), rutaImagen, docente.getNickname());
         } catch (Exception e) {
             if (imagenGuardada != null) {
                 try {

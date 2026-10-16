@@ -55,7 +55,7 @@ public class Controlador implements IControlador {
     private final ManejadorInscripcionPrograma manejadorInscripcionPrograma;
     private final ManejadorCategoria manejadorCategoria;
     private CargadorDatosPrueba cargadorDatosPrueba;
-   
+
     // Constructor privado para aplicar Singleton
     private Controlador() {
         //Fabrica de entidades creada una sola vez para toda la app
@@ -77,9 +77,7 @@ public class Controlador implements IControlador {
                 manejadorCurso,
                 manejadorEdicionCurso,
                 manejadorInscripcionEdicion,
-                manejadorProgramaFormacion,
-                manejadorCategoria,
-                manejadorInscripcionPrograma
+                manejadorProgramaFormacion
         );
 
     }
@@ -275,7 +273,7 @@ public class Controlador implements IControlador {
 
         Curso curso = manejadorCurso.buscarPorNombre(nombreCurso);
 
-        LocalDate fechaPublicacion = LocalDate.now();
+        LocalDate fechaPublicacion = LocalDate.now(java.time.ZoneId.of("America/Montevideo"));
 
         EdicionCurso edicion = new EdicionCurso(
                 nombre,

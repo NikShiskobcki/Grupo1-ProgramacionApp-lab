@@ -3,6 +3,8 @@ package Presentacion;
 import Logica.controladores.Fabrica;
 import Logica.controladores.IControlador;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import javax.swing.JOptionPane;
 
 /*
@@ -17,8 +19,6 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
      */
     public IFAltaPrograma() {
         initComponents();
-        FechaUtil.configurar(dcFInicio);
-        FechaUtil.configurar(dcFFin);
     }
 
     /**
@@ -36,8 +36,8 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         txtDescripcion = new javax.swing.JTextField();
-        dcFInicio = new com.toedter.calendar.JDateChooser();
-        dcFFin = new com.toedter.calendar.JDateChooser();
+        txtFInicio = new javax.swing.JTextField();
+        txtFFin = new javax.swing.JTextField();
         btnAceptar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         lblUsuarios = new javax.swing.JLabel();
@@ -79,11 +79,12 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
         txtDescripcion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         getContentPane().add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, 320, 30));
 
-        dcFInicio.setDateFormatString("dd/MM/yyyy");
-        getContentPane().add(dcFInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 320, 30));
+        txtFInicio.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        getContentPane().add(txtFInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 320, 30));
 
-        dcFFin.setDateFormatString("dd/MM/yyyy");
-        getContentPane().add(dcFFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, 320, 30));
+        txtFFin.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        txtFFin.addActionListener(this::txtFFinActionPerformed);
+        getContentPane().add(txtFFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, 320, 30));
 
         btnAceptar.setBackground(new java.awt.Color(35, 71, 75));
         btnAceptar.setForeground(new java.awt.Color(255, 255, 255));
@@ -175,17 +176,50 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtDescripcionMousePressed
 
+    private void txtFInicioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFInicioMousePressed
+        txtFInicio.setForeground(new java.awt.Color(0,0,0));
+        if(txtFInicio.getText().equals("dd/mm/aaaa")){
+            txtFInicio.setText("");
+        }
+    }//GEN-LAST:event_txtFInicioMousePressed
+
+    private void txtFFinMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFFinMousePressed
+        txtFFin.setForeground(new java.awt.Color(0,0,0));
+        if(txtFFin.getText().equals("dd/mm/aaaa")){
+            txtFFin.setText("");
+        }
+    }//GEN-LAST:event_txtFFinMousePressed
+
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
 
+    private void txtFFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFFinActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFFinActionPerformed
+
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        if (txtNombre.getText().trim().isEmpty() || txtNombre.getText().equals("Ingrese nombre del programa") || txtDescripcion.getText().trim().isEmpty() || txtDescripcion.getText().equals("Ingrese descripcion") || dcFInicio.getDate() == null || dcFFin.getDate() == null){
+        if (txtNombre.getText().trim().isEmpty() || txtNombre.getText().equals("Ingrese nombre del programa") || txtDescripcion.getText().trim().isEmpty() || txtDescripcion.getText().equals("Ingrese descripcion") || txtFInicio.getText().trim().isEmpty() || txtFInicio.getText().equals("dd/mm/aaaa") || txtFFin.getText().trim().isEmpty() || txtFFin.getText().equals("dd/mm/aaaa")){
             JOptionPane.showMessageDialog(this, "Complete todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        LocalDate fechaInicio = FechaUtil.toLocalDate(dcFInicio.getDate());
-        LocalDate fechaFin = FechaUtil.toLocalDate(dcFFin.getDate());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
+        LocalDate fechaInicio;
+        try{
+            fechaInicio = LocalDate.parse(txtFInicio.getText().trim(), formatter);
+        }catch (DateTimeParseException e){
+           JOptionPane.showMessageDialog(this, "El formato de fecha debe ser DD/MM/AAAA", "Fecha Inválida", JOptionPane.ERROR_MESSAGE);
+            return; 
+        }
+        
+        LocalDate fechaFin;
+        try{
+            fechaFin = LocalDate.parse(txtFFin.getText().trim(), formatter);
+        }catch (DateTimeParseException e){
+           JOptionPane.showMessageDialog(this, "El formato de fecha debe ser DD/MM/AAAA", "Fecha Inválida", JOptionPane.ERROR_MESSAGE);
+            return; 
+        }
         
         try{
             IControlador icon = Fabrica.getInstance().getIControlador();
@@ -241,6 +275,7 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblUsuarios1MouseExited
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JLabel jLabel1;
@@ -251,12 +286,12 @@ public class IFAltaPrograma extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblUsuarios;
     private javax.swing.JLabel lblUsuarios1;
     private javax.swing.JTextField txtDescripcion;
+    private javax.swing.JTextField txtFFin;
+    private javax.swing.JTextField txtFInicio;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JSeparator usersSeparator;
     private javax.swing.JSeparator usersSeparator1;
     private javax.swing.JSeparator usersSeparator2;
     private javax.swing.JSeparator usersSeparator3;
-    private com.toedter.calendar.JDateChooser dcFInicio;
-    private com.toedter.calendar.JDateChooser dcFFin;
     // End of variables declaration//GEN-END:variables
 }

@@ -161,7 +161,7 @@ public class IFConsultaCurso extends javax.swing.JInternalFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 470, 140));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 470, 110));
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -170,7 +170,7 @@ public class IFConsultaCurso extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(jList1);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 340, 210, 120));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, 210, 120));
 
         jList2.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -179,34 +179,34 @@ public class IFConsultaCurso extends javax.swing.JInternalFrame {
         });
         jScrollPane3.setViewportView(jList2);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 340, 230, 120));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 310, 230, 120));
 
         btnVerDetalleEdicion.setBackground(new java.awt.Color(35, 71, 75));
         btnVerDetalleEdicion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnVerDetalleEdicion.setForeground(new java.awt.Color(255, 255, 255));
         btnVerDetalleEdicion.setText("Ver Detalle Edicion");
         btnVerDetalleEdicion.addActionListener(this::btnVerDetalleEdicionActionPerformed);
-        getContentPane().add(btnVerDetalleEdicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 480, 160, 40));
+        getContentPane().add(btnVerDetalleEdicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 450, 160, 40));
 
         btnVerDetallePrograma.setBackground(new java.awt.Color(35, 71, 75));
         btnVerDetallePrograma.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnVerDetallePrograma.setForeground(new java.awt.Color(255, 255, 255));
         btnVerDetallePrograma.setText("Ver Detalle Programa");
         btnVerDetallePrograma.addActionListener(this::btnVerDetalleProgramaActionPerformed);
-        getContentPane().add(btnVerDetallePrograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 480, 170, 40));
+        getContentPane().add(btnVerDetallePrograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 450, 170, 40));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(35, 71, 75));
         jLabel1.setText("Programas de Formacion Asociados");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 320, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(35, 71, 75));
         jLabel2.setText("Ediciones asociadas al Curso");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, -1, -1));
 
         usersSeparator7.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 460, 230, 10));
+        getContentPane().add(usersSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 430, 230, 10));
 
         usersSeparator8.setForeground(new java.awt.Color(35, 71, 75));
         getContentPane().add(usersSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 410, 10));
@@ -215,10 +215,10 @@ public class IFConsultaCurso extends javax.swing.JInternalFrame {
         getContentPane().add(usersSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 410, 10));
 
         usersSeparator10.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, 470, 10));
+        getContentPane().add(usersSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 470, 10));
 
         usersSeparator11.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 460, 210, 10));
+        getContentPane().add(usersSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 430, 210, 10));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
