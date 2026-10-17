@@ -459,8 +459,6 @@
             <% } %>
         <% } %>
     </div>
-
-    <jsp:include page="sidebarDer.jsp" />
 </div>
 
 <script>

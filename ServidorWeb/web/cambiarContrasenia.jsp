@@ -2,12 +2,6 @@
 <%@ page import="util.Html" %>
 <jsp:include page="header.jsp" />
 
-<div class="home-layout">
-    <jsp:include page="sidebarIzq.jsp" />
-
-    <div class="home-content">
-
-
 <%
     String ctx = request.getContextPath();
 %>
@@ -72,9 +66,5 @@
         conf.addEventListener('input', validar);
     })();
 </script>
-    </div>
-
-    <jsp:include page="sidebarDer.jsp" />
-</div>
 
 <jsp:include page="footer.jsp" />

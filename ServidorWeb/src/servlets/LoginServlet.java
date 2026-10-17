@@ -35,13 +35,13 @@ public class LoginServlet extends HttpServlet {
         String usuario = request.getParameter("usuario");
         String contrasenia = request.getParameter("contrasenia");
 
-        if (usuario == null || usuario.trim().isEmpty() || contrasenia == null || contrasenia.isEmpty()) {
+        if (usuario == null || usuario.trim().isEmpty() || contrasenia == null || contrasenia.trim().isEmpty()) {
             request.setAttribute("error", "Debe ingresar usuario/email y contraseña.");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
             return;
         }
 
-        UsuarioResumen usr = control.iniciarSesion(usuario.trim(), contrasenia);
+        UsuarioResumen usr = control.iniciarSesion(usuario.trim(), contrasenia.trim());
 
         if (usr != null) {
             HttpSession session = request.getSession(true);

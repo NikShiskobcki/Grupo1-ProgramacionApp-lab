@@ -24,17 +24,11 @@ public class BuscarServlet extends HttpServlet {
             throws ServletException, IOException {
         String query = request.getParameter("q");
         String orden = request.getParameter("orden"); // "alfa", "fecha"
-        // Filtro por tipo de contenido: "todos" (por defecto), "curso" o "programa"
-        String tipo = request.getParameter("tipo");
-        tipo = ("curso".equalsIgnoreCase(tipo) || "programa".equalsIgnoreCase(tipo))
-                ? tipo.toLowerCase() : "todos";
-        boolean incluirCursos = !"programa".equals(tipo);
-        boolean incluirProgramas = !"curso".equals(tipo);
 
         List<Curso> cursos = control.listarCursos();
         List<Curso> resultados = new ArrayList<>();
 
-        if (incluirCursos && cursos != null) {
+        if (cursos != null) {
             for (Curso c : cursos) {
                 if (query == null || query.trim().isEmpty() ||
                     c.getNombre().toLowerCase().contains(query.toLowerCase()) ||
@@ -56,7 +50,7 @@ public class BuscarServlet extends HttpServlet {
         //para ver programas
         List<DetalleProgramaFormacion> programas = new ArrayList<>();
         List<String> nombresProgramas = control.listarProgramas();
-        if (incluirProgramas && nombresProgramas != null) {
+        if (nombresProgramas != null) {
             for (String nombre : nombresProgramas) {
                 DetalleProgramaFormacion p = control.consultarPrograma(nombre);
                 if (p == null) {
@@ -83,8 +77,7 @@ public class BuscarServlet extends HttpServlet {
 
         request.setAttribute("programas", programas);
         request.setAttribute("query", query != null ? query : "");
-        request.setAttribute("orden", "fecha".equalsIgnoreCase(orden) ? "fecha" : "alfa");
-        request.setAttribute("tipo", tipo);
+        request.setAttribute("orden", orden != null ? orden : "alfa");
         request.setAttribute("resultados", resultados);
         request.getRequestDispatcher("/buscar.jsp").forward(request, response);
     }

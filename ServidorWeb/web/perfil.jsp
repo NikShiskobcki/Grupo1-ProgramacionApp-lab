@@ -24,12 +24,6 @@
 %>
 <jsp:include page="header.jsp" />
 
-<div class="home-layout">
-    <jsp:include page="sidebarIzq.jsp" />
-
-    <div class="home-content">
-
-
 <%
     DetalleUsuario perfil = (DetalleUsuario) request.getAttribute("detalleUsuario");
     Boolean esPropio = (Boolean) request.getAttribute("esPropioPerfil");
@@ -84,22 +78,22 @@
     <% } %>
 
     <!-- Cabecera del perfil -->
-<div class="edext-panel p-4 mb-4">
-    <div class="d-flex flex-wrap align-items-center gap-4">
-        <% if (!img.isEmpty()) { %>
+    <div class="edext-panel p-4 mb-4">
+        <div class="d-flex flex-wrap align-items-center gap-4">
+            <% if (!img.isEmpty()) { %>
             <img src="<%= img %>" alt="Imagen de <%= Html.esc(perfil.getNickname()) %>" class="avatar-lg" onerror="imgFallback(this)">
             <div class="avatar-ph" style="display:none;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
                 </svg>
             </div>
-        <% } else { %>
+            <% } else { %>
             <div class="avatar-ph">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
                 </svg>
             </div>
-        <% } %>
+            <% } %>
 
             <div class="flex-grow-1">
                 <h2 class="mb-1"><%= Html.esc(perfil.getNombre()) %> <%= Html.esc(perfil.getApellido()) %></h2>
@@ -327,31 +321,30 @@
                            String imgU = Html.imagen(ctx, u.getRutaImagen());
                            boolean docenteU = "Docente".equalsIgnoreCase(u.getTipo());
                     %>
-                    
                     <div class="col-12 col-md-6">
-    <a href="<%= ctx %>/perfil?user=<%= Html.url(u.getNickname()) %>"
-       class="edext-panel p-3 d-flex align-items-center gap-3 text-decoration-none h-100 text-reset">
-        <% if (!imgU.isEmpty()) { %>
-            <img src="<%= imgU %>" alt="" class="avatar-sm" onerror="imgFallback(this)">
-            <span class="avatar-sm-ph" style="display:none;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                </svg>
-            </span>
-        <% } else { %>
-            <span class="avatar-sm-ph">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                </svg>
-            </span>
-        <% } %>
-        <div class="flex-grow-1 text-truncate">
-            <div class="fw-semibold text-truncate"><%= Html.esc(u.getNombreCompleto()) %></div>
-            <div class="small text-muted">@<%= Html.esc(u.getNickname()) %></div>
-        </div>
-        <span class="badge <%= docenteU ? "text-bg-info" : "text-bg-secondary" %>"><%= Html.esc(u.getTipo()) %></span>
-    </a>
-</div>
+                        <a href="<%= ctx %>/perfil?user=<%= Html.url(u.getNickname()) %>"
+                           class="edext-panel p-3 d-flex align-items-center gap-3 text-decoration-none h-100 text-reset">
+                            <% if (!imgU.isEmpty()) { %>
+                            <img src="<%= imgU %>" alt="" class="avatar-sm" onerror="imgFallback(this)">
+                                <span class="avatar-sm-ph" style="display:none;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                                    </svg>
+                                </span>
+                                <% } else { %>
+                                <span class="avatar-sm-ph">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                                    </svg>
+                                </span>
+                                <% } %>
+                                <div class="flex-grow-1 text-truncate">
+                                    <div class="fw-semibold text-truncate"><%= Html.esc(u.getNombreCompleto()) %></div>
+                                    <div class="small text-muted">@<%= Html.esc(u.getNickname()) %></div>
+                                </div>
+                                <span class="badge <%= docenteU ? "text-bg-info" : "text-bg-secondary" %>"><%= Html.esc(u.getTipo()) %></span>
+                        </a>
+                    </div>  
                     <% } %>
                 </div>
             <% } else { %>
@@ -364,9 +357,5 @@
 <% } else { %>
     <div class="alert alert-secondary">Perfil de usuario no disponible.</div>
 <% } %>
-    </div>
-
-    <jsp:include page="sidebarDer.jsp" />
-</div>
 
 <jsp:include page="footer.jsp" />

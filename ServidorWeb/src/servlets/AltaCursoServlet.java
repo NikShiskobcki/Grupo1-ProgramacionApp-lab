@@ -57,7 +57,6 @@ public class AltaCursoServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
-
         try {
             request.getParts();
         } catch (IllegalStateException e) {
@@ -75,7 +74,7 @@ public class AltaCursoServlet extends HttpServlet {
         String[] previasSel = request.getParameterValues("previas");
         String[] categoriasSel = request.getParameterValues("categorias");
         String imagenUrl = trim(request.getParameter("imagen"));
-
+        
         // Se conservan los datos ingresados para que el docente pueda corregirlos
         request.setAttribute("v_nombre", nombre);
         request.setAttribute("v_descripcion", descripcion);
@@ -87,7 +86,7 @@ public class AltaCursoServlet extends HttpServlet {
         request.setAttribute("v_previas", previasSel == null ? new ArrayList<String>() : Arrays.asList(previasSel));
         request.setAttribute("v_categorias", categoriasSel == null ? new ArrayList<String>() : Arrays.asList(categoriasSel));
         request.setAttribute("v_imagen", imagenUrl);
-
+        
         // ---- Validaciones ----
         if (nombre.isEmpty() || descripcion.isEmpty() || duracionStr.isEmpty() || horasStr.isEmpty()
                 || creditosStr.isEmpty() || url.isEmpty() || nombreInstituto.isEmpty()) {
@@ -146,7 +145,6 @@ public class AltaCursoServlet extends HttpServlet {
 
         List<String> categorias = categoriasSel == null
                 ? new ArrayList<String>() : new ArrayList<>(Arrays.asList(categoriasSel));
-
         Part archivo = request.getPart("imagenArchivo");
         boolean hayArchivo = archivo != null
                 && archivo.getSubmittedFileName() != null
@@ -190,7 +188,7 @@ public class AltaCursoServlet extends HttpServlet {
 
         try {
             control.altaCurso(nombre, descripcion, duracion, horas, creditos, url,
-                    LocalDate.now(java.time.ZoneId.of("America/Montevideo")), instituto, previas, categorias, rutaImagen);
+                    LocalDate.now(), instituto, previas, categorias, rutaImagen);
         } catch (Exception e) {
             if (imagenGuardada != null) {
                 try {

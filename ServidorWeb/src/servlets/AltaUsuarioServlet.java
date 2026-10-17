@@ -2,7 +2,6 @@ package servlets;
 
 import Logica.controladores.Fabrica;
 import Logica.controladores.IControlador;
-import Logica.Entidades.Instituto;
 
 import java.io.IOException;
 import java.net.URI;
@@ -40,7 +39,7 @@ public class AltaUsuarioServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-
+        
         try {
             request.getParts();
         } catch (IllegalStateException e) {
@@ -75,7 +74,7 @@ public class AltaUsuarioServlet extends HttpServlet {
             return;
         }
 
-        if (!password.equals(confirmPassword)) {
+        if (!password.trim().equals(confirmPassword.trim())) {
             request.setAttribute("error", "Las contraseñas no coinciden.");
             doGet(request, response);
             return;
@@ -96,7 +95,7 @@ public class AltaUsuarioServlet extends HttpServlet {
             return;
         }
 
-        if (fechaNac.isAfter(LocalDate.now(java.time.ZoneId.of("America/Montevideo")))) {
+        if (fechaNac.isAfter(LocalDate.now())) {
             request.setAttribute("error", "La fecha de nacimiento no puede ser posterior a la fecha actual.");
             doGet(request, response);
             return;
@@ -113,7 +112,6 @@ public class AltaUsuarioServlet extends HttpServlet {
             doGet(request, response);
             return;
         }
-
         Part archivo = request.getPart("imagenArchivo");
         boolean hayArchivo = archivo != null
                 && archivo.getSubmittedFileName() != null
@@ -162,9 +160,9 @@ public class AltaUsuarioServlet extends HttpServlet {
 
         try {
             if (esDocente) {
-                control.altaUsuarioDocente(nickname.trim(), nombre.trim(), apellido.trim(), email.trim(), password, fechaNac, instituto.trim(), rutaImagen);
+                control.altaUsuarioDocente(nickname.trim(), nombre.trim(), apellido.trim(), email.trim(), password.trim(), fechaNac, instituto.trim(), rutaImagen);
             } else {
-                control.altaUsuarioEstudiante(nickname.trim(), nombre.trim(), apellido.trim(), email.trim(), password, fechaNac, rutaImagen);
+                control.altaUsuarioEstudiante(nickname.trim(), nombre.trim(), apellido.trim(), email.trim(), password.trim(), fechaNac, rutaImagen);
             }
 
             request.setAttribute("mensajeExito", "Usuario registrado con éxito. Ya puedes iniciar sesión.");
@@ -177,8 +175,6 @@ public class AltaUsuarioServlet extends HttpServlet {
                     log("No se pudo eliminar una imagen de un alta fallida", ex);
                 }
             }
-            request.setAttribute("error", "Error al registrar usuario: " + e.getMessage());
-            doGet(request, response);
         }
     }
 

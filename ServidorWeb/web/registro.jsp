@@ -3,12 +3,6 @@
 <%@ page import="java.time.LocalDate" %>
 <jsp:include page="header.jsp" />
 
-<div class="home-layout">
-    <jsp:include page="sidebarIzq.jsp" />
-
-    <div class="home-content">
-
-
 <%
     List<String> institutos = (List<String>) request.getAttribute("institutos");
 %>
@@ -23,7 +17,7 @@
 
     <form action="<%= request.getContextPath() %>/registro" method="post" id="formRegistro"
           enctype="multipart/form-data" class="row g-3">
-
+        
         <div class="col-12">
             <label class="form-label d-block">Tipo de Usuario:</label>
             <div class="form-check form-check-inline">
@@ -68,7 +62,7 @@
         <div class="col-md-6">
             <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento:</label>
             <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento"
-                   max="<%= LocalDate.now(java.time.ZoneId.of("America/Montevideo")) %>" required>
+                   max="<%= LocalDate.now() %>" required>
             <div class="invalid-feedback" id="errFechaNacimiento"></div>
         </div>
         <div class="col-md-6" id="groupInstituto" style="display: none;">
@@ -81,22 +75,20 @@
                 } %>
             </select>
         </div>
+            <div class="col-12">
+                <label for="imagenArchivo" class="form-label">Imagen de perfil desde tu PC (opcional):</label>
+                <input type="file" class="form-control" id="imagenArchivo" name="imagenArchivo"
+                       accept="image/jpeg,image/png">
+                <small class="text-muted">
+                    JPG o PNG, hasta 5 MB. Elegí un archivo o ingresá una URL, no ambas.
+                    Si el formulario vuelve con un error, seleccioná el archivo nuevamente.
+                </small>
+            </div>
 
-        <div class="col-12">
-            <label for="imagenArchivo" class="form-label">Imagen de perfil desde tu PC (opcional):</label>
-            <input type="file" class="form-control" id="imagenArchivo" name="imagenArchivo"
-                   accept="image/jpeg,image/png">
-            <small class="text-muted">
-                JPG o PNG, hasta 5 MB. Elegí un archivo o ingresá una URL, no ambas.
-                Si el formulario vuelve con un error, seleccioná el archivo nuevamente.
-            </small>
-        </div>
-
-        <div class="col-12">
-            <label for="imagen" class="form-label">URL de la imagen de perfil (opcional):</label>
-            <input type="url" class="form-control" id="imagen" name="imagen" placeholder="https://...">
-        </div>
-
+            <div class="col-12">
+                <label for="imagen" class="form-label">URL de la imagen de perfil (opcional):</label>
+                <input type="url" class="form-control" id="imagen" name="imagen" placeholder="https://...">
+            </div>
         <div class="col-12">
             <button type="submit" class="btn btn-primary w-100">Completar Registro</button>
         </div>
@@ -130,9 +122,5 @@ document.getElementById('formRegistro').addEventListener('submit', function (ev)
     }
 });
 </script>
-    </div>
-
-    <jsp:include page="sidebarDer.jsp" />
-</div>
 
 <jsp:include page="footer.jsp" />

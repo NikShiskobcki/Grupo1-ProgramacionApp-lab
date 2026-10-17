@@ -4,12 +4,6 @@
 <%@ page import="util.Html" %>
 <jsp:include page="header.jsp" />
 
-<div class="home-layout">
-    <jsp:include page="sidebarIzq.jsp" />
-
-    <div class="home-content">
-
-
 <%
     List<UsuarioResumen> usuarios = (List<UsuarioResumen>) request.getAttribute("usuarios");
     String ctx = request.getContextPath();
@@ -43,11 +37,11 @@
                         </svg>
                     </span>
                 <% } else { %>
-                    <span class="avatar-sm-ph">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                <span class="avatar-sm-ph">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                        </svg>
-                    </span>
+                    </svg>
+                </span>
                 <% } %>
                 <div class="flex-grow-1 text-truncate">
                     <div class="fw-semibold text-truncate"><%= Html.esc(u.getNombreCompleto()) %></div>
@@ -61,10 +55,6 @@
     <% } else { %>
         <div class="alert alert-secondary">No hay usuarios registrados.</div>
     <% } %>
-</div>
-    </div>
-
-    <jsp:include page="sidebarDer.jsp" />
 </div>
 
 <jsp:include page="footer.jsp" />

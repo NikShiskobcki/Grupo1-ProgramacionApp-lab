@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import static util.Html.imagen;
 import util.Imagenes;
 
 /**
@@ -68,7 +69,6 @@ public class ModificarUsuarioServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/index.jsp");
             return;
         }
-
         try {
             request.getParts();
         } catch (IllegalStateException e) {
@@ -84,13 +84,14 @@ public class ModificarUsuarioServlet extends HttpServlet {
         String instituto = trim(request.getParameter("instituto"));
         boolean quitarImagen = request.getParameter("quitarImagen") != null;
         boolean esDocente = "Docente".equalsIgnoreCase(actual.getTipoUsuario());
+
         String imagenAnterior = actual.getRutaImagen();
 
         Part archivo = request.getPart("imagenArchivo");
         boolean hayArchivo = archivo != null
                 && archivo.getSubmittedFileName() != null
                 && !archivo.getSubmittedFileName().trim().isEmpty();
-
+        
         String error = null;
         LocalDate fecha = null;
 
@@ -101,7 +102,7 @@ public class ModificarUsuarioServlet extends HttpServlet {
         } else {
             try {
                 fecha = LocalDate.parse(fechaStr);
-                if (fecha.isAfter(LocalDate.now(java.time.ZoneId.of("America/Montevideo")))) {
+                if (fecha.isAfter(LocalDate.now())) {
                     error = "La fecha de nacimiento no puede ser futura.";
                 }
             } catch (DateTimeParseException e) {
@@ -115,6 +116,7 @@ public class ModificarUsuarioServlet extends HttpServlet {
                 error = "El instituto seleccionado no existe.";
             }
         }
+        
         if (error == null && hayArchivo && !imagenUrl.isEmpty()) {
             error = "Elegí una imagen desde tu PC o ingresá una URL, pero no ambas opciones.";
         }
@@ -142,7 +144,7 @@ public class ModificarUsuarioServlet extends HttpServlet {
             request.getRequestDispatcher("/modificarPerfil.jsp").forward(request, response);
             return;
         }
-
+        
         // Sin archivo nuevo, sin URL y sin pedir quitarla: se conserva la imagen que ya tenía.
         String rutaImagen = imagenUrl.isEmpty()
                 ? (quitarImagen ? null : imagenAnterior)
@@ -170,11 +172,11 @@ public class ModificarUsuarioServlet extends HttpServlet {
             }
         }
 
+
         try {
             control.modificarUsuario(nickname, nombre, apellido, fecha,
                     esDocente ? instituto : null,
                     rutaImagen);
-
             // Si se reemplazó o quitó una imagen que vivía en nuestro almacenamiento, la borramos.
             if (imagenAnterior != null && !imagenAnterior.equals(rutaImagen)) {
                 try {
@@ -183,6 +185,7 @@ public class ModificarUsuarioServlet extends HttpServlet {
                     log("No se pudo eliminar la imagen anterior del perfil", ex);
                 }
             }
+
 
             // Refresca los datos de la sesión (el encabezado muestra nombre e imagen)
             UsuarioResumen nuevo = new UsuarioResumen(nickname, nombre + " " + apellido,
@@ -203,13 +206,14 @@ public class ModificarUsuarioServlet extends HttpServlet {
             request.getRequestDispatcher("/modificarPerfil.jsp").forward(request, response);
         }
     }
-
+    
     private void errorMultipart(HttpServletRequest request, HttpServletResponse response,
             String nickname, String mensaje) throws ServletException, IOException {
         cargarFormulario(request, nickname);
         request.setAttribute("error", mensaje);
         request.getRequestDispatcher("/modificarPerfil.jsp").forward(request, response);
     }
+
 
     private void cargarFormulario(HttpServletRequest request, String nickname) {
         UsuarioEdicion datos = control.buscarUsuarioParaEditar(nickname);
