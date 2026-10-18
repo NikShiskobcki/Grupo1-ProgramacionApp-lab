@@ -15,6 +15,10 @@
     InscripcionPrograma inscripcion = (InscripcionPrograma) request.getAttribute("inscripcionPrograma");
 %>
 
+<div class="home-layout">
+    <jsp:include page="sidebarIzq.jsp" />
+
+<div class="home-content">
 <% if (p != null) {
     String img = Html.imagen(ctx, p.getRutaImagen());
 %>
@@ -103,5 +107,7 @@
 </div>
 <p><a href="<%= ctx %>/buscar#programas">← Volver a los programas</a></p>
 <% } %>
+    </div>
+</div>
 
 <jsp:include page="footer.jsp" />

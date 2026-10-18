@@ -11,6 +11,10 @@
     boolean urlSegura = urlCurso.toLowerCase().startsWith("http://") || urlCurso.toLowerCase().startsWith("https://");
 %>
 
+<div class="home-layout">
+    <jsp:include page="sidebarIzq.jsp" />
+
+    <div class="home-content">
 <% if (curso != null) { %>
 <div class="detail-container">
     <div class="detail-header">
@@ -117,5 +121,6 @@
 <% } else { %>
     <p>Curso no encontrado.</p>
 <% } %>
-
+    </div>
+</div>
 <jsp:include page="footer.jsp" />

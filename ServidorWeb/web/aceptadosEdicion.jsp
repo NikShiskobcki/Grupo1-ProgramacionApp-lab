@@ -96,10 +96,6 @@
                             } %>
                         </select>
 
-                        <button type="submit"
-                                class="btn btn-primary w-100">
-                            Ver cursos
-                        </button>
                     </form>
                 </div>
 
@@ -130,10 +126,6 @@
                                 <% } %>
                             </select>
 
-                            <button type="submit"
-                                    class="btn btn-primary w-100">
-                                Ver ediciones
-                            </button>
                         </form>
 
                     <% } else if (institutoSel != null
@@ -174,10 +166,6 @@
                                 <% } %>
                             </select>
 
-                            <button type="submit"
-                                    class="btn btn-primary w-100">
-                                Ver aceptados
-                            </button>
                         </form>
 
                     <% } else if (cursoSel != null
