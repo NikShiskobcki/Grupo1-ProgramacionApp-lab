@@ -384,4 +384,25 @@ public class ManejadorInscripcionEdicion {
         em.close();
     }
 }
+    public boolean existeInscripcionCualquierEstado(
+        String nicknameEstudiante, String nombreEdicion) {
+
+    EntityManager em = emf.createEntityManager();
+
+    try {
+        Long cantidad = em.createQuery(
+                "SELECT COUNT(i) FROM InscripcionEdicion i "
+                + "WHERE i.estudiante.nickname = :nickname "
+                + "AND i.edicion.nombre = :edicion",
+                Long.class)
+                .setParameter("nickname", nicknameEstudiante)
+                .setParameter("edicion", nombreEdicion)
+                .getSingleResult();
+
+        return cantidad > 0;
+
+    } finally {
+        em.close();
+    }
+}
 }

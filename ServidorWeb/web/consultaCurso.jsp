@@ -31,7 +31,6 @@
                                 <option value="<%= Html.esc(inst) %>" <%= inst.equals(institutoSel) ? "selected" : "" %>><%= Html.esc(inst) %></option>
                             <% } } %>
                         </select>
-                        <button type="submit" class="btn btn-primary">Ver cursos</button>
                     </div>
                 </form>
             </div>
@@ -45,7 +44,6 @@
                                 <option value="<%= Html.esc(cat) %>" <%= cat.equals(categoriaSel) ? "selected" : "" %>><%= Html.esc(cat) %></option>
                             <% } } %>
                         </select>
-                        <button type="submit" class="btn btn-primary">Ver cursos</button>
                     </div>
                 </form>
             </div>
@@ -82,5 +80,21 @@
         <% } %>
     </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    ["instituto", "categoria"].forEach(id => {
+        const selector = document.getElementById(id);
+
+        if (selector) {
+            selector.addEventListener("change", () => {
+                if (selector.value) {
+                    selector.form.requestSubmit();
+                }
+            });
+        }
+    });
+});
+</script>
 
 <jsp:include page="footer.jsp" />

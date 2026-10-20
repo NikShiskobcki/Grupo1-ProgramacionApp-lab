@@ -146,7 +146,7 @@ public class CargadorDatosPrueba {
        // ESTUDIANTES
 
        if (!manejadorUsuario.existeNickname("eleven11")) {
-           manejadorUsuario.addUsuario(
+           agregarUsuarioConImagen(
                    new Estudiante(
                            "eleven11",
                            "Eleven",
@@ -159,7 +159,7 @@ public class CargadorDatosPrueba {
        }
 
        if (!manejadorUsuario.existeNickname("costas")) {
-           manejadorUsuario.addUsuario(
+           agregarUsuarioConImagen(
                    new Estudiante(
                            "costas",
                            "Gerardo",
@@ -172,7 +172,7 @@ public class CargadorDatosPrueba {
        }
 
        if (!manejadorUsuario.existeNickname("roro")) {
-           manejadorUsuario.addUsuario(
+           agregarUsuarioConImagen(
                    new Estudiante(
                            "roro",
                            "Rodrigo",
@@ -185,7 +185,7 @@ public class CargadorDatosPrueba {
        }
 
        if (!manejadorUsuario.existeNickname("chechi")) {
-           manejadorUsuario.addUsuario(
+           agregarUsuarioConImagen(
                    new Estudiante(
                            "chechi",
                            "Cecilia",
@@ -198,7 +198,7 @@ public class CargadorDatosPrueba {
        }
 
        if (!manejadorUsuario.existeNickname("jeffw")) {
-           manejadorUsuario.addUsuario(
+           agregarUsuarioConImagen(
                    new Estudiante(
                            "jeffw",
                            "Jeff",
@@ -211,7 +211,7 @@ public class CargadorDatosPrueba {
        }
 
        if (!manejadorUsuario.existeNickname("weiss")) {
-           manejadorUsuario.addUsuario(
+           agregarUsuarioConImagen(
                    new Estudiante(
                            "weiss",
                            "Adrian",
@@ -243,7 +243,7 @@ public class CargadorDatosPrueba {
        // DOCENTES
 
        if (!manejadorUsuario.existeNickname("heisenberg")) {
-           manejadorUsuario.addUsuario(
+           agregarUsuarioConImagen(
                    new Docente(
                            "heisenberg",
                            "Walter",
@@ -257,7 +257,7 @@ public class CargadorDatosPrueba {
        }
 
        if (!manejadorUsuario.existeNickname("benkenobi")) {
-           manejadorUsuario.addUsuario(
+           agregarUsuarioConImagen(
                    new Docente(
                            "benkenobi",
                            "Obi-Wan",
@@ -271,7 +271,7 @@ public class CargadorDatosPrueba {
        }
 
        if (!manejadorUsuario.existeNickname("waston")) {
-           manejadorUsuario.addUsuario(
+           agregarUsuarioConImagen(
                    new Docente(
                            "waston",
                            "Emma",
@@ -285,7 +285,7 @@ public class CargadorDatosPrueba {
        }
 
        if (!manejadorUsuario.existeNickname("house")) {
-           manejadorUsuario.addUsuario(
+           agregarUsuarioConImagen(
                    new Docente(
                            "house",
                            "Gregory",
@@ -299,7 +299,7 @@ public class CargadorDatosPrueba {
        }
 
        if (!manejadorUsuario.existeNickname("timmy")) {
-           manejadorUsuario.addUsuario(
+           agregarUsuarioConImagen(
                    new Docente(
                            "timmy",
                            "Tim",
@@ -313,7 +313,7 @@ public class CargadorDatosPrueba {
        }
 
        if (!manejadorUsuario.existeNickname("danny")) {
-           manejadorUsuario.addUsuario(
+           agregarUsuarioConImagen(
                    new Docente(
                            "danny",
                            "Daniel",
@@ -327,7 +327,7 @@ public class CargadorDatosPrueba {
        }
 
        if (!manejadorUsuario.existeNickname("phils")) {
-           manejadorUsuario.addUsuario(
+           agregarUsuarioConImagen(
                    new Docente(
                            "phils",
                            "Philip",
@@ -341,7 +341,7 @@ public class CargadorDatosPrueba {
        }
 
        if (!manejadorUsuario.existeNickname("bruces")) {
-           manejadorUsuario.addUsuario(
+           agregarUsuarioConImagen(
                    new Docente(
                            "bruces",
                            "Bruce",
@@ -355,7 +355,7 @@ public class CargadorDatosPrueba {
        }
 
        if (!manejadorUsuario.existeNickname("adri")) {
-           manejadorUsuario.addUsuario(
+           agregarUsuarioConImagen(
                    new Docente(
                            "adri",
                            "Adriana",
@@ -801,14 +801,14 @@ public class CargadorDatosPrueba {
     private void agregarCursoSiNoExiste(Curso curso) {
 
     if (manejadorCurso.buscarPorNombre(curso.getNombre()) == null) {
-        manejadorCurso.addCurso(curso);
+        agregarCursoConImagen(curso);
     }
 }
     
     private void agregarEdicionSiNoExiste(EdicionCurso edicion) {
 
     if (manejadorEdicionCurso.buscarPorNombre(edicion.getNombre()) == null) {
-        manejadorEdicionCurso.addEdicion(edicion);
+        agregarEdicionConImagen(edicion);
     }
 }
     private void cargarInscripciones() {
@@ -904,7 +904,7 @@ public class CargadorDatosPrueba {
             LocalDate fechaInscripcion,
             EstadoInscripcion estado) {
 
-        if (manejadorInscripcionEdicion.buscarInscripcion(nicknameEstudiante, nombreEdicion) != null) {
+        if (manejadorInscripcionEdicion.existeInscripcionCualquierEstado(nicknameEstudiante, nombreEdicion)) {
             return;
         }
 
@@ -921,7 +921,7 @@ public class CargadorDatosPrueba {
     if (!manejadorProgramaFormacion.existePrograma(
             "EFI Ingeniería Mecánica")) {
 
-        manejadorProgramaFormacion.addPrograma(
+        agregarProgramaConImagen(
                 new ProgramaFormacion(
                         "EFI Ingeniería Mecánica",
                         "Programa mecánica",
@@ -935,7 +935,7 @@ public class CargadorDatosPrueba {
     if (!manejadorProgramaFormacion.existePrograma(
             "Formación integral")) {
 
-        manejadorProgramaFormacion.addPrograma(
+        agregarProgramaConImagen(
                 new ProgramaFormacion(
                         "Formación integral",
                         "Programa varios institutos",
@@ -949,7 +949,7 @@ public class CargadorDatosPrueba {
     if (!manejadorProgramaFormacion.existePrograma(
             "EFI Robótica")) {
 
-        manejadorProgramaFormacion.addPrograma(
+        agregarProgramaConImagen(
                 new ProgramaFormacion(
                         "EFI Robótica",
                         "Programa robótica",
@@ -1070,4 +1070,21 @@ public class CargadorDatosPrueba {
 
     manejadorInscripcionEdicion.addInscripcion(inscripcion);
 }
+
+    private void agregarUsuarioConImagen(Logica.Entidades.Usuario usuario) {
+        manejadorUsuario.addUsuario(ImagenesPrueba.preparar(usuario));
+    }
+
+    private void agregarCursoConImagen(Curso curso) {
+        manejadorCurso.addCurso(ImagenesPrueba.preparar(curso));
+    }
+
+    private void agregarEdicionConImagen(EdicionCurso edicion) {
+        manejadorEdicionCurso.addEdicion(ImagenesPrueba.preparar(edicion));
+    }
+
+    private void agregarProgramaConImagen(ProgramaFormacion programa) {
+        manejadorProgramaFormacion.addPrograma(
+                ImagenesPrueba.preparar(programa));
+    }
 }
