@@ -50,6 +50,9 @@
 %>
 <div class="container-fluid px-0">
 
+    <!-- Carteles que agrega main.js al seguir / dejar de seguir (AJAX) -->
+    <div id="alertas-seguir" aria-live="polite"></div>
+
     <% if ("modificado".equals(request.getParameter("msg"))) { %>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             Tus datos se actualizaron correctamente.
@@ -112,14 +115,14 @@
                 <a href="<%= ctx %>/cambiar-contrasenia" class="btn btn-outline-secondary">Cambiar contraseña</a>
             <% } %>
             <% if (puedeSeguir) { %>
-                <form method="post" action="<%= ctx %>/seguir-usuario" class="m-0">
+                <form method="post" action="<%= ctx %>/seguir-usuario" class="m-0" id="formSeguir">
                     <input type="hidden" name="user" value="<%= Html.esc(perfil.getNickname()) %>">
                     <% if (siguiendo) { %>
                         <input type="hidden" name="accion" value="dejar">
-                        <button type="submit" class="btn btn-outline-secondary">✖ Dejar de seguir</button>
+                        <button type="submit" id="btnSeguir" class="btn btn-outline-secondary">✖ Dejar de seguir</button>
                     <% } else { %>
                         <input type="hidden" name="accion" value="seguir">
-                        <button type="submit" class="btn btn-primary">＋ Seguir</button>
+                        <button type="submit" id="btnSeguir" class="btn btn-primary">＋ Seguir</button>
                     <% } %>
                 </form>
             <% } %>
@@ -143,13 +146,13 @@
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="btn-seguidos" data-bs-toggle="tab" data-bs-target="#tab-seguidos"
                     type="button" role="tab" aria-controls="tab-seguidos" aria-selected="false">
-                Seguidos <span class="badge text-bg-secondary ms-1"><%= cantSeguidos %></span>
+                Seguidos <span class="badge text-bg-secondary ms-1" id="cont-seguidos"><%= cantSeguidos %></span>
             </button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="btn-seguidores" data-bs-toggle="tab" data-bs-target="#tab-seguidores"
                     type="button" role="tab" aria-controls="tab-seguidores" aria-selected="false">
-                Seguidores <span class="badge text-bg-secondary ms-1"><%= cantSeguidores %></span>
+                Seguidores <span class="badge text-bg-secondary ms-1" id="cont-seguidores"><%= cantSeguidores %></span>
             </button>
         </li>
     </ul>
@@ -315,13 +318,13 @@
         %>
         <div class="tab-pane fade" id="tab-<%= idsTab[k] %>" role="tabpanel" aria-labelledby="btn-<%= idsTab[k] %>" tabindex="0">
             <h5 class="mb-3"><%= titulosTab[k] %></h5>
-            <% if (lista != null && !lista.isEmpty()) { %>
-                <div class="row g-3">
-                    <% for (UsuarioResumen u : lista) {
+            <% boolean hayLista = lista != null && !lista.isEmpty(); %>
+                <div class="row g-3<%= hayLista ? "" : " d-none" %>" id="lista-<%= idsTab[k] %>">
+                    <% if (hayLista) for (UsuarioResumen u : lista) {
                            String imgU = Html.imagen(ctx, u.getRutaImagen());
                            boolean docenteU = "Docente".equalsIgnoreCase(u.getTipo());
                     %>
-                    <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-6" data-nick="<%= Html.esc(u.getNickname()) %>">
                         <a href="<%= ctx %>/perfil?user=<%= Html.url(u.getNickname()) %>"
                            class="edext-panel p-3 d-flex align-items-center gap-3 text-decoration-none h-100 text-reset">
                             <% if (!imgU.isEmpty()) { %>
@@ -347,9 +350,7 @@
                     </div>  
                     <% } %>
                 </div>
-            <% } else { %>
-                <p class="text-muted mb-0"><%= vaciosTab[k] %></p>
-            <% } %>
+                <p class="text-muted mb-0<%= hayLista ? " d-none" : "" %>" id="vacio-<%= idsTab[k] %>"><%= vaciosTab[k] %></p>
         </div>
         <% } %>
     </div>
