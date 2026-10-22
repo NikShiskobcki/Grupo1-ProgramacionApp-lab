@@ -4,7 +4,6 @@ import Logica.controladores.IControlador;
 import Logica.controladores.Fabrica;
 import java.awt.Color;
 import java.awt.Image;
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -19,6 +18,9 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
 
     public IFAltaUsuario() {
         initComponents();
+        FechaUtil.configurar(dcFechaNacimiento);
+        dcFechaNacimiento.setMinSelectableDate(FechaUtil.toDate(LocalDate.of(1900, 1, 1)));
+        dcFechaNacimiento.setMaxSelectableDate(FechaUtil.toDate(LocalDate.now()));
         cargarInstitutos();
         actualizarEstadoInstituto();
     }
@@ -29,11 +31,9 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
         cbInstitutos.setModel(new DefaultComboBoxModel<>(nombresInstitutos.toArray(new String[0])));
     }
 
-
     private void actualizarEstadoInstituto() {
         cbInstitutos.setEnabled(chbDocente.isSelected());
     }
-
 
     private void limpiarFormulario() {
         tfNickname.setForeground(new Color(153, 153, 153));
@@ -44,12 +44,7 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
         tfApellido.setText("Ingrese apellido del usuario");
         tfCorreo.setForeground(new Color(153, 153, 153));
         tfCorreo.setText("Ingrese correo del usuario");
-        tfDia.setForeground(new Color(153, 153, 153));
-        tfDia.setText("dia");
-        tfMes.setForeground(new Color(153, 153, 153));
-        tfMes.setText("mes");
-        tfAnio.setForeground(new Color(153, 153, 153));
-        tfAnio.setText("año");
+        dcFechaNacimiento.setDate(null);
         tfContrasenia.setText("");
         chbAlumno.setSelected(false);
         chbDocente.setSelected(false);
@@ -59,7 +54,6 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
         lblImagenPreview.setIcon(null);
         txtConfirmarContrasenia.setText("");
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -72,31 +66,23 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
         usersSeparator1 = new javax.swing.JSeparator();
         usersSeparator2 = new javax.swing.JSeparator();
         usersSeparator3 = new javax.swing.JSeparator();
-        usersSeparator4 = new javax.swing.JSeparator();
         lblUsuarios7 = new javax.swing.JLabel();
-        usersSeparator5 = new javax.swing.JSeparator();
-        usersSeparator6 = new javax.swing.JSeparator();
         chbAlumno = new javax.swing.JCheckBox();
         chbDocente = new javax.swing.JCheckBox();
         btnAlta = new javax.swing.JButton();
-        tfAnio = new javax.swing.JTextField();
         tfNickname = new javax.swing.JTextField();
         tfNombre = new javax.swing.JTextField();
         tfApellido = new javax.swing.JTextField();
         tfCorreo = new javax.swing.JTextField();
         tfContrasenia = new javax.swing.JPasswordField();
         usersSeparator9 = new javax.swing.JSeparator();
-        tfDia = new javax.swing.JTextField();
-        tfMes = new javax.swing.JTextField();
+        dcFechaNacimiento = new com.toedter.calendar.JDateChooser();
         usersSeparator7 = new javax.swing.JSeparator();
         cbInstitutos = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         btnAgregarImagen = new javax.swing.JButton();
         lblImagenPreview = new javax.swing.JLabel();
         usersSeparator8 = new javax.swing.JSeparator();
@@ -179,9 +165,6 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
         usersSeparator3.setForeground(new java.awt.Color(35, 71, 75));
         getContentPane().add(usersSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 260, 200, 10));
 
-        usersSeparator4.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 440, 40, 10));
-
         lblUsuarios7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblUsuarios7.setForeground(new java.awt.Color(35, 71, 75));
         lblUsuarios7.setText("Fecha de nacimiento");
@@ -197,13 +180,7 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
                 lblUsuarios7MouseExited(evt);
             }
         });
-        getContentPane().add(lblUsuarios7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 370, 200, 38));
-
-        usersSeparator5.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 480, 40, 10));
-
-        usersSeparator6.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 520, 70, 10));
+        getContentPane().add(lblUsuarios7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 380, 160, 38));
 
         chbAlumno.setText("Alumno");
         chbAlumno.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -212,7 +189,7 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
             }
         });
         chbAlumno.addActionListener(this::chbAlumnoActionPerformed);
-        getContentPane().add(chbAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 540, -1, -1));
+        getContentPane().add(chbAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 450, -1, -1));
 
         chbDocente.setText("Docente");
         chbDocente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -221,7 +198,7 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
             }
         });
         chbDocente.addActionListener(this::chbDocenteActionPerformed);
-        getContentPane().add(chbDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 540, -1, -1));
+        getContentPane().add(chbDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 450, -1, -1));
 
         btnAlta.setBackground(new java.awt.Color(35, 71, 75));
         btnAlta.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -231,21 +208,7 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
         btnAlta.addActionListener(this::btnAltaActionPerformed);
         getContentPane().add(btnAlta, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 530, 130, 50));
 
-        tfAnio.setBackground(new java.awt.Color(242, 242, 242));
-        tfAnio.setForeground(new java.awt.Color(153, 153, 153));
-        tfAnio.setText("AAAA");
-        tfAnio.setToolTipText("");
-        tfAnio.setBorder(null);
-        tfAnio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tfAnioMousePressed(evt);
-            }
-        });
-        tfAnio.addActionListener(this::tfAnioActionPerformed);
-        getContentPane().add(tfAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 490, 70, 30));
-
         tfNickname.setBackground(new java.awt.Color(242, 242, 242));
-        tfNickname.setForeground(new java.awt.Color(153, 153, 153));
         tfNickname.setBorder(null);
         tfNickname.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -256,7 +219,6 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
         getContentPane().add(tfNickname, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 380, 30));
 
         tfNombre.setBackground(new java.awt.Color(242, 242, 242));
-        tfNombre.setForeground(new java.awt.Color(153, 153, 153));
         tfNombre.setBorder(null);
         tfNombre.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -267,7 +229,6 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
         getContentPane().add(tfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 380, 30));
 
         tfApellido.setBackground(new java.awt.Color(242, 242, 242));
-        tfApellido.setForeground(new java.awt.Color(153, 153, 153));
         tfApellido.setBorder(null);
         tfApellido.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -278,7 +239,6 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
         getContentPane().add(tfApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 380, 30));
 
         tfCorreo.setBackground(new java.awt.Color(242, 242, 242));
-        tfCorreo.setForeground(new java.awt.Color(153, 153, 153));
         tfCorreo.setBorder(null);
         tfCorreo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -286,7 +246,7 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
             }
         });
         tfCorreo.addActionListener(this::tfCorreoActionPerformed);
-        getContentPane().add(tfCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, 380, 30));
+        getContentPane().add(tfCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, 380, 30));
 
         tfContrasenia.setBackground(new java.awt.Color(242, 242, 242));
         tfContrasenia.setBorder(null);
@@ -295,42 +255,16 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
         usersSeparator9.setForeground(new java.awt.Color(35, 71, 75));
         getContentPane().add(usersSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 310, 370, 10));
 
-        tfDia.setBackground(new java.awt.Color(242, 242, 242));
-        tfDia.setForeground(new java.awt.Color(153, 153, 153));
-        tfDia.setText("DD");
-        tfDia.setBorder(null);
-        tfDia.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tfDiaMousePressed(evt);
-            }
-        });
-        tfDia.addActionListener(this::tfDiaActionPerformed);
-        getContentPane().add(tfDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 410, 40, 30));
-
-        tfMes.setBackground(new java.awt.Color(242, 242, 242));
-        tfMes.setForeground(new java.awt.Color(153, 153, 153));
-        tfMes.setText("MM");
-        tfMes.setBorder(null);
-        tfMes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tfMesMousePressed(evt);
-            }
-        });
-        tfMes.addActionListener(this::tfMesActionPerformed);
-        getContentPane().add(tfMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 450, 40, 30));
+        dcFechaNacimiento.setDateFormatString("dd/MM/yyyy");
+        getContentPane().add(dcFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 380, 180, 30));
 
         usersSeparator7.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 600, 270, 10));
+        getContentPane().add(usersSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 480, 270, 10));
 
         cbInstitutos.setBackground(new java.awt.Color(242, 242, 242));
         cbInstitutos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbInstitutos.setBorder(null);
-        getContentPane().add(cbInstitutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 570, 270, 30));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(35, 71, 75));
-        jLabel1.setText("año");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 490, 30, 30));
+        getContentPane().add(cbInstitutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 450, 270, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(35, 71, 75));
@@ -350,17 +284,7 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(35, 71, 75));
         jLabel5.setText("Correo");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 70, 30));
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(35, 71, 75));
-        jLabel6.setText("Dia");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 410, 30, 30));
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(35, 71, 75));
-        jLabel7.setText("Mes");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 450, 30, 30));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 70, 30));
 
         btnAgregarImagen.setBackground(new java.awt.Color(35, 71, 75));
         btnAgregarImagen.setForeground(new java.awt.Color(255, 255, 255));
@@ -444,10 +368,6 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
        actualizarEstadoInstituto();
     }//GEN-LAST:event_chbDocenteActionPerformed
 
-    private void tfAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfAnioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfAnioActionPerformed
-
     private void tfNicknameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNicknameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNicknameActionPerformed
@@ -463,14 +383,6 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
     private void tfCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCorreoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfCorreoActionPerformed
-
-    private void tfDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDiaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfDiaActionPerformed
-
-    private void tfMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfMesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfMesActionPerformed
 
     private void tfNicknameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfNicknameMousePressed
         tfNickname.setForeground(new Color(0,0,0));
@@ -500,27 +412,6 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tfCorreoMousePressed
 
-    private void tfDiaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfDiaMousePressed
-        tfDia.setForeground(new Color(0,0,0));
-        if(tfDia.getText().equals("DD")){
-            tfDia.setText("");
-        }
-    }//GEN-LAST:event_tfDiaMousePressed
-
-    private void tfMesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfMesMousePressed
-        tfMes.setForeground(new Color(0,0,0));
-        if(tfMes.getText().equals("MM")){
-            tfMes.setText("");
-        }
-    }//GEN-LAST:event_tfMesMousePressed
-
-    private void tfAnioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfAnioMousePressed
-        tfAnio.setForeground(new Color(0,0,0));
-        if(tfAnio.getText().equals("AAAA")){
-            tfAnio.setText("");
-        }
-    }//GEN-LAST:event_tfAnioMousePressed
-
     private void chbDocenteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chbDocenteMouseClicked
 
     }//GEN-LAST:event_chbDocenteMouseClicked
@@ -534,9 +425,7 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
             || tfNombre.getText().trim().isEmpty() || tfNombre.getText().equals("Ingrese nombre del usuario")
             || tfApellido.getText().trim().isEmpty() || tfApellido.getText().equals("Ingrese apellido del usuario")
             || tfCorreo.getText().trim().isEmpty() || tfCorreo.getText().equals("Ingrese correo del usuario") 
-            || tfDia.getText().trim().isEmpty() || tfDia.getText().equals("dia")
-            || tfMes.getText().trim().isEmpty() || tfMes.getText().equals("mes")
-            || tfAnio.getText().trim().isEmpty() || tfAnio.getText().equals("año")
+            || dcFechaNacimiento.getDate() == null
             || tfContrasenia.getPassword().length == 0
             || txtConfirmarContrasenia.getPassword().length == 0) {
 
@@ -585,21 +474,7 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
     }
 
     // Fecha de nacimiento válida
-    LocalDate fechaNacimiento;
-    try {
-        int dia = Integer.parseInt(tfDia.getText().trim());
-        int mes = Integer.parseInt(tfMes.getText().trim());
-        int anio = Integer.parseInt(tfAnio.getText().trim());
-
-        fechaNacimiento = LocalDate.of(anio, mes, dia);
-
-    } catch (NumberFormatException | DateTimeException ex) {
-        JOptionPane.showMessageDialog(
-            this, "La fecha de nacimiento ingresada no es válida.",
-            "Fecha Inválida", JOptionPane.WARNING_MESSAGE
-        );
-        return;
-    }
+    LocalDate fechaNacimiento = FechaUtil.toLocalDate(dcFechaNacimiento.getDate());
 
     if (fechaNacimiento.isAfter(LocalDate.now())) {
         JOptionPane.showMessageDialog(
@@ -722,20 +597,17 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
         return new ImageIcon(img);
     }
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarImagen;
     private javax.swing.JButton btnAlta;
     private javax.swing.JComboBox<String> cbInstitutos;
     private javax.swing.JCheckBox chbAlumno;
     private javax.swing.JCheckBox chbDocente;
-    private javax.swing.JLabel jLabel1;
+    private com.toedter.calendar.JDateChooser dcFechaNacimiento;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelContrasenia1;
     private javax.swing.JLabel jLabelContrasenia2;
     private javax.swing.JPanel jPanel2;
@@ -743,12 +615,9 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblUsuarios;
     private javax.swing.JLabel lblUsuarios1;
     private javax.swing.JLabel lblUsuarios7;
-    private javax.swing.JTextField tfAnio;
     private javax.swing.JTextField tfApellido;
     private javax.swing.JPasswordField tfContrasenia;
     private javax.swing.JTextField tfCorreo;
-    private javax.swing.JTextField tfDia;
-    private javax.swing.JTextField tfMes;
     private javax.swing.JTextField tfNickname;
     private javax.swing.JTextField tfNombre;
     private javax.swing.JPasswordField txtConfirmarContrasenia;
@@ -758,9 +627,6 @@ public class IFAltaUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator usersSeparator11;
     private javax.swing.JSeparator usersSeparator2;
     private javax.swing.JSeparator usersSeparator3;
-    private javax.swing.JSeparator usersSeparator4;
-    private javax.swing.JSeparator usersSeparator5;
-    private javax.swing.JSeparator usersSeparator6;
     private javax.swing.JSeparator usersSeparator7;
     private javax.swing.JSeparator usersSeparator8;
     private javax.swing.JSeparator usersSeparator9;

@@ -10,12 +10,9 @@ import Logica.Entidades.Estudiante;
 import Logica.Entidades.InscripcionEdicion;
 import Logica.Entidades.Instituto;
 import Logica.controladores.IControlador;
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 
 /**
  *
@@ -48,7 +45,7 @@ public class IFInscripcionEdicionCurso extends javax.swing.JInternalFrame {
     cmbEdicion.setEnabled(false);
 
     cargarInstitutos();
-    configurarSpinnersFecha();
+    configurarFechaInscripcion();
     }
     
     private void cargarInstitutos() {
@@ -59,26 +56,10 @@ public class IFInscripcionEdicionCurso extends javax.swing.JInternalFrame {
         cmbInstituto.addItem(instituto.getNombre());
     }
 }
-    private void configurarSpinnersFecha() {
-
-    LocalDate hoy = LocalDate.now();
-
-    spDiaInscripcion.setModel(
-            new SpinnerNumberModel(hoy.getDayOfMonth(), 1, 31, 1)
-    );
-
-    spMesInscripcion.setModel(
-            new SpinnerNumberModel(hoy.getMonthValue(), 1, 12, 1)
-    );
-
-    spAnioInscripcion.setModel(
-            new SpinnerNumberModel(hoy.getYear(), 1900, 2100, 1)
-    );
-
-    spAnioInscripcion.setEditor(
-            new JSpinner.NumberEditor(spAnioInscripcion, "0")
-    );
-}
+    private void configurarFechaInscripcion() {
+        FechaUtil.configurar(dcFechaInscripcion);
+        dcFechaInscripcion.setDate(FechaUtil.toDate(LocalDate.now()));
+    }
     private void cargarCursosPorInstituto(){
 
     cmbCurso.removeAllItems();
@@ -201,7 +182,7 @@ private void cargarEdicionesVigentes() {
     if (inscripcion == null) {
 
         btnAceptar.setText("Inscribir");
-        configurarSpinnersFecha();
+        configurarFechaInscripcion();
 
     } else {
 
@@ -210,9 +191,8 @@ private void cargarEdicionesVigentes() {
         LocalDate fecha =
                 inscripcion.getFechaInscripcion();
 
-        spDiaInscripcion.setValue(fecha.getDayOfMonth());
-        spMesInscripcion.setValue(fecha.getMonthValue());
-        spAnioInscripcion.setValue(fecha.getYear());
+        FechaUtil.configurar(dcFechaInscripcion);
+        dcFechaInscripcion.setDate(FechaUtil.toDate(fecha));
     }
 }
 
@@ -229,9 +209,7 @@ private void cargarEdicionesVigentes() {
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         cmbInstituto = new javax.swing.JComboBox<>();
         cmbCurso = new javax.swing.JComboBox<>();
-        spDiaInscripcion = new javax.swing.JSpinner();
-        spMesInscripcion = new javax.swing.JSpinner();
-        spAnioInscripcion = new javax.swing.JSpinner();
+        dcFechaInscripcion = new com.toedter.calendar.JDateChooser();
         btnAceptar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -240,13 +218,15 @@ private void cargarEdicionesVigentes() {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         cmbEstudiante = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         cmbEdicion = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         lblUsuarios = new javax.swing.JLabel();
         lblUsuarios1 = new javax.swing.JLabel();
+        usersSeparator5 = new javax.swing.JSeparator();
+        usersSeparator6 = new javax.swing.JSeparator();
+        usersSeparator7 = new javax.swing.JSeparator();
+        usersSeparator8 = new javax.swing.JSeparator();
+        usersSeparator9 = new javax.swing.JSeparator();
 
         jLabel8.setText("Dia");
 
@@ -267,9 +247,9 @@ private void cargarEdicionesVigentes() {
         cmbCurso.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cmbCurso.addActionListener(this::cmbCursoActionPerformed);
         getContentPane().add(cmbCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, 320, 30));
-        getContentPane().add(spDiaInscripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 340, 60, 40));
-        getContentPane().add(spMesInscripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 340, 60, 40));
-        getContentPane().add(spAnioInscripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 340, 60, 40));
+
+        dcFechaInscripcion.setDateFormatString("dd/MM/yyyy");
+        getContentPane().add(dcFechaInscripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, 200, 30));
 
         btnAceptar.setBackground(new java.awt.Color(35, 71, 75));
         btnAceptar.setForeground(new java.awt.Color(255, 255, 255));
@@ -309,21 +289,6 @@ private void cargarEdicionesVigentes() {
         cmbEstudiante.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cmbEstudiante.addActionListener(this::cmbEstudianteActionPerformed);
         getContentPane().add(cmbEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 230, 320, 30));
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(35, 71, 75));
-        jLabel5.setText("Dia");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 360, -1, -1));
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(35, 71, 75));
-        jLabel9.setText("Mes");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 360, -1, -1));
-
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(35, 71, 75));
-        jLabel10.setText("Año");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 360, -1, -1));
 
         cmbEdicion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbEdicion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -370,8 +335,8 @@ private void cargarEdicionesVigentes() {
                 .addGap(18, 18, 18)
                 .addComponent(lblUsuarios)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(600, Short.MAX_VALUE))
+                .addComponent(lblUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(514, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,6 +349,21 @@ private void cargarEdicionesVigentes() {
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 60));
+
+        usersSeparator5.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 320, 10));
+
+        usersSeparator6.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 310, 200, 10));
+
+        usersSeparator7.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 260, 320, 10));
+
+        usersSeparator8.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 220, 320, 10));
+
+        usersSeparator9.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, 320, 10));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -415,27 +395,13 @@ private void cargarEdicionesVigentes() {
         return;
     }
 
-    LocalDate fechaInscripcion;
+    LocalDate fechaInscripcion = FechaUtil.toLocalDate(dcFechaInscripcion.getDate());
 
-    try {
-
-        int dia =
-                (Integer) spDiaInscripcion.getValue();
-
-        int mes =
-                (Integer) spMesInscripcion.getValue();
-
-        int anio =
-                (Integer) spAnioInscripcion.getValue();
-
-        fechaInscripcion =
-                LocalDate.of(anio, mes, dia);
-
-    } catch (DateTimeException e) {
+    if (fechaInscripcion == null) {
 
         JOptionPane.showMessageDialog(
                 this,
-                "La fecha ingresada no es válida.",
+                "Debe seleccionar la fecha de inscripción.",
                 "Inscripción",
                 JOptionPane.ERROR_MESSAGE
         );
@@ -517,7 +483,6 @@ private void cargarEdicionesVigentes() {
 
     private void cmbEdicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEdicionActionPerformed
 
-
     if (!cmbEdicion.isEnabled()
             || cmbEdicion.getSelectedIndex() <= 0) {
 
@@ -567,29 +532,28 @@ private void cargarEdicionesVigentes() {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblUsuarios1MouseExited
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JComboBox<String> cmbCurso;
     private javax.swing.JComboBox<String> cmbEdicion;
     private javax.swing.JComboBox<String> cmbEstudiante;
     private javax.swing.JComboBox<String> cmbInstituto;
+    private com.toedter.calendar.JDateChooser dcFechaInscripcion;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblUsuarios;
     private javax.swing.JLabel lblUsuarios1;
-    private javax.swing.JSpinner spAnioInscripcion;
-    private javax.swing.JSpinner spDiaInscripcion;
-    private javax.swing.JSpinner spMesInscripcion;
+    private javax.swing.JSeparator usersSeparator5;
+    private javax.swing.JSeparator usersSeparator6;
+    private javax.swing.JSeparator usersSeparator7;
+    private javax.swing.JSeparator usersSeparator8;
+    private javax.swing.JSeparator usersSeparator9;
     // End of variables declaration//GEN-END:variables
 }

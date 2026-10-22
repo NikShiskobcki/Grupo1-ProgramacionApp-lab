@@ -16,7 +16,6 @@
     String vFecha    = request.getAttribute("v_fecha")    != null ? (String) request.getAttribute("v_fecha")    : (u != null && u.getFechaNacimiento() != null ? u.getFechaNacimiento().toString() : "");
     String vImagen   = request.getAttribute("v_imagen")   != null ? (String) request.getAttribute("v_imagen")   : (u != null && u.getRutaImagen() != null ? u.getRutaImagen() : "");
     String vInst     = request.getAttribute("v_instituto")!= null ? (String) request.getAttribute("v_instituto"): (u != null ? u.getInstituto() : "");
-
     // El campo de URL solo se prellena si la imagen actual es una URL http(s);
     // una imagen subida como archivo vive en una ruta interna (/imagenes/...) que no es editable como URL.
     String vImagenLower = vImagen == null ? "" : vImagen.toLowerCase();
@@ -36,8 +35,7 @@
             <div class="alert alert-danger" role="alert"><%= Html.esc(request.getAttribute("error")) %></div>
         <% } %>
 
-        <form action="<%= ctx %>/modificar-perfil" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
-            <div class="row g-3">
+        <form action="<%= ctx %>/modificar-perfil" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>            <div class="row g-3">
                 <div class="col-md-6">
                     <label for="nickname" class="form-label">Nickname</label>
                     <input type="text" id="nickname" class="form-control" value="<%= Html.esc(u.getNickname()) %>" disabled>
@@ -80,7 +78,7 @@
                     <div class="invalid-feedback">Seleccioná un instituto.</div>
                 </div>
                 <% } %>
-
+                
                 <% String srcActual = Html.imagen(ctx, vImagen); %>
                 <% if (!srcActual.isEmpty()) { %>
                 <div class="col-12">
@@ -109,7 +107,7 @@
                     <input type="url" id="imagen" name="imagen" class="form-control" maxlength="255"
                            placeholder="https://..." value="<%= Html.esc(vImagenUrlCampo) %>">
                     <% if (!vImagenEsUrl && !srcActual.isEmpty()) { %>
-                        <small class="text-muted">Tu imagen actual fue subida como archivo; dejá esto vacío para conservarla.</small>
+                    <small class="text-muted">Tu imagen actual fue subida como archivo; dejá esto vacío para conservarla.</small>
                     <% } %>
                 </div>
             </div>

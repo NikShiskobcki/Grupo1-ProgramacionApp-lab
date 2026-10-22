@@ -161,6 +161,11 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
         lblImagenPreview = new javax.swing.JLabel();
         btnAgregarImagen = new javax.swing.JButton();
         usersSeparator1 = new javax.swing.JSeparator();
+        usersSeparator2 = new javax.swing.JSeparator();
+        usersSeparator3 = new javax.swing.JSeparator();
+        usersSeparator4 = new javax.swing.JSeparator();
+        usersSeparator5 = new javax.swing.JSeparator();
+        usersSeparator6 = new javax.swing.JSeparator();
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         setMinimumSize(new java.awt.Dimension(910, 640));
@@ -282,21 +287,21 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
         tfDia.setText("día");
         tfDia.setBorder(null);
         tfDia.setEnabled(false);
-        getContentPane().add(tfDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 350, 70, 30));
+        getContentPane().add(tfDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 350, 60, 30));
 
         tfMes.setBackground(new java.awt.Color(242, 242, 242));
         tfMes.setForeground(new java.awt.Color(153, 153, 153));
         tfMes.setText("mes");
         tfMes.setBorder(null);
         tfMes.setEnabled(false);
-        getContentPane().add(tfMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 350, 70, 30));
+        getContentPane().add(tfMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 350, 60, 30));
 
         tfAnio.setBackground(new java.awt.Color(242, 242, 242));
         tfAnio.setForeground(new java.awt.Color(153, 153, 153));
         tfAnio.setText("año");
         tfAnio.setBorder(null);
         tfAnio.setEnabled(false);
-        getContentPane().add(tfAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 350, 90, 30));
+        getContentPane().add(tfAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 350, 60, 30));
 
         lblInstitutoCaption.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblInstitutoCaption.setForeground(new java.awt.Color(35, 71, 75));
@@ -327,7 +332,22 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
         getContentPane().add(btnAgregarImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 300, 220, 30));
 
         usersSeparator1.setForeground(new java.awt.Color(35, 71, 75));
-        getContentPane().add(usersSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 290, 220, 10));
+        getContentPane().add(usersSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 380, 60, 10));
+
+        usersSeparator2.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 290, 220, 10));
+
+        usersSeparator3.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 250, 300, 10));
+
+        usersSeparator4.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, 300, 10));
+
+        usersSeparator5.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 380, 60, 10));
+
+        usersSeparator6.setForeground(new java.awt.Color(35, 71, 75));
+        getContentPane().add(usersSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 380, 60, 10));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -505,5 +525,10 @@ public class IFModificarUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfNombre;
     private javax.swing.JSeparator usersSeparator;
     private javax.swing.JSeparator usersSeparator1;
+    private javax.swing.JSeparator usersSeparator2;
+    private javax.swing.JSeparator usersSeparator3;
+    private javax.swing.JSeparator usersSeparator4;
+    private javax.swing.JSeparator usersSeparator5;
+    private javax.swing.JSeparator usersSeparator6;
     // End of variables declaration//GEN-END:variables
 }

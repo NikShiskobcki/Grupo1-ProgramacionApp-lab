@@ -10,9 +10,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>edExt - Plataforma Educativa</title>
+    <link rel="icon" type="image/svg+xml" href="<%= request.getContextPath() %>/favicon.svg">
     <!-- Bootstrap 5 (se carga antes que styles.css para que el estilo propio tenga prioridad) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/styles.css">
+    <%
+        String vCss = "";
+        String rutaCss = application.getRealPath("/css/styles.css");
+        if (rutaCss != null) vCss = "?v=" + new java.io.File(rutaCss).lastModified();
+    %>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/styles.css<%= vCss %>">
 </head>
 <body>
 <header class="main-header">

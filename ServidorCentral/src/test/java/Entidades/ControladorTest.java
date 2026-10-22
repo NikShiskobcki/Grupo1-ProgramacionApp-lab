@@ -21,19 +21,20 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ControladorTest {
-   private Controlador controlador;
-   
-   @Before
-   public void setUp(){
-       controlador = Controlador.getInstance();
-   }
-   
+
+    private Controlador controlador;
+
+    @Before
+    public void setUp() {
+        controlador = Controlador.getInstance();
+    }
+
     @Test
     public void testCargaDatosPruebaDoble() {
         controlador.cargarDatosPrueba();
         controlador.cargarDatosPrueba();
     }
-    
+
     @Test
     public void testFabrica() {
         Fabrica fabrica = Fabrica.getInstance();
@@ -41,7 +42,7 @@ public class ControladorTest {
         IControlador ic = fabrica.getIControlador();
         assertNotNull(ic);
     }
-     
+
     @Test
     public void testExcepciones() {
         Exception causa = new RuntimeException("Causa de prueba");
@@ -76,7 +77,7 @@ public class ControladorTest {
         org.junit.Assert.assertFalse(Logica.excepciones.NombreDuplicadoException.esNombreDuplicado(new RuntimeException("Otro")));
         org.junit.Assert.assertFalse(Logica.excepciones.NombreDuplicadoException.esNombreDuplicado(null));
     }
-     
+
     @Test
     public void testDTOsGettersYToString() {
         // 1. DetalleCurso
@@ -205,43 +206,43 @@ public class ControladorTest {
         org.junit.Assert.assertEquals(LocalDate.of(2026, 4, 4), resIns.getFechaInscripcion());
         org.junit.Assert.assertEquals("RECHAZADA", resIns.getEstado());
     }
-     
+
     @Test
-    public void testGestionInstituto(){
-        String nombreInst="inst_test_"+ System.currentTimeMillis();
+    public void testGestionInstituto() {
+        String nombreInst = "inst_test_" + System.currentTimeMillis();
         controlador.altaInstituto(nombreInst);
-        
+
         assertTrue(controlador.existeInstituto(nombreInst));
         assertFalse(controlador.listarInstitutos().isEmpty());
         assertTrue(controlador.listarNombresInstitutos().contains(nombreInst));
     }
-    
+
     @Test
-    public void testGestionUsuarios(){
-        String instNom = "inst_test_"+System.currentTimeMillis();
+    public void testGestionUsuarios() {
+        String instNom = "inst_test_" + System.currentTimeMillis();
         controlador.altaInstituto(instNom);
         assertTrue(controlador.existeInstituto(instNom));
         //estudiante
-        String nickEst = "est_nick_test_"+ System.currentTimeMillis();
-        String mailEst = "est_mail_test_"+ System.currentTimeMillis();
-        controlador.altaUsuarioEstudiante(nickEst,"est_nom_test","est_ap_test",mailEst, "pass123", LocalDate.of(2026,1,1),null);
+        String nickEst = "est_nick_test_" + System.currentTimeMillis();
+        String mailEst = "est_mail_test_" + System.currentTimeMillis();
+        controlador.altaUsuarioEstudiante(nickEst, "est_nom_test", "est_ap_test", mailEst, "pass123", LocalDate.of(2026, 1, 1), null);
         assertTrue(controlador.existeNickname(nickEst));
         assertTrue(controlador.existeEmail(mailEst));
         assertFalse(controlador.listarEstudiantes().isEmpty());
-        
+
         //docente
-        String nickDoc = "doc_nick_test_"+ System.currentTimeMillis();
-        String mailDoc = "doc_mail_test_"+ System.currentTimeMillis();
-        controlador.altaUsuarioDocente(nickDoc, "doc_nom_test", "doc_ap_test", mailDoc, "pass123", LocalDate.of(2026,1,1), instNom,null);
+        String nickDoc = "doc_nick_test_" + System.currentTimeMillis();
+        String mailDoc = "doc_mail_test_" + System.currentTimeMillis();
+        controlador.altaUsuarioDocente(nickDoc, "doc_nom_test", "doc_ap_test", mailDoc, "pass123", LocalDate.of(2026, 1, 1), instNom, null);
         assertTrue(controlador.existeNickname(nickDoc));
         assertFalse(controlador.listarDocentesPorInstituto(instNom).isEmpty());
-        
+
         //busqueda y modificacion
         assertFalse(controlador.listarUsuarios().isEmpty());
         assertNotNull(controlador.consultarUsuario(nickEst, null));
         assertNotNull(controlador.buscarUsuarioParaEditar(nickEst));
-        controlador.modificarUsuario(nickEst, "nom_modificado", "doc_ap_test", LocalDate.of(2026,1,1), instNom,null);
-        
+        controlador.modificarUsuario(nickEst, "nom_modificado", "doc_ap_test", LocalDate.of(2026, 1, 1), instNom, null);
+
         //usuario que no existe
         String nickInexistente = "inexistente_" + System.currentTimeMillis();
 
@@ -251,173 +252,173 @@ public class ControladorTest {
                     "NombreTest",
                     "ApellidoTest",
                     LocalDate.of(1995, 5, 15),
-                    null,null
+                    null, null
             );
         } catch (Logica.excepciones.EntidadNoEncontradaException e) {
             assertTrue(e.getMessage().contains(nickInexistente));
         }
     }
-    
+
     @Test
-    public void testGestionCurso(){
-        String nombreInst = "inst_curso_test"+ System.currentTimeMillis();
+    public void testGestionCurso() {
+        String nombreInst = "inst_curso_test" + System.currentTimeMillis();
         controlador.altaInstituto(nombreInst);
         List<Instituto> institutos = controlador.listarInstitutos();
         Instituto inst = null;
-        for(Instituto i:institutos){
-            if (i.getNombre().equals(nombreInst)){
+        for (Instituto i : institutos) {
+            if (i.getNombre().equals(nombreInst)) {
                 inst = i;
                 break;
             }
         }
-        String nombreCurso = "nom_curso_test"+ System.currentTimeMillis();
-        controlador.altaCurso(nombreCurso,"desc",8,40,5,"url",LocalDate.now(),inst,Collections.<Logica.Entidades.Curso>emptyList(), Collections.emptyList(), null);
-        
+        String nombreCurso = "nom_curso_test" + System.currentTimeMillis();
+        controlador.altaCurso(nombreCurso, "desc", 8, 40, 5, "url", LocalDate.now(), inst, Collections.<Logica.Entidades.Curso>emptyList(), Collections.emptyList(), null);
+
         assertTrue(controlador.existeCurso(nombreCurso));
         assertFalse(controlador.listarCursos().isEmpty());
         assertFalse(controlador.listarCursosPorInstituto(nombreInst).isEmpty());
         DetalleCurso detalle = controlador.consultarCurso(nombreCurso);
         assertNotNull(detalle);
     }
-    
+
     @Test
-    public void testGestionProgramasFormacion(){
+    public void testGestionProgramasFormacion() {
         //alta programa
-        String nombreProg = "nom_prog_test"+System.currentTimeMillis();
+        String nombreProg = "nom_prog_test" + System.currentTimeMillis();
         controlador.altaPrograma(
-                     nombreProg, "desc prog", LocalDate.now(), LocalDate.now().plusMonths(2), LocalDate.now(), null, null);
+                nombreProg, "desc prog", LocalDate.now(), LocalDate.now().plusMonths(2), LocalDate.now(), null, null);
         assertTrue(controlador.existePrograma(nombreProg));
         assertTrue(controlador.listarProgramas().contains(nombreProg));
-        
+
         //asignar curso
-        String instNombre = "nom_inst_test_"+System.currentTimeMillis();
+        String instNombre = "nom_inst_test_" + System.currentTimeMillis();
         controlador.altaInstituto(instNombre);
         assertTrue(controlador.existeInstituto(instNombre));
         List<Instituto> institutos = controlador.listarInstitutos();
         Instituto inst = null;
-        for(Instituto i:institutos){
-            if(i.getNombre().equals(instNombre)){
-                inst=i;
+        for (Instituto i : institutos) {
+            if (i.getNombre().equals(instNombre)) {
+                inst = i;
                 break;
             }
         }
-        
-        String cursoNombre = "nom_curso_test_"+System.currentTimeMillis();
+
+        String cursoNombre = "nom_curso_test_" + System.currentTimeMillis();
         controlador.altaCurso(cursoNombre, "desc", 0, 0, 0, "url_test", LocalDate.now(), inst, Collections.<Curso>emptyList(), Collections.emptyList(), null);
-        
+
         controlador.agregarCursoAPrograma(nombreProg, cursoNombre);
         assertNotNull(controlador.consultarPrograma(nombreProg));
     }
-   
+
     @Test
-    public void testDetalleCursoInexistente(){
+    public void testDetalleCursoInexistente() {
         String nombreInexistente = "CursoInexistente_" + System.currentTimeMillis();
         DetalleCurso detalleInex = controlador.consultarCurso(nombreInexistente);
         assertNull(detalleInex);
     }
-   
+
     @Test
-    public void testEdicionesInscripciones(){
+    public void testEdicionesInscripciones() {
         //instituto
-        String instNombre = "nom_inst_test_"+System.currentTimeMillis();
+        String instNombre = "nom_inst_test_" + System.currentTimeMillis();
         controlador.altaInstituto(instNombre);
         List<Instituto> institutos = controlador.listarInstitutos();
         Instituto inst = null;
-        for(Instituto i:institutos){
-            if (i.getNombre().equals(instNombre)){
+        for (Instituto i : institutos) {
+            if (i.getNombre().equals(instNombre)) {
                 inst = i;
                 break;
             }
         }
         //docente
-        String nickDoc = "doc_nick_test_"+ System.currentTimeMillis();
-        String mailDoc = "doc_mail_test_"+ System.currentTimeMillis();
-        controlador.altaUsuarioDocente(nickDoc, "doc_nom_test", "doc_ap_test", mailDoc, "pass123", LocalDate.of(2026,1,1), instNombre,null);
+        String nickDoc = "doc_nick_test_" + System.currentTimeMillis();
+        String mailDoc = "doc_mail_test_" + System.currentTimeMillis();
+        controlador.altaUsuarioDocente(nickDoc, "doc_nom_test", "doc_ap_test", mailDoc, "pass123", LocalDate.of(2026, 1, 1), instNombre, null);
         List<Docente> docentes = controlador.listarDocentesPorInstituto(instNombre);
-        
-        String cursoNombre = "nom_curso_test_"+System.currentTimeMillis();
+
+        String cursoNombre = "nom_curso_test_" + System.currentTimeMillis();
         controlador.altaCurso(cursoNombre, "desc", 0, 0, 0, "url_test", LocalDate.now(), inst, Collections.<Curso>emptyList(), Collections.emptyList(), null);
-        
+
         //alta edicion curso
-        String edicionNombre = "ed_curso_test_"+System.currentTimeMillis();
+        String edicionNombre = "ed_curso_test_" + System.currentTimeMillis();
         controlador.altaEdicionCurso(
-            edicionNombre, LocalDate.now().minusDays(5), LocalDate.now().plusMonths(2), 
-            20, cursoNombre, docentes, null
+                edicionNombre, LocalDate.now().minusDays(5), LocalDate.now().plusMonths(2),
+                20, cursoNombre, docentes, null
         );
-        
+
         assertTrue(controlador.existeEdicion(edicionNombre));
         assertFalse(controlador.listarEdicionesPorCurso(cursoNombre).isEmpty());
         assertFalse(controlador.listarEdicionesVigentesPorCurso(cursoNombre).isEmpty());
         assertNotNull(controlador.buscarEdicion(edicionNombre));
         assertNotNull(controlador.consultarEdicion(edicionNombre));
-        
+
         //inscripcion de estudiante a edicion
-        String nickEst = "est_nick_test_"+System.currentTimeMillis();
-        String mailEst = "est_mail_test_"+System.currentTimeMillis();
-        controlador.altaUsuarioEstudiante(nickEst, "nom_est", "ap_est", mailEst + "mail_test", "pass123", LocalDate.of(2001, 2, 2),null);
+        String nickEst = "est_nick_test_" + System.currentTimeMillis();
+        String mailEst = "est_mail_test_" + System.currentTimeMillis();
+        controlador.altaUsuarioEstudiante(nickEst, "nom_est", "ap_est", mailEst + "mail_test", "pass123", LocalDate.of(2001, 2, 2), null);
         controlador.inscribirEstudianteEdicion(nickEst, edicionNombre, LocalDate.now());
         InscripcionEdicion inscripcion = controlador.buscarInscripcionEdicion(nickEst, edicionNombre);
-         if (inscripcion != null && inscripcion.getId() != null) {
-             controlador.modificarInscripcionEdicion(inscripcion.getId(), LocalDate.now().plusDays(1));
-         }   
+        if (inscripcion != null && inscripcion.getId() != null) {
+            controlador.modificarInscripcionEdicion(inscripcion.getId(), LocalDate.now().plusDays(1));
+        }
 
     }
 
     @Test
-    public void testBusquedasInexistentes(){
+    public void testBusquedasInexistentes() {
         String sufijo = "_" + System.currentTimeMillis();
-     
+
         assertFalse(controlador.existeInstituto("INST_NO_EXISTE" + sufijo));
         assertFalse(controlador.existeNickname("NICK_NO_EXISTE" + sufijo));
         assertFalse(controlador.existeEmail("EMAIL_NO_EXISTE" + sufijo + "@test.com"));
         assertFalse(controlador.existeCurso("CURSO_NO_EXISTE" + sufijo));
         assertFalse(controlador.existePrograma("PROG_NO_EXISTE" + sufijo));
         assertFalse(controlador.existeEdicion("ED_NO_EXISTE" + sufijo));
-     
+
         // tienen que retornar null porque no existen
         assertNull(controlador.consultarUsuario("NICK_FANTASMA" + sufijo, null));
         assertNull(controlador.consultarCurso("CURSO_FANTASMA" + sufijo));
         assertNull(controlador.consultarPrograma("PROG_FANTASMA" + sufijo));
         assertNull(controlador.consultarEdicion("ED_FANTASMA" + sufijo));
         assertNull(controlador.buscarUsuarioParaEditar("NICK_FANTASMA" + sufijo));
-     }
+    }
 
-     @Test
-     public void testDuplicados(){
+    @Test
+    public void testDuplicados() {
         String sufijo = "_" + System.currentTimeMillis();
         String instNom = "INST_DUP" + sufijo;
         controlador.altaInstituto(instNom);
-     
+
         try {
             controlador.altaInstituto(instNom);
         } catch (Exception e) {
             assertNotNull(e);
         }
-     
+
         String nick = "user_dup" + sufijo;
         String mail = "mail_dup" + sufijo;
-        controlador.altaUsuarioEstudiante(nick, "Nombre", "Apellido", mail, "pass123", LocalDate.of(2000, 1, 1),null);
+        controlador.altaUsuarioEstudiante(nick, "Nombre", "Apellido", mail, "pass123", LocalDate.of(2000, 1, 1), null);
 
         // nick y mail duplicado
         try {
-            controlador.altaUsuarioEstudiante(nick, "Otro", "Otro", "nuevo@mail.com", "pass123", LocalDate.of(2000, 1, 1),null);
+            controlador.altaUsuarioEstudiante(nick, "Otro", "Otro", "nuevo@mail.com", "pass123", LocalDate.of(2000, 1, 1), null);
         } catch (Exception e) {
             assertNotNull(e);
         }
 
         try {
-            controlador.altaUsuarioEstudiante("otro_nick" + sufijo, "Otro", "Otro", mail, "pass123", LocalDate.of(2000, 1, 1),null);
+            controlador.altaUsuarioEstudiante("otro_nick" + sufijo, "Otro", "Otro", mail, "pass123", LocalDate.of(2000, 1, 1), null);
         } catch (Exception e) {
             assertNotNull(e);
         }
     }
-    
+
     @Test
-     public void testListasVacias(){
-        String sufijo = "_" + System.currentTimeMillis(); 
+    public void testListasVacias() {
+        String sufijo = "_" + System.currentTimeMillis();
         assertTrue(controlador.listarDocentesPorInstituto("INST_VACIO" + sufijo).isEmpty());
         assertTrue(controlador.listarEdicionesPorCurso("CURSO_VACIO" + sufijo).isEmpty());
         assertTrue(controlador.listarEdicionesVigentesPorCurso("CURSO_VACIO" + sufijo).isEmpty());
         assertTrue(controlador.listarCursosPorInstituto("INST_VACIO" + sufijo).isEmpty());
-     }
+    }
 }
