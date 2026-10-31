@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="Logica.DTO.UsuarioResumen" %>
+<%@ page import="modelo.UsuarioResumen" %>
 <%@ page import="util.Html" %>
 <%
     UsuarioResumen user = (UsuarioResumen) session.getAttribute("usuarioLogueado");

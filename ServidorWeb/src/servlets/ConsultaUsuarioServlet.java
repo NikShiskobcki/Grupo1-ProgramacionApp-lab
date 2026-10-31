@@ -1,13 +1,14 @@
 package servlets;
 
-import Logica.DTO.DetalleUsuario;
-import Logica.DTO.ElementoResumen;
-import Logica.DTO.InscripcionResumen;
-import Logica.DTO.ResultadoInscripcion;
-import Logica.DTO.UsuarioResumen;
-import Logica.controladores.Fabrica;
-import Logica.controladores.IControlador;
+import util.ServletRemoto;
 
+import util.ClienteCentral;
+
+import modelo.DetalleUsuario;
+import modelo.ElementoResumen;
+import modelo.InscripcionResumen;
+import modelo.ResultadoInscripcion;
+import modelo.UsuarioResumen;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -26,9 +27,16 @@ import javax.servlet.http.HttpSession;
  * - /perfil?user=nick  : perfil de cualquier usuario (visitantes incluidos).
  */
 @WebServlet("/perfil")
-public class ConsultaUsuarioServlet extends HttpServlet {
+public class ConsultaUsuarioServlet extends ServletRemoto {
 
-    private final IControlador control = Fabrica.getInstance().getIControlador();
+    @Override
+    public void init() throws javax.servlet.ServletException {
+        super.init();
+        control = new ClienteCentral(getServletContext());
+    }
+
+
+    private ClienteCentral control;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

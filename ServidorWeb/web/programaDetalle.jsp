@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="Logica.DTO.DetalleProgramaFormacion" %>
-<%@ page import="Logica.DTO.CursoResumen" %>
-<%@ page import="Logica.DTO.UsuarioResumen" %>
-<%@ page import="Logica.Entidades.InscripcionPrograma" %>
+<%@ page import="modelo.DetalleProgramaFormacion" %>
+<%@ page import="modelo.CursoResumen" %>
+<%@ page import="modelo.UsuarioResumen" %>
+<%@ page import="modelo.InscripcionPrograma" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="util.Html" %>
 <jsp:include page="header.jsp" />
@@ -15,6 +15,10 @@
     InscripcionPrograma inscripcion = (InscripcionPrograma) request.getAttribute("inscripcionPrograma");
 %>
 
+<div class="home-layout">
+    <jsp:include page="sidebarIzq.jsp" />
+
+<div class="home-content">
 <% if (p != null) {
     String img = Html.imagen(ctx, p.getRutaImagen());
 %>
@@ -103,5 +107,7 @@
 </div>
 <p><a href="<%= ctx %>/buscar#programas">← Volver a los programas</a></p>
 <% } %>
+    </div>
+</div>
 
 <jsp:include page="footer.jsp" />

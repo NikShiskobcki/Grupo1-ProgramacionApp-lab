@@ -1,12 +1,14 @@
 package servlets;
 
-import Logica.DTO.CursoResumen;
-import Logica.DTO.DetalleProgramaFormacion;
-import Logica.DTO.ElementoResumen;
-import Logica.DTO.UsuarioResumen;
-import Logica.Entidades.Curso;
-import Logica.controladores.Fabrica;
-import Logica.controladores.IControlador;
+import util.ServletRemoto;
+
+import util.ClienteCentral;
+
+import modelo.CursoResumen;
+import modelo.DetalleProgramaFormacion;
+import modelo.ElementoResumen;
+import modelo.UsuarioResumen;
+import modelo.Curso;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -21,8 +23,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet("/agregar-curso-programa")
-public class AgregarCursoProgramaServlet extends HttpServlet{
-    private final IControlador icon = Fabrica.getInstance().getIControlador();
+public class AgregarCursoProgramaServlet extends ServletRemoto{
+
+    @Override
+    public void init() throws javax.servlet.ServletException {
+        super.init();
+        icon = new ClienteCentral(getServletContext());
+    }
+
+    private ClienteCentral icon;
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

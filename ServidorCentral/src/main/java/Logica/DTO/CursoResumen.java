@@ -1,9 +1,22 @@
 package Logica.DTO;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlType;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(
+        name = "CursoResumen",
+        namespace = "http://ws.edext.utec.edu.uy/",
+        propOrder = {"nombre", "nombreInstituto"}
+)
 public class CursoResumen {
-    
-    private final String nombre;
-    private final String nombreInstituto;
+
+    private String nombre;
+    private String nombreInstituto;
+
+    public CursoResumen() {
+    }
 
     public CursoResumen(String nombre, String nombreInstituto) {
         this.nombre = nombre;
@@ -20,7 +33,6 @@ public class CursoResumen {
 
     @Override
     public String toString() {
-        return (nombre + " ("+ nombreInstituto + ")");  
+        return nombre + " (" + nombreInstituto + ")";
     }
- 
 }

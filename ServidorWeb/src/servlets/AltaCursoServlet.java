@@ -1,12 +1,13 @@
 package servlets;
 
-import Logica.DTO.UsuarioEdicion;
-import Logica.DTO.UsuarioResumen;
-import Logica.Entidades.Curso;
-import Logica.Entidades.Instituto;
-import Logica.controladores.Fabrica;
-import Logica.controladores.IControlador;
+import util.ServletRemoto;
 
+import util.ClienteCentral;
+
+import modelo.UsuarioEdicion;
+import modelo.UsuarioResumen;
+import modelo.Curso;
+import modelo.Instituto;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -31,9 +32,16 @@ import util.Imagenes;
         maxFileSize = 6L * 1024 * 1024,
         maxRequestSize = 7L * 1024 * 1024
 )
-public class AltaCursoServlet extends HttpServlet {
+public class AltaCursoServlet extends ServletRemoto {
 
-    private final IControlador control = Fabrica.getInstance().getIControlador();
+    @Override
+    public void init() throws javax.servlet.ServletException {
+        super.init();
+        control = new ClienteCentral(getServletContext());
+    }
+
+
+    private ClienteCentral control;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

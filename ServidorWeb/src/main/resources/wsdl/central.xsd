@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by XML-WS Runtime (https://github.com/eclipse-ee4j/metro-jax-ws). Runtime's version is XML-WS Runtime 4.0.5 git-revision#c828e2e. --><xs:schema xmlns:tns="http://ws.edext.utec.edu.uy/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://ws.edext.utec.edu.uy/">
+
+<xs:element name="CentralFault" type="tns:CentralException"/>
+
+<xs:element name="altaEdicionCurso" type="tns:altaEdicionCurso"/>
+
+<xs:element name="altaEdicionCursoResponse" type="tns:altaEdicionCursoResponse"/>
+
+<xs:element name="existeEdicion" type="tns:existeEdicion"/>
+
+<xs:element name="existeEdicionResponse" type="tns:existeEdicionResponse"/>
+
+<xs:element name="listarCursosPorInstituto" type="tns:listarCursosPorInstituto"/>
+
+<xs:element name="listarCursosPorInstitutoResponse" type="tns:listarCursosPorInstitutoResponse"/>
+
+<xs:element name="listarDocentesPorInstituto" type="tns:listarDocentesPorInstituto"/>
+
+<xs:element name="listarDocentesPorInstitutoResponse" type="tns:listarDocentesPorInstitutoResponse"/>
+
+<xs:element name="listarNombresInstitutos" type="tns:listarNombresInstitutos"/>
+
+<xs:element name="listarNombresInstitutosResponse" type="tns:listarNombresInstitutosResponse"/>
+
+<xs:complexType name="listarNombresInstitutos">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="listarNombresInstitutosResponse">
+<xs:sequence>
+<xs:element name="instituto" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="existeEdicion">
+<xs:sequence>
+<xs:element name="nombre" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="existeEdicionResponse">
+<xs:sequence>
+<xs:element name="existe" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="listarDocentesPorInstituto">
+<xs:sequence>
+<xs:element name="instituto" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="listarDocentesPorInstitutoResponse">
+<xs:sequence>
+<xs:element name="docente" type="tns:UsuarioResumen" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="UsuarioResumen">
+<xs:sequence>
+<xs:element name="nickname" type="xs:string" minOccurs="0"/>
+<xs:element name="nombreCompleto" type="xs:string" minOccurs="0"/>
+<xs:element name="tipo" type="xs:string" minOccurs="0"/>
+<xs:element name="rutaImagen" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="altaEdicionCurso">
+<xs:sequence>
+<xs:element name="nombre" type="xs:string" minOccurs="0"/>
+<xs:element name="fechaInicio" type="xs:string" minOccurs="0"/>
+<xs:element name="fechaFin" type="xs:string" minOccurs="0"/>
+<xs:element name="cupo" type="xs:int" minOccurs="0"/>
+<xs:element name="nombreCurso" type="xs:string" minOccurs="0"/>
+<xs:element name="nicknamesDocentes" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="rutaImagen" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="altaEdicionCursoResponse">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="CentralException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="listarCursosPorInstituto">
+<xs:sequence>
+<xs:element name="instituto" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="listarCursosPorInstitutoResponse">
+<xs:sequence>
+<xs:element name="curso" type="tns:CursoResumen" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="CursoResumen">
+<xs:sequence>
+<xs:element name="nombre" type="xs:string" minOccurs="0"/>
+<xs:element name="nombreInstituto" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

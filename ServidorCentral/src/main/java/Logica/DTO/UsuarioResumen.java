@@ -1,14 +1,36 @@
 package Logica.DTO;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlType;
 
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(
+        name = "UsuarioResumen",
+        namespace = "http://ws.edext.utec.edu.uy/",
+        propOrder = {
+            "nickname",
+            "nombreCompleto",
+            "tipo",
+            "rutaImagen"
+        }
+)
 public class UsuarioResumen {
 
-    private final String nickname;
-    private final String nombreCompleto;
-    private final String tipo; // "Estudiante" o "Docente"
-    private final String rutaImagen;
+    private String nickname;
+    private String nombreCompleto;
+    private String tipo;
+    private String rutaImagen;
 
-    public UsuarioResumen(String nickname, String nombreCompleto, String tipo, String rutaImagen) {
+    public UsuarioResumen() {
+    }
+
+    public UsuarioResumen(
+            String nickname,
+            String nombreCompleto,
+            String tipo,
+            String rutaImagen) {
+
         this.nickname = nickname;
         this.nombreCompleto = nombreCompleto;
         this.tipo = tipo;
@@ -19,10 +41,6 @@ public class UsuarioResumen {
         return nickname;
     }
 
-    public String getRutaImagen() {
-        return rutaImagen;
-    }
-
     public String getNombreCompleto() {
         return nombreCompleto;
     }
@@ -31,8 +49,13 @@ public class UsuarioResumen {
         return tipo;
     }
 
+    public String getRutaImagen() {
+        return rutaImagen;
+    }
+
     @Override
     public String toString() {
-        return nickname + " - " + nombreCompleto + " (" + tipo + ")";
+        return nickname + " - " + nombreCompleto
+                + " (" + tipo + ")";
     }
 }

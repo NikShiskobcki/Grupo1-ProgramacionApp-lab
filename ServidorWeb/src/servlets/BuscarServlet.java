@@ -1,9 +1,11 @@
 package servlets;
 
-import Logica.controladores.Fabrica;
-import Logica.controladores.IControlador;
-import Logica.Entidades.Curso;
-import Logica.DTO.DetalleProgramaFormacion;
+import util.ServletRemoto;
+
+import util.ClienteCentral;
+
+import modelo.Curso;
+import modelo.DetalleProgramaFormacion;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,9 +17,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/buscar")
-public class BuscarServlet extends HttpServlet {
+public class BuscarServlet extends ServletRemoto {
 
-    private final IControlador control = Fabrica.getInstance().getIControlador();
+    @Override
+    public void init() throws javax.servlet.ServletException {
+        super.init();
+        control = new ClienteCentral(getServletContext());
+    }
+
+
+    private ClienteCentral control;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

@@ -20,39 +20,12 @@
     </properties>
 
     <dependencies>
-        <!-- Servidor Central (Librería JAR de la lógica) -->
+        
+        <!--Metro: API para consumir servicio SOAP publicada por central-->
         <dependency>
-            <groupId>uy.edu.utec</groupId>
-            <artifactId>ServidorCentral</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/web/WEB-INF/lib/ServidorCentral.jar</systemPath>
-        </dependency>
-
-        <!-- MariaDB JDBC Driver -->
-        <dependency>
-            <groupId>org.mariadb.jdbc</groupId>
-            <artifactId>mariadb-java-client</artifactId>
-            <version>3.5.10</version>
-        </dependency>
-
-        <!-- EclipseLink JPA -->
-        <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>eclipselink</artifactId>
-            <version>2.7.16</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.persistence</groupId>
-                    <artifactId>jakarta.persistence</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.persistence</groupId>
-            <artifactId>jakarta.persistence-api</artifactId>
-            <version>2.2.3</version>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-rt</artifactId>
+            <version>4.0.5</version>
         </dependency>
 
         <!-- Servlet API (provisto por Tomcat en tiempo de ejecución) -->
@@ -85,6 +58,39 @@
                     <target>21</target>
                 </configuration>
             </plugin>
+            
+            <plugin>
+                <groupId>com.sun.xml.ws</groupId>
+                <artifactId>jaxws-maven-plugin</artifactId>
+                <version>4.0.5</version>
+
+                <executions>
+                    <execution>
+                        <id>generar-cliente-central</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+                <configuration>
+                    <wsdlDirectory>
+                        ${project.basedir}/src/main/resources/wsdl
+                    </wsdlDirectory>
+
+                    <wsdlFiles>
+                        <wsdlFile>central.wsdl</wsdlFile>
+                    </wsdlFiles>
+
+                    <packageName>cliente.central</packageName>
+                    <wsdlLocation>/wsdl/central.wsdl</wsdlLocation>
+
+                    <keep>true</keep>
+                    <xnocompile>true</xnocompile>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -92,16 +98,8 @@
                 <version>3.4.0</version>
                 <configuration>
                     <warSourceDirectory>web</warSourceDirectory>
+                    <packagingExcludes>WEB-INF/lib/ServidorCentral.jar,WEB-INF/lib/eclipselink*.jar,WEB-INF/lib/*persistence*.jar,WEB-INF/lib/mariadb-java-client*.jar,WEB-INF/classes/META-INF/persistence.xml</packagingExcludes>
                     <webXml>web/WEB-INF/web.xml</webXml>
-                    <webResources>
-                        <resource>
-                            <directory>web/WEB-INF/lib</directory>
-                            <targetPath>WEB-INF/lib</targetPath>
-                            <includes>
-                                <include>*.jar</include>
-                            </includes>
-                        </resource>
-                    </webResources>
                 </configuration>
             </plugin>
         </plugins>

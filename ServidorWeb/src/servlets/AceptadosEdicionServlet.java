@@ -1,15 +1,16 @@
 package servlets;
 
-import Logica.DTO.DetalleCurso;
-import Logica.DTO.DetalleEdicionCurso;
-import Logica.DTO.InscripcionResumen;
-import Logica.DTO.UsuarioResumen;
-import Logica.Entidades.Curso;
-import Logica.Entidades.Docente;
-import Logica.Entidades.EdicionCurso;
-import Logica.controladores.Fabrica;
-import Logica.controladores.IControlador;
+import util.ServletRemoto;
 
+import util.ClienteCentral;
+
+import modelo.DetalleCurso;
+import modelo.DetalleEdicionCurso;
+import modelo.InscripcionResumen;
+import modelo.UsuarioResumen;
+import modelo.Curso;
+import modelo.Docente;
+import modelo.EdicionCurso;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +23,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet("/aceptados-edicion")
-public class AceptadosEdicionServlet extends HttpServlet {
+public class AceptadosEdicionServlet extends ServletRemoto {
 
-    private final IControlador control =
-            Fabrica.getInstance().getIControlador();
+    @Override
+    public void init() throws javax.servlet.ServletException {
+        super.init();
+        control = new ClienteCentral(getServletContext());
+    }
+
+
+    private ClienteCentral control;
 
     @Override
     protected void doGet(HttpServletRequest request,

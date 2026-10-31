@@ -17,6 +17,13 @@
     </properties>
 
     <dependencies>
+        
+        <!-- Servicios web SOAP -->
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-rt</artifactId>
+            <version>4.0.5</version>
+        </dependency>
 
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
@@ -90,11 +97,6 @@
                             <copy
                                 file="${project.build.directory}/${project.build.finalName}.jar"
                                 tofile="${project.basedir}/../EstacionDeTrabajo/lib/ServidorCentral.jar"
-                                overwrite="true" />
-
-                            <copy
-                                file="${project.build.directory}/${project.build.finalName}.jar"
-                                tofile="${project.basedir}/../ServidorWeb/web/WEB-INF/lib/ServidorCentral.jar"
                                 overwrite="true" />
                         </target>
                     </configuration>

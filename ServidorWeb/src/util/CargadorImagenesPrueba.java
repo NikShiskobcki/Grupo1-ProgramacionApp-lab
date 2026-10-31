@@ -1,6 +1,6 @@
 package util;
 
-import Logica.DatosPrueba.ImagenesPrueba;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
