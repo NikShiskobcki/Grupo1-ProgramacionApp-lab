@@ -37,6 +37,7 @@ public class InscripcionEdicion implements Serializable {
     @Enumerated(EnumType.STRING)
     private EstadoInscripcion estado = EstadoInscripcion.INSCRIPTO;
 
+    private Integer nota;
 
     // CONSTRUCTORES
 
@@ -75,6 +76,11 @@ public class InscripcionEdicion implements Serializable {
     public EstadoInscripcion getEstado() {
         return estado == null ? EstadoInscripcion.INSCRIPTO : estado;
     }
+
+    public Integer getNota() {
+        return nota;
+    }
+    
     
     
 
@@ -99,6 +105,14 @@ public class InscripcionEdicion implements Serializable {
 
     public void setEstado(EstadoInscripcion estado) {
         this.estado = estado;
+    }
+
+    public void setNota(Integer nota) {
+        if (nota != null && (nota < 1 || nota > 12)) {
+            throw new IllegalArgumentException(
+                    "La nota debe estar entre 1 y 12");
+        }
+        this.nota = nota;
     }
     
     
