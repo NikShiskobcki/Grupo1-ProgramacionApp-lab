@@ -67,6 +67,15 @@ public class ManejadorInscripcionEdicion {
     }
     
     public void modificarInscripcion(Long idInscripcion,LocalDate nuevaFecha) {
+        modificarInscripcion(idInscripcion, nuevaFecha, null, false);
+    }
+
+    /** Modifica fecha y video (videoUrl null borra el video). */
+    public void modificarInscripcion(Long idInscripcion,LocalDate nuevaFecha,String videoUrl) {
+        modificarInscripcion(idInscripcion, nuevaFecha, videoUrl, true);
+    }
+
+    private void modificarInscripcion(Long idInscripcion,LocalDate nuevaFecha,String videoUrl,boolean actualizarVideo) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction t = em.getTransaction();
 
@@ -79,6 +88,9 @@ public class ManejadorInscripcionEdicion {
                 throw new EntidadNoEncontradaException("No existe una inscripcion con esa id",null);
             }
             inscripcion.setFechaInscripcion(nuevaFecha);
+            if (actualizarVideo) {
+                inscripcion.setVideoUrl(videoUrl);
+            }
 
             t.commit();
 

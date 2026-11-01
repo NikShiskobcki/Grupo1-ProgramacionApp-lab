@@ -44,6 +44,9 @@
     DateTimeFormatter formato =
             DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+    String videoIngresado = request.getAttribute("videoUrlIngresado") == null
+            ? "" : (String) request.getAttribute("videoUrlIngresado");
+
     boolean hayFiltro =
             (institutoSel != null && !institutoSel.isEmpty())
             || (categoriaSel != null && !categoriaSel.isEmpty());
@@ -272,7 +275,9 @@
                     <p class="text-muted">Sin docentes asignados.</p>
                 <% } %>
 
-                <% if (inscripcion != null) { %>
+                <% if (inscripcion != null) {
+                    String embedActual = Html.embedYoutube(inscripcion.getVideoUrl());
+                %>
                     <div class="alert alert-secondary">
                         Ya tenés una inscripción a esta edición.
                         <br>
@@ -283,6 +288,24 @@
                         <%= inscripcion.getFechaInscripcion() != null
                                 ? inscripcion.getFechaInscripcion().format(formato)
                                 : "—" %>
+                        <% if (inscripcion.getVideoUrl() != null
+                                && !inscripcion.getVideoUrl().isEmpty()) { %>
+                            <br>
+                            <strong>Video de motivación:</strong>
+                            <% if (!embedActual.isEmpty()) { %>
+                                <div class="ratio ratio-16x9 mt-2" style="max-width:560px;">
+                                    <iframe src="<%= embedActual %>"
+                                            title="Video de motivación"
+                                            allowfullscreen loading="lazy"
+                                            referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                                </div>
+                            <% } else if (Html.esUrlHttp(inscripcion.getVideoUrl())) { %>
+                                <a href="<%= Html.esc(inscripcion.getVideoUrl()) %>"
+                                   target="_blank" rel="noopener noreferrer">
+                                    <%= Html.esc(inscripcion.getVideoUrl()) %>
+                                </a>
+                            <% } %>
+                        <% } %>
                     </div>
                 <% } %>
 
@@ -298,6 +321,26 @@
                     <input type="hidden" name="edicion"
                            value="<%= Html.esc(edicionSel) %>">
 
+                    <% if (inscripcion == null
+                            || inscripcion.getEstado() == EstadoInscripcion.INSCRIPTO) { %>
+                        <div class="mb-3">
+                            <label for="videoUrl" class="form-label">
+                                Video de motivación (opcional)
+                            </label>
+                            <input type="url" id="videoUrl" name="videoUrl"
+                                   class="form-control" maxlength="500"
+                                   placeholder="https://www.youtube.com/watch?v=..."
+                                   value="<%= Html.esc(videoIngresado) %>">
+                            <div class="form-text" id="videoUrlAyuda">
+                                Pegá el enlace de un video (por ejemplo de YouTube)
+                                que explique por qué querés hacer el curso.
+                            </div>
+                            <div class="invalid-feedback" id="videoUrlError">
+                                Ingresá una URL válida que empiece con http:// o https://.
+                            </div>
+                        </div>
+                    <% } %>
+
                     <% if (inscripcion == null) { %>
                         <input type="hidden" name="accion" value="inscribir">
 
@@ -311,8 +354,9 @@
                         <input type="hidden" name="accion" value="modificar">
 
                         <p class="text-muted">
-                            Podés actualizar la fecha de tu inscripción a hoy.
-                            Su estado seguirá siendo Inscripto.
+                            Podés actualizar la fecha de tu inscripción a hoy
+                            y cambiar o quitar el video. Su estado seguirá
+                            siendo Inscripto.
                         </p>
                     <% } else { %>
                         <p class="text-muted">
@@ -337,7 +381,7 @@
                                         type="submit" id="btnConfirmarInscripcion">
                                     <%= inscripcion == null
                                             ? "Confirmar inscripción"
-                                            : "Actualizar fecha a hoy" %>
+                                            : "Guardar cambios" %>
                                 </button>
                             </div>
                         <% } %>
@@ -374,8 +418,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (formulario && boton) {
         const textoOriginal = boton.textContent;
+        const campoVideo = document.getElementById("videoUrl");
 
-        formulario.addEventListener("submit", () => {
+        const videoValido = () => {
+            if (!campoVideo) return true;
+            const v = campoVideo.value.trim();
+            if (v === "") return true;
+            try {
+                const u = new URL(v);
+                return (u.protocol === "http:" || u.protocol === "https:") && u.hostname !== "";
+            } catch (e) {
+                return false;
+            }
+        };
+
+        if (campoVideo) {
+            campoVideo.addEventListener("input", () => {
+                campoVideo.classList.toggle("is-invalid", !videoValido());
+            });
+        }
+
+        formulario.addEventListener("submit", (ev) => {
+            if (!videoValido()) {
+                ev.preventDefault();
+                campoVideo.classList.add("is-invalid");
+                campoVideo.focus();
+                return;
+            }
             boton.disabled = true;
             boton.textContent = "Procesando…";
         });

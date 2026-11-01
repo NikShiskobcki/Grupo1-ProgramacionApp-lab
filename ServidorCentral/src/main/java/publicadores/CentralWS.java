@@ -255,9 +255,10 @@ public class CentralWS implements ICentralWS {
     public void inscribirEstudianteEdicion(
             String nicknameEstudiante,
             String nombreEdicion,
-            String fechaInscripcion) throws CentralException {
+            String fechaInscripcion,
+            String videoUrl) throws CentralException {
         try {
-            control.inscribirEstudianteEdicion(nicknameEstudiante, nombreEdicion, fecha(fechaInscripcion));
+            control.inscribirEstudianteEdicion(nicknameEstudiante, nombreEdicion, fecha(fechaInscripcion), videoUrl);
         } catch (RuntimeException e) {
             LOGGER.log(Level.WARNING, "Falló inscribirEstudianteEdicion", e);
             throw new CentralException(e.getMessage() == null
@@ -379,9 +380,10 @@ public class CentralWS implements ICentralWS {
     @Override
     public void modificarInscripcionEdicion(
             Long idInscripcion,
-            String nuevaFecha) throws CentralException {
+            String nuevaFecha,
+            String videoUrl) throws CentralException {
         try {
-            control.modificarInscripcionEdicion(idInscripcion, fecha(nuevaFecha));
+            control.modificarInscripcionEdicion(idInscripcion, fecha(nuevaFecha), videoUrl);
         } catch (RuntimeException e) {
             LOGGER.log(Level.WARNING, "Falló modificarInscripcionEdicion", e);
             throw new CentralException(e.getMessage() == null

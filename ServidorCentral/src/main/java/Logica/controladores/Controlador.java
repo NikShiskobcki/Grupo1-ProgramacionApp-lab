@@ -345,58 +345,106 @@ public class Controlador implements IControlador {
         return manejadorInscripcionEdicion.buscarInscripcion(nicknameEstudiante, nombreEdicion);
     }
 
-@Override
-public void inscribirEstudianteEdicion(
-        String nicknameEstudiante,
-        String nombreEdicion,
-        LocalDate fechaInscripcion) {
-
-    Estudiante estudiante =
-            manejadorUsuario.buscarEstudiante(nicknameEstudiante);
-
-    if (estudiante == null) {
-        throw new IllegalArgumentException(
-                "El estudiante no existe.");
+    @Override
+    public void inscribirEstudianteEdicion(
+            String nicknameEstudiante,
+            String nombreEdicion,
+            LocalDate fechaInscripcion) {
+        inscribirEstudianteEdicion(nicknameEstudiante, nombreEdicion, fechaInscripcion, null);
     }
 
-    EdicionCurso edicion =
-            manejadorEdicionCurso.buscarPorNombre(nombreEdicion);
+    @Override
+    public void inscribirEstudianteEdicion(
+            String nicknameEstudiante,
+            String nombreEdicion,
+            LocalDate fechaInscripcion,
+            String videoUrl) {
 
-    if (edicion == null) {
-        throw new IllegalArgumentException(
-                "La edición no existe.");
+        Estudiante estudiante =
+                manejadorUsuario.buscarEstudiante(nicknameEstudiante);
+
+        if (estudiante == null) {
+            throw new IllegalArgumentException(
+                    "El estudiante no existe.");
+        }
+
+        EdicionCurso edicion =
+                manejadorEdicionCurso.buscarPorNombre(nombreEdicion);
+
+        if (edicion == null) {
+            throw new IllegalArgumentException(
+                    "La edición no existe.");
+        }
+
+        LocalDate hoy = LocalDate.now(
+                java.time.ZoneId.of("America/Montevideo"));
+
+        if (edicion.getFechaInicio() == null
+                || edicion.getFechaFin() == null
+                || hoy.isBefore(edicion.getFechaInicio())
+                || hoy.isAfter(edicion.getFechaFin())) {
+
+            throw new IllegalArgumentException(
+                    "Solo se permite la inscripción a una edición vigente.");
+        }
+
+        if (fechaInscripcion == null) {
+            throw new IllegalArgumentException(
+                    "Debe indicar una fecha de inscripción.");
+        }
+
+        String video = normalizarVideoUrl(videoUrl);
+
+        InscripcionEdicion inscripcion = new InscripcionEdicion(
+                fechaInscripcion,
+                estudiante,
+                edicion
+        );
+        inscripcion.setVideoUrl(video);
+
+        manejadorInscripcionEdicion.addInscripcion(inscripcion);
     }
-
-    LocalDate hoy = LocalDate.now(
-            java.time.ZoneId.of("America/Montevideo"));
-
-    if (edicion.getFechaInicio() == null
-            || edicion.getFechaFin() == null
-            || hoy.isBefore(edicion.getFechaInicio())
-            || hoy.isAfter(edicion.getFechaFin())) {
-
-        throw new IllegalArgumentException(
-                "Solo se permite la inscripción a una edición vigente.");
-    }
-
-    if (fechaInscripcion == null) {
-        throw new IllegalArgumentException(
-                "Debe indicar una fecha de inscripción.");
-    }
-
-    InscripcionEdicion inscripcion = new InscripcionEdicion(
-            fechaInscripcion,
-            estudiante,
-            edicion
-    );
-
-    manejadorInscripcionEdicion.addInscripcion(inscripcion);
-}
 
     @Override
     public void modificarInscripcionEdicion(Long idInscripcion, LocalDate nuevaFecha) {
 
         manejadorInscripcionEdicion.modificarInscripcion(idInscripcion, nuevaFecha);
+    }
+
+    @Override
+    public void modificarInscripcionEdicion(Long idInscripcion, LocalDate nuevaFecha, String videoUrl) {
+
+        manejadorInscripcionEdicion.modificarInscripcion(
+                idInscripcion, nuevaFecha, normalizarVideoUrl(videoUrl));
+    }
+
+    /**
+     * Valida la URL opcional del video de motivación.
+     * Devuelve null si no hay video; lanza IllegalArgumentException si no es una URL http/https válida.
+     */
+    static String normalizarVideoUrl(String videoUrl) {
+        if (videoUrl == null || videoUrl.trim().isEmpty()) {
+            return null;
+        }
+        String url = videoUrl.trim();
+        if (url.length() > 500) {
+            throw new IllegalArgumentException(
+                    "La URL del video no puede superar los 500 caracteres.");
+        }
+        try {
+            java.net.URI uri = new java.net.URI(url);
+            String esquema = uri.getScheme();
+            if (esquema == null
+                    || !(esquema.equalsIgnoreCase("http") || esquema.equalsIgnoreCase("https"))
+                    || uri.getHost() == null || uri.getHost().isEmpty()) {
+                throw new IllegalArgumentException(
+                        "La URL del video debe ser una dirección http o https válida.");
+            }
+        } catch (java.net.URISyntaxException e) {
+            throw new IllegalArgumentException(
+                    "La URL del video debe ser una dirección http o https válida.");
+        }
+        return url;
     }
 
     // =========================
@@ -562,4 +610,4 @@ public void seleccionarEstudiantesEdicion(
     instancia = new Controlador(
             "edextCentralPU", propiedades);
 }
-}
+}

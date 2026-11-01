@@ -152,7 +152,8 @@ public interface ICentralWS {
     void inscribirEstudianteEdicion(
             @WebParam(name = "nicknameEstudiante") String nicknameEstudiante,
             @WebParam(name = "nombreEdicion") String nombreEdicion,
-            @WebParam(name = "fechaInscripcion") String fechaInscripcion) throws CentralException;
+            @WebParam(name = "fechaInscripcion") String fechaInscripcion,
+            @WebParam(name = "videoUrl") String videoUrl) throws CentralException;
 
     @WebMethod
     void inscribirEstudiantePrograma(
@@ -231,7 +232,8 @@ public interface ICentralWS {
     @WebMethod
     void modificarInscripcionEdicion(
             @WebParam(name = "idInscripcion") Long idInscripcion,
-            @WebParam(name = "nuevaFecha") String nuevaFecha) throws CentralException;
+            @WebParam(name = "nuevaFecha") String nuevaFecha,
+            @WebParam(name = "videoUrl") String videoUrl) throws CentralException;
 
     @WebMethod
     void modificarUsuario(

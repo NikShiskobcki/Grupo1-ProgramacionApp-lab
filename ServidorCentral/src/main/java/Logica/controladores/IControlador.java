@@ -140,6 +140,13 @@ public interface IControlador {
 
     void modificarInscripcionEdicion(Long idInscripcion, LocalDate nuevaFecha);
 
+    /** Inscribe con un video de motivación opcional (videoUrl null o vacío = sin video). */
+    void inscribirEstudianteEdicion(String nicknameEstudiante, String nombreEdicion,
+            LocalDate fechaInscripcion, String videoUrl);
+
+    /** Actualiza fecha y video de una inscripción en estado Inscripto. */
+    void modificarInscripcionEdicion(Long idInscripcion, LocalDate nuevaFecha, String videoUrl);
+
     //Inscripcion a edición 
     List<EdicionCurso> listarEdicionesVigentesPorCurso(String nombreCurso);
 

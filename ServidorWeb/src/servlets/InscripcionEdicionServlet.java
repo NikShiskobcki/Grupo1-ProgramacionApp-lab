@@ -85,12 +85,27 @@ public class InscripcionEdicionServlet extends ServletRemoto {
         String curso = parametro(request, "curso");
         String edicion = parametro(request, "edicion");
         String accion = parametro(request, "accion");
+        String videoUrl = parametro(request, "videoUrl");
         String resultado;
+
+        // Se conserva lo ingresado para volver a mostrarlo si hay un error.
+        request.setAttribute("videoUrlIngresado", videoUrl);
 
         try {
             if (curso.isEmpty() || edicion.isEmpty()) {
                 throw new IllegalArgumentException(
                         "Seleccioná un curso y una edición vigente.");
+            }
+
+            if (!videoUrl.isEmpty()) {
+                if (videoUrl.length() > 500) {
+                    throw new IllegalArgumentException(
+                            "La URL del video no puede superar los 500 caracteres.");
+                }
+                if (!util.Html.esUrlHttp(videoUrl)) {
+                    throw new IllegalArgumentException(
+                            "La URL del video debe ser una dirección http o https válida.");
+                }
             }
 
             boolean vigente = false;
@@ -138,7 +153,8 @@ public class InscripcionEdicionServlet extends ServletRemoto {
                 }
 
                 control.inscribirEstudianteEdicion(
-                        estudiante.getNickname(), edicion, hoy);
+                        estudiante.getNickname(), edicion, hoy,
+                        videoUrl.isEmpty() ? null : videoUrl);
 
                 resultado = "inscripto";
 
@@ -155,7 +171,8 @@ public class InscripcionEdicionServlet extends ServletRemoto {
                 }
 
                 control.modificarInscripcionEdicion(
-                        existente.getId(), hoy);
+                        existente.getId(), hoy,
+                        videoUrl.isEmpty() ? null : videoUrl);
 
                 resultado = "modificado";
 
@@ -311,10 +328,19 @@ public class InscripcionEdicionServlet extends ServletRemoto {
                         request.setAttribute("edicionSel", edicionElegida);
                         request.setAttribute("detalleEdicion", detalle);
 
-                        request.setAttribute("inscripcion",
+                        InscripcionEdicion inscripcion =
                                 control.buscarInscripcionEdicion(
                                         estudiante.getNickname(),
-                                        edicionElegida));
+                                        edicionElegida);
+
+                        request.setAttribute("inscripcion", inscripcion);
+
+                        // Valor inicial del campo: lo ingresado (tras un error) o el video guardado.
+                        if (request.getAttribute("videoUrlIngresado") == null) {
+                            request.setAttribute("videoUrlIngresado",
+                                    inscripcion == null || inscripcion.getVideoUrl() == null
+                                            ? "" : inscripcion.getVideoUrl());
+                        }
 
                     } else {
                         ponerError(request,
@@ -372,4 +398,4 @@ public class InscripcionEdicionServlet extends ServletRemoto {
             throw new IllegalStateException(e);
         }
     }
-}
+}

@@ -164,7 +164,7 @@ public final class MapeadorSOAP {
         return new InscripcionEdicionDTO(origen.getId(),
                 fecha(origen.getFechaInscripcion()),
                 origen.getEstado() == null ? null : origen.getEstado().name(),
-                nicknameEstudiante, nombreEdicion);
+                nicknameEstudiante, nombreEdicion, origen.getVideoUrl());
     }
 
     public static InscripcionProgramaDTO inscripcionPrograma(

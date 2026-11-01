@@ -334,8 +334,9 @@ public final class ClienteCentral {
     public void inscribirEstudianteEdicion(
             String nicknameEstudiante,
             String nombreEdicion,
-            LocalDate fechaInscripcion) {
-        escribir(puerto -> { puerto.inscribirEstudianteEdicion(nicknameEstudiante, nombreEdicion, fecha(fechaInscripcion)); return null; });
+            LocalDate fechaInscripcion,
+            String videoUrl) {
+        escribir(puerto -> { puerto.inscribirEstudianteEdicion(nicknameEstudiante, nombreEdicion, fecha(fechaInscripcion), videoUrl); return null; });
     }
 
     public void modificarUsuario(
@@ -361,8 +362,9 @@ public final class ClienteCentral {
 
     public void modificarInscripcionEdicion(
             Long idInscripcion,
-            LocalDate nuevaFecha) {
-        escribir(puerto -> { puerto.modificarInscripcionEdicion(idInscripcion, fecha(nuevaFecha)); return null; });
+            LocalDate nuevaFecha,
+            String videoUrl) {
+        escribir(puerto -> { puerto.modificarInscripcionEdicion(idInscripcion, fecha(nuevaFecha), videoUrl); return null; });
     }
 
     public void inscribirEstudiantePrograma(

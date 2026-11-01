@@ -259,6 +259,8 @@
             
             <xs:element minOccurs="0" name="nuevaFecha" type="xs:string"/>
             
+            <xs:element minOccurs="0" name="videoUrl" type="xs:string"/>
+            
         </xs:sequence>
         
     </xs:complexType>
@@ -809,6 +811,8 @@
             
             <xs:element minOccurs="0" name="fechaInscripcion" type="xs:string"/>
             
+            <xs:element minOccurs="0" name="videoUrl" type="xs:string"/>
+            
         </xs:sequence>
         
     </xs:complexType>
@@ -948,6 +952,8 @@
             <xs:element minOccurs="0" name="nicknameEstudiante" type="xs:string"/>
             
             <xs:element minOccurs="0" name="nombreEdicion" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="videoUrl" type="xs:string"/>
             
         </xs:sequence>
         

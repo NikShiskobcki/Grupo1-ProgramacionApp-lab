@@ -10,7 +10,7 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlType(
     name = "InscripcionEdicionDTO",
     namespace = "http://ws.edext.utec.edu.uy/",
-    propOrder = {"id", "fechaInscripcion", "estado", "nicknameEstudiante", "nombreEdicion"}
+    propOrder = {"id", "fechaInscripcion", "estado", "nicknameEstudiante", "nombreEdicion", "videoUrl"}
 )
 public class InscripcionEdicionDTO implements Serializable {
 
@@ -21,6 +21,7 @@ public class InscripcionEdicionDTO implements Serializable {
     private String estado;
     private String nicknameEstudiante;
     private String nombreEdicion;
+    private String videoUrl;
 
     public InscripcionEdicionDTO() {
     }
@@ -30,12 +31,14 @@ public class InscripcionEdicionDTO implements Serializable {
             String fechaInscripcion,
             String estado,
             String nicknameEstudiante,
-            String nombreEdicion) {
+            String nombreEdicion,
+            String videoUrl) {
         this.id = id;
         this.fechaInscripcion = fechaInscripcion;
         this.estado = estado;
         this.nicknameEstudiante = nicknameEstudiante;
         this.nombreEdicion = nombreEdicion;
+        this.videoUrl = videoUrl;
     }
 
     public Long getId() {
@@ -76,5 +79,13 @@ public class InscripcionEdicionDTO implements Serializable {
 
     public void setNombreEdicion(String nombreEdicion) {
         this.nombreEdicion = nombreEdicion;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 }

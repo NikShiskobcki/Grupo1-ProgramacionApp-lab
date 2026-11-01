@@ -6,6 +6,7 @@ package Logica.Entidades;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -38,6 +39,10 @@ public class InscripcionEdicion implements Serializable {
     private EstadoInscripcion estado = EstadoInscripcion.INSCRIPTO;
 
     private Integer nota;
+
+    /** URL opcional de un video de motivación (http/https). */
+    @Column(length = 500)
+    private String videoUrl;
 
     // CONSTRUCTORES
 
@@ -80,6 +85,10 @@ public class InscripcionEdicion implements Serializable {
     public Integer getNota() {
         return nota;
     }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
     
     
     
@@ -103,6 +112,10 @@ public class InscripcionEdicion implements Serializable {
 //        this.edicion = edicion;
 //    }
 
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
     public void setEstado(EstadoInscripcion estado) {
         this.estado = estado;
     }
@@ -116,4 +129,4 @@ public class InscripcionEdicion implements Serializable {
     }
     
     
-}
+}

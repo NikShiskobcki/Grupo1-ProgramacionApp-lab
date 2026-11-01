@@ -180,7 +180,8 @@ public final class MapeadorCliente {
         EstadoInscripcion estado = origen.getEstado() == null ? EstadoInscripcion.INSCRIPTO
                 : EstadoInscripcion.valueOf(origen.getEstado());
         return new InscripcionEdicion(origen.getId(), fecha(origen.getFechaInscripcion()),
-                estado, origen.getNicknameEstudiante(), origen.getNombreEdicion());
+                estado, origen.getNicknameEstudiante(), origen.getNombreEdicion(),
+                origen.getVideoUrl());
     }
 
     public static InscripcionPrograma convertir(cliente.central.InscripcionProgramaDTO origen) {
