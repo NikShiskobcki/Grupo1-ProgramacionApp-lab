@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="Logica.Entidades.Curso" %>
-<%@ page import="Logica.DTO.DetalleProgramaFormacion" %>
+<%@ page import="modelo.Curso" %>
+<%@ page import="modelo.DetalleProgramaFormacion" %>
 <%@ page import="util.Html" %>
 <%@ page import="java.util.List" %>
 <jsp:include page="header.jsp" />

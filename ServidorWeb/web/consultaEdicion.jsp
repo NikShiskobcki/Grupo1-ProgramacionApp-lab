@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="Logica.Entidades.Curso" %>
-<%@ page import="Logica.Entidades.EdicionCurso" %>
+<%@ page import="modelo.Curso" %>
+<%@ page import="modelo.EdicionCurso" %>
 <%@ page import="util.Html" %>
 
 <%

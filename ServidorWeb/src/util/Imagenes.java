@@ -35,19 +35,16 @@ public final class Imagenes {
     }
 
     private static Path carpeta() {
-        String configurada = System.getenv("IMAGENES_DIR");
+        String configurada
+                = ConfiguracionWeb.obtener("imagenes.dir");
 
-        if (configurada == null || configurada.trim().isEmpty()) {
-            configurada = "/var/lib/edext/imagenes";
-        }
-
-        return Paths.get(configurada).toAbsolutePath().normalize();
+        return Paths.get(configurada)
+                .toAbsolutePath()
+                .normalize();
     }
 
-    
-     //Devuelve null si no se seleccionó un archivo
-     //Si existe, valida y guarda la imagen
-   
+    //Devuelve null si no se seleccionó un archivo
+    //Si existe, valida y guarda la imagen
     public static String guardar(Part archivo) throws IOException {
         if (archivo == null) {
             return null;
@@ -75,8 +72,8 @@ public final class Imagenes {
     }
 
     /**
-     * Valida y guarda una imagen leída desde cualquier InputStream
-     * (por ejemplo, un recurso del classpath). Es la misma lógica que usa
+     * Valida y guarda una imagen leída desde cualquier InputStream (por
+     * ejemplo, un recurso del classpath). Es la misma lógica que usa
      * guardar(Part), así los datos de prueba pasan por las mismas validaciones.
      */
     public static String guardar(InputStream entradaImagen) throws IOException {
@@ -107,8 +104,8 @@ public final class Imagenes {
                         "No se pudo leer la imagen.");
             }
 
-            Iterator<ImageReader> lectores =
-                    ImageIO.getImageReaders(entrada);
+            Iterator<ImageReader> lectores
+                    = ImageIO.getImageReaders(entrada);
 
             if (!lectores.hasNext()) {
                 throw new IllegalArgumentException(
@@ -207,7 +204,6 @@ public final class Imagenes {
         }
     }
 
-    
     //Resuelve solamente nombres generados por esta utilidad.
     public static Path resolver(String nombre) {
         if (nombre == null || !NOMBRE_VALIDO.matcher(nombre).matches()) {
@@ -218,8 +214,7 @@ public final class Imagenes {
         return carpeta().resolve(nombre);
     }
 
- 
-     //Elimina una imagen local por ej si falla el alta.
+    //Elimina una imagen local por ej si falla el alta.
     public static void eliminar(String rutaImagen) throws IOException {
         if (rutaImagen == null || !rutaImagen.startsWith(PREFIJO)) {
             return;

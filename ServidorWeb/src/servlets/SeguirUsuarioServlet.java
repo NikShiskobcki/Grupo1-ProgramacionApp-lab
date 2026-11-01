@@ -1,9 +1,10 @@
 package servlets;
 
-import Logica.DTO.UsuarioResumen;
-import Logica.controladores.Fabrica;
-import Logica.controladores.IControlador;
+import util.ServletRemoto;
 
+import util.ClienteCentral;
+
+import modelo.UsuarioResumen;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -25,11 +26,18 @@ import javax.servlet.http.HttpSession;
  *  - Formulario normal (sin JavaScript): redirige a /perfil?user=...&msg=... como antes.
  */
 @WebServlet("/seguir-usuario")
-public class SeguirUsuarioServlet extends HttpServlet {
+public class SeguirUsuarioServlet extends ServletRemoto {
+
+    @Override
+    public void init() throws javax.servlet.ServletException {
+        super.init();
+        control = new ClienteCentral(getServletContext());
+    }
+
 
     private static final String MSG_ERROR = "No se pudo completar la operación. Intentá nuevamente.";
 
-    private final IControlador control = Fabrica.getInstance().getIControlador();
+    private ClienteCentral control;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

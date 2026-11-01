@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="Logica.DTO.DetalleUsuario" %>
-<%@ page import="Logica.DTO.ElementoResumen" %>
-<%@ page import="Logica.DTO.InscripcionResumen" %>
-<%@ page import="Logica.DTO.UsuarioResumen" %>
+<%@ page import="modelo.DetalleUsuario" %>
+<%@ page import="modelo.ElementoResumen" %>
+<%@ page import="modelo.InscripcionResumen" %>
+<%@ page import="modelo.UsuarioResumen" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="util.Html" %>

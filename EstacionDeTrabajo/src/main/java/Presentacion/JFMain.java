@@ -5,57 +5,61 @@ import Logica.controladores.IControlador;
 import java.awt.Color;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import publicadores.ArranqueCentral;
 
 public class JFMain extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JFMain.class.getName());
     int xMouse, yMouse;
     private IControlador controlador;
+
     public JFMain() {
         initComponents();
-        controlador= Fabrica.getInstance().getIControlador(); 
-        
+
+        setDefaultCloseOperation(
+                javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        controlador = Fabrica.getInstance().getIControlador();
+
         //Oculte la tpOptions para que tengamos un solo dpPrincipal!!!!
         //tpOptionPages.setVisible(false);
-        
         pnlMenuUsuarios.setVisible(false);
         pnlMenuCursos.setVisible(false);
         pnlMenuEdiciones.setVisible(false);
         pnlMenuProgramas.setVisible(false);
         pnlMenuInstituciones.setVisible(false);
-        pnlMenuCategorias.setVisible(false); 
+        pnlMenuCategorias.setVisible(false);
     }
-    
+
     private void abrirInternalFrame(javax.swing.JInternalFrame ventana) {
 
-    // Cierra cualquier InternalFrame que ya esté abierto
-    for (javax.swing.JInternalFrame frame : dpPrincipal.getAllFrames()) {
-        frame.dispose();
+        // Cierra cualquier InternalFrame que ya esté abierto
+        for (javax.swing.JInternalFrame frame : dpPrincipal.getAllFrames()) {
+            frame.dispose();
+        }
+
+        // Quita borde y barra superior del JInternalFrame
+        ventana.setBorder(null);
+
+        if (ventana.getUI() instanceof javax.swing.plaf.basic.BasicInternalFrameUI ui) {
+            ui.setNorthPane(null);
+        }
+
+        // Hace que ocupe todo el DesktopPane
+        ventana.setSize(dpPrincipal.getSize());
+        ventana.setLocation(0, 0);
+
+        dpPrincipal.add(ventana);
+        ventana.setVisible(true);
+
     }
 
-    // Quita borde y barra superior del JInternalFrame
-    ventana.setBorder(null);
-
-    if (ventana.getUI() instanceof javax.swing.plaf.basic.BasicInternalFrameUI ui) {
-        ui.setNorthPane(null);
-    }
-
-    // Hace que ocupe todo el DesktopPane
-    ventana.setSize(dpPrincipal.getSize());
-    ventana.setLocation(0, 0);
-
-    dpPrincipal.add(ventana);
-    ventana.setVisible(true);
-    
-}
-    
     private void cerrarSubmenus() {
         pnlMenuUsuarios.setVisible(false);
         pnlMenuCursos.setVisible(false);
         pnlMenuEdiciones.setVisible(false);
         pnlMenuProgramas.setVisible(false);
         pnlMenuInstituciones.setVisible(false);
-        pnlMenuCategorias.setVisible(false); 
+        pnlMenuCategorias.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -607,7 +611,7 @@ public class JFMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuariosMouseClicked
-         //tpOptionPages.setSelectedIndex(0);
+        //tpOptionPages.setSelectedIndex(0);
         boolean estabaAbierto = pnlMenuUsuarios.isVisible();
 
         cerrarSubmenus();
@@ -704,14 +708,14 @@ public class JFMain extends javax.swing.JFrame {
     }//GEN-LAST:event_lblInstitucionesMouseExited
 
     private void pnlTopPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlTopPanelMousePressed
-        xMouse =evt.getX();
-        yMouse =evt.getY();
+        xMouse = evt.getX();
+        yMouse = evt.getY();
     }//GEN-LAST:event_pnlTopPanelMousePressed
 
     private void pnlTopPanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlTopPanelMouseDragged
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
-        this.setLocation(x-xMouse,y-yMouse);
+        this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_pnlTopPanelMouseDragged
 
     private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
@@ -719,11 +723,11 @@ public class JFMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirMouseClicked
 
     private void btnSalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseEntered
-        btnSalir.setBackground(new Color(204,0,51));
+        btnSalir.setBackground(new Color(204, 0, 51));
     }//GEN-LAST:event_btnSalirMouseEntered
 
     private void btnSalirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseExited
-       btnSalir.setBackground(new Color(35, 71, 75));
+        btnSalir.setBackground(new Color(35, 71, 75));
     }//GEN-LAST:event_btnSalirMouseExited
 
 
@@ -736,11 +740,11 @@ public class JFMain extends javax.swing.JFrame {
     }//GEN-LAST:event_lblAltaInstitutoMouseClicked
 
     private void lblAltaEdicionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaEdicionMouseClicked
-    abrirInternalFrame(new IFAltaEdicionCurso(controlador));
+        abrirInternalFrame(new IFAltaEdicionCurso(controlador));
     }//GEN-LAST:event_lblAltaEdicionMouseClicked
 
     private void lblAltaUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAltaUsuarioMouseClicked
-       
+
         abrirInternalFrame(new IFAltaUsuario());
 
     }//GEN-LAST:event_lblAltaUsuarioMouseClicked
@@ -769,7 +773,7 @@ public class JFMain extends javax.swing.JFrame {
     }//GEN-LAST:event_lblConsultaCursoMouseClicked
 
     private void lblConsultaEdicionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblConsultaEdicionMouseClicked
-         abrirInternalFrame(new IFConsultaEdicionCurso(controlador));
+        abrirInternalFrame(new IFConsultaEdicionCurso(controlador));
     }//GEN-LAST:event_lblConsultaEdicionMouseClicked
 
     private void lblInscripcionEdicionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInscripcionEdicionMouseClicked
@@ -782,27 +786,27 @@ public class JFMain extends javax.swing.JFrame {
     }//GEN-LAST:event_lblAgregarCursoProgramaMouseClicked
 
     private void lblCargarDatosPruebaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCargarDatosPruebaMouseClicked
- 
-    try {
-        controlador.cargarDatosPrueba();
 
-        JOptionPane.showMessageDialog(
-                this,
-                "Los datos de prueba fueron cargados correctamente.",
-                "Datos de prueba",
-                JOptionPane.INFORMATION_MESSAGE
-        );
+        try {
+            controlador.cargarDatosPrueba();
 
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(
-                this,
-                "Ocurrió un error al cargar los datos de prueba:\n" + e.getMessage(),
-                "Error",
-                JOptionPane.ERROR_MESSAGE
-        );
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Los datos de prueba fueron cargados correctamente.",
+                    "Datos de prueba",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
 
-        e.printStackTrace();
-    }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Ocurrió un error al cargar los datos de prueba:\n" + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
+            e.printStackTrace();
+        }
 
     }//GEN-LAST:event_lblCargarDatosPruebaMouseClicked
 
@@ -829,7 +833,7 @@ public class JFMain extends javax.swing.JFrame {
     }//GEN-LAST:event_lblAltaCategoriaMouseClicked
 
     private void lblCategoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCategoriasMouseClicked
-         boolean estabaAbierto = pnlMenuCategorias.isVisible();
+        boolean estabaAbierto = pnlMenuCategorias.isVisible();
 
         cerrarSubmenus();
 
@@ -838,14 +842,31 @@ public class JFMain extends javax.swing.JFrame {
         pnlMenuCategorias.getParent().repaint();
     }//GEN-LAST:event_lblCategoriasMouseClicked
 
+    public static void main(String[] args) {
+        try {
+            // Configura el controlador y publica SOAP antes de abrir ventanas.
+            ArranqueCentral.iniciar();
 
+            java.awt.EventQueue.invokeLater(
+                    () -> new JFMain().setVisible(true));
 
+        } catch (Exception e) {
+            logger.log(
+                    java.util.logging.Level.SEVERE,
+                    "No se pudo iniciar Central y la Estación.",
+                    e);
 
+            JOptionPane.showMessageDialog(
+                    null,
+                    "No se pudo iniciar el sistema.\n"
+                    + "Revisá central.properties, la conexión a MariaDB "
+                    + "y que el puerto de Central esté libre.\n\n"
+                    + e.getMessage(),
+                    "Error de inicio",
+                    JOptionPane.ERROR_MESSAGE);
 
-    public static void main(String args[]) {
-        
-
-        java.awt.EventQueue.invokeLater(() -> new JFMain().setVisible(true));
+            System.exit(1);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

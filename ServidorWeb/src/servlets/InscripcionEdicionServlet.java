@@ -1,15 +1,16 @@
 package servlets;
 
-import Logica.DTO.DetalleCurso;
-import Logica.DTO.DetalleEdicionCurso;
-import Logica.DTO.UsuarioResumen;
-import Logica.Entidades.Curso;
-import Logica.Entidades.EdicionCurso;
-import Logica.Entidades.EstadoInscripcion;
-import Logica.Entidades.InscripcionEdicion;
-import Logica.controladores.Fabrica;
-import Logica.controladores.IControlador;
+import util.ServletRemoto;
 
+import util.ClienteCentral;
+
+import modelo.DetalleCurso;
+import modelo.DetalleEdicionCurso;
+import modelo.UsuarioResumen;
+import modelo.Curso;
+import modelo.EdicionCurso;
+import modelo.EstadoInscripcion;
+import modelo.InscripcionEdicion;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.time.LocalDate;
@@ -25,10 +26,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet("/inscribir-edicion")
-public class InscripcionEdicionServlet extends HttpServlet {
+public class InscripcionEdicionServlet extends ServletRemoto {
 
-    private final IControlador control =
-            Fabrica.getInstance().getIControlador();
+    @Override
+    public void init() throws javax.servlet.ServletException {
+        super.init();
+        control = new ClienteCentral(getServletContext());
+    }
+
+
+    private ClienteCentral control;
 
     private static final ZoneId ZONA =
             ZoneId.of("America/Montevideo");
@@ -119,7 +126,7 @@ public class InscripcionEdicionServlet extends HttpServlet {
                  * También comprobamos el historial por si la búsqueda
                  * de esta versión de Central omite las rechazadas.
                  */
-                for (Logica.DTO.ResultadoInscripcion anterior
+                for (modelo.ResultadoInscripcion anterior
                         : control.listarResultadosPorEstudiante(
                                 estudiante.getNickname())) {
 

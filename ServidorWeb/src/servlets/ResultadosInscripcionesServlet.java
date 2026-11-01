@@ -1,10 +1,11 @@
 package servlets;
 
-import Logica.DTO.ResultadoInscripcion;
-import Logica.DTO.UsuarioResumen;
-import Logica.controladores.Fabrica;
-import Logica.controladores.IControlador;
+import util.ServletRemoto;
 
+import util.ClienteCentral;
+
+import modelo.ResultadoInscripcion;
+import modelo.UsuarioResumen;
 import java.io.IOException;
 import java.util.List;
 
@@ -16,10 +17,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet("/mis-inscripciones")
-public class ResultadosInscripcionesServlet extends HttpServlet {
+public class ResultadosInscripcionesServlet extends ServletRemoto {
 
-    private final IControlador control =
-            Fabrica.getInstance().getIControlador();
+    @Override
+    public void init() throws javax.servlet.ServletException {
+        super.init();
+        control = new ClienteCentral(getServletContext());
+    }
+
+
+    private ClienteCentral control;
 
     @Override
     protected void doGet(HttpServletRequest request,

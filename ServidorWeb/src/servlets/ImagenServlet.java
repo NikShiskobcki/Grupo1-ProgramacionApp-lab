@@ -1,5 +1,7 @@
 package servlets;
 
+import util.ServletRemoto;
+
 import util.Imagenes;
 
 import java.io.IOException;
@@ -13,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/imagenes/*")
-public class ImagenServlet extends HttpServlet {
+public class ImagenServlet extends ServletRemoto {
 
     @Override
     protected void doGet(HttpServletRequest request,

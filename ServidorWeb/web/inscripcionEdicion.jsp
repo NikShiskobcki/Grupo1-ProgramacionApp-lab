@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="Logica.Entidades.Curso" %>
-<%@ page import="Logica.Entidades.EdicionCurso" %>
-<%@ page import="Logica.Entidades.InscripcionEdicion" %>
-<%@ page import="Logica.Entidades.EstadoInscripcion" %>
-<%@ page import="Logica.DTO.DetalleEdicionCurso" %>
+<%@ page import="modelo.Curso" %>
+<%@ page import="modelo.EdicionCurso" %>
+<%@ page import="modelo.InscripcionEdicion" %>
+<%@ page import="modelo.EstadoInscripcion" %>
+<%@ page import="modelo.DetalleEdicionCurso" %>
 <%@ page import="util.Html" %>
 
 <%

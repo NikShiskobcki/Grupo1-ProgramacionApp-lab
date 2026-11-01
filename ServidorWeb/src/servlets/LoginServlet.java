@@ -1,8 +1,10 @@
 package servlets;
 
-import Logica.controladores.Fabrica;
-import Logica.controladores.IControlador;
-import Logica.DTO.UsuarioResumen;
+import util.ServletRemoto;
+
+import util.ClienteCentral;
+
+import modelo.UsuarioResumen;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -13,9 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+public class LoginServlet extends ServletRemoto {
 
-    private final IControlador control = Fabrica.getInstance().getIControlador();
+    @Override
+    public void init() throws javax.servlet.ServletException {
+        super.init();
+        control = new ClienteCentral(getServletContext());
+    }
+
+
+    private ClienteCentral control;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

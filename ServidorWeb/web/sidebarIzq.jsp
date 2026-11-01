@@ -1,12 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="Logica.DTO.UsuarioResumen" %>
-<%@ page import="Logica.controladores.Fabrica" %>
-<%@ page import="Logica.controladores.IControlador" %>
+<%@ page import="modelo.UsuarioResumen" %>
 <%@ page import="java.util.List" %>
 
 <%
    UsuarioResumen sidebarUser = (UsuarioResumen) session.getAttribute("usuarioLogueado");
-   IControlador sidebarControl = Fabrica.getInstance().getIControlador();
+   util.ClienteCentral sidebarControl = new util.ClienteCentral(application);
 
    List<String> sidebarInstitutos = sidebarControl.listarNombresInstitutos();
    List<String> sidebarCategorias = sidebarControl.listarNombresCategorias();

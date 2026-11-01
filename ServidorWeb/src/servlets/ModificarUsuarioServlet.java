@@ -1,10 +1,11 @@
 package servlets;
 
-import Logica.DTO.UsuarioEdicion;
-import Logica.DTO.UsuarioResumen;
-import Logica.controladores.Fabrica;
-import Logica.controladores.IControlador;
+import util.ServletRemoto;
 
+import util.ClienteCentral;
+
+import modelo.UsuarioEdicion;
+import modelo.UsuarioResumen;
 import java.io.IOException;
 import java.net.URI;
 import java.time.LocalDate;
@@ -31,9 +32,16 @@ import util.Imagenes;
         maxFileSize = 6L * 1024 * 1024,
         maxRequestSize = 7L * 1024 * 1024
 )
-public class ModificarUsuarioServlet extends HttpServlet {
+public class ModificarUsuarioServlet extends ServletRemoto {
 
-    private final IControlador control = Fabrica.getInstance().getIControlador();
+    @Override
+    public void init() throws javax.servlet.ServletException {
+        super.init();
+        control = new ClienteCentral(getServletContext());
+    }
+
+
+    private ClienteCentral control;
 
     private UsuarioResumen logueado(HttpServletRequest request) {
         HttpSession session = request.getSession(false);

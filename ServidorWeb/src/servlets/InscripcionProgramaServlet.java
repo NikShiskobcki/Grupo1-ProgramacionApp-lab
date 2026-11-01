@@ -1,8 +1,10 @@
 package servlets;
 
-import Logica.DTO.UsuarioResumen;
-import Logica.controladores.Fabrica;
-import Logica.controladores.IControlador;
+import util.ServletRemoto;
+
+import util.ClienteCentral;
+
+import modelo.UsuarioResumen;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.time.LocalDate;
@@ -14,8 +16,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet("/inscribir-programa")
-public class InscripcionProgramaServlet extends HttpServlet {
-    private final IControlador icon = Fabrica.getInstance().getIControlador();
+public class InscripcionProgramaServlet extends ServletRemoto {
+
+    @Override
+    public void init() throws javax.servlet.ServletException {
+        super.init();
+        icon = new ClienteCentral(getServletContext());
+    }
+
+    private ClienteCentral icon;
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

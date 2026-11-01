@@ -2,7 +2,8 @@ package Logica.controladores;
 
 import Logica.DTO.DetalleCurso;
 import Logica.DTO.DetalleEdicionCurso;
-
+import java.util.Map;
+import java.util.Collections;
 import Logica.DTO.DetalleProgramaFormacion;
 import Logica.DTO.DetalleUsuario;
 import Logica.DTO.ElementoResumen;
@@ -58,8 +59,15 @@ public class Controlador implements IControlador {
    
     // Constructor privado para aplicar Singleton
     private Controlador() {
-        //Fabrica de entidades creada una sola vez para toda la app
-        emf = Persistence.createEntityManagerFactory("edextPU");
+ 
+        this("edextPU", Collections.emptyMap());
+    }
+
+    private Controlador(String unidad,
+            Map<String, Object> propiedades) {
+
+        emf = Persistence.createEntityManagerFactory(
+                unidad, propiedades);
 
         //Manejadores que comparten la misma EMF
         manejadorUsuario = new ManejadorUsuario(emf);
@@ -84,7 +92,7 @@ public class Controlador implements IControlador {
 
     }
 
-    public static Controlador getInstance() {
+    public static synchronized Controlador getInstance(){
 
         if (instancia == null) {
             instancia = new Controlador();
@@ -542,4 +550,16 @@ public void seleccionarEstudiantesEdicion(
     public void cargarDatosPrueba() {
         cargadorDatosPrueba.cargar();
     }
+    
+    public static synchronized void iniciarCentral(
+        Map<String, Object> propiedades) {
+
+    if (instancia != null) {
+        throw new IllegalStateException(
+                "El controlador ya fue inicializado.");
+    }
+
+    instancia = new Controlador(
+            "edextCentralPU", propiedades);
+}
 }

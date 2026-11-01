@@ -1,10 +1,11 @@
 package servlets;
 
-import Logica.DTO.UsuarioResumen;
-import Logica.Entidades.Curso;
-import Logica.Entidades.Docente;
-import Logica.controladores.Fabrica;
-import Logica.controladores.IControlador;
+import util.ServletRemoto;
+
+import modelo.UsuarioResumen;
+import modelo.Curso;
+import jakarta.xml.ws.WebServiceException;
+import util.ClienteCentral;
 
 import java.io.IOException;
 import java.net.URI;
@@ -31,21 +32,50 @@ import javax.servlet.http.Part;
         maxFileSize = 6L * 1024 * 1024,
         maxRequestSize = 7L * 1024 * 1024
 )
-public class AltaEdicionServlet extends HttpServlet {
+public class AltaEdicionServlet extends ServletRemoto {
 
-    private final IControlador control =
-            Fabrica.getInstance().getIControlador();
+    private ClienteCentral control;
 
-    private static final ZoneId ZONA =
-            ZoneId.of("America/Montevideo");
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        control = new ClienteCentral(getServletContext());
+    }
+
+    @Override
+    protected void service(
+            HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException {
+
+        try {
+            super.service(request, response);
+
+        } catch (WebServiceException e) {
+            log("No fue posible comunicarse con Servidor Central.", e);
+
+            if (response.isCommitted()) {
+                throw new ServletException(
+                        "No fue posible comunicarse con Servidor Central.", e);
+            }
+
+            response.resetBuffer();
+            response.sendError(
+                    HttpServletResponse.SC_SERVICE_UNAVAILABLE,
+                    "El Servidor Central no está disponible. Intentá nuevamente más tarde.");
+        }
+    }
+    
+    private static final ZoneId ZONA
+            = ZoneId.of("America/Montevideo");
 
     @Override
     protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
+            HttpServletResponse response)
             throws ServletException, IOException {
 
-        boolean opciones =
-                "opciones".equals(request.getParameter("accion"));
+        boolean opciones
+                = "opciones".equals(request.getParameter("accion"));
 
         if (!autorizar(request, response, opciones)) {
             return;
@@ -64,11 +94,11 @@ public class AltaEdicionServlet extends HttpServlet {
             return;
         }
 
-        List<Curso> cursos =
-                control.listarCursosPorInstituto(instituto);
+        List<Curso> cursos
+                = control.listarCursosPorInstituto(instituto);
 
-        List<Docente> docentes =
-                control.listarDocentesPorInstituto(instituto);
+        List<modelo.UsuarioResumen> docentes
+                = control.listarDocentesPorInstituto(instituto);
 
         StringBuilder json = new StringBuilder("{\"cursos\":[");
 
@@ -87,14 +117,13 @@ public class AltaEdicionServlet extends HttpServlet {
                 json.append(",");
             }
 
-            Docente docente = docentes.get(i);
+            modelo.UsuarioResumen docente = docentes.get(i);
 
             json.append("{\"nickname\":")
                     .append(textoJson(docente.getNickname()))
                     .append(",\"nombre\":")
                     .append(textoJson(
-                            docente.getNombre() + " "
-                            + docente.getApellido()))
+                            docente.getNombreCompleto()))
                     .append("}");
         }
 
@@ -107,222 +136,223 @@ public class AltaEdicionServlet extends HttpServlet {
     }
 
     @Override
-protected void doPost(HttpServletRequest request,
-                      HttpServletResponse response)
-        throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException {
 
-    request.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
 
-    if (!autorizar(request, response, false)) {
-        return;
-    }
-
-    // Procesamos el formulario multipart antes de leer los campos.
-    try {
-        request.getParts();
-    } catch (IllegalStateException e) {
-        response.sendError(
-                HttpServletResponse.SC_REQUEST_ENTITY_TOO_LARGE,
-                "El archivo o formulario supera el tamaño permitido. "
-                + "Seleccioná una imagen de hasta 5 MB."
-        );
-        return;
-    } catch (ServletException e) {
-        response.sendError(
-                HttpServletResponse.SC_BAD_REQUEST,
-                "No se pudo recibir el archivo. Volvé a enviar el formulario."
-        );
-        return;
-    }
-
-    String imagenGuardada = null;
-    boolean edicionGuardada = false;
-
-    try {
-        String nombre = parametro(request, "nombre");
-        String instituto = parametro(request, "instituto");
-        String nombreCurso = parametro(request, "curso");
-        String imagenUrl = parametro(request, "imagen");
-        String textoCupo = parametro(request, "cupo");
-
-        if (nombre.isEmpty() || nombre.length() > 255) {
-            throw new IllegalArgumentException(
-                    "El nombre es obligatorio y admite hasta 255 caracteres.");
+        if (!autorizar(request, response, false)) {
+            return;
         }
 
-        if (!control.listarNombresInstitutos().contains(instituto)) {
-            throw new IllegalArgumentException(
-                    "Seleccioná un instituto válido.");
+        // Procesamos el formulario multipart antes de leer los campos.
+        try {
+            request.getParts();
+        } catch (IllegalStateException e) {
+            response.sendError(
+                    HttpServletResponse.SC_REQUEST_ENTITY_TOO_LARGE,
+                    "El archivo o formulario supera el tamaño permitido. "
+                    + "Seleccioná una imagen de hasta 5 MB."
+            );
+            return;
+        } catch (ServletException e) {
+            response.sendError(
+                    HttpServletResponse.SC_BAD_REQUEST,
+                    "No se pudo recibir el archivo. Volvé a enviar el formulario."
+            );
+            return;
         }
 
-        List<Curso> cursos =
-                control.listarCursosPorInstituto(instituto);
+        String imagenGuardada = null;
+        boolean edicionGuardada = false;
 
-        if (cursos.stream().noneMatch(
-                curso -> curso.getNombre().equals(nombreCurso))) {
-            throw new IllegalArgumentException(
-                    "Seleccioná un curso del instituto indicado.");
-        }
+        try {
+            String nombre = parametro(request, "nombre");
+            String instituto = parametro(request, "instituto");
+            String nombreCurso = parametro(request, "curso");
+            String imagenUrl = parametro(request, "imagen");
+            String textoCupo = parametro(request, "cupo");
 
-        LocalDate inicio = LocalDate.parse(
-                parametro(request, "fechaInicio"));
-
-        LocalDate fin = LocalDate.parse(
-                parametro(request, "fechaFin"));
-
-        if (inicio.isBefore(LocalDate.now(ZONA))) {
-            throw new IllegalArgumentException(
-                    "La fecha de inicio no puede ser anterior a hoy.");
-        }
-
-        if (fin.isBefore(inicio)) {
-            throw new IllegalArgumentException(
-                    "La fecha de fin no puede ser anterior a la de inicio.");
-        }
-
-        Integer cupo = null;
-
-        if (!textoCupo.isEmpty()) {
-            if (!textoCupo.matches("[0-9]+")) {
+            if (nombre.isEmpty() || nombre.length() > 255) {
                 throw new IllegalArgumentException(
-                        "El cupo debe ser un número entero mayor que cero.");
+                        "El nombre es obligatorio y admite hasta 255 caracteres.");
             }
 
-            cupo = Integer.valueOf(textoCupo);
-
-            if (cupo <= 0) {
+            if (!control.listarNombresInstitutos().contains(instituto)) {
                 throw new IllegalArgumentException(
-                        "El cupo debe ser mayor que cero.");
+                        "Seleccioná un instituto válido.");
             }
-        }
 
-        if (control.existeEdicion(nombre)) {
-            throw new IllegalArgumentException(
-                    "Ya existe una edición con ese nombre. "
-                    + "Modificá el nombre o cancelá el alta.");
-        }
+            List<Curso> cursos
+                    = control.listarCursosPorInstituto(instituto);
 
-        String[] seleccionados =
-                request.getParameterValues("docentes");
+            if (cursos.stream().noneMatch(
+                    curso -> curso.getNombre().equals(nombreCurso))) {
+                throw new IllegalArgumentException(
+                        "Seleccioná un curso del instituto indicado.");
+            }
 
-        if (seleccionados == null || seleccionados.length == 0) {
-            throw new IllegalArgumentException(
-                    "Seleccioná al menos un docente.");
-        }
+            LocalDate inicio = LocalDate.parse(
+                    parametro(request, "fechaInicio"));
 
-        List<Docente> disponibles =
-                control.listarDocentesPorInstituto(instituto);
+            LocalDate fin = LocalDate.parse(
+                    parametro(request, "fechaFin"));
 
-        List<Docente> docentes = new ArrayList<>();
+            if (inicio.isBefore(LocalDate.now(ZONA))) {
+                throw new IllegalArgumentException(
+                        "La fecha de inicio no puede ser anterior a hoy.");
+            }
 
-        for (String nickname : seleccionados) {
-            Docente docente = disponibles.stream()
-                    .filter(d -> d.getNickname().equals(nickname))
-                    .findFirst()
-                    .orElseThrow(() -> new IllegalArgumentException(
+            if (fin.isBefore(inicio)) {
+                throw new IllegalArgumentException(
+                        "La fecha de fin no puede ser anterior a la de inicio.");
+            }
+
+            Integer cupo = null;
+
+            if (!textoCupo.isEmpty()) {
+                if (!textoCupo.matches("[0-9]+")) {
+                    throw new IllegalArgumentException(
+                            "El cupo debe ser un número entero mayor que cero.");
+                }
+
+                cupo = Integer.valueOf(textoCupo);
+
+                if (cupo <= 0) {
+                    throw new IllegalArgumentException(
+                            "El cupo debe ser mayor que cero.");
+                }
+            }
+
+            if (control.existeEdicion(nombre)) {
+                throw new IllegalArgumentException(
+                        "Ya existe una edición con ese nombre. "
+                        + "Modificá el nombre o cancelá el alta.");
+            }
+
+            String[] seleccionados
+                    = request.getParameterValues("docentes");
+
+            if (seleccionados == null || seleccionados.length == 0) {
+                throw new IllegalArgumentException(
+                        "Seleccioná al menos un docente.");
+            }
+
+            List<modelo.UsuarioResumen> disponibles
+                    = control.listarDocentesPorInstituto(instituto);
+
+            List<String> docentes = new ArrayList<>();
+
+            for (String nickname : seleccionados) {
+                boolean perteneceAlInstituto = disponibles.stream()
+                        .anyMatch(d -> d.getNickname().equals(nickname));
+
+                if (!perteneceAlInstituto) {
+                    throw new IllegalArgumentException(
                             "Los docentes seleccionados deben pertenecer "
-                            + "al instituto indicado."));
+                            + "al instituto indicado.");
+                }
 
-            if (!docentes.contains(docente)) {
-                docentes.add(docente);
+                if (!docentes.contains(nickname)) {
+                    docentes.add(nickname);
+                }
             }
-        }
 
-        Part archivo = request.getPart("imagenArchivo");
+            Part archivo = request.getPart("imagenArchivo");
 
-        boolean hayArchivo = archivo != null
-                && archivo.getSubmittedFileName() != null
-                && !archivo.getSubmittedFileName().trim().isEmpty();
+            boolean hayArchivo = archivo != null
+                    && archivo.getSubmittedFileName() != null
+                    && !archivo.getSubmittedFileName().trim().isEmpty();
 
-        if (hayArchivo && !imagenUrl.isEmpty()) {
-            throw new IllegalArgumentException(
-                    "Elegí una imagen desde tu PC o ingresá una URL, "
-                    + "pero no ambas opciones.");
-        }
-
-        if (!imagenUrl.isEmpty()) {
-            URI url = URI.create(imagenUrl);
-
-            if (url.getHost() == null
-                    || url.getUserInfo() != null
-                    || !("http".equalsIgnoreCase(url.getScheme())
-                    || "https".equalsIgnoreCase(url.getScheme()))) {
-
+            if (hayArchivo && !imagenUrl.isEmpty()) {
                 throw new IllegalArgumentException(
-                        "La imagen debe tener una URL http:// o https:// válida.");
+                        "Elegí una imagen desde tu PC o ingresá una URL, "
+                        + "pero no ambas opciones.");
             }
-        }
 
-        String rutaImagen = imagenUrl.isEmpty() ? null : imagenUrl;
+            if (!imagenUrl.isEmpty()) {
+                URI url = URI.create(imagenUrl);
 
-        // Guardamos el archivo después de validar los demás datos.
-        if (hayArchivo) {
-            imagenGuardada = Imagenes.guardar(archivo);
-            rutaImagen = imagenGuardada;
-        }
+                if (url.getHost() == null
+                        || url.getUserInfo() != null
+                        || !("http".equalsIgnoreCase(url.getScheme())
+                        || "https".equalsIgnoreCase(url.getScheme()))) {
 
-        control.altaEdicionCurso(
-                nombre,
-                inicio,
-                fin,
-                cupo,
-                nombreCurso,
-                docentes,
-                rutaImagen
-        );
+                    throw new IllegalArgumentException(
+                            "La imagen debe tener una URL http:// o https:// válida.");
+                }
+            }
 
-        edicionGuardada = true;
+            String rutaImagen = imagenUrl.isEmpty() ? null : imagenUrl;
 
-        response.sendRedirect(
-                request.getContextPath() + "/edicion-detalle?nombre="
-                + URLEncoder.encode(nombre, "UTF-8")
-        );
+            // Guardamos el archivo después de validar los demás datos.
+            if (hayArchivo) {
+                imagenGuardada = Imagenes.guardar(archivo);
+                rutaImagen = imagenGuardada;
+            }
 
-    } catch (DateTimeParseException e) {
-        mostrarErrorFormulario(request, response,
-                "Ingresá fechas de inicio y fin válidas.");
+            control.altaEdicionCurso(
+                    nombre,
+                    inicio,
+                    fin,
+                    cupo,
+                    nombreCurso,
+                    docentes,
+                    rutaImagen
+            );
 
-    } catch (NumberFormatException e) {
-        mostrarErrorFormulario(request, response,
-                "El cupo debe ser un entero entre 1 y 2147483647.");
+            edicionGuardada = true;
 
-    } catch (IllegalArgumentException e) {
-        mostrarErrorFormulario(request, response, e.getMessage());
+            response.sendRedirect(
+                    request.getContextPath() + "/edicion-detalle?nombre="
+                    + URLEncoder.encode(nombre, "UTF-8")
+            );
 
-    } catch (IOException e) {
-        if (edicionGuardada) {
-            // La edición ya existe: no eliminamos su imagen.
-            throw e;
-        }
+        } catch (DateTimeParseException e) {
+            mostrarErrorFormulario(request, response,
+                    "Ingresá fechas de inicio y fin válidas.");
 
-        log("No se pudo guardar el archivo de imagen", e);
+        } catch (NumberFormatException e) {
+            mostrarErrorFormulario(request, response,
+                    "El cupo debe ser un entero entre 1 y 2147483647.");
 
-        mostrarErrorFormulario(request, response,
-                "No se pudo guardar la imagen. Intentá nuevamente.");
+        } catch (IllegalArgumentException e) {
+            mostrarErrorFormulario(request, response, e.getMessage());
 
-    } catch (RuntimeException e) {
-        log("No se pudo registrar la edición", e);
+        } catch (IOException e) {
+            if (edicionGuardada) {
+                // La edición ya existe: no eliminamos su imagen.
+                throw e;
+            }
 
-        mostrarErrorFormulario(request, response,
-                "No se pudo registrar la edición. "
-                + "Verificá los datos e intentá nuevamente.");
+            log("No se pudo guardar el archivo de imagen", e);
 
-    } finally {
-        // Si falló el alta, quitamos el archivo que acabábamos de guardar.
-        if (!edicionGuardada && imagenGuardada != null) {
-            try {
-                Imagenes.eliminar(imagenGuardada);
-            } catch (IOException e) {
-                log("No se pudo eliminar una imagen de un alta fallida", e);
+            mostrarErrorFormulario(request, response,
+                    "No se pudo guardar la imagen. Intentá nuevamente.");
+
+        } catch (RuntimeException e) {
+            log("No se pudo registrar la edición", e);
+
+            mostrarErrorFormulario(request, response,
+                    "No se pudo registrar la edición. "
+                    + "Verificá los datos e intentá nuevamente.");
+
+        } finally {
+            // Si falló el alta, quitamos el archivo que acabábamos de guardar.
+            if (!edicionGuardada && imagenGuardada != null) {
+                try {
+                    Imagenes.eliminar(imagenGuardada);
+                } catch (IOException e) {
+                    log("No se pudo eliminar una imagen de un alta fallida", e);
+                }
             }
         }
     }
-}
-    
 
     private boolean autorizar(HttpServletRequest request,
-                              HttpServletResponse response,
-                              boolean json)
+            HttpServletResponse response,
+            boolean json)
             throws IOException {
 
         HttpSession session = request.getSession(false);
@@ -354,7 +384,7 @@ protected void doPost(HttpServletRequest request,
     }
 
     private void mostrarFormulario(HttpServletRequest request,
-                                   HttpServletResponse response)
+            HttpServletResponse response)
             throws ServletException, IOException {
 
         response.setHeader("Cache-Control", "no-store");
@@ -366,8 +396,8 @@ protected void doPost(HttpServletRequest request,
     }
 
     private void mostrarErrorFormulario(HttpServletRequest request,
-                                       HttpServletResponse response,
-                                       String mensaje)
+            HttpServletResponse response,
+            String mensaje)
             throws ServletException, IOException {
 
         request.setAttribute("error", mensaje);
@@ -375,15 +405,15 @@ protected void doPost(HttpServletRequest request,
     }
 
     private static String parametro(HttpServletRequest request,
-                                    String nombre) {
+            String nombre) {
 
         String valor = request.getParameter(nombre);
         return valor == null ? "" : valor.trim();
     }
 
     private void responderError(HttpServletResponse response,
-                                int estado,
-                                String mensaje)
+            int estado,
+            String mensaje)
             throws IOException {
 
         response.setStatus(estado);

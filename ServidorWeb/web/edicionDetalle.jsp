@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="Logica.DTO.DetalleEdicionCurso" %>
-<%@ page import="Logica.DTO.InscripcionResumen" %>
+<%@ page import="modelo.DetalleEdicionCurso" %>
+<%@ page import="modelo.InscripcionResumen" %>
 <%@ page import="util.Html" %>
 
 <%
