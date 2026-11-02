@@ -1,0 +1,103 @@
+edEXT - GUIA RAPIDA DE LOS SCRIPTS
+================================
+
+PARA QUE SIRVEN
+
+Las herramientas crean archivos de configuracion fuera del proyecto.
+No inician Central, no levantan Docker y no borran la base de datos.
+Requieren un JDK 21. Los comandos se ejecutan desde la raiz del proyecto.
+
+PRIMERA CONFIGURACION
+
+Ejecutar:
+
+    java herramientas/ConfigurarCentral.java
+    java herramientas/ConfigurarWeb.java
+
+En ambos, ENTER acepta el valor que aparece entre corchetes.
+La contrasenia de MariaDB hay que escribirla.
+
+Para nuestra instalacion (Central en la PC y Web en Docker Desktop):
+
+ConfigurarCentral pregunta:
+  Publicacion SOAP: aceptar http://0.0.0.0:9000/edext/central
+  Conexion JDBC: aceptar la propuesta completa, que termina en:
+    edext_web?nullDatabaseMeansCurrent=true
+  Usuario: aceptar admin
+  Contrasenia: escribir 4dm1n
+
+ConfigurarWeb pregunta:
+  URL desde Tomcat: aceptar http://host.docker.internal:9000/edext/central
+  URL desde Maven: aceptar http://localhost:9000/edext/central?wsdl
+  Imagenes: aceptar /var/lib/edext/imagenes
+
+DONDE SE GUARDA
+
+Windows: C:\Users\TU_USUARIO\.edEXT
+Linux:   /home/TU_USUARIO/.edEXT (el home del usuario que ejecuta Java)
+
+  central.properties: donde publica Central y su conexion a MariaDB.
+  web.properties: donde encuentra Web a Central, URL del WSDL e imagenes.
+
+Cada PC tiene su configuracion. Estos archivos no se descargan de Git.
+Las herramientas que los generan SI estan en el repositorio.
+
+SI YA TENIAN LOS ARCHIVOS DE UNA VERSION ANTERIOR
+
+ConfigurarCentral conserva el archivo existente sin actualizarlo.
+Revisar que su URL JDBC incluya nullDatabaseMeansCurrent=true.
+
+ConfigurarWeb conserva los valores existentes y pregunta solo los que
+faltan, incluida central.wsdl.url. No vuelve a preguntar todo.
+
+No hace falta borrar .edEXT. Si prefieren configurar desde cero, guardar
+una copia de central.properties y web.properties fuera de esa carpeta,
+quitar solo esos dos archivos y volver a ejecutar ambas herramientas.
+No eliminar otros archivos ni volumenes de Docker.
+
+SI CENTRAL ESTA EN OTRA COMPUTADORA
+
+En Web, usar la IP de la computadora de Central. Ejemplo:
+
+  central.ws.url=http://192.168.1.10:9000/edext/central
+  central.wsdl.url=http://192.168.1.10:9000/edext/central?wsdl
+
+La primera URL ejecuta operaciones. La segunda descarga el contrato.
+No usar la IP del navegador ni 0.0.0.0 como destino del cliente.
+
+En Central, 0.0.0.0 permite escuchar conexiones de otros equipos.
+La base sigue configurada donde realmente este MariaDB.
+Ambos equipos deben tener conectividad y acceso al puerto SOAP.
+
+WINDOWS Y LINUX
+
+Las herramientas son Java y se ejecutan igual en ambos sistemas.
+Los valores propuestos de Web son para Docker Desktop. En Docker Engine
+Linux, host.docker.internal puede requerir configuracion de red adicional;
+si Central esta en otra PC, ingresar su IP accesible desde Tomcat.
+La carpeta de imagenes es la del entorno de Tomcat, no la de Windows.
+
+DESPUES DE CAMBIAR VALORES
+
+  central.properties: detener y volver a iniciar Central.
+  web.properties: desde la carpeta del Compose ejecutar:
+
+    docker compose up -d --no-deps --force-recreate tomcat
+
+No hace falta recompilar el WAR para cambiar la direccion de Central.
+El Compose actualizado encuentra automaticamente la carpeta del usuario.
+
+ACTUALIZAR EL CONTRATO SOAP
+
+Al construir Web normalmente con Maven (o Clean and Build), se ejecuta
+ActualizarContrato.java antes de generar las clases cliente.
+Lee central.wsdl.url de web.properties y consulta el servicio publicado.
+Si WSDL o XSD cambiaron, actualiza la copia local y regenera el cliente.
+Si no puede conectar o vence el tiempo de espera, avisa y usa el contrato
+local si existe. No todos los errores se ignoran: otros pueden frenar el build.
+
+IMPORTANTE: despues de agregar operaciones, compilar y reiniciar Central
+ANTES de construir Web. Un Central viejo publica un contrato viejo.
+No editar las clases generadas en:
+  ServidorWeb/target/generated-sources/wsimport/cliente/central
+Versionar tambien los WSDL/XSD actualizados que quedan en los recursos.

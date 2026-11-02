@@ -457,72 +457,6 @@
         
     </xs:complexType>
     
-    <xs:complexType name="buscarInscripcionPrograma">
-        
-        <xs:sequence>
-            
-            <xs:element minOccurs="0" name="nicknameEstudiante" type="xs:string"/>
-            
-            <xs:element minOccurs="0" name="nombrePrograma" type="xs:string"/>
-            
-        </xs:sequence>
-        
-    </xs:complexType>
-    
-    <xs:complexType name="buscarInscripcionProgramaResponse">
-        
-        <xs:sequence>
-            
-            <xs:element minOccurs="0" name="return" type="tns:InscripcionProgramaDTO"/>
-            
-        </xs:sequence>
-        
-    </xs:complexType>
-    
-    <xs:complexType name="InscripcionProgramaDTO">
-        
-        <xs:sequence>
-            
-            <xs:element minOccurs="0" name="id" type="xs:long"/>
-            
-            <xs:element minOccurs="0" name="fechaInscripcion" type="xs:string"/>
-            
-            <xs:element minOccurs="0" name="nicknameEstudiante" type="xs:string"/>
-            
-            <xs:element minOccurs="0" name="nombrePrograma" type="xs:string"/>
-            
-        </xs:sequence>
-        
-    </xs:complexType>
-    
-    <xs:complexType name="altaEdicionCurso">
-        
-        <xs:sequence>
-            
-            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-            
-            <xs:element minOccurs="0" name="fechaInicio" type="xs:string"/>
-            
-            <xs:element minOccurs="0" name="fechaFin" type="xs:string"/>
-            
-            <xs:element minOccurs="0" name="cupo" type="xs:int"/>
-            
-            <xs:element minOccurs="0" name="nombreCurso" type="xs:string"/>
-            
-            <xs:element maxOccurs="unbounded" minOccurs="0" name="nicknamesDocentes" type="xs:string"/>
-            
-            <xs:element minOccurs="0" name="rutaImagen" type="xs:string"/>
-            
-        </xs:sequence>
-        
-    </xs:complexType>
-    
-    <xs:complexType name="altaEdicionCursoResponse">
-        
-        <xs:sequence/>
-        
-    </xs:complexType>
-    
     <xs:complexType name="consultarCurso">
         
         <xs:sequence>
@@ -574,6 +508,72 @@
             <xs:element maxOccurs="unbounded" minOccurs="0" name="categorias" nillable="true" type="xs:string"/>
             
             <xs:element minOccurs="0" name="rutaImagen" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="altaEdicionCurso">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaInicio" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaFin" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="cupo" type="xs:int"/>
+            
+            <xs:element minOccurs="0" name="nombreCurso" type="xs:string"/>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="nicknamesDocentes" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="rutaImagen" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="altaEdicionCursoResponse">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="buscarInscripcionPrograma">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nicknameEstudiante" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombrePrograma" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="buscarInscripcionProgramaResponse">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="return" type="tns:InscripcionProgramaDTO"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="InscripcionProgramaDTO">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="id" type="xs:long"/>
+            
+            <xs:element minOccurs="0" name="fechaInscripcion" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nicknameEstudiante" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombrePrograma" type="xs:string"/>
             
         </xs:sequence>
         
@@ -677,26 +677,6 @@
         
     </xs:complexType>
     
-    <xs:complexType name="listarSeguidos">
-        
-        <xs:sequence>
-            
-            <xs:element minOccurs="0" name="nickname" type="xs:string"/>
-            
-        </xs:sequence>
-        
-    </xs:complexType>
-    
-    <xs:complexType name="listarSeguidosResponse">
-        
-        <xs:sequence>
-            
-            <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:UsuarioResumen"/>
-            
-        </xs:sequence>
-        
-    </xs:complexType>
-    
     <xs:complexType name="listarSeguidores">
         
         <xs:sequence>
@@ -708,6 +688,26 @@
     </xs:complexType>
     
     <xs:complexType name="listarSeguidoresResponse">
+        
+        <xs:sequence>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:UsuarioResumen"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarSeguidos">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nickname" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarSeguidosResponse">
         
         <xs:sequence>
             
@@ -871,6 +871,56 @@
         
     </xs:complexType>
     
+    <xs:complexType name="existeCurso">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="existeCursoResponse">
+        
+        <xs:sequence>
+            
+            <xs:element name="return" type="xs:boolean"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="altaUsuarioDocente">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nickname" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="apellido" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="email" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="contrasenia" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaNacimiento" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombreInstituto" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="rutaImagen" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="altaUsuarioDocenteResponse">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
     <xs:complexType name="buscarInscripcionEdicion">
         
         <xs:sequence>
@@ -908,56 +958,6 @@
             <xs:element minOccurs="0" name="nombreEdicion" type="xs:string"/>
             
             <xs:element minOccurs="0" name="videoUrl" type="xs:string"/>
-            
-        </xs:sequence>
-        
-    </xs:complexType>
-    
-    <xs:complexType name="altaUsuarioDocente">
-        
-        <xs:sequence>
-            
-            <xs:element minOccurs="0" name="nickname" type="xs:string"/>
-            
-            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-            
-            <xs:element minOccurs="0" name="apellido" type="xs:string"/>
-            
-            <xs:element minOccurs="0" name="email" type="xs:string"/>
-            
-            <xs:element minOccurs="0" name="contrasenia" type="xs:string"/>
-            
-            <xs:element minOccurs="0" name="fechaNacimiento" type="xs:string"/>
-            
-            <xs:element minOccurs="0" name="nombreInstituto" type="xs:string"/>
-            
-            <xs:element minOccurs="0" name="rutaImagen" type="xs:string"/>
-            
-        </xs:sequence>
-        
-    </xs:complexType>
-    
-    <xs:complexType name="altaUsuarioDocenteResponse">
-        
-        <xs:sequence/>
-        
-    </xs:complexType>
-    
-    <xs:complexType name="existeCurso">
-        
-        <xs:sequence>
-            
-            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-            
-        </xs:sequence>
-        
-    </xs:complexType>
-    
-    <xs:complexType name="existeCursoResponse">
-        
-        <xs:sequence>
-            
-            <xs:element name="return" type="xs:boolean"/>
             
         </xs:sequence>
         
