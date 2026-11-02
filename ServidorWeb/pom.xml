@@ -50,6 +50,34 @@
 
         <plugins>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.6.3</version>
+
+                <executions>
+                    <execution>
+                        <id>actualizar-contrato-central</id>
+                        <phase>initialize</phase>
+
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+
+                        <configuration>
+                            <executable>${java.home}/bin/java</executable>
+
+                            <arguments>
+                                <argument>${project.basedir}/../herramientas/ActualizarContrato.java</argument>
+                                <argument>--automatico</argument>
+                                <argument>${project.basedir}/src/main/resources/wsdl</argument>
+                                <argument>${project.build.directory}/jaxws/stale</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+           
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>

@@ -166,8 +166,7 @@ public interface ICentralWS {
             @WebParam(name = "nombreEdicion") String nombreEdicion);
 
     @WebMethod
-    List<CursoDTO> listarCursos(
-);
+    List<CursoDTO> listarCursos();
 
     @WebMethod
     @WebResult(name = "curso")
@@ -193,21 +192,17 @@ public interface ICentralWS {
             @WebParam(name = "ordenarPorPrioridad") boolean ordenarPorPrioridad);
 
     @WebMethod
-    List<InstitutoDTO> listarInstitutos(
-);
+    List<InstitutoDTO> listarInstitutos();
 
     @WebMethod
-    List<String> listarNombresCategorias(
-);
+    List<String> listarNombresCategorias();
 
     @WebMethod
     @WebResult(name = "instituto")
-    List<String> listarNombresInstitutos(
-);
+    List<String> listarNombresInstitutos();
 
     @WebMethod
-    List<String> listarProgramas(
-);
+    List<String> listarProgramas();
 
     @WebMethod
     List<ElementoResumenDTO> listarProgramasCreados(
@@ -226,8 +221,7 @@ public interface ICentralWS {
             @WebParam(name = "nickname") String nickname);
 
     @WebMethod
-    List<UsuarioResumen> listarUsuarios(
-);
+    List<UsuarioResumen> listarUsuarios();
 
     @WebMethod
     void modificarInscripcionEdicion(
@@ -260,4 +254,9 @@ public interface ICentralWS {
     boolean sigueAUsuario(
             @WebParam(name = "nicknameSeguidor") String nicknameSeguidor,
             @WebParam(name = "nicknameSeguido") String nicknameSeguido);
+
+    @WebMethod
+    void desistirInscripcionEdicion(
+            @WebParam(name = "nicknameEstudiante") String nicknameEstudiante,
+            @WebParam(name = "nombreEdicion") String nombreEdicion) throws CentralException;
 }

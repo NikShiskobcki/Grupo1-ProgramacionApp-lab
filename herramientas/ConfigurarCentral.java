@@ -53,7 +53,7 @@ public class ConfigurarCentral {
 
         String baseDatos = preguntar(
                 "URL JDBC de MariaDB",
-                "jdbc:mariadb://localhost:3306/edext_web");
+                "jdbc:mariadb://localhost:3306/edext_web?nullDatabaseMeansCurrent=true");
 
         String usuario = preguntar(
                 "Usuario de MariaDB",

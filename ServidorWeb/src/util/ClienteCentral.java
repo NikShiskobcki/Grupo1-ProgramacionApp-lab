@@ -13,12 +13,13 @@ import modelo.*;
 
 //Adaptador remoto utilizado por los servlets. No depende de ServidorCentral.jar. */
 public final class ClienteCentral {
+
     private final String direccion;
     private final CentralService servicio;
 
     public ClienteCentral(ServletContext contexto) {
-        String configurada =
-        ConfiguracionWeb.obtener("central.ws.url");
+        String configurada
+                = ConfiguracionWeb.obtener("central.ws.url");
         if (configurada == null || configurada.isBlank()) {
             throw new IllegalStateException("Falta configurar central.ws.url en .edEXT/web.properties.");
         }
@@ -49,6 +50,7 @@ public final class ClienteCentral {
 
     @FunctionalInterface
     private interface Escritura<T> {
+
         T ejecutar(ICentralWS puerto) throws CentralException_Exception;
     }
 
@@ -65,7 +67,10 @@ public final class ClienteCentral {
             String nombreEdicion,
             List<Long> aceptadas,
             List<Long> rechazadas) {
-        escribir(puerto -> { puerto.seleccionarEstudiantesEdicion(nicknameDocente, nombreEdicion, aceptadas, rechazadas); return null; });
+        escribir(puerto -> {
+            puerto.seleccionarEstudiantesEdicion(nicknameDocente, nombreEdicion, aceptadas, rechazadas);
+            return null;
+        });
     }
 
     public List<ResultadoInscripcion> listarResultadosPorEstudiante(
@@ -76,7 +81,9 @@ public final class ClienteCentral {
     public List<EdicionCurso> listarEdicionesVigentesPorCurso(
             String nombreCurso) {
         List<EdicionCurso> resultado = MapeadorCliente.lista(crearPuerto().listarEdicionesVigentesPorCurso(nombreCurso), MapeadorCliente::convertir);
-        for (EdicionCurso edicion : resultado) edicion.setNombreCurso(nombreCurso);
+        for (EdicionCurso edicion : resultado) {
+            edicion.setNombreCurso(nombreCurso);
+        }
         return resultado;
     }
 
@@ -98,7 +105,10 @@ public final class ClienteCentral {
             List<Curso> previas,
             List<String> nombresCategorias,
             String rutaImagen) {
-        escribir(puerto -> { puerto.altaCurso(nombre, descripcion, duracion, cantidadHoras, creditos, url, fecha(fechaAlta), instituto == null ? null : instituto.getNombre(), previas == null ? null : previas.stream().map(Curso::getNombre).toList(), nombresCategorias, rutaImagen); return null; });
+        escribir(puerto -> {
+            puerto.altaCurso(nombre, descripcion, duracion, cantidadHoras, creditos, url, fecha(fechaAlta), instituto == null ? null : instituto.getNombre(), previas == null ? null : previas.stream().map(Curso::getNombre).toList(), nombresCategorias, rutaImagen);
+            return null;
+        });
     }
 
     public List<ElementoResumen> listarProgramasCreados(
@@ -106,13 +116,11 @@ public final class ClienteCentral {
         return MapeadorCliente.lista(crearPuerto().listarProgramasCreados(nicknameDocente), MapeadorCliente::convertir);
     }
 
-    public List<Instituto> listarInstitutos(
-) {
+    public List<Instituto> listarInstitutos() {
         return MapeadorCliente.lista(crearPuerto().listarInstitutos(), MapeadorCliente::convertir);
     }
 
-    public List<Curso> listarCursos(
-) {
+    public List<Curso> listarCursos() {
         return MapeadorCliente.lista(crearPuerto().listarCursos(), MapeadorCliente::convertir);
     }
 
@@ -131,8 +139,7 @@ public final class ClienteCentral {
         return crearPuerto().existePrograma(nombre);
     }
 
-    public List<String> listarProgramas(
-) {
+    public List<String> listarProgramas() {
         return crearPuerto().listarProgramas();
     }
 
@@ -144,14 +151,19 @@ public final class ClienteCentral {
     public List<EdicionCurso> listarEdicionesPorCurso(
             String nombreCurso) {
         List<EdicionCurso> resultado = MapeadorCliente.lista(crearPuerto().listarEdicionesPorCurso(nombreCurso), MapeadorCliente::convertir);
-        for (EdicionCurso edicion : resultado) edicion.setNombreCurso(nombreCurso);
+        for (EdicionCurso edicion : resultado) {
+            edicion.setNombreCurso(nombreCurso);
+        }
         return resultado;
     }
 
     public void seguirUsuario(
             String nicknameSeguidor,
             String nicknameSeguido) {
-        escribir(puerto -> { puerto.seguirUsuario(nicknameSeguidor, nicknameSeguido); return null; });
+        escribir(puerto -> {
+            puerto.seguirUsuario(nicknameSeguidor, nicknameSeguido);
+            return null;
+        });
     }
 
     public DetalleUsuario consultarUsuario(
@@ -175,8 +187,7 @@ public final class ClienteCentral {
         return MapeadorCliente.convertir(crearPuerto().buscarUsuarioParaEditar(nickname));
     }
 
-    public List<UsuarioResumen> listarUsuarios(
-) {
+    public List<UsuarioResumen> listarUsuarios() {
         return MapeadorCliente.lista(crearPuerto().listarUsuarios(), MapeadorCliente::convertir);
     }
 
@@ -185,8 +196,7 @@ public final class ClienteCentral {
         return crearPuerto().existeInstituto(nombre);
     }
 
-    public List<String> listarNombresInstitutos(
-) {
+    public List<String> listarNombresInstitutos() {
         return crearPuerto().listarNombresInstitutos();
     }
 
@@ -199,7 +209,10 @@ public final class ClienteCentral {
             LocalDate fechaNacimiento,
             String nombreInstituto,
             String rutaImagen) {
-        escribir(puerto -> { puerto.altaUsuarioDocente(nickname, nombre, apellido, email, contrasenia, fecha(fechaNacimiento), nombreInstituto, rutaImagen); return null; });
+        escribir(puerto -> {
+            puerto.altaUsuarioDocente(nickname, nombre, apellido, email, contrasenia, fecha(fechaNacimiento), nombreInstituto, rutaImagen);
+            return null;
+        });
     }
 
     public void altaUsuarioEstudiante(
@@ -210,7 +223,10 @@ public final class ClienteCentral {
             String contrasenia,
             LocalDate fechaNacimiento,
             String rutaImagen) {
-        escribir(puerto -> { puerto.altaUsuarioEstudiante(nickname, nombre, apellido, email, contrasenia, fecha(fechaNacimiento), rutaImagen); return null; });
+        escribir(puerto -> {
+            puerto.altaUsuarioEstudiante(nickname, nombre, apellido, email, contrasenia, fecha(fechaNacimiento), rutaImagen);
+            return null;
+        });
     }
 
     public DetalleProgramaFormacion consultarPrograma(
@@ -221,13 +237,19 @@ public final class ClienteCentral {
     public void agregarCursoAPrograma(
             String nombrePrograma,
             String nombreCurso) {
-        escribir(puerto -> { puerto.agregarCursoAPrograma(nombrePrograma, nombreCurso); return null; });
+        escribir(puerto -> {
+            puerto.agregarCursoAPrograma(nombrePrograma, nombreCurso);
+            return null;
+        });
     }
 
     public void dejarDeSeguirUsuario(
             String nicknameSeguidor,
             String nicknameSeguido) {
-        escribir(puerto -> { puerto.dejarDeSeguirUsuario(nicknameSeguidor, nicknameSeguido); return null; });
+        escribir(puerto -> {
+            puerto.dejarDeSeguirUsuario(nicknameSeguidor, nicknameSeguido);
+            return null;
+        });
     }
 
     public boolean existeCurso(
@@ -254,18 +276,23 @@ public final class ClienteCentral {
             LocalDate fechaAlta,
             String rutaImagen,
             String nicknameDocente) {
-        escribir(puerto -> { puerto.altaPrograma(nombre, descripcion, fecha(fechaInicio), fecha(fechaFin), fecha(fechaAlta), rutaImagen, nicknameDocente); return null; });
+        escribir(puerto -> {
+            puerto.altaPrograma(nombre, descripcion, fecha(fechaInicio), fecha(fechaFin), fecha(fechaAlta), rutaImagen, nicknameDocente);
+            return null;
+        });
     }
 
     public List<Curso> listarCursosPorInstituto(
             String instituto) {
         // El contrato por instituto devuelve resúmenes. Conservamos los campos
         // completos que utilizan las listas de cursos, sin cambiar el WSDL.
-        List<cliente.central.CursoResumen> resumenes =
-                crearPuerto().listarCursosPorInstituto(instituto);
+        List<cliente.central.CursoResumen> resumenes
+                = crearPuerto().listarCursosPorInstituto(instituto);
         java.util.Map<String, Curso> completos = new java.util.HashMap<>();
         if (resumenes != null && !resumenes.isEmpty()) {
-            for (Curso curso : listarCursos()) completos.put(curso.getNombre(), curso);
+            for (Curso curso : listarCursos()) {
+                completos.put(curso.getNombre(), curso);
+            }
         }
         List<Curso> resultado = new java.util.ArrayList<>();
         if (resumenes != null) {
@@ -311,7 +338,10 @@ public final class ClienteCentral {
             String nombreCurso,
             List<String> nicknamesDocentes,
             String rutaImagen) {
-        escribir(puerto -> { puerto.altaEdicionCurso(nombre, fecha(fechaInicio), fecha(fechaFin), cupo, nombreCurso, nicknamesDocentes, rutaImagen); return null; });
+        escribir(puerto -> {
+            puerto.altaEdicionCurso(nombre, fecha(fechaInicio), fecha(fechaFin), cupo, nombreCurso, nicknamesDocentes, rutaImagen);
+            return null;
+        });
     }
 
     public InscripcionPrograma buscarInscripcionPrograma(
@@ -336,7 +366,10 @@ public final class ClienteCentral {
             String nombreEdicion,
             LocalDate fechaInscripcion,
             String videoUrl) {
-        escribir(puerto -> { puerto.inscribirEstudianteEdicion(nicknameEstudiante, nombreEdicion, fecha(fechaInscripcion), videoUrl); return null; });
+        escribir(puerto -> {
+            puerto.inscribirEstudianteEdicion(nicknameEstudiante, nombreEdicion, fecha(fechaInscripcion), videoUrl);
+            return null;
+        });
     }
 
     public void modificarUsuario(
@@ -346,7 +379,10 @@ public final class ClienteCentral {
             LocalDate fechaNacimiento,
             String nombreInstituto,
             String rutaImagen) {
-        escribir(puerto -> { puerto.modificarUsuario(nickname, nombre, apellido, fecha(fechaNacimiento), nombreInstituto, rutaImagen); return null; });
+        escribir(puerto -> {
+            puerto.modificarUsuario(nickname, nombre, apellido, fecha(fechaNacimiento), nombreInstituto, rutaImagen);
+            return null;
+        });
     }
 
     public InscripcionEdicion buscarInscripcionEdicion(
@@ -355,8 +391,7 @@ public final class ClienteCentral {
         return MapeadorCliente.convertir(crearPuerto().buscarInscripcionEdicion(nicknameEstudiante, nombreEdicion));
     }
 
-    public List<String> listarNombresCategorias(
-) {
+    public List<String> listarNombresCategorias() {
         return crearPuerto().listarNombresCategorias();
     }
 
@@ -364,13 +399,32 @@ public final class ClienteCentral {
             Long idInscripcion,
             LocalDate nuevaFecha,
             String videoUrl) {
-        escribir(puerto -> { puerto.modificarInscripcionEdicion(idInscripcion, fecha(nuevaFecha), videoUrl); return null; });
+        escribir(puerto -> {
+            puerto.modificarInscripcionEdicion(idInscripcion, fecha(nuevaFecha), videoUrl);
+            return null;
+        });
     }
 
     public void inscribirEstudiantePrograma(
             String nicknameEstudiante,
             String nombrePrograma,
             LocalDate fechaInscripcion) {
-        escribir(puerto -> { puerto.inscribirEstudiantePrograma(nicknameEstudiante, nombrePrograma, fecha(fechaInscripcion)); return null; });
+        escribir(puerto -> {
+            puerto.inscribirEstudiantePrograma(nicknameEstudiante, nombrePrograma, fecha(fechaInscripcion));
+            return null;
+        });
+    }
+
+    public void desistirInscripcionEdicion(
+            String nicknameEstudiante,
+            String nombreEdicion) {
+
+        escribir(puerto -> {
+            puerto.desistirInscripcionEdicion(
+                    nicknameEstudiante,
+                    nombreEdicion);
+
+            return null;
+        });
     }
 }

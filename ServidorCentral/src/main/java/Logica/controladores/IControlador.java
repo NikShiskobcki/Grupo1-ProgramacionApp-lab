@@ -212,4 +212,7 @@ public interface IControlador {
 
     // cambiar contraseña (false si la contraseña actual no coincide)
     boolean cambiarContrasenia(String nickname, String contraseniaActual, String contraseniaNueva);
+    
+    //desistir inscripcion 
+    void desistirInscripcionEdicion(String nicknameEstudiante, String nombreEdicion);
 }

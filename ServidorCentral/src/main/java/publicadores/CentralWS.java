@@ -19,6 +19,7 @@ import java.util.logging.Level;
         serviceName = "CentralService", portName = "CentralPort",
         targetNamespace = "http://ws.edext.utec.edu.uy/")
 public class CentralWS implements ICentralWS {
+
     private final IControlador control = Fabrica.getInstance().getIControlador();
     private static final Logger LOGGER = Logger.getLogger(CentralWS.class.getName());
 
@@ -287,8 +288,7 @@ public class CentralWS implements ICentralWS {
     }
 
     @Override
-    public List<CursoDTO> listarCursos(
-) {
+    public List<CursoDTO> listarCursos() {
         return MapeadorSOAP.lista(control.listarCursos(), MapeadorSOAP::convertir);
     }
 
@@ -324,26 +324,22 @@ public class CentralWS implements ICentralWS {
     }
 
     @Override
-    public List<InstitutoDTO> listarInstitutos(
-) {
+    public List<InstitutoDTO> listarInstitutos() {
         return MapeadorSOAP.lista(control.listarInstitutos(), MapeadorSOAP::convertir);
     }
 
     @Override
-    public List<String> listarNombresCategorias(
-) {
+    public List<String> listarNombresCategorias() {
         return control.listarNombresCategorias();
     }
 
     @Override
-    public List<String> listarNombresInstitutos(
-) {
+    public List<String> listarNombresInstitutos() {
         return control.listarNombresInstitutos();
     }
 
     @Override
-    public List<String> listarProgramas(
-) {
+    public List<String> listarProgramas() {
         return control.listarProgramas();
     }
 
@@ -372,8 +368,7 @@ public class CentralWS implements ICentralWS {
     }
 
     @Override
-    public List<UsuarioResumen> listarUsuarios(
-) {
+    public List<UsuarioResumen> listarUsuarios() {
         return control.listarUsuarios();
     }
 
@@ -449,14 +444,18 @@ public class CentralWS implements ICentralWS {
 
     private Instituto instituto(String nombre) {
         for (Instituto instituto : control.listarInstitutos()) {
-            if (instituto.getNombre().equals(nombre)) return instituto;
+            if (instituto.getNombre().equals(nombre)) {
+                return instituto;
+            }
         }
         throw new IllegalArgumentException("No se encontró el instituto: " + nombre);
     }
 
     private Curso curso(String nombre) {
         for (Curso curso : control.listarCursos()) {
-            if (curso.getNombre().equals(nombre)) return curso;
+            if (curso.getNombre().equals(nombre)) {
+                return curso;
+            }
         }
         throw new IllegalArgumentException("No se encontró el curso: " + nombre);
     }
@@ -464,7 +463,9 @@ public class CentralWS implements ICentralWS {
     private List<Curso> cursos(List<String> nombres) {
         List<Curso> resultado = new ArrayList<>();
         if (nombres != null) {
-            for (String nombre : nombres) resultado.add(curso(nombre));
+            for (String nombre : nombres) {
+                resultado.add(curso(nombre));
+            }
         }
         return resultado;
     }
@@ -483,5 +484,28 @@ public class CentralWS implements ICentralWS {
             }
         }
         return resultado;
+    }
+
+    @Override
+    public void desistirInscripcionEdicion(
+            String nicknameEstudiante,
+            String nombreEdicion) throws CentralException {
+
+        try {
+            control.desistirInscripcionEdicion(
+                    nicknameEstudiante,
+                    nombreEdicion);
+
+        } catch (RuntimeException e) {
+            LOGGER.log(
+                    Level.WARNING,
+                    "Falló desistirInscripcionEdicion",
+                    e);
+
+            throw new CentralException(
+                    e.getMessage() == null
+                    ? "No se pudo completar el desistimiento."
+                    : e.getMessage());
+        }
     }
 }

@@ -56,10 +56,10 @@ public class Controlador implements IControlador {
     private final ManejadorInscripcionPrograma manejadorInscripcionPrograma;
     private final ManejadorCategoria manejadorCategoria;
     private CargadorDatosPrueba cargadorDatosPrueba;
-   
+
     // Constructor privado para aplicar Singleton
     private Controlador() {
- 
+
         this("edextPU", Collections.emptyMap());
     }
 
@@ -92,7 +92,7 @@ public class Controlador implements IControlador {
 
     }
 
-    public static synchronized Controlador getInstance(){
+    public static synchronized Controlador getInstance() {
 
         if (instancia == null) {
             instancia = new Controlador();
@@ -217,7 +217,7 @@ public class Controlador implements IControlador {
         );
         programa.setRutaImagen(rutaImagen);
         programa.setNicknameDocente(nicknameDocente);
-        
+
         manejadorProgramaFormacion.addPrograma(programa);
     }
 
@@ -232,13 +232,13 @@ public class Controlador implements IControlador {
 
         return nombres;
     }
-    
+
     @Override
-    public List<ElementoResumen> listarProgramasCreados(String nicknameDocente){
+    public List<ElementoResumen> listarProgramasCreados(String nicknameDocente) {
         List<ElementoResumen> resultado = new ArrayList<>();
-        
-        for (ProgramaFormacion p : manejadorProgramaFormacion.listarProgramasCreados(nicknameDocente)){
-            resultado.add(new ElementoResumen(p.getNombre(), p.getNombre()+" ("+p.getFechaInicio()+" - "+p.getFechaFin()+")"));
+
+        for (ProgramaFormacion p : manejadorProgramaFormacion.listarProgramasCreados(nicknameDocente)) {
+            resultado.add(new ElementoResumen(p.getNombre(), p.getNombre() + " (" + p.getFechaInicio() + " - " + p.getFechaFin() + ")"));
         }
         return resultado;
     }
@@ -360,16 +360,16 @@ public class Controlador implements IControlador {
             LocalDate fechaInscripcion,
             String videoUrl) {
 
-        Estudiante estudiante =
-                manejadorUsuario.buscarEstudiante(nicknameEstudiante);
+        Estudiante estudiante
+                = manejadorUsuario.buscarEstudiante(nicknameEstudiante);
 
         if (estudiante == null) {
             throw new IllegalArgumentException(
                     "El estudiante no existe.");
         }
 
-        EdicionCurso edicion =
-                manejadorEdicionCurso.buscarPorNombre(nombreEdicion);
+        EdicionCurso edicion
+                = manejadorEdicionCurso.buscarPorNombre(nombreEdicion);
 
         if (edicion == null) {
             throw new IllegalArgumentException(
@@ -419,8 +419,8 @@ public class Controlador implements IControlador {
     }
 
     /**
-     * Valida la URL opcional del video de motivación.
-     * Devuelve null si no hay video; lanza IllegalArgumentException si no es una URL http/https válida.
+     * Valida la URL opcional del video de motivación. Devuelve null si no hay
+     * video; lanza IllegalArgumentException si no es una URL http/https válida.
      */
     static String normalizarVideoUrl(String videoUrl) {
         if (videoUrl == null || videoUrl.trim().isEmpty()) {
@@ -512,21 +512,21 @@ public class Controlador implements IControlador {
         EstadoInscripcion estado = aceptado ? EstadoInscripcion.ACEPTADA : EstadoInscripcion.RECHAZADA;
         manejadorInscripcionEdicion.actualizarEstado(idInscripcion, estado);
     }
-    
-    @Override
-public void seleccionarEstudiantesEdicion(
-        String nicknameDocente,
-        String nombreEdicion,
-        List<Long> aceptadas,
-        List<Long> rechazadas) {
 
-    manejadorInscripcionEdicion.seleccionarEstudiantesEdicion(
-            nicknameDocente,
-            nombreEdicion,
-            aceptadas,
-            rechazadas
-    );
-}
+    @Override
+    public void seleccionarEstudiantesEdicion(
+            String nicknameDocente,
+            String nombreEdicion,
+            List<Long> aceptadas,
+            List<Long> rechazadas) {
+
+        manejadorInscripcionEdicion.seleccionarEstudiantesEdicion(
+                nicknameDocente,
+                nombreEdicion,
+                aceptadas,
+                rechazadas
+        );
+    }
 
     @Override
     public List<InscripcionResumen> listarAceptadosPorEdicion(String nombreEdicion) {
@@ -570,7 +570,7 @@ public void seleccionarEstudiantesEdicion(
     public void dejarDeSeguirUsuario(String nicknameSeguidor, String nicknameSeguido) {
         manejadorUsuario.dejarDeSeguirUsuario(nicknameSeguidor, nicknameSeguido);
     }
-    
+
     @Override
     public boolean sigueAUsuario(String nicknameSeguidor, String nicknameSeguido) {
         return manejadorUsuario.sigueAUsuario(nicknameSeguidor, nicknameSeguido);
@@ -598,16 +598,38 @@ public void seleccionarEstudiantesEdicion(
     public void cargarDatosPrueba() {
         cargadorDatosPrueba.cargar();
     }
-    
-    public static synchronized void iniciarCentral(
-        Map<String, Object> propiedades) {
 
-    if (instancia != null) {
-        throw new IllegalStateException(
-                "El controlador ya fue inicializado.");
+    public static synchronized void iniciarCentral(
+            Map<String, Object> propiedades) {
+
+        if (instancia != null) {
+            throw new IllegalStateException(
+                    "El controlador ya fue inicializado.");
+        }
+
+        instancia = new Controlador(
+                "edextCentralPU", propiedades);
     }
 
-    instancia = new Controlador(
-            "edextCentralPU", propiedades);
+    @Override
+    public void desistirInscripcionEdicion(
+            String nicknameEstudiante,
+            String nombreEdicion) {
+
+        if (nicknameEstudiante == null
+                || nicknameEstudiante.isBlank()) {
+            throw new IllegalArgumentException(
+                    "Debe indicar el estudiante.");
+        }
+
+        if (nombreEdicion == null || nombreEdicion.isBlank()) {
+            throw new IllegalArgumentException(
+                    "Debe seleccionar una edición.");
+        }
+
+        manejadorInscripcionEdicion.desistirInscripcion(
+                nicknameEstudiante.trim(),
+                nombreEdicion.trim());
+    }
+
 }
-}

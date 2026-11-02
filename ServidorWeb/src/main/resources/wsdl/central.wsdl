@@ -11,84 +11,6 @@
         
     </types>
     
-    <message name="seleccionarEstudiantesEdicion">
-        
-        <part element="tns:seleccionarEstudiantesEdicion" name="parameters"/>
-        
-    </message>
-    
-    <message name="seleccionarEstudiantesEdicionResponse">
-        
-        <part element="tns:seleccionarEstudiantesEdicionResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="CentralException">
-        
-        <part element="tns:CentralFault" name="fault"/>
-        
-    </message>
-    
-    <message name="listarResultadosPorEstudiante">
-        
-        <part element="tns:listarResultadosPorEstudiante" name="parameters"/>
-        
-    </message>
-    
-    <message name="listarResultadosPorEstudianteResponse">
-        
-        <part element="tns:listarResultadosPorEstudianteResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="listarEdicionesVigentesPorCurso">
-        
-        <part element="tns:listarEdicionesVigentesPorCurso" name="parameters"/>
-        
-    </message>
-    
-    <message name="listarEdicionesVigentesPorCursoResponse">
-        
-        <part element="tns:listarEdicionesVigentesPorCursoResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="listarInscripcionesPorEdicion">
-        
-        <part element="tns:listarInscripcionesPorEdicion" name="parameters"/>
-        
-    </message>
-    
-    <message name="listarInscripcionesPorEdicionResponse">
-        
-        <part element="tns:listarInscripcionesPorEdicionResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="altaCurso">
-        
-        <part element="tns:altaCurso" name="parameters"/>
-        
-    </message>
-    
-    <message name="altaCursoResponse">
-        
-        <part element="tns:altaCursoResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="listarProgramasCreados">
-        
-        <part element="tns:listarProgramasCreados" name="parameters"/>
-        
-    </message>
-    
-    <message name="listarProgramasCreadosResponse">
-        
-        <part element="tns:listarProgramasCreadosResponse" name="parameters"/>
-        
-    </message>
-    
     <message name="listarInstitutos">
         
         <part element="tns:listarInstitutos" name="parameters"/>
@@ -113,291 +35,33 @@
         
     </message>
     
-    <message name="existeNickname">
+    <message name="buscarInscripcionPrograma">
         
-        <part element="tns:existeNickname" name="parameters"/>
-        
-    </message>
-    
-    <message name="existeNicknameResponse">
-        
-        <part element="tns:existeNicknameResponse" name="parameters"/>
+        <part element="tns:buscarInscripcionPrograma" name="parameters"/>
         
     </message>
     
-    <message name="existeEmail">
+    <message name="buscarInscripcionProgramaResponse">
         
-        <part element="tns:existeEmail" name="parameters"/>
-        
-    </message>
-    
-    <message name="existeEmailResponse">
-        
-        <part element="tns:existeEmailResponse" name="parameters"/>
+        <part element="tns:buscarInscripcionProgramaResponse" name="parameters"/>
         
     </message>
     
-    <message name="existePrograma">
+    <message name="desistirInscripcionEdicion">
         
-        <part element="tns:existePrograma" name="parameters"/>
-        
-    </message>
-    
-    <message name="existeProgramaResponse">
-        
-        <part element="tns:existeProgramaResponse" name="parameters"/>
+        <part element="tns:desistirInscripcionEdicion" name="parameters"/>
         
     </message>
     
-    <message name="listarProgramas">
+    <message name="desistirInscripcionEdicionResponse">
         
-        <part element="tns:listarProgramas" name="parameters"/>
-        
-    </message>
-    
-    <message name="listarProgramasResponse">
-        
-        <part element="tns:listarProgramasResponse" name="parameters"/>
+        <part element="tns:desistirInscripcionEdicionResponse" name="parameters"/>
         
     </message>
     
-    <message name="buscarEdicion">
+    <message name="CentralException">
         
-        <part element="tns:buscarEdicion" name="parameters"/>
-        
-    </message>
-    
-    <message name="buscarEdicionResponse">
-        
-        <part element="tns:buscarEdicionResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="listarEdicionesPorCurso">
-        
-        <part element="tns:listarEdicionesPorCurso" name="parameters"/>
-        
-    </message>
-    
-    <message name="listarEdicionesPorCursoResponse">
-        
-        <part element="tns:listarEdicionesPorCursoResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="seguirUsuario">
-        
-        <part element="tns:seguirUsuario" name="parameters"/>
-        
-    </message>
-    
-    <message name="seguirUsuarioResponse">
-        
-        <part element="tns:seguirUsuarioResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="consultarUsuario">
-        
-        <part element="tns:consultarUsuario" name="parameters"/>
-        
-    </message>
-    
-    <message name="consultarUsuarioResponse">
-        
-        <part element="tns:consultarUsuarioResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="consultarEdicion">
-        
-        <part element="tns:consultarEdicion" name="parameters"/>
-        
-    </message>
-    
-    <message name="consultarEdicionResponse">
-        
-        <part element="tns:consultarEdicionResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="listarSeguidos">
-        
-        <part element="tns:listarSeguidos" name="parameters"/>
-        
-    </message>
-    
-    <message name="listarSeguidosResponse">
-        
-        <part element="tns:listarSeguidosResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="buscarUsuarioParaEditar">
-        
-        <part element="tns:buscarUsuarioParaEditar" name="parameters"/>
-        
-    </message>
-    
-    <message name="buscarUsuarioParaEditarResponse">
-        
-        <part element="tns:buscarUsuarioParaEditarResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="listarUsuarios">
-        
-        <part element="tns:listarUsuarios" name="parameters"/>
-        
-    </message>
-    
-    <message name="listarUsuariosResponse">
-        
-        <part element="tns:listarUsuariosResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="existeInstituto">
-        
-        <part element="tns:existeInstituto" name="parameters"/>
-        
-    </message>
-    
-    <message name="existeInstitutoResponse">
-        
-        <part element="tns:existeInstitutoResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="listarNombresInstitutos">
-        
-        <part element="tns:listarNombresInstitutos" name="parameters"/>
-        
-    </message>
-    
-    <message name="listarNombresInstitutosResponse">
-        
-        <part element="tns:listarNombresInstitutosResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="altaUsuarioDocente">
-        
-        <part element="tns:altaUsuarioDocente" name="parameters"/>
-        
-    </message>
-    
-    <message name="altaUsuarioDocenteResponse">
-        
-        <part element="tns:altaUsuarioDocenteResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="altaUsuarioEstudiante">
-        
-        <part element="tns:altaUsuarioEstudiante" name="parameters"/>
-        
-    </message>
-    
-    <message name="altaUsuarioEstudianteResponse">
-        
-        <part element="tns:altaUsuarioEstudianteResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="consultarPrograma">
-        
-        <part element="tns:consultarPrograma" name="parameters"/>
-        
-    </message>
-    
-    <message name="consultarProgramaResponse">
-        
-        <part element="tns:consultarProgramaResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="agregarCursoAPrograma">
-        
-        <part element="tns:agregarCursoAPrograma" name="parameters"/>
-        
-    </message>
-    
-    <message name="agregarCursoAProgramaResponse">
-        
-        <part element="tns:agregarCursoAProgramaResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="dejarDeSeguirUsuario">
-        
-        <part element="tns:dejarDeSeguirUsuario" name="parameters"/>
-        
-    </message>
-    
-    <message name="dejarDeSeguirUsuarioResponse">
-        
-        <part element="tns:dejarDeSeguirUsuarioResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="existeCurso">
-        
-        <part element="tns:existeCurso" name="parameters"/>
-        
-    </message>
-    
-    <message name="existeCursoResponse">
-        
-        <part element="tns:existeCursoResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="listarSeguidores">
-        
-        <part element="tns:listarSeguidores" name="parameters"/>
-        
-    </message>
-    
-    <message name="listarSeguidoresResponse">
-        
-        <part element="tns:listarSeguidoresResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="sigueAUsuario">
-        
-        <part element="tns:sigueAUsuario" name="parameters"/>
-        
-    </message>
-    
-    <message name="sigueAUsuarioResponse">
-        
-        <part element="tns:sigueAUsuarioResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="altaPrograma">
-        
-        <part element="tns:altaPrograma" name="parameters"/>
-        
-    </message>
-    
-    <message name="altaProgramaResponse">
-        
-        <part element="tns:altaProgramaResponse" name="parameters"/>
-        
-    </message>
-    
-    <message name="listarCursosPorInstituto">
-        
-        <part element="tns:listarCursosPorInstituto" name="parameters"/>
-        
-    </message>
-    
-    <message name="listarCursosPorInstitutoResponse">
-        
-        <part element="tns:listarCursosPorInstitutoResponse" name="parameters"/>
+        <part element="tns:CentralFault" name="fault"/>
         
     </message>
     
@@ -413,87 +77,75 @@
         
     </message>
     
-    <message name="consultarCurso">
+    <message name="buscarUsuarioParaEditar">
         
-        <part element="tns:consultarCurso" name="parameters"/>
-        
-    </message>
-    
-    <message name="consultarCursoResponse">
-        
-        <part element="tns:consultarCursoResponse" name="parameters"/>
+        <part element="tns:buscarUsuarioParaEditar" name="parameters"/>
         
     </message>
     
-    <message name="existeEdicion">
+    <message name="buscarUsuarioParaEditarResponse">
         
-        <part element="tns:existeEdicion" name="parameters"/>
-        
-    </message>
-    
-    <message name="existeEdicionResponse">
-        
-        <part element="tns:existeEdicionResponse" name="parameters"/>
+        <part element="tns:buscarUsuarioParaEditarResponse" name="parameters"/>
         
     </message>
     
-    <message name="cambiarContrasenia">
+    <message name="dejarDeSeguirUsuario">
         
-        <part element="tns:cambiarContrasenia" name="parameters"/>
-        
-    </message>
-    
-    <message name="cambiarContraseniaResponse">
-        
-        <part element="tns:cambiarContraseniaResponse" name="parameters"/>
+        <part element="tns:dejarDeSeguirUsuario" name="parameters"/>
         
     </message>
     
-    <message name="altaEdicionCurso">
+    <message name="dejarDeSeguirUsuarioResponse">
         
-        <part element="tns:altaEdicionCurso" name="parameters"/>
-        
-    </message>
-    
-    <message name="altaEdicionCursoResponse">
-        
-        <part element="tns:altaEdicionCursoResponse" name="parameters"/>
+        <part element="tns:dejarDeSeguirUsuarioResponse" name="parameters"/>
         
     </message>
     
-    <message name="buscarInscripcionPrograma">
+    <message name="listarProgramasCreados">
         
-        <part element="tns:buscarInscripcionPrograma" name="parameters"/>
-        
-    </message>
-    
-    <message name="buscarInscripcionProgramaResponse">
-        
-        <part element="tns:buscarInscripcionProgramaResponse" name="parameters"/>
+        <part element="tns:listarProgramasCreados" name="parameters"/>
         
     </message>
     
-    <message name="iniciarSesion">
+    <message name="listarProgramasCreadosResponse">
         
-        <part element="tns:iniciarSesion" name="parameters"/>
-        
-    </message>
-    
-    <message name="iniciarSesionResponse">
-        
-        <part element="tns:iniciarSesionResponse" name="parameters"/>
+        <part element="tns:listarProgramasCreadosResponse" name="parameters"/>
         
     </message>
     
-    <message name="listarAceptadosPorEdicion">
+    <message name="listarCursosPorInstituto">
         
-        <part element="tns:listarAceptadosPorEdicion" name="parameters"/>
+        <part element="tns:listarCursosPorInstituto" name="parameters"/>
         
     </message>
     
-    <message name="listarAceptadosPorEdicionResponse">
+    <message name="listarCursosPorInstitutoResponse">
         
-        <part element="tns:listarAceptadosPorEdicionResponse" name="parameters"/>
+        <part element="tns:listarCursosPorInstitutoResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="listarEdicionesPorCurso">
+        
+        <part element="tns:listarEdicionesPorCurso" name="parameters"/>
+        
+    </message>
+    
+    <message name="listarEdicionesPorCursoResponse">
+        
+        <part element="tns:listarEdicionesPorCursoResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="agregarCursoAPrograma">
+        
+        <part element="tns:agregarCursoAPrograma" name="parameters"/>
+        
+    </message>
+    
+    <message name="agregarCursoAProgramaResponse">
+        
+        <part element="tns:agregarCursoAProgramaResponse" name="parameters"/>
         
     </message>
     
@@ -509,15 +161,51 @@
         
     </message>
     
-    <message name="modificarUsuario">
+    <message name="listarNombresCategorias">
         
-        <part element="tns:modificarUsuario" name="parameters"/>
+        <part element="tns:listarNombresCategorias" name="parameters"/>
         
     </message>
     
-    <message name="modificarUsuarioResponse">
+    <message name="listarNombresCategoriasResponse">
         
-        <part element="tns:modificarUsuarioResponse" name="parameters"/>
+        <part element="tns:listarNombresCategoriasResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="listarAceptadosPorEdicion">
+        
+        <part element="tns:listarAceptadosPorEdicion" name="parameters"/>
+        
+    </message>
+    
+    <message name="listarAceptadosPorEdicionResponse">
+        
+        <part element="tns:listarAceptadosPorEdicionResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="altaUsuarioEstudiante">
+        
+        <part element="tns:altaUsuarioEstudiante" name="parameters"/>
+        
+    </message>
+    
+    <message name="altaUsuarioEstudianteResponse">
+        
+        <part element="tns:altaUsuarioEstudianteResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="listarNombresInstitutos">
+        
+        <part element="tns:listarNombresInstitutos" name="parameters"/>
+        
+    </message>
+    
+    <message name="listarNombresInstitutosResponse">
+        
+        <part element="tns:listarNombresInstitutosResponse" name="parameters"/>
         
     </message>
     
@@ -533,27 +221,51 @@
         
     </message>
     
-    <message name="listarNombresCategorias">
+    <message name="altaCurso">
         
-        <part element="tns:listarNombresCategorias" name="parameters"/>
-        
-    </message>
-    
-    <message name="listarNombresCategoriasResponse">
-        
-        <part element="tns:listarNombresCategoriasResponse" name="parameters"/>
+        <part element="tns:altaCurso" name="parameters"/>
         
     </message>
     
-    <message name="modificarInscripcionEdicion">
+    <message name="altaCursoResponse">
         
-        <part element="tns:modificarInscripcionEdicion" name="parameters"/>
+        <part element="tns:altaCursoResponse" name="parameters"/>
         
     </message>
     
-    <message name="modificarInscripcionEdicionResponse">
+    <message name="listarResultadosPorEstudiante">
         
-        <part element="tns:modificarInscripcionEdicionResponse" name="parameters"/>
+        <part element="tns:listarResultadosPorEstudiante" name="parameters"/>
+        
+    </message>
+    
+    <message name="listarResultadosPorEstudianteResponse">
+        
+        <part element="tns:listarResultadosPorEstudianteResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="seleccionarEstudiantesEdicion">
+        
+        <part element="tns:seleccionarEstudiantesEdicion" name="parameters"/>
+        
+    </message>
+    
+    <message name="seleccionarEstudiantesEdicionResponse">
+        
+        <part element="tns:seleccionarEstudiantesEdicionResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="listarEdicionesVigentesPorCurso">
+        
+        <part element="tns:listarEdicionesVigentesPorCurso" name="parameters"/>
+        
+    </message>
+    
+    <message name="listarEdicionesVigentesPorCursoResponse">
+        
+        <part element="tns:listarEdicionesVigentesPorCursoResponse" name="parameters"/>
         
     </message>
     
@@ -569,59 +281,307 @@
         
     </message>
     
+    <message name="modificarInscripcionEdicion">
+        
+        <part element="tns:modificarInscripcionEdicion" name="parameters"/>
+        
+    </message>
+    
+    <message name="modificarInscripcionEdicionResponse">
+        
+        <part element="tns:modificarInscripcionEdicionResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="listarInscripcionesPorEdicion">
+        
+        <part element="tns:listarInscripcionesPorEdicion" name="parameters"/>
+        
+    </message>
+    
+    <message name="listarInscripcionesPorEdicionResponse">
+        
+        <part element="tns:listarInscripcionesPorEdicionResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="seguirUsuario">
+        
+        <part element="tns:seguirUsuario" name="parameters"/>
+        
+    </message>
+    
+    <message name="seguirUsuarioResponse">
+        
+        <part element="tns:seguirUsuarioResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="existeEmail">
+        
+        <part element="tns:existeEmail" name="parameters"/>
+        
+    </message>
+    
+    <message name="existeEmailResponse">
+        
+        <part element="tns:existeEmailResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="sigueAUsuario">
+        
+        <part element="tns:sigueAUsuario" name="parameters"/>
+        
+    </message>
+    
+    <message name="sigueAUsuarioResponse">
+        
+        <part element="tns:sigueAUsuarioResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="listarSeguidos">
+        
+        <part element="tns:listarSeguidos" name="parameters"/>
+        
+    </message>
+    
+    <message name="listarSeguidosResponse">
+        
+        <part element="tns:listarSeguidosResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="listarUsuarios">
+        
+        <part element="tns:listarUsuarios" name="parameters"/>
+        
+    </message>
+    
+    <message name="listarUsuariosResponse">
+        
+        <part element="tns:listarUsuariosResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="existePrograma">
+        
+        <part element="tns:existePrograma" name="parameters"/>
+        
+    </message>
+    
+    <message name="existeProgramaResponse">
+        
+        <part element="tns:existeProgramaResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="existeNickname">
+        
+        <part element="tns:existeNickname" name="parameters"/>
+        
+    </message>
+    
+    <message name="existeNicknameResponse">
+        
+        <part element="tns:existeNicknameResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="listarProgramas">
+        
+        <part element="tns:listarProgramas" name="parameters"/>
+        
+    </message>
+    
+    <message name="listarProgramasResponse">
+        
+        <part element="tns:listarProgramasResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="altaUsuarioDocente">
+        
+        <part element="tns:altaUsuarioDocente" name="parameters"/>
+        
+    </message>
+    
+    <message name="altaUsuarioDocenteResponse">
+        
+        <part element="tns:altaUsuarioDocenteResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="consultarPrograma">
+        
+        <part element="tns:consultarPrograma" name="parameters"/>
+        
+    </message>
+    
+    <message name="consultarProgramaResponse">
+        
+        <part element="tns:consultarProgramaResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="altaEdicionCurso">
+        
+        <part element="tns:altaEdicionCurso" name="parameters"/>
+        
+    </message>
+    
+    <message name="altaEdicionCursoResponse">
+        
+        <part element="tns:altaEdicionCursoResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="buscarEdicion">
+        
+        <part element="tns:buscarEdicion" name="parameters"/>
+        
+    </message>
+    
+    <message name="buscarEdicionResponse">
+        
+        <part element="tns:buscarEdicionResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="altaPrograma">
+        
+        <part element="tns:altaPrograma" name="parameters"/>
+        
+    </message>
+    
+    <message name="altaProgramaResponse">
+        
+        <part element="tns:altaProgramaResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="listarSeguidores">
+        
+        <part element="tns:listarSeguidores" name="parameters"/>
+        
+    </message>
+    
+    <message name="listarSeguidoresResponse">
+        
+        <part element="tns:listarSeguidoresResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="consultarEdicion">
+        
+        <part element="tns:consultarEdicion" name="parameters"/>
+        
+    </message>
+    
+    <message name="consultarEdicionResponse">
+        
+        <part element="tns:consultarEdicionResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="existeEdicion">
+        
+        <part element="tns:existeEdicion" name="parameters"/>
+        
+    </message>
+    
+    <message name="existeEdicionResponse">
+        
+        <part element="tns:existeEdicionResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="existeCurso">
+        
+        <part element="tns:existeCurso" name="parameters"/>
+        
+    </message>
+    
+    <message name="existeCursoResponse">
+        
+        <part element="tns:existeCursoResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="cambiarContrasenia">
+        
+        <part element="tns:cambiarContrasenia" name="parameters"/>
+        
+    </message>
+    
+    <message name="cambiarContraseniaResponse">
+        
+        <part element="tns:cambiarContraseniaResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="consultarUsuario">
+        
+        <part element="tns:consultarUsuario" name="parameters"/>
+        
+    </message>
+    
+    <message name="consultarUsuarioResponse">
+        
+        <part element="tns:consultarUsuarioResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="existeInstituto">
+        
+        <part element="tns:existeInstituto" name="parameters"/>
+        
+    </message>
+    
+    <message name="existeInstitutoResponse">
+        
+        <part element="tns:existeInstitutoResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="consultarCurso">
+        
+        <part element="tns:consultarCurso" name="parameters"/>
+        
+    </message>
+    
+    <message name="consultarCursoResponse">
+        
+        <part element="tns:consultarCursoResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="modificarUsuario">
+        
+        <part element="tns:modificarUsuario" name="parameters"/>
+        
+    </message>
+    
+    <message name="modificarUsuarioResponse">
+        
+        <part element="tns:modificarUsuarioResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="iniciarSesion">
+        
+        <part element="tns:iniciarSesion" name="parameters"/>
+        
+    </message>
+    
+    <message name="iniciarSesionResponse">
+        
+        <part element="tns:iniciarSesionResponse" name="parameters"/>
+        
+    </message>
+    
     <portType name="ICentralWS">
-        
-        <operation name="seleccionarEstudiantesEdicion">
-            
-            <input message="tns:seleccionarEstudiantesEdicion" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/seleccionarEstudiantesEdicionRequest"/>
-            
-            <output message="tns:seleccionarEstudiantesEdicionResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/seleccionarEstudiantesEdicionResponse"/>
-            
-            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/seleccionarEstudiantesEdicion/Fault/CentralException"/>
-            
-        </operation>
-        
-        <operation name="listarResultadosPorEstudiante">
-            
-            <input message="tns:listarResultadosPorEstudiante" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarResultadosPorEstudianteRequest"/>
-            
-            <output message="tns:listarResultadosPorEstudianteResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarResultadosPorEstudianteResponse"/>
-            
-        </operation>
-        
-        <operation name="listarEdicionesVigentesPorCurso">
-            
-            <input message="tns:listarEdicionesVigentesPorCurso" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarEdicionesVigentesPorCursoRequest"/>
-            
-            <output message="tns:listarEdicionesVigentesPorCursoResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarEdicionesVigentesPorCursoResponse"/>
-            
-        </operation>
-        
-        <operation name="listarInscripcionesPorEdicion">
-            
-            <input message="tns:listarInscripcionesPorEdicion" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarInscripcionesPorEdicionRequest"/>
-            
-            <output message="tns:listarInscripcionesPorEdicionResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarInscripcionesPorEdicionResponse"/>
-            
-        </operation>
-        
-        <operation name="altaCurso">
-            
-            <input message="tns:altaCurso" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaCursoRequest"/>
-            
-            <output message="tns:altaCursoResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaCursoResponse"/>
-            
-            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaCurso/Fault/CentralException"/>
-            
-        </operation>
-        
-        <operation name="listarProgramasCreados">
-            
-            <input message="tns:listarProgramasCreados" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarProgramasCreadosRequest"/>
-            
-            <output message="tns:listarProgramasCreadosResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarProgramasCreadosResponse"/>
-            
-        </operation>
         
         <operation name="listarInstitutos">
             
@@ -639,85 +599,29 @@
             
         </operation>
         
-        <operation name="existeNickname">
+        <operation name="buscarInscripcionPrograma">
             
-            <input message="tns:existeNickname" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeNicknameRequest"/>
+            <input message="tns:buscarInscripcionPrograma" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/buscarInscripcionProgramaRequest"/>
             
-            <output message="tns:existeNicknameResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeNicknameResponse"/>
-            
-        </operation>
-        
-        <operation name="existeEmail">
-            
-            <input message="tns:existeEmail" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeEmailRequest"/>
-            
-            <output message="tns:existeEmailResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeEmailResponse"/>
+            <output message="tns:buscarInscripcionProgramaResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/buscarInscripcionProgramaResponse"/>
             
         </operation>
         
-        <operation name="existePrograma">
+        <operation name="desistirInscripcionEdicion">
             
-            <input message="tns:existePrograma" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeProgramaRequest"/>
+            <input message="tns:desistirInscripcionEdicion" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/desistirInscripcionEdicionRequest"/>
             
-            <output message="tns:existeProgramaResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeProgramaResponse"/>
+            <output message="tns:desistirInscripcionEdicionResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/desistirInscripcionEdicionResponse"/>
             
-        </operation>
-        
-        <operation name="listarProgramas">
-            
-            <input message="tns:listarProgramas" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarProgramasRequest"/>
-            
-            <output message="tns:listarProgramasResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarProgramasResponse"/>
+            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/desistirInscripcionEdicion/Fault/CentralException"/>
             
         </operation>
         
-        <operation name="buscarEdicion">
+        <operation name="listarDocentesPorInstituto">
             
-            <input message="tns:buscarEdicion" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/buscarEdicionRequest"/>
+            <input message="tns:listarDocentesPorInstituto" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarDocentesPorInstitutoRequest"/>
             
-            <output message="tns:buscarEdicionResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/buscarEdicionResponse"/>
-            
-        </operation>
-        
-        <operation name="listarEdicionesPorCurso">
-            
-            <input message="tns:listarEdicionesPorCurso" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarEdicionesPorCursoRequest"/>
-            
-            <output message="tns:listarEdicionesPorCursoResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarEdicionesPorCursoResponse"/>
-            
-        </operation>
-        
-        <operation name="seguirUsuario">
-            
-            <input message="tns:seguirUsuario" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/seguirUsuarioRequest"/>
-            
-            <output message="tns:seguirUsuarioResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/seguirUsuarioResponse"/>
-            
-            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/seguirUsuario/Fault/CentralException"/>
-            
-        </operation>
-        
-        <operation name="consultarUsuario">
-            
-            <input message="tns:consultarUsuario" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/consultarUsuarioRequest"/>
-            
-            <output message="tns:consultarUsuarioResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/consultarUsuarioResponse"/>
-            
-        </operation>
-        
-        <operation name="consultarEdicion">
-            
-            <input message="tns:consultarEdicion" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/consultarEdicionRequest"/>
-            
-            <output message="tns:consultarEdicionResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/consultarEdicionResponse"/>
-            
-        </operation>
-        
-        <operation name="listarSeguidos">
-            
-            <input message="tns:listarSeguidos" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarSeguidosRequest"/>
-            
-            <output message="tns:listarSeguidosResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarSeguidosResponse"/>
+            <output message="tns:listarDocentesPorInstitutoResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarDocentesPorInstitutoResponse"/>
             
         </operation>
         
@@ -726,68 +630,6 @@
             <input message="tns:buscarUsuarioParaEditar" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/buscarUsuarioParaEditarRequest"/>
             
             <output message="tns:buscarUsuarioParaEditarResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/buscarUsuarioParaEditarResponse"/>
-            
-        </operation>
-        
-        <operation name="listarUsuarios">
-            
-            <input message="tns:listarUsuarios" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarUsuariosRequest"/>
-            
-            <output message="tns:listarUsuariosResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarUsuariosResponse"/>
-            
-        </operation>
-        
-        <operation name="existeInstituto">
-            
-            <input message="tns:existeInstituto" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeInstitutoRequest"/>
-            
-            <output message="tns:existeInstitutoResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeInstitutoResponse"/>
-            
-        </operation>
-        
-        <operation name="listarNombresInstitutos">
-            
-            <input message="tns:listarNombresInstitutos" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarNombresInstitutosRequest"/>
-            
-            <output message="tns:listarNombresInstitutosResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarNombresInstitutosResponse"/>
-            
-        </operation>
-        
-        <operation name="altaUsuarioDocente">
-            
-            <input message="tns:altaUsuarioDocente" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaUsuarioDocenteRequest"/>
-            
-            <output message="tns:altaUsuarioDocenteResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaUsuarioDocenteResponse"/>
-            
-            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaUsuarioDocente/Fault/CentralException"/>
-            
-        </operation>
-        
-        <operation name="altaUsuarioEstudiante">
-            
-            <input message="tns:altaUsuarioEstudiante" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaUsuarioEstudianteRequest"/>
-            
-            <output message="tns:altaUsuarioEstudianteResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaUsuarioEstudianteResponse"/>
-            
-            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaUsuarioEstudiante/Fault/CentralException"/>
-            
-        </operation>
-        
-        <operation name="consultarPrograma">
-            
-            <input message="tns:consultarPrograma" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/consultarProgramaRequest"/>
-            
-            <output message="tns:consultarProgramaResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/consultarProgramaResponse"/>
-            
-        </operation>
-        
-        <operation name="agregarCursoAPrograma">
-            
-            <input message="tns:agregarCursoAPrograma" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/agregarCursoAProgramaRequest"/>
-            
-            <output message="tns:agregarCursoAProgramaResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/agregarCursoAProgramaResponse"/>
-            
-            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/agregarCursoAPrograma/Fault/CentralException"/>
             
         </operation>
         
@@ -801,37 +643,11 @@
             
         </operation>
         
-        <operation name="existeCurso">
+        <operation name="listarProgramasCreados">
             
-            <input message="tns:existeCurso" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeCursoRequest"/>
+            <input message="tns:listarProgramasCreados" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarProgramasCreadosRequest"/>
             
-            <output message="tns:existeCursoResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeCursoResponse"/>
-            
-        </operation>
-        
-        <operation name="listarSeguidores">
-            
-            <input message="tns:listarSeguidores" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarSeguidoresRequest"/>
-            
-            <output message="tns:listarSeguidoresResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarSeguidoresResponse"/>
-            
-        </operation>
-        
-        <operation name="sigueAUsuario">
-            
-            <input message="tns:sigueAUsuario" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/sigueAUsuarioRequest"/>
-            
-            <output message="tns:sigueAUsuarioResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/sigueAUsuarioResponse"/>
-            
-        </operation>
-        
-        <operation name="altaPrograma">
-            
-            <input message="tns:altaPrograma" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaProgramaRequest"/>
-            
-            <output message="tns:altaProgramaResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaProgramaResponse"/>
-            
-            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaPrograma/Fault/CentralException"/>
+            <output message="tns:listarProgramasCreadosResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarProgramasCreadosResponse"/>
             
         </operation>
         
@@ -843,71 +659,21 @@
             
         </operation>
         
-        <operation name="listarDocentesPorInstituto">
+        <operation name="listarEdicionesPorCurso">
             
-            <input message="tns:listarDocentesPorInstituto" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarDocentesPorInstitutoRequest"/>
+            <input message="tns:listarEdicionesPorCurso" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarEdicionesPorCursoRequest"/>
             
-            <output message="tns:listarDocentesPorInstitutoResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarDocentesPorInstitutoResponse"/>
-            
-        </operation>
-        
-        <operation name="consultarCurso">
-            
-            <input message="tns:consultarCurso" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/consultarCursoRequest"/>
-            
-            <output message="tns:consultarCursoResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/consultarCursoResponse"/>
+            <output message="tns:listarEdicionesPorCursoResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarEdicionesPorCursoResponse"/>
             
         </operation>
         
-        <operation name="existeEdicion">
+        <operation name="agregarCursoAPrograma">
             
-            <input message="tns:existeEdicion" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeEdicionRequest"/>
+            <input message="tns:agregarCursoAPrograma" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/agregarCursoAProgramaRequest"/>
             
-            <output message="tns:existeEdicionResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeEdicionResponse"/>
+            <output message="tns:agregarCursoAProgramaResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/agregarCursoAProgramaResponse"/>
             
-        </operation>
-        
-        <operation name="cambiarContrasenia">
-            
-            <input message="tns:cambiarContrasenia" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/cambiarContraseniaRequest"/>
-            
-            <output message="tns:cambiarContraseniaResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/cambiarContraseniaResponse"/>
-            
-            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/cambiarContrasenia/Fault/CentralException"/>
-            
-        </operation>
-        
-        <operation name="altaEdicionCurso">
-            
-            <input message="tns:altaEdicionCurso" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaEdicionCursoRequest"/>
-            
-            <output message="tns:altaEdicionCursoResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaEdicionCursoResponse"/>
-            
-            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaEdicionCurso/Fault/CentralException"/>
-            
-        </operation>
-        
-        <operation name="buscarInscripcionPrograma">
-            
-            <input message="tns:buscarInscripcionPrograma" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/buscarInscripcionProgramaRequest"/>
-            
-            <output message="tns:buscarInscripcionProgramaResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/buscarInscripcionProgramaResponse"/>
-            
-        </operation>
-        
-        <operation name="iniciarSesion">
-            
-            <input message="tns:iniciarSesion" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/iniciarSesionRequest"/>
-            
-            <output message="tns:iniciarSesionResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/iniciarSesionResponse"/>
-            
-        </operation>
-        
-        <operation name="listarAceptadosPorEdicion">
-            
-            <input message="tns:listarAceptadosPorEdicion" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarAceptadosPorEdicionRequest"/>
-            
-            <output message="tns:listarAceptadosPorEdicionResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarAceptadosPorEdicionResponse"/>
+            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/agregarCursoAPrograma/Fault/CentralException"/>
             
         </operation>
         
@@ -921,13 +687,37 @@
             
         </operation>
         
-        <operation name="modificarUsuario">
+        <operation name="listarNombresCategorias">
             
-            <input message="tns:modificarUsuario" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/modificarUsuarioRequest"/>
+            <input message="tns:listarNombresCategorias" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarNombresCategoriasRequest"/>
             
-            <output message="tns:modificarUsuarioResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/modificarUsuarioResponse"/>
+            <output message="tns:listarNombresCategoriasResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarNombresCategoriasResponse"/>
             
-            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/modificarUsuario/Fault/CentralException"/>
+        </operation>
+        
+        <operation name="listarAceptadosPorEdicion">
+            
+            <input message="tns:listarAceptadosPorEdicion" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarAceptadosPorEdicionRequest"/>
+            
+            <output message="tns:listarAceptadosPorEdicionResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarAceptadosPorEdicionResponse"/>
+            
+        </operation>
+        
+        <operation name="altaUsuarioEstudiante">
+            
+            <input message="tns:altaUsuarioEstudiante" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaUsuarioEstudianteRequest"/>
+            
+            <output message="tns:altaUsuarioEstudianteResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaUsuarioEstudianteResponse"/>
+            
+            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaUsuarioEstudiante/Fault/CentralException"/>
+            
+        </operation>
+        
+        <operation name="listarNombresInstitutos">
+            
+            <input message="tns:listarNombresInstitutos" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarNombresInstitutosRequest"/>
+            
+            <output message="tns:listarNombresInstitutosResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarNombresInstitutosResponse"/>
             
         </operation>
         
@@ -939,21 +729,39 @@
             
         </operation>
         
-        <operation name="listarNombresCategorias">
+        <operation name="altaCurso">
             
-            <input message="tns:listarNombresCategorias" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarNombresCategoriasRequest"/>
+            <input message="tns:altaCurso" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaCursoRequest"/>
             
-            <output message="tns:listarNombresCategoriasResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarNombresCategoriasResponse"/>
+            <output message="tns:altaCursoResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaCursoResponse"/>
+            
+            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaCurso/Fault/CentralException"/>
             
         </operation>
         
-        <operation name="modificarInscripcionEdicion">
+        <operation name="listarResultadosPorEstudiante">
             
-            <input message="tns:modificarInscripcionEdicion" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/modificarInscripcionEdicionRequest"/>
+            <input message="tns:listarResultadosPorEstudiante" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarResultadosPorEstudianteRequest"/>
             
-            <output message="tns:modificarInscripcionEdicionResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/modificarInscripcionEdicionResponse"/>
+            <output message="tns:listarResultadosPorEstudianteResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarResultadosPorEstudianteResponse"/>
             
-            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/modificarInscripcionEdicion/Fault/CentralException"/>
+        </operation>
+        
+        <operation name="seleccionarEstudiantesEdicion">
+            
+            <input message="tns:seleccionarEstudiantesEdicion" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/seleccionarEstudiantesEdicionRequest"/>
+            
+            <output message="tns:seleccionarEstudiantesEdicionResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/seleccionarEstudiantesEdicionResponse"/>
+            
+            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/seleccionarEstudiantesEdicion/Fault/CentralException"/>
+            
+        </operation>
+        
+        <operation name="listarEdicionesVigentesPorCurso">
+            
+            <input message="tns:listarEdicionesVigentesPorCurso" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarEdicionesVigentesPorCursoRequest"/>
+            
+            <output message="tns:listarEdicionesVigentesPorCursoResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarEdicionesVigentesPorCursoResponse"/>
             
         </operation>
         
@@ -967,13 +775,281 @@
             
         </operation>
         
+        <operation name="modificarInscripcionEdicion">
+            
+            <input message="tns:modificarInscripcionEdicion" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/modificarInscripcionEdicionRequest"/>
+            
+            <output message="tns:modificarInscripcionEdicionResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/modificarInscripcionEdicionResponse"/>
+            
+            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/modificarInscripcionEdicion/Fault/CentralException"/>
+            
+        </operation>
+        
+        <operation name="listarInscripcionesPorEdicion">
+            
+            <input message="tns:listarInscripcionesPorEdicion" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarInscripcionesPorEdicionRequest"/>
+            
+            <output message="tns:listarInscripcionesPorEdicionResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarInscripcionesPorEdicionResponse"/>
+            
+        </operation>
+        
+        <operation name="seguirUsuario">
+            
+            <input message="tns:seguirUsuario" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/seguirUsuarioRequest"/>
+            
+            <output message="tns:seguirUsuarioResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/seguirUsuarioResponse"/>
+            
+            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/seguirUsuario/Fault/CentralException"/>
+            
+        </operation>
+        
+        <operation name="existeEmail">
+            
+            <input message="tns:existeEmail" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeEmailRequest"/>
+            
+            <output message="tns:existeEmailResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeEmailResponse"/>
+            
+        </operation>
+        
+        <operation name="sigueAUsuario">
+            
+            <input message="tns:sigueAUsuario" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/sigueAUsuarioRequest"/>
+            
+            <output message="tns:sigueAUsuarioResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/sigueAUsuarioResponse"/>
+            
+        </operation>
+        
+        <operation name="listarSeguidos">
+            
+            <input message="tns:listarSeguidos" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarSeguidosRequest"/>
+            
+            <output message="tns:listarSeguidosResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarSeguidosResponse"/>
+            
+        </operation>
+        
+        <operation name="listarUsuarios">
+            
+            <input message="tns:listarUsuarios" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarUsuariosRequest"/>
+            
+            <output message="tns:listarUsuariosResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarUsuariosResponse"/>
+            
+        </operation>
+        
+        <operation name="existePrograma">
+            
+            <input message="tns:existePrograma" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeProgramaRequest"/>
+            
+            <output message="tns:existeProgramaResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeProgramaResponse"/>
+            
+        </operation>
+        
+        <operation name="existeNickname">
+            
+            <input message="tns:existeNickname" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeNicknameRequest"/>
+            
+            <output message="tns:existeNicknameResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeNicknameResponse"/>
+            
+        </operation>
+        
+        <operation name="listarProgramas">
+            
+            <input message="tns:listarProgramas" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarProgramasRequest"/>
+            
+            <output message="tns:listarProgramasResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarProgramasResponse"/>
+            
+        </operation>
+        
+        <operation name="altaUsuarioDocente">
+            
+            <input message="tns:altaUsuarioDocente" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaUsuarioDocenteRequest"/>
+            
+            <output message="tns:altaUsuarioDocenteResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaUsuarioDocenteResponse"/>
+            
+            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaUsuarioDocente/Fault/CentralException"/>
+            
+        </operation>
+        
+        <operation name="consultarPrograma">
+            
+            <input message="tns:consultarPrograma" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/consultarProgramaRequest"/>
+            
+            <output message="tns:consultarProgramaResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/consultarProgramaResponse"/>
+            
+        </operation>
+        
+        <operation name="altaEdicionCurso">
+            
+            <input message="tns:altaEdicionCurso" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaEdicionCursoRequest"/>
+            
+            <output message="tns:altaEdicionCursoResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaEdicionCursoResponse"/>
+            
+            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaEdicionCurso/Fault/CentralException"/>
+            
+        </operation>
+        
+        <operation name="buscarEdicion">
+            
+            <input message="tns:buscarEdicion" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/buscarEdicionRequest"/>
+            
+            <output message="tns:buscarEdicionResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/buscarEdicionResponse"/>
+            
+        </operation>
+        
+        <operation name="altaPrograma">
+            
+            <input message="tns:altaPrograma" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaProgramaRequest"/>
+            
+            <output message="tns:altaProgramaResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaProgramaResponse"/>
+            
+            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/altaPrograma/Fault/CentralException"/>
+            
+        </operation>
+        
+        <operation name="listarSeguidores">
+            
+            <input message="tns:listarSeguidores" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarSeguidoresRequest"/>
+            
+            <output message="tns:listarSeguidoresResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarSeguidoresResponse"/>
+            
+        </operation>
+        
+        <operation name="consultarEdicion">
+            
+            <input message="tns:consultarEdicion" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/consultarEdicionRequest"/>
+            
+            <output message="tns:consultarEdicionResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/consultarEdicionResponse"/>
+            
+        </operation>
+        
+        <operation name="existeEdicion">
+            
+            <input message="tns:existeEdicion" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeEdicionRequest"/>
+            
+            <output message="tns:existeEdicionResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeEdicionResponse"/>
+            
+        </operation>
+        
+        <operation name="existeCurso">
+            
+            <input message="tns:existeCurso" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeCursoRequest"/>
+            
+            <output message="tns:existeCursoResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeCursoResponse"/>
+            
+        </operation>
+        
+        <operation name="cambiarContrasenia">
+            
+            <input message="tns:cambiarContrasenia" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/cambiarContraseniaRequest"/>
+            
+            <output message="tns:cambiarContraseniaResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/cambiarContraseniaResponse"/>
+            
+            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/cambiarContrasenia/Fault/CentralException"/>
+            
+        </operation>
+        
+        <operation name="consultarUsuario">
+            
+            <input message="tns:consultarUsuario" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/consultarUsuarioRequest"/>
+            
+            <output message="tns:consultarUsuarioResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/consultarUsuarioResponse"/>
+            
+        </operation>
+        
+        <operation name="existeInstituto">
+            
+            <input message="tns:existeInstituto" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeInstitutoRequest"/>
+            
+            <output message="tns:existeInstitutoResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/existeInstitutoResponse"/>
+            
+        </operation>
+        
+        <operation name="consultarCurso">
+            
+            <input message="tns:consultarCurso" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/consultarCursoRequest"/>
+            
+            <output message="tns:consultarCursoResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/consultarCursoResponse"/>
+            
+        </operation>
+        
+        <operation name="modificarUsuario">
+            
+            <input message="tns:modificarUsuario" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/modificarUsuarioRequest"/>
+            
+            <output message="tns:modificarUsuarioResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/modificarUsuarioResponse"/>
+            
+            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/modificarUsuario/Fault/CentralException"/>
+            
+        </operation>
+        
+        <operation name="iniciarSesion">
+            
+            <input message="tns:iniciarSesion" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/iniciarSesionRequest"/>
+            
+            <output message="tns:iniciarSesionResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/iniciarSesionResponse"/>
+            
+        </operation>
+        
     </portType>
     
     <binding name="CentralPortBinding" type="tns:ICentralWS">
         
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         
-        <operation name="seleccionarEstudiantesEdicion">
+        <operation name="listarInstitutos">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+        </operation>
+        
+        <operation name="listarCursos">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+        </operation>
+        
+        <operation name="buscarInscripcionPrograma">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+        </operation>
+        
+        <operation name="desistirInscripcionEdicion">
             
             <soap:operation soapAction=""/>
             
@@ -997,7 +1073,7 @@
             
         </operation>
         
-        <operation name="listarResultadosPorEstudiante">
+        <operation name="listarDocentesPorInstituto">
             
             <soap:operation soapAction=""/>
             
@@ -1015,7 +1091,7 @@
             
         </operation>
         
-        <operation name="listarEdicionesVigentesPorCurso">
+        <operation name="buscarUsuarioParaEditar">
             
             <soap:operation soapAction=""/>
             
@@ -1033,25 +1109,7 @@
             
         </operation>
         
-        <operation name="listarInscripcionesPorEdicion">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-        </operation>
-        
-        <operation name="altaCurso">
+        <operation name="dejarDeSeguirUsuario">
             
             <soap:operation soapAction=""/>
             
@@ -1093,115 +1151,7 @@
             
         </operation>
         
-        <operation name="listarInstitutos">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-        </operation>
-        
-        <operation name="listarCursos">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-        </operation>
-        
-        <operation name="existeNickname">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-        </operation>
-        
-        <operation name="existeEmail">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-        </operation>
-        
-        <operation name="existePrograma">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-        </operation>
-        
-        <operation name="listarProgramas">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-        </operation>
-        
-        <operation name="buscarEdicion">
+        <operation name="listarCursosPorInstituto">
             
             <soap:operation soapAction=""/>
             
@@ -1220,222 +1170,6 @@
         </operation>
         
         <operation name="listarEdicionesPorCurso">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-        </operation>
-        
-        <operation name="seguirUsuario">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-            <fault name="CentralException">
-                
-                <soap:fault name="CentralException" use="literal"/>
-                
-            </fault>
-            
-        </operation>
-        
-        <operation name="consultarUsuario">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-        </operation>
-        
-        <operation name="consultarEdicion">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-        </operation>
-        
-        <operation name="listarSeguidos">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-        </operation>
-        
-        <operation name="buscarUsuarioParaEditar">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-        </operation>
-        
-        <operation name="listarUsuarios">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-        </operation>
-        
-        <operation name="existeInstituto">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-        </operation>
-        
-        <operation name="listarNombresInstitutos">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-        </operation>
-        
-        <operation name="altaUsuarioDocente">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-            <fault name="CentralException">
-                
-                <soap:fault name="CentralException" use="literal"/>
-                
-            </fault>
-            
-        </operation>
-        
-        <operation name="altaUsuarioEstudiante">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-            <fault name="CentralException">
-                
-                <soap:fault name="CentralException" use="literal"/>
-                
-            </fault>
-            
-        </operation>
-        
-        <operation name="consultarPrograma">
             
             <soap:operation soapAction=""/>
             
@@ -1477,7 +1211,7 @@
             
         </operation>
         
-        <operation name="dejarDeSeguirUsuario">
+        <operation name="inscribirEstudianteEdicion">
             
             <soap:operation soapAction=""/>
             
@@ -1501,7 +1235,7 @@
             
         </operation>
         
-        <operation name="existeCurso">
+        <operation name="listarNombresCategorias">
             
             <soap:operation soapAction=""/>
             
@@ -1519,7 +1253,259 @@
             
         </operation>
         
-        <operation name="listarSeguidores">
+        <operation name="listarAceptadosPorEdicion">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+        </operation>
+        
+        <operation name="altaUsuarioEstudiante">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+            <fault name="CentralException">
+                
+                <soap:fault name="CentralException" use="literal"/>
+                
+            </fault>
+            
+        </operation>
+        
+        <operation name="listarNombresInstitutos">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+        </operation>
+        
+        <operation name="buscarInscripcionEdicion">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+        </operation>
+        
+        <operation name="altaCurso">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+            <fault name="CentralException">
+                
+                <soap:fault name="CentralException" use="literal"/>
+                
+            </fault>
+            
+        </operation>
+        
+        <operation name="listarResultadosPorEstudiante">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+        </operation>
+        
+        <operation name="seleccionarEstudiantesEdicion">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+            <fault name="CentralException">
+                
+                <soap:fault name="CentralException" use="literal"/>
+                
+            </fault>
+            
+        </operation>
+        
+        <operation name="listarEdicionesVigentesPorCurso">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+        </operation>
+        
+        <operation name="inscribirEstudiantePrograma">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+            <fault name="CentralException">
+                
+                <soap:fault name="CentralException" use="literal"/>
+                
+            </fault>
+            
+        </operation>
+        
+        <operation name="modificarInscripcionEdicion">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+            <fault name="CentralException">
+                
+                <soap:fault name="CentralException" use="literal"/>
+                
+            </fault>
+            
+        </operation>
+        
+        <operation name="listarInscripcionesPorEdicion">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+        </operation>
+        
+        <operation name="seguirUsuario">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+            <fault name="CentralException">
+                
+                <soap:fault name="CentralException" use="literal"/>
+                
+            </fault>
+            
+        </operation>
+        
+        <operation name="existeEmail">
             
             <soap:operation soapAction=""/>
             
@@ -1538,6 +1524,180 @@
         </operation>
         
         <operation name="sigueAUsuario">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+        </operation>
+        
+        <operation name="listarSeguidos">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+        </operation>
+        
+        <operation name="listarUsuarios">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+        </operation>
+        
+        <operation name="existePrograma">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+        </operation>
+        
+        <operation name="existeNickname">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+        </operation>
+        
+        <operation name="listarProgramas">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+        </operation>
+        
+        <operation name="altaUsuarioDocente">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+            <fault name="CentralException">
+                
+                <soap:fault name="CentralException" use="literal"/>
+                
+            </fault>
+            
+        </operation>
+        
+        <operation name="consultarPrograma">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+        </operation>
+        
+        <operation name="altaEdicionCurso">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+            <fault name="CentralException">
+                
+                <soap:fault name="CentralException" use="literal"/>
+                
+            </fault>
+            
+        </operation>
+        
+        <operation name="buscarEdicion">
             
             <soap:operation soapAction=""/>
             
@@ -1579,7 +1739,7 @@
             
         </operation>
         
-        <operation name="listarCursosPorInstituto">
+        <operation name="listarSeguidores">
             
             <soap:operation soapAction=""/>
             
@@ -1597,25 +1757,7 @@
             
         </operation>
         
-        <operation name="listarDocentesPorInstituto">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-        </operation>
-        
-        <operation name="consultarCurso">
+        <operation name="consultarEdicion">
             
             <soap:operation soapAction=""/>
             
@@ -1634,6 +1776,24 @@
         </operation>
         
         <operation name="existeEdicion">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+        </operation>
+        
+        <operation name="existeCurso">
             
             <soap:operation soapAction=""/>
             
@@ -1675,31 +1835,7 @@
             
         </operation>
         
-        <operation name="altaEdicionCurso">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-            <fault name="CentralException">
-                
-                <soap:fault name="CentralException" use="literal"/>
-                
-            </fault>
-            
-        </operation>
-        
-        <operation name="buscarInscripcionPrograma">
+        <operation name="consultarUsuario">
             
             <soap:operation soapAction=""/>
             
@@ -1717,7 +1853,7 @@
             
         </operation>
         
-        <operation name="iniciarSesion">
+        <operation name="existeInstituto">
             
             <soap:operation soapAction=""/>
             
@@ -1735,7 +1871,7 @@
             
         </operation>
         
-        <operation name="listarAceptadosPorEdicion">
+        <operation name="consultarCurso">
             
             <soap:operation soapAction=""/>
             
@@ -1750,30 +1886,6 @@
                 <soap:body use="literal"/>
                 
             </output>
-            
-        </operation>
-        
-        <operation name="inscribirEstudianteEdicion">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-            <fault name="CentralException">
-                
-                <soap:fault name="CentralException" use="literal"/>
-                
-            </fault>
             
         </operation>
         
@@ -1801,7 +1913,7 @@
             
         </operation>
         
-        <operation name="buscarInscripcionEdicion">
+        <operation name="iniciarSesion">
             
             <soap:operation soapAction=""/>
             
@@ -1816,72 +1928,6 @@
                 <soap:body use="literal"/>
                 
             </output>
-            
-        </operation>
-        
-        <operation name="listarNombresCategorias">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-        </operation>
-        
-        <operation name="modificarInscripcionEdicion">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-            <fault name="CentralException">
-                
-                <soap:fault name="CentralException" use="literal"/>
-                
-            </fault>
-            
-        </operation>
-        
-        <operation name="inscribirEstudiantePrograma">
-            
-            <soap:operation soapAction=""/>
-            
-            <input>
-                
-                <soap:body use="literal"/>
-                
-            </input>
-            
-            <output>
-                
-                <soap:body use="literal"/>
-                
-            </output>
-            
-            <fault name="CentralException">
-                
-                <soap:fault name="CentralException" use="literal"/>
-                
-            </fault>
             
         </operation>
         

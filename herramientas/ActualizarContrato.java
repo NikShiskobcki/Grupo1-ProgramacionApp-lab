@@ -32,51 +32,133 @@ public class ActualizarContrato {
     private static final String WSDL =
             "http://schemas.xmlsoap.org/wsdl/";
 
-    public static void main(String[] args) throws Exception {
-        if (args.length != 2) {
-            System.err.println(
-                    "Uso: java herramientas/ActualizarContrato.java "
-                    + "<URL-WSDL> <carpeta-destino>");
+public static void main(String[] args) throws Exception {
+    boolean automatico = args.length == 3
+            && "--automatico".equals(args[0]);
 
-            System.exit(1);
+    if (!automatico && args.length != 2) {
+        throw new IllegalArgumentException(
+                "Uso manual: <URL-WSDL> <carpeta-destino>. "
+                + "Uso Maven: --automatico "
+                + "<carpeta-destino> <carpeta-marcas>.");
+    }
+
+    String direccion;
+    Path marcas = null;
+
+    if (automatico) {
+        Path configuracion = Path.of(
+                System.getProperty("user.home"),
+                ".edEXT",
+                "web.properties");
+
+        java.util.Properties propiedades =
+                new java.util.Properties();
+
+        try (var lector = Files.newBufferedReader(
+                configuracion,
+                java.nio.charset.StandardCharsets.UTF_8)) {
+
+            propiedades.load(lector);
         }
 
-        URI origen = URI.create(args[0]);
-        validarDireccion(origen);
+        direccion = propiedades.getProperty("central.wsdl.url");
 
-        Path destino = Path.of(args[1]).toAbsolutePath().normalize();
-        Path temporal = Files.createTempDirectory("edext-contrato-");
+        if (direccion == null || direccion.isBlank()) {
+            throw new IllegalArgumentException(
+                    "Falta central.wsdl.url en " + configuracion);
+        }
 
+        marcas = Path.of(args[2]).toAbsolutePath().normalize();
+
+    } else {
+        direccion = args[0];
+    }
+
+    URI origen = URI.create(direccion.trim());
+    validarDireccion(origen);
+
+    Path destino = Path.of(args[1]).toAbsolutePath().normalize();
+    Path temporal = Files.createTempDirectory("edext-contrato-");
+
+    try {
         try {
             descargarContrato(origen, temporal);
 
-            Files.createDirectories(destino);
+        } catch (java.net.ConnectException
+                | java.net.http.HttpTimeoutException e) {
 
-            // Reemplazamos los archivos después de descargar todo.
-            try (var archivos = Files.list(temporal)) {
-                for (Path archivo : archivos.toList()) {
-                    Files.move(
-                            archivo,
-                            destino.resolve(archivo.getFileName()),
-                            StandardCopyOption.REPLACE_EXISTING);
-                }
+            if (!automatico
+                    || !Files.isRegularFile(
+                            destino.resolve("central.wsdl"))) {
+                throw e;
             }
 
-            System.out.println("Contrato actualizado en: " + destino);
             System.out.println(
-                    "Ejecutá Maven para generar las clases cliente.");
+                    "AVISO: no se pudo conectar con Central. "
+                    + "Se usará el contrato LOCAL, "
+                    + "sin verificar novedades.");
+            return;
+        }
 
-        } finally {
-            try (var archivos = Files.walk(temporal)) {
-                for (Path archivo : archivos
-                        .sorted(Comparator.reverseOrder())
-                        .toList()) {
+        java.util.List<Path> descargados;
 
-                    Files.deleteIfExists(archivo);
-                }
+        try (var archivos = Files.list(temporal)) {
+            descargados = archivos.toList();
+        }
+
+        boolean cambio = false;
+
+        for (Path archivo : descargados) {
+            Path local = destino.resolve(archivo.getFileName());
+
+            if (!Files.isRegularFile(local)
+                    || Files.mismatch(archivo, local) != -1L) {
+                cambio = true;
+                break;
             }
         }
+
+        if (!cambio) {
+            System.out.println("Contrato sin cambios.");
+            return;
+        }
+
+        // También regenera el cliente si cambió solo un XSD.
+        if (marcas != null) {
+            borrarCarpeta(marcas);
+        }
+
+        Files.createDirectories(destino);
+
+        for (Path archivo : descargados) {
+            Files.copy(
+                    archivo,
+                    destino.resolve(archivo.getFileName()),
+                    StandardCopyOption.REPLACE_EXISTING);
+        }
+
+        System.out.println("Contrato actualizado en: " + destino);
+
+    } finally {
+        borrarCarpeta(temporal);
     }
+}
+
+private static void borrarCarpeta(Path carpeta) throws Exception {
+    if (!Files.exists(carpeta)) {
+        return;
+    }
+
+    try (var archivos = Files.walk(carpeta)) {
+        for (Path archivo : archivos
+                .sorted(Comparator.reverseOrder())
+                .toList()) {
+
+            Files.deleteIfExists(archivo);
+        }
+    }
+}
 
     private static void descargarContrato(
             URI origen,
