@@ -2,17 +2,24 @@ package Persistencia;
 
 import Logica.DTO.InscripcionResumen;
 import Logica.DTO.ResultadoInscripcion;
+import Logica.DTO.EvaluacionEstudiante;
 import Logica.Entidades.EstadoInscripcion;
 import Logica.Entidades.Estudiante;
 import Logica.Entidades.InscripcionEdicion;
+import Logica.Entidades.Docente;
+import Logica.Entidades.EdicionCurso;
 import Logica.excepciones.EntidadNoEncontradaException;
 import Logica.excepciones.PersistenciaException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.LockModeType;
+
+
 
 public class ManejadorInscripcionEdicion {
 
@@ -169,6 +176,83 @@ public class ManejadorInscripcionEdicion {
             em.close();
         }
     }
+    
+    public List<EvaluacionEstudiante> listarEvaluacionesPorEdicion(
+            String nombreEdicion) {
+
+        EntityManager em = emf.createEntityManager();
+        try {
+            List<InscripcionEdicion> aceptadas = em.createQuery(
+                    "SELECT i FROM InscripcionEdicion i "
+                    + "WHERE i.edicion.nombre = :edicion "
+                    + "AND i.estado = :estado "
+                    + "ORDER BY i.estudiante.apellido, i.estudiante.nombre",
+                    InscripcionEdicion.class)
+                    .setParameter("edicion", nombreEdicion)
+                    .setParameter("estado", EstadoInscripcion.ACEPTADA)
+                    .getResultList();
+
+            List<EvaluacionEstudiante> resultado = new ArrayList<>();
+            for (InscripcionEdicion i : aceptadas) {
+                Estudiante est = i.getEstudiante();
+                resultado.add(new EvaluacionEstudiante(
+                        i.getId(),
+                        est.getNickname(),
+                        est.getNombre() + " " + est.getApellido(),
+                        i.getNota()));
+            }
+            return resultado;
+        } finally {
+            em.close();
+        }
+    }
+    
+    //lockmodetype hace de semaforo para que otro no modifique al mismo tiempo la tabla
+    private EdicionCurso buscarEdicionAbiertaDelDocente(
+            EntityManager em,
+            String nicknameDocente,
+            String nombreEdicion) {
+
+        if (nicknameDocente == null || nicknameDocente.trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Debe indicar el docente.");
+        }
+        if (nombreEdicion == null || nombreEdicion.trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Debe seleccionar una edición.");
+        }
+
+        EdicionCurso edicion = em.find(
+                EdicionCurso.class,
+                nombreEdicion,
+                LockModeType.PESSIMISTIC_WRITE);
+
+        if (edicion == null) {
+            throw new IllegalArgumentException(
+                    "La edición seleccionada no existe.");
+        }
+
+        boolean participa = false;
+        for (Docente docente : edicion.getDocentes()) {
+            if (docente.getNickname().equals(nicknameDocente)) {
+                participa = true;
+                break;
+            }
+        }
+        if (!participa) {
+            throw new IllegalArgumentException(
+                    "Solo un docente participante puede evaluar "
+                    + "esta edición.");
+        }
+
+        if (edicion.isCerrada()) {
+            throw new IllegalArgumentException(
+                    "La edición ya está cerrada; "
+                    + "no se pueden modificar las notas.");
+        }
+
+        return edicion;
+    }
 
     public void actualizarEstado(Long idInscripcion, EstadoInscripcion nuevoEstado) {
         EntityManager em = emf.createEntityManager();
@@ -219,7 +303,136 @@ public class ManejadorInscripcionEdicion {
             em.close();
         }
     }
+    
+    public void guardarNotas(String nicknameDocente,String nombreEdicion,Map<Long, Integer> notas){
 
+        if (notas == null || notas.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "No hay notas para guardar.");
+        }
+
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaccion = em.getTransaction();
+
+        try {
+            transaccion.begin();
+
+            buscarEdicionAbiertaDelDocente(
+                    em, nicknameDocente, nombreEdicion);
+
+            for (Map.Entry<Long, Integer> entrada : notas.entrySet()) {
+                InscripcionEdicion inscripcion = em.find(
+                        InscripcionEdicion.class,
+                        entrada.getKey());
+
+                if (inscripcion == null) {
+                    throw new IllegalArgumentException(
+                            "Una de las inscripciones ya no existe. "
+                            + "Recargá la página.");
+                }
+                if (!nombreEdicion.equals(
+                        inscripcion.getEdicion().getNombre())) {
+                    throw new IllegalArgumentException(
+                            "Todas las inscripciones deben pertenecer "
+                            + "a la edición seleccionada.");
+                }
+                if (inscripcion.getEstado() != EstadoInscripcion.ACEPTADA) {
+                    throw new IllegalArgumentException(
+                            "Solo se pueden evaluar estudiantes aceptados.");
+                }
+
+                // setNota valida que esté entre 1 y 12
+                inscripcion.setNota(entrada.getValue());
+            }
+
+            transaccion.commit();
+
+        } catch (Exception e) {
+            if (transaccion.isActive()) {
+                transaccion.rollback();
+            }
+            if (e instanceof IllegalArgumentException) {
+                throw (IllegalArgumentException) e;
+            }
+            throw new PersistenciaException(
+                    "No se pudieron guardar las notas.", e);
+        } finally {
+            em.close();
+        }
+    }
+
+    public void cerrarEdicion(String nicknameDocente, String nombreEdicion) {
+
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaccion = em.getTransaction();
+
+        try {
+            transaccion.begin();
+
+            EdicionCurso edicion = buscarEdicionAbiertaDelDocente(
+                    em, nicknameDocente, nombreEdicion);
+
+            List<InscripcionEdicion> aceptadas = em.createQuery(
+                    "SELECT i FROM InscripcionEdicion i "
+                    + "WHERE i.edicion.nombre = :edicion "
+                    + "AND i.estado = :estado",
+                    InscripcionEdicion.class)
+                    .setParameter("edicion", nombreEdicion)
+                    .setParameter("estado", EstadoInscripcion.ACEPTADA)
+                    .getResultList();
+
+            if (aceptadas.isEmpty()) {
+                throw new IllegalArgumentException(
+                        "La edición no tiene estudiantes aceptados; "
+                        + "no se puede cerrar.");
+            }
+
+            List<String> sinNota = new ArrayList<>();
+            for (InscripcionEdicion i : aceptadas) {
+                if (i.getNota() == null) {
+                    Estudiante est = i.getEstudiante();
+                    sinNota.add(est.getNombre() + " " + est.getApellido());
+                }
+            }
+
+            if (!sinNota.isEmpty()) {
+                throw new IllegalArgumentException(
+                        "No se puede cerrar: faltan notas de "
+                        + String.join(", ", sinNota) + ".");
+            }
+
+            edicion.setCerrada(true);
+
+            transaccion.commit();
+
+        } catch (Exception e) {
+            if (transaccion.isActive()) {
+                transaccion.rollback();
+            }
+            if (e instanceof IllegalArgumentException) {
+                throw (IllegalArgumentException) e;
+            }
+            throw new PersistenciaException(
+                    "No se pudo cerrar la edición.", e);
+        } finally {
+            em.close();
+        }
+    }
+    
+    public boolean edicionCerrada(String nombreEdicion) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            EdicionCurso edicion = em.find(EdicionCurso.class, nombreEdicion);
+            if (edicion == null) {
+                throw new IllegalArgumentException(
+                        "La edición seleccionada no existe.");
+            }
+            return edicion.isCerrada();
+        } finally {
+            em.close();
+        }
+    }
+    
     public void seleccionarEstudiantesEdicion(
             String nicknameDocente,
             String nombreEdicion,

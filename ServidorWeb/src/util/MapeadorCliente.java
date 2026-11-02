@@ -104,6 +104,18 @@ public final class MapeadorCliente {
                 origen.getPrioridad());
     }
 
+    public static EvaluacionEstudiante convertir(
+            cliente.central.EvaluacionEstudianteDTO origen) {
+        if (origen == null) {
+            return null;
+        }
+        return new EvaluacionEstudiante(
+                origen.getIdInscripcion(),
+                origen.getNicknameEstudiante(),
+                origen.getNombreEstudiante(),
+                origen.getNota());
+    }
+    
     public static UsuarioResumen convertir(cliente.central.UsuarioResumen origen) {
         if (origen == null) return null;
         return new UsuarioResumen(

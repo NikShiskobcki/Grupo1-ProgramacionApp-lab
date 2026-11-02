@@ -103,6 +103,18 @@ public final class MapeadorSOAP {
                 origen.getEstado(),
                 origen.getPrioridad());
     }
+    
+    public static EvaluacionEstudianteDTO convertir(
+            Logica.DTO.EvaluacionEstudiante origen) {
+        if (origen == null) {
+            return null;
+        }
+        return new EvaluacionEstudianteDTO(
+                origen.getIdInscripcion(),
+                origen.getNicknameEstudiante(),
+                origen.getNombreEstudiante(),
+                origen.getNota());
+    }
 
     public static ResultadoInscripcionDTO convertir(Logica.DTO.ResultadoInscripcion origen) {
         if (origen == null) return null;

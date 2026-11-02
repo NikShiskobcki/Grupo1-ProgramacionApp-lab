@@ -14,6 +14,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @WebService(endpointInterface = "publicadores.ICentralWS",
         serviceName = "CentralService", portName = "CentralPort",
@@ -506,6 +508,63 @@ public class CentralWS implements ICentralWS {
                     e.getMessage() == null
                     ? "No se pudo completar el desistimiento."
                     : e.getMessage());
+        }
+    }
+    
+    @Override
+    public List<EvaluacionEstudianteDTO> listarEvaluacionesPorEdicion(
+            String nombreEdicion) {
+        return MapeadorSOAP.lista(
+                control.listarEvaluacionesPorEdicion(nombreEdicion),
+                MapeadorSOAP::convertir);
+    }
+
+    @Override
+    public void guardarNotas(
+            String nicknameDocente,
+            String nombreEdicion,
+            List<EvaluacionEstudianteDTO> notas) throws CentralException {
+        try {
+            Map<Long, Integer> mapa = new LinkedHashMap<>();
+            if (notas != null) {
+                for (EvaluacionEstudianteDTO dto : notas) {
+                    if (dto == null || dto.getIdInscripcion() == null) {
+                        throw new IllegalArgumentException(
+                                "Los datos de las notas son inválidos.");
+                    }
+                    mapa.put(dto.getIdInscripcion(), dto.getNota());
+                }
+            }
+            control.guardarNotas(nicknameDocente, nombreEdicion, mapa);
+        } catch (RuntimeException e) {
+            LOGGER.log(Level.WARNING, "Falló guardarNotas", e);
+            throw new CentralException(e.getMessage() == null
+                    ? "No se pudo completar la operación." : e.getMessage());
+        }
+    }
+
+    @Override
+    public void cerrarEdicion(
+            String nicknameDocente,
+            String nombreEdicion) throws CentralException {
+        try {
+            control.cerrarEdicion(nicknameDocente, nombreEdicion);
+        } catch (RuntimeException e) {
+            LOGGER.log(Level.WARNING, "Falló cerrarEdicion", e);
+            throw new CentralException(e.getMessage() == null
+                    ? "No se pudo completar la operación." : e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean edicionCerrada(String nombreEdicion)
+            throws CentralException {
+        try {
+            return control.edicionCerrada(nombreEdicion);
+        } catch (RuntimeException e) {
+            LOGGER.log(Level.WARNING, "Falló edicionCerrada", e);
+            throw new CentralException(e.getMessage() == null
+                    ? "No se pudo completar la operación." : e.getMessage());
         }
     }
 }

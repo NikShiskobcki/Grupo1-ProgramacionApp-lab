@@ -11,6 +11,7 @@ import Logica.DTO.InscripcionResumen;
 import Logica.DTO.ResultadoInscripcion;
 import Logica.DTO.UsuarioEdicion;
 import Logica.DTO.UsuarioResumen;
+import Logica.DTO.EvaluacionEstudiante;
 import Logica.DatosPrueba.CargadorDatosPrueba;
 import Logica.Entidades.Categoria;
 import Logica.Entidades.Docente;
@@ -630,6 +631,32 @@ public class Controlador implements IControlador {
         manejadorInscripcionEdicion.desistirInscripcion(
                 nicknameEstudiante.trim(),
                 nombreEdicion.trim());
+    }
+    
+
+    @Override
+    public List<EvaluacionEstudiante> listarEvaluacionesPorEdicion(
+            String nombreEdicion) {
+        return manejadorInscripcionEdicion
+                .listarEvaluacionesPorEdicion(nombreEdicion);
+    }
+
+    @Override
+    public void guardarNotas(String nicknameDocente, String nombreEdicion,
+            Map<Long, Integer> notas) {
+        manejadorInscripcionEdicion
+                .guardarNotas(nicknameDocente, nombreEdicion, notas);
+    }
+
+    @Override
+    public void cerrarEdicion(String nicknameDocente, String nombreEdicion) {
+        manejadorInscripcionEdicion
+                .cerrarEdicion(nicknameDocente, nombreEdicion);
+    }
+
+    @Override
+    public boolean edicionCerrada(String nombreEdicion) {
+        return manejadorInscripcionEdicion.edicionCerrada(nombreEdicion);
     }
 
 }

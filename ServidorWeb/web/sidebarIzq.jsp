@@ -55,6 +55,7 @@
 
         <%-- Acceso existente desde el perfil propio del docente. --%>
         <a class="nav-item" href="<%= request.getContextPath()%>/aceptados-edicion"> Ver estudiantes aceptados </a>
+        <a class="nav-item" href="<%= request.getContextPath()%>/evaluaciones-edicion"> Ingresar evaluaciones </a>
 
         <% } %>
 

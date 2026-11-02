@@ -114,8 +114,8 @@ public class EdicionCurso implements Serializable {
         return rutaImagen;
     }
 
-    public Boolean getCerrada() {
-        return cerrada;
+    public Boolean isCerrada() {
+        return Boolean.TRUE.equals(cerrada);
     }    
 
 

@@ -8,6 +8,8 @@ import java.net.URI;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
 import javax.servlet.ServletContext;
 import modelo.*;
 
@@ -426,5 +428,41 @@ public final class ClienteCentral {
 
             return null;
         });
+    }
+    
+    public List<EvaluacionEstudiante> listarEvaluacionesPorEdicion(
+            String nombreEdicion) {
+        return MapeadorCliente.lista(
+                crearPuerto().listarEvaluacionesPorEdicion(nombreEdicion),
+                MapeadorCliente::convertir);
+    }
+
+    public void guardarNotas(
+            String nicknameDocente,
+            String nombreEdicion,
+            Map<Long, Integer> notas) {
+        List<cliente.central.EvaluacionEstudianteDTO> lista = new ArrayList<>();
+        for (Map.Entry<Long, Integer> e : notas.entrySet()) {
+            cliente.central.EvaluacionEstudianteDTO dto
+                    = new cliente.central.EvaluacionEstudianteDTO();
+            dto.setIdInscripcion(e.getKey());
+            dto.setNota(e.getValue());
+            lista.add(dto);
+        }
+        escribir(puerto -> {
+            puerto.guardarNotas(nicknameDocente, nombreEdicion, lista);
+            return null;
+        });
+    }
+
+    public void cerrarEdicion(String nicknameDocente, String nombreEdicion) {
+        escribir(puerto -> {
+            puerto.cerrarEdicion(nicknameDocente, nombreEdicion);
+            return null;
+        });
+    }
+
+    public boolean edicionCerrada(String nombreEdicion) {
+        return escribir(puerto -> puerto.edicionCerrada(nombreEdicion));
     }
 }
