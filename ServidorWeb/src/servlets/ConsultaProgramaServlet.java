@@ -1,10 +1,11 @@
 package servlets;
 
-import Logica.DTO.DetalleProgramaFormacion;
-import Logica.DTO.UsuarioResumen;
-import Logica.controladores.Fabrica;
-import Logica.controladores.IControlador;
+import util.ServletRemoto;
 
+import util.ClienteCentral;
+
+import modelo.DetalleProgramaFormacion;
+import modelo.UsuarioResumen;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,9 +16,16 @@ import javax.servlet.http.HttpSession;
 
 /** Consulta de Programa de Formación (destino de la navegación desde el perfil de usuario). */
 @WebServlet("/programa-detalle")
-public class ConsultaProgramaServlet extends HttpServlet {
+public class ConsultaProgramaServlet extends ServletRemoto {
 
-    private final IControlador control = Fabrica.getInstance().getIControlador();
+    @Override
+    public void init() throws javax.servlet.ServletException {
+        super.init();
+        control = new ClienteCentral(getServletContext());
+    }
+
+
+    private ClienteCentral control;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

@@ -1,9 +1,10 @@
 package servlets;
 
-import Logica.DTO.UsuarioResumen;
-import Logica.controladores.Fabrica;
-import Logica.controladores.IControlador;
+import util.ServletRemoto;
 
+import util.ClienteCentral;
+
+import modelo.UsuarioResumen;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,9 +19,16 @@ import javax.servlet.http.HttpSession;
  * El nickname siempre sale de la sesión (nunca del formulario).
  */
 @WebServlet("/cambiar-contrasenia")
-public class CambiarContraseniaServlet extends HttpServlet {
+public class CambiarContraseniaServlet extends ServletRemoto {
 
-    private final IControlador control = Fabrica.getInstance().getIControlador();
+    @Override
+    public void init() throws javax.servlet.ServletException {
+        super.init();
+        control = new ClienteCentral(getServletContext());
+    }
+
+
+    private ClienteCentral control;
 
     private UsuarioResumen logueado(HttpServletRequest request) {
         HttpSession session = request.getSession(false);

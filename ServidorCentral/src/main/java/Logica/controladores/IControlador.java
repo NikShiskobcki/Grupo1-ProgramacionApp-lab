@@ -10,6 +10,7 @@ import Logica.DTO.InscripcionResumen;
 import Logica.DTO.ResultadoInscripcion;
 import Logica.DTO.UsuarioEdicion;
 import Logica.DTO.UsuarioResumen;
+import Logica.DTO.EvaluacionEstudiante;
 import Logica.Entidades.Instituto;
 import Logica.Entidades.Curso;
 import Logica.Entidades.Docente;
@@ -20,6 +21,7 @@ import Logica.Entidades.InscripcionPrograma;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public interface IControlador {
 
@@ -140,6 +142,13 @@ public interface IControlador {
 
     void modificarInscripcionEdicion(Long idInscripcion, LocalDate nuevaFecha);
 
+    /** Inscribe con un video de motivación opcional (videoUrl null o vacío = sin video). */
+    void inscribirEstudianteEdicion(String nicknameEstudiante, String nombreEdicion,
+            LocalDate fechaInscripcion, String videoUrl);
+
+    /** Actualiza fecha y video de una inscripción en estado Inscripto. */
+    void modificarInscripcionEdicion(Long idInscripcion, LocalDate nuevaFecha, String videoUrl);
+
     //Inscripcion a edición 
     List<EdicionCurso> listarEdicionesVigentesPorCurso(String nombreCurso);
 
@@ -205,4 +214,20 @@ public interface IControlador {
 
     // cambiar contraseña (false si la contraseña actual no coincide)
     boolean cambiarContrasenia(String nickname, String contraseniaActual, String contraseniaNueva);
+    
+    //desistir inscripcion 
+    void desistirInscripcionEdicion(String nicknameEstudiante, String nombreEdicion);
+    
+    
+    // aceptados de la edicion con su nota actual (null si no tiene)
+    List<EvaluacionEstudiante> listarEvaluacionesPorEdicion(String nombreEdicion);
+
+    // guarda notas: id de inscripcion : nota (1 a 12, o null para borrar)
+    void guardarNotas(String nicknameDocente, String nombreEdicion,
+            Map<Long, Integer> notas);
+
+    // cierra la edicion si todos los aceptados tienen nota
+    void cerrarEdicion(String nicknameDocente, String nombreEdicion);
+
+    boolean edicionCerrada(String nombreEdicion);
 }

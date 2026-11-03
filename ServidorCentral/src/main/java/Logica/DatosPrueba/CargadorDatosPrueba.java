@@ -904,7 +904,7 @@ public class CargadorDatosPrueba {
             LocalDate fechaInscripcion,
             EstadoInscripcion estado) {
 
-        if (manejadorInscripcionEdicion.buscarInscripcion(nicknameEstudiante, nombreEdicion) != null) {
+        if (manejadorInscripcionEdicion.existeInscripcionCualquierEstado(nicknameEstudiante, nombreEdicion)) {
             return;
         }
 

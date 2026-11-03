@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="Logica.Entidades.Curso" %>
-<%@ page import="Logica.DTO.DetalleProgramaFormacion" %>
+<%@ page import="modelo.Curso" %>
+<%@ page import="modelo.DetalleProgramaFormacion" %>
 <%@ page import="util.Html" %>
 <%@ page import="java.util.List" %>
 <jsp:include page="header.jsp" />
@@ -12,7 +12,12 @@
     List<DetalleProgramaFormacion> programas = (List<DetalleProgramaFormacion>) request.getAttribute("programas");
 %>
 
-<div class="search-page-container">
+<div class="home-layout">
+    <jsp:include page="sidebarIzq.jsp" />
+
+    <div class="home-content"></div>
+    
+    <div class="search-page-container">
     <h2>Resultados de Búsqueda para: "<em><%= query %></em>"</h2>
 
     <div class="search-controls">
@@ -64,6 +69,8 @@
         <p>No se encontraron programas de formación que coincidan con el término de búsqueda.</p>
     <% } %>
 </div>
+</div>
+    </div>
 </div>
 
 <jsp:include page="footer.jsp" />

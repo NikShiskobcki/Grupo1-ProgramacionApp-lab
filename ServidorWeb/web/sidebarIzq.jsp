@@ -1,90 +1,91 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="Logica.DTO.UsuarioResumen" %>
-<%@ page import="Logica.controladores.Fabrica" %>
-<%@ page import="Logica.controladores.IControlador" %>
+<%@ page import="modelo.UsuarioResumen" %>
 <%@ page import="java.util.List" %>
 
 <%
-   UsuarioResumen sidebarUser = (UsuarioResumen) session.getAttribute("usuarioLogueado");
-   IControlador sidebarControl = Fabrica.getInstance().getIControlador();
+    UsuarioResumen sidebarUser = (UsuarioResumen) session.getAttribute("usuarioLogueado");
+    util.ClienteCentral sidebarControl = new util.ClienteCentral(application);
 
-   List<String> sidebarInstitutos = sidebarControl.listarNombresInstitutos();
-   List<String> sidebarCategorias = sidebarControl.listarNombresCategorias();
+    List<String> sidebarInstitutos = sidebarControl.listarNombresInstitutos();
+    List<String> sidebarCategorias = sidebarControl.listarNombresCategorias();
 %>
 
 <aside class="home-sidebar">
     <div class="nav-group">
         <span class="nav-title">Institutos</span>
-        <% for (String inst : sidebarInstitutos) { %>
-        <a class="nav-item" href="<%= request.getContextPath() %>/consulta-curso?instituto=<%= java.net.URLEncoder.encode(inst, "UTF-8") %>">
-            <%= util.Html.esc(inst) %>
+        <% for (String inst : sidebarInstitutos) {%>
+        <a class="nav-item" href="<%= request.getContextPath()%>/consulta-curso?instituto=<%= java.net.URLEncoder.encode(inst, "UTF-8")%>">
+            <%= util.Html.esc(inst)%>
         </a>
         <% } %>
     </div>
 
     <div class="nav-group">
         <span class="nav-title">Categorías</span>
-        <% for (String cat : sidebarCategorias) { %>
-        <a class="nav-item cat" href="<%= request.getContextPath() %>/consulta-curso?categoria=<%= java.net.URLEncoder.encode(cat, "UTF-8") %>">
-            <%= util.Html.esc(cat) %>
+        <% for (String cat : sidebarCategorias) {%>
+        <a class="nav-item cat" href="<%= request.getContextPath()%>/consulta-curso?categoria=<%= java.net.URLEncoder.encode(cat, "UTF-8")%>">
+            <%= util.Html.esc(cat)%>
         </a>
-        <% } %>
+        <% }%>
     </div>
 
     <%-- Cursos: Consultar Curso lo ven todos (Visitante, Estudiante, Docente) --%>
     <div class="nav-group">
         <span class="nav-title">Cursos</span>
-        <a class="nav-item" href="<%= request.getContextPath() %>/consulta-curso">Consultar Curso</a>
-        <% if (sidebarUser != null && "Docente".equalsIgnoreCase(sidebarUser.getTipo())) { %>
-        <a class="nav-item" href="<%= request.getContextPath() %>/alta-curso">Alta Curso</a>
-        <% } %>
+        <a class="nav-item" href="<%= request.getContextPath()%>/consulta-curso">Consultar Curso</a>
+        <% if (sidebarUser != null && "Docente".equalsIgnoreCase(sidebarUser.getTipo())) {%>
+        <a class="nav-item" href="<%= request.getContextPath()%>/alta-curso">Alta Curso</a>
+        <% }%>
     </div>
-    
+
     <div class="nav-group">
-    <span class="nav-title">Ediciones de cursos</span>
+        <span class="nav-title">Ediciones de cursos</span>
 
-    <%-- Disponible para visitantes, estudiantes y docentes. --%>
-    <a class="nav-item"
-       href="<%= request.getContextPath() %>/consulta-edicion"> Consultar edición</a>
+        <%-- Disponible para visitantes, estudiantes y docentes. --%>
+        <a class="nav-item"
+           href="<%= request.getContextPath()%>/consulta-edicion"> Consultar edición</a>
 
-    <% if (sidebarUser != null
-            && "Docente".equalsIgnoreCase(sidebarUser.getTipo())) { %>
+        <% if (sidebarUser != null
+                && "Docente".equalsIgnoreCase(sidebarUser.getTipo())) {%>
 
-        <a class="nav-item" href="<%= request.getContextPath() %>/alta-edicion">Alta de edición</a>
+        <a class="nav-item" href="<%= request.getContextPath()%>/alta-edicion">Alta de edición</a>
 
         <a class="nav-item"
-           href="<%= request.getContextPath() %>/seleccionar-estudiantes"> Seleccionar estudiantes </a>
+           href="<%= request.getContextPath()%>/seleccionar-estudiantes"> Seleccionar estudiantes </a>
 
         <%-- Acceso existente desde el perfil propio del docente. --%>
-        <a class="nav-item" href="<%= request.getContextPath() %>/aceptados-edicion"> Ver estudiantes aceptados </a>
+        <a class="nav-item" href="<%= request.getContextPath()%>/aceptados-edicion"> Ver estudiantes aceptados </a>
+        <a class="nav-item" href="<%= request.getContextPath()%>/evaluaciones-edicion"> Ingresar evaluaciones </a>
 
-    <% } %>
+        <% } %>
 
-    <% if (sidebarUser != null
-            && "Estudiante".equalsIgnoreCase(sidebarUser.getTipo())) { %>
+        <% if (sidebarUser != null
+                && "Estudiante".equalsIgnoreCase(sidebarUser.getTipo())) {%>
 
-        <a class="nav-item" href="<%= request.getContextPath() %>/inscribir-edicion"> Inscripción a edición</a>
+        <a class="nav-item" href="<%= request.getContextPath()%>/inscribir-edicion"> Inscripción a edición</a>
 
         <%-- Acceso existente desde el perfil propio del estudiante. --%>
-        <a class="nav-item" href="<%= request.getContextPath() %>/mis-inscripciones"> Mis resultados de inscripción</a>
+        <a class="nav-item" href="<%= request.getContextPath()%>/mis-inscripciones"> Mis resultados de inscripción</a>
 
-    <% } %>
-</div>
-    
+        <a class="nav-item" href="<%= request.getContextPath()%>/desistir-inscripcion">Desistir de inscripción </a>
+
+        <% }%>
+    </div>
+
     <div class="nav-group">
         <span class="nav-title">Programas</span>
-        <a class="nav-item" href="<%= request.getContextPath() %>/buscar#programas">Consultar Programa</a>
-        <% if (sidebarUser != null && "Docente".equalsIgnoreCase(sidebarUser.getTipo())) { %>
-        <a class="nav-item" href="<%= request.getContextPath() %>/alta-programa">Alta Programa</a>
-        <a class="nav-item" href="<%= request.getContextPath() %>/agregar-curso-programa">Agregar Curso a Programa</a>
+        <a class="nav-item" href="<%= request.getContextPath()%>/buscar#programas">Consultar Programa</a>
+        <% if (sidebarUser != null && "Docente".equalsIgnoreCase(sidebarUser.getTipo())) {%>
+        <a class="nav-item" href="<%= request.getContextPath()%>/alta-programa">Alta Programa</a>
+        <a class="nav-item" href="<%= request.getContextPath()%>/agregar-curso-programa">Agregar Curso a Programa</a>
         <% } %>
     </div>
 
-    <% if (sidebarUser != null && !"Docente".equalsIgnoreCase(sidebarUser.getTipo())) { %>
+    <% if (sidebarUser != null && !"Docente".equalsIgnoreCase(sidebarUser.getTipo())) {%>
     <div class="nav-group">
         <span class="nav-title">Inscripciones</span>
-        <a class="nav-item" href="<%= request.getContextPath() %>/buscar">Inscribirme</a>
-        <a class="nav-item" href="<%= request.getContextPath() %>/perfil">Resultados</a>
+        <a class="nav-item" href="<%= request.getContextPath()%>/buscar">Inscribirme</a>
+        <a class="nav-item" href="<%= request.getContextPath()%>/perfil">Resultados</a>
     </div>
-    <% } %>
+    <% }%>
 </aside>

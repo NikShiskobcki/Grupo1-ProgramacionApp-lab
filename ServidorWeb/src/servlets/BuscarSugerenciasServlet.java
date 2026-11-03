@@ -1,9 +1,10 @@
 package servlets;
 
-import Logica.Entidades.Curso;
-import Logica.controladores.Fabrica;
-import Logica.controladores.IControlador;
+import util.ServletRemoto;
 
+import util.ClienteCentral;
+
+import modelo.Curso;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -23,12 +24,19 @@ import javax.servlet.http.HttpServletResponse;
  * La página de resultados completa sigue siendo /buscar (se usa al enviar el formulario).
  */
 @WebServlet("/buscar-sugerencias")
-public class BuscarSugerenciasServlet extends HttpServlet {
+public class BuscarSugerenciasServlet extends ServletRemoto {
+
+    @Override
+    public void init() throws javax.servlet.ServletException {
+        super.init();
+        control = new ClienteCentral(getServletContext());
+    }
+
 
     private static final int MIN_CARACTERES = 2;
     private static final int MAX_SUGERENCIAS = 8;
 
-    private final IControlador control = Fabrica.getInstance().getIControlador();
+    private ClienteCentral control;
 
     /** Coincidencia ya calculada, para poder ordenar prefijos antes que "contiene". */
     private static final class Sugerencia {

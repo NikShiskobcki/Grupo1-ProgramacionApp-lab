@@ -188,6 +188,56 @@ public class ControladorCasosUsoTest {
     }
 
     @Test
+    public void testInscripcionConVideoDeMotivacion() {
+        String sufijo = generarSufijo();
+        String instNom = "InstVid" + sufijo;
+        controlador.altaInstituto(instNom);
+        Instituto inst = new Instituto(instNom);
+        String docNick = "docVid" + sufijo;
+        controlador.altaUsuarioDocente(docNick, "Doc", "Vid", docNick + "@test.uy", "clave", LocalDate.of(1985, 2, 2), instNom, null);
+        List<Docente> docentes = controlador.listarDocentesPorInstituto(instNom);
+        String cursoNom = "CursoVid" + sufijo;
+        controlador.altaCurso(cursoNom, "Desc", 3, 30, 3, "http://vid.uy", LocalDate.now(), inst, Collections.emptyList(), null, null);
+        LocalDate hoy = LocalDate.now(java.time.ZoneId.of("America/Montevideo"));
+        String ed = "EdVid" + sufijo;
+        controlador.altaEdicionCurso(ed, hoy.minusDays(2), hoy.plusMonths(2), 10, cursoNom, docentes, null);
+
+        String e1 = "estVid1" + sufijo;
+        String e2 = "estVid2" + sufijo;
+        controlador.altaUsuarioEstudiante(e1, "E", "Uno", e1 + "@test.uy", "clave", LocalDate.of(2003, 3, 3), null);
+        controlador.altaUsuarioEstudiante(e2, "E", "Dos", e2 + "@test.uy", "clave", LocalDate.of(2003, 3, 3), null);
+
+        String video = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+
+        // URL inválida: no se registra nada
+        try {
+            controlador.inscribirEstudianteEdicion(e1, ed, hoy, "no-es-una-url");
+            fail("Debía rechazar la URL");
+        } catch (IllegalArgumentException ex) {
+            assertTrue(ex.getMessage().contains("URL"));
+        }
+        assertNull(controlador.buscarInscripcionEdicion(e1, ed));
+
+        // Con video: queda guardado y con la fecha indicada
+        controlador.inscribirEstudianteEdicion(e1, ed, hoy, video);
+        InscripcionEdicion i1 = controlador.buscarInscripcionEdicion(e1, ed);
+        assertNotNull(i1);
+        assertEquals(video, i1.getVideoUrl());
+        assertEquals(hoy, i1.getFechaInscripcion());
+        assertEquals(EstadoInscripcion.INSCRIPTO, i1.getEstado());
+
+        // Sin video (opcional): queda en null
+        controlador.inscribirEstudianteEdicion(e2, ed, hoy, "  ");
+        assertNull(controlador.buscarInscripcionEdicion(e2, ed).getVideoUrl());
+
+        // Modificar: cambia y luego quita el video
+        controlador.modificarInscripcionEdicion(i1.getId(), hoy, "https://youtu.be/dQw4w9WgXcQ");
+        assertEquals("https://youtu.be/dQw4w9WgXcQ", controlador.buscarInscripcionEdicion(e1, ed).getVideoUrl());
+        controlador.modificarInscripcionEdicion(i1.getId(), hoy, null);
+        assertNull(controlador.buscarInscripcionEdicion(e1, ed).getVideoUrl());
+    }
+
+    @Test
     public void testInscripcionProgramaYListados() {
         String sufijo = generarSufijo();
         String progNom = "Prog" + sufijo;

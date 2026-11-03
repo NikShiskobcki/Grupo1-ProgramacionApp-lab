@@ -3,10 +3,10 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.ZoneId" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="Logica.Entidades.Curso" %>
-<%@ page import="Logica.Entidades.EdicionCurso" %>
-<%@ page import="Logica.DTO.DetalleEdicionCurso" %>
-<%@ page import="Logica.DTO.InscripcionResumen" %>
+<%@ page import="modelo.Curso" %>
+<%@ page import="modelo.EdicionCurso" %>
+<%@ page import="modelo.DetalleEdicionCurso" %>
+<%@ page import="modelo.InscripcionResumen" %>
 <%@ page import="util.Html" %>
 
 <%
@@ -96,10 +96,6 @@
                             } %>
                         </select>
 
-                        <button type="submit"
-                                class="btn btn-primary w-100">
-                            Ver cursos
-                        </button>
                     </form>
                 </div>
 
@@ -130,10 +126,6 @@
                                 <% } %>
                             </select>
 
-                            <button type="submit"
-                                    class="btn btn-primary w-100">
-                                Ver ediciones
-                            </button>
                         </form>
 
                     <% } else if (institutoSel != null
@@ -174,10 +166,6 @@
                                 <% } %>
                             </select>
 
-                            <button type="submit"
-                                    class="btn btn-primary w-100">
-                                Ver aceptados
-                            </button>
                         </form>
 
                     <% } else if (cursoSel != null

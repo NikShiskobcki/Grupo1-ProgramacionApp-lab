@@ -29,6 +29,7 @@ public class EdicionCurso implements Serializable {
     private Integer cupo;
     private LocalDate fechaPublicacion;
     private String rutaImagen;
+    private Boolean cerrada = false;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "curso_nombre", nullable = false)
@@ -113,8 +114,9 @@ public class EdicionCurso implements Serializable {
         return rutaImagen;
     }
 
-   
-    
+    public Boolean isCerrada() {
+        return Boolean.TRUE.equals(cerrada);
+    }    
 
 
     // SETTERS
@@ -150,4 +152,9 @@ public class EdicionCurso implements Serializable {
     public void setRutaImagen(String rutaImagen) {
         this.rutaImagen = rutaImagen;
     }
+
+    public void setCerrada(Boolean cerrada) {
+        this.cerrada = cerrada;
+    }
+    
 }

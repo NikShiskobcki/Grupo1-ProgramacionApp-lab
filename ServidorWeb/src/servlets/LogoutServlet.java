@@ -1,5 +1,7 @@
 package servlets;
 
+import util.ServletRemoto;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet("/logout")
-public class LogoutServlet extends HttpServlet {
+public class LogoutServlet extends ServletRemoto {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

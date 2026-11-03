@@ -2,7 +2,8 @@ package Logica.controladores;
 
 import Logica.DTO.DetalleCurso;
 import Logica.DTO.DetalleEdicionCurso;
-
+import java.util.Map;
+import java.util.Collections;
 import Logica.DTO.DetalleProgramaFormacion;
 import Logica.DTO.DetalleUsuario;
 import Logica.DTO.ElementoResumen;
@@ -10,6 +11,7 @@ import Logica.DTO.InscripcionResumen;
 import Logica.DTO.ResultadoInscripcion;
 import Logica.DTO.UsuarioEdicion;
 import Logica.DTO.UsuarioResumen;
+import Logica.DTO.EvaluacionEstudiante;
 import Logica.DatosPrueba.CargadorDatosPrueba;
 import Logica.Entidades.Categoria;
 import Logica.Entidades.Docente;
@@ -55,11 +57,18 @@ public class Controlador implements IControlador {
     private final ManejadorInscripcionPrograma manejadorInscripcionPrograma;
     private final ManejadorCategoria manejadorCategoria;
     private CargadorDatosPrueba cargadorDatosPrueba;
-   
+
     // Constructor privado para aplicar Singleton
     private Controlador() {
-        //Fabrica de entidades creada una sola vez para toda la app
-        emf = Persistence.createEntityManagerFactory("edextPU");
+
+        this("edextPU", Collections.emptyMap());
+    }
+
+    private Controlador(String unidad,
+            Map<String, Object> propiedades) {
+
+        emf = Persistence.createEntityManagerFactory(
+                unidad, propiedades);
 
         //Manejadores que comparten la misma EMF
         manejadorUsuario = new ManejadorUsuario(emf);
@@ -84,7 +93,7 @@ public class Controlador implements IControlador {
 
     }
 
-    public static Controlador getInstance() {
+    public static synchronized Controlador getInstance() {
 
         if (instancia == null) {
             instancia = new Controlador();
@@ -209,7 +218,7 @@ public class Controlador implements IControlador {
         );
         programa.setRutaImagen(rutaImagen);
         programa.setNicknameDocente(nicknameDocente);
-        
+
         manejadorProgramaFormacion.addPrograma(programa);
     }
 
@@ -224,13 +233,13 @@ public class Controlador implements IControlador {
 
         return nombres;
     }
-    
+
     @Override
-    public List<ElementoResumen> listarProgramasCreados(String nicknameDocente){
+    public List<ElementoResumen> listarProgramasCreados(String nicknameDocente) {
         List<ElementoResumen> resultado = new ArrayList<>();
-        
-        for (ProgramaFormacion p : manejadorProgramaFormacion.listarProgramasCreados(nicknameDocente)){
-            resultado.add(new ElementoResumen(p.getNombre(), p.getNombre()+" ("+p.getFechaInicio()+" - "+p.getFechaFin()+")"));
+
+        for (ProgramaFormacion p : manejadorProgramaFormacion.listarProgramasCreados(nicknameDocente)) {
+            resultado.add(new ElementoResumen(p.getNombre(), p.getNombre() + " (" + p.getFechaInicio() + " - " + p.getFechaFin() + ")"));
         }
         return resultado;
     }
@@ -337,58 +346,106 @@ public class Controlador implements IControlador {
         return manejadorInscripcionEdicion.buscarInscripcion(nicknameEstudiante, nombreEdicion);
     }
 
-@Override
-public void inscribirEstudianteEdicion(
-        String nicknameEstudiante,
-        String nombreEdicion,
-        LocalDate fechaInscripcion) {
-
-    Estudiante estudiante =
-            manejadorUsuario.buscarEstudiante(nicknameEstudiante);
-
-    if (estudiante == null) {
-        throw new IllegalArgumentException(
-                "El estudiante no existe.");
+    @Override
+    public void inscribirEstudianteEdicion(
+            String nicknameEstudiante,
+            String nombreEdicion,
+            LocalDate fechaInscripcion) {
+        inscribirEstudianteEdicion(nicknameEstudiante, nombreEdicion, fechaInscripcion, null);
     }
 
-    EdicionCurso edicion =
-            manejadorEdicionCurso.buscarPorNombre(nombreEdicion);
+    @Override
+    public void inscribirEstudianteEdicion(
+            String nicknameEstudiante,
+            String nombreEdicion,
+            LocalDate fechaInscripcion,
+            String videoUrl) {
 
-    if (edicion == null) {
-        throw new IllegalArgumentException(
-                "La edición no existe.");
+        Estudiante estudiante
+                = manejadorUsuario.buscarEstudiante(nicknameEstudiante);
+
+        if (estudiante == null) {
+            throw new IllegalArgumentException(
+                    "El estudiante no existe.");
+        }
+
+        EdicionCurso edicion
+                = manejadorEdicionCurso.buscarPorNombre(nombreEdicion);
+
+        if (edicion == null) {
+            throw new IllegalArgumentException(
+                    "La edición no existe.");
+        }
+
+        LocalDate hoy = LocalDate.now(
+                java.time.ZoneId.of("America/Montevideo"));
+
+        if (edicion.getFechaInicio() == null
+                || edicion.getFechaFin() == null
+                || hoy.isBefore(edicion.getFechaInicio())
+                || hoy.isAfter(edicion.getFechaFin())) {
+
+            throw new IllegalArgumentException(
+                    "Solo se permite la inscripción a una edición vigente.");
+        }
+
+        if (fechaInscripcion == null) {
+            throw new IllegalArgumentException(
+                    "Debe indicar una fecha de inscripción.");
+        }
+
+        String video = normalizarVideoUrl(videoUrl);
+
+        InscripcionEdicion inscripcion = new InscripcionEdicion(
+                fechaInscripcion,
+                estudiante,
+                edicion
+        );
+        inscripcion.setVideoUrl(video);
+
+        manejadorInscripcionEdicion.addInscripcion(inscripcion);
     }
-
-    LocalDate hoy = LocalDate.now(
-            java.time.ZoneId.of("America/Montevideo"));
-
-    if (edicion.getFechaInicio() == null
-            || edicion.getFechaFin() == null
-            || hoy.isBefore(edicion.getFechaInicio())
-            || hoy.isAfter(edicion.getFechaFin())) {
-
-        throw new IllegalArgumentException(
-                "Solo se permite la inscripción a una edición vigente.");
-    }
-
-    if (fechaInscripcion == null) {
-        throw new IllegalArgumentException(
-                "Debe indicar una fecha de inscripción.");
-    }
-
-    InscripcionEdicion inscripcion = new InscripcionEdicion(
-            fechaInscripcion,
-            estudiante,
-            edicion
-    );
-
-    manejadorInscripcionEdicion.addInscripcion(inscripcion);
-}
 
     @Override
     public void modificarInscripcionEdicion(Long idInscripcion, LocalDate nuevaFecha) {
 
         manejadorInscripcionEdicion.modificarInscripcion(idInscripcion, nuevaFecha);
+    }
+
+    @Override
+    public void modificarInscripcionEdicion(Long idInscripcion, LocalDate nuevaFecha, String videoUrl) {
+
+        manejadorInscripcionEdicion.modificarInscripcion(
+                idInscripcion, nuevaFecha, normalizarVideoUrl(videoUrl));
+    }
+
+    /**
+     * Valida la URL opcional del video de motivación. Devuelve null si no hay
+     * video; lanza IllegalArgumentException si no es una URL http/https válida.
+     */
+    static String normalizarVideoUrl(String videoUrl) {
+        if (videoUrl == null || videoUrl.trim().isEmpty()) {
+            return null;
+        }
+        String url = videoUrl.trim();
+        if (url.length() > 500) {
+            throw new IllegalArgumentException(
+                    "La URL del video no puede superar los 500 caracteres.");
+        }
+        try {
+            java.net.URI uri = new java.net.URI(url);
+            String esquema = uri.getScheme();
+            if (esquema == null
+                    || !(esquema.equalsIgnoreCase("http") || esquema.equalsIgnoreCase("https"))
+                    || uri.getHost() == null || uri.getHost().isEmpty()) {
+                throw new IllegalArgumentException(
+                        "La URL del video debe ser una dirección http o https válida.");
+            }
+        } catch (java.net.URISyntaxException e) {
+            throw new IllegalArgumentException(
+                    "La URL del video debe ser una dirección http o https válida.");
+        }
+        return url;
     }
 
     // =========================
@@ -456,21 +513,21 @@ public void inscribirEstudianteEdicion(
         EstadoInscripcion estado = aceptado ? EstadoInscripcion.ACEPTADA : EstadoInscripcion.RECHAZADA;
         manejadorInscripcionEdicion.actualizarEstado(idInscripcion, estado);
     }
-    
-    @Override
-public void seleccionarEstudiantesEdicion(
-        String nicknameDocente,
-        String nombreEdicion,
-        List<Long> aceptadas,
-        List<Long> rechazadas) {
 
-    manejadorInscripcionEdicion.seleccionarEstudiantesEdicion(
-            nicknameDocente,
-            nombreEdicion,
-            aceptadas,
-            rechazadas
-    );
-}
+    @Override
+    public void seleccionarEstudiantesEdicion(
+            String nicknameDocente,
+            String nombreEdicion,
+            List<Long> aceptadas,
+            List<Long> rechazadas) {
+
+        manejadorInscripcionEdicion.seleccionarEstudiantesEdicion(
+                nicknameDocente,
+                nombreEdicion,
+                aceptadas,
+                rechazadas
+        );
+    }
 
     @Override
     public List<InscripcionResumen> listarAceptadosPorEdicion(String nombreEdicion) {
@@ -514,7 +571,7 @@ public void seleccionarEstudiantesEdicion(
     public void dejarDeSeguirUsuario(String nicknameSeguidor, String nicknameSeguido) {
         manejadorUsuario.dejarDeSeguirUsuario(nicknameSeguidor, nicknameSeguido);
     }
-    
+
     @Override
     public boolean sigueAUsuario(String nicknameSeguidor, String nicknameSeguido) {
         return manejadorUsuario.sigueAUsuario(nicknameSeguidor, nicknameSeguido);
@@ -542,4 +599,64 @@ public void seleccionarEstudiantesEdicion(
     public void cargarDatosPrueba() {
         cargadorDatosPrueba.cargar();
     }
+
+    public static synchronized void iniciarCentral(
+            Map<String, Object> propiedades) {
+
+        if (instancia != null) {
+            throw new IllegalStateException(
+                    "El controlador ya fue inicializado.");
+        }
+
+        instancia = new Controlador(
+                "edextCentralPU", propiedades);
+    }
+
+    @Override
+    public void desistirInscripcionEdicion(
+            String nicknameEstudiante,
+            String nombreEdicion) {
+
+        if (nicknameEstudiante == null
+                || nicknameEstudiante.isBlank()) {
+            throw new IllegalArgumentException(
+                    "Debe indicar el estudiante.");
+        }
+
+        if (nombreEdicion == null || nombreEdicion.isBlank()) {
+            throw new IllegalArgumentException(
+                    "Debe seleccionar una edición.");
+        }
+
+        manejadorInscripcionEdicion.desistirInscripcion(
+                nicknameEstudiante.trim(),
+                nombreEdicion.trim());
+    }
+    
+
+    @Override
+    public List<EvaluacionEstudiante> listarEvaluacionesPorEdicion(
+            String nombreEdicion) {
+        return manejadorInscripcionEdicion
+                .listarEvaluacionesPorEdicion(nombreEdicion);
+    }
+
+    @Override
+    public void guardarNotas(String nicknameDocente, String nombreEdicion,
+            Map<Long, Integer> notas) {
+        manejadorInscripcionEdicion
+                .guardarNotas(nicknameDocente, nombreEdicion, notas);
+    }
+
+    @Override
+    public void cerrarEdicion(String nicknameDocente, String nombreEdicion) {
+        manejadorInscripcionEdicion
+                .cerrarEdicion(nicknameDocente, nombreEdicion);
+    }
+
+    @Override
+    public boolean edicionCerrada(String nombreEdicion) {
+        return manejadorInscripcionEdicion.edicionCerrada(nombreEdicion);
+    }
+
 }

@@ -1,15 +1,16 @@
 package servlets;
 
-import Logica.DTO.DetalleCurso;
-import Logica.DTO.DetalleEdicionCurso;
-import Logica.DTO.UsuarioResumen;
-import Logica.Entidades.Curso;
-import Logica.Entidades.EdicionCurso;
-import Logica.Entidades.EstadoInscripcion;
-import Logica.Entidades.InscripcionEdicion;
-import Logica.controladores.Fabrica;
-import Logica.controladores.IControlador;
+import util.ServletRemoto;
 
+import util.ClienteCentral;
+
+import modelo.DetalleCurso;
+import modelo.DetalleEdicionCurso;
+import modelo.UsuarioResumen;
+import modelo.Curso;
+import modelo.EdicionCurso;
+import modelo.EstadoInscripcion;
+import modelo.InscripcionEdicion;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.time.LocalDate;
@@ -25,10 +26,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet("/inscribir-edicion")
-public class InscripcionEdicionServlet extends HttpServlet {
+public class InscripcionEdicionServlet extends ServletRemoto {
 
-    private final IControlador control =
-            Fabrica.getInstance().getIControlador();
+    @Override
+    public void init() throws javax.servlet.ServletException {
+        super.init();
+        control = new ClienteCentral(getServletContext());
+    }
+
+
+    private ClienteCentral control;
 
     private static final ZoneId ZONA =
             ZoneId.of("America/Montevideo");
@@ -78,12 +85,27 @@ public class InscripcionEdicionServlet extends HttpServlet {
         String curso = parametro(request, "curso");
         String edicion = parametro(request, "edicion");
         String accion = parametro(request, "accion");
+        String videoUrl = parametro(request, "videoUrl");
         String resultado;
+
+        // Se conserva lo ingresado para volver a mostrarlo si hay un error.
+        request.setAttribute("videoUrlIngresado", videoUrl);
 
         try {
             if (curso.isEmpty() || edicion.isEmpty()) {
                 throw new IllegalArgumentException(
                         "Seleccioná un curso y una edición vigente.");
+            }
+
+            if (!videoUrl.isEmpty()) {
+                if (videoUrl.length() > 500) {
+                    throw new IllegalArgumentException(
+                            "La URL del video no puede superar los 500 caracteres.");
+                }
+                if (!util.Html.esUrlHttp(videoUrl)) {
+                    throw new IllegalArgumentException(
+                            "La URL del video debe ser una dirección http o https válida.");
+                }
             }
 
             boolean vigente = false;
@@ -119,7 +141,7 @@ public class InscripcionEdicionServlet extends HttpServlet {
                  * También comprobamos el historial por si la búsqueda
                  * de esta versión de Central omite las rechazadas.
                  */
-                for (Logica.DTO.ResultadoInscripcion anterior
+                for (modelo.ResultadoInscripcion anterior
                         : control.listarResultadosPorEstudiante(
                                 estudiante.getNickname())) {
 
@@ -131,7 +153,8 @@ public class InscripcionEdicionServlet extends HttpServlet {
                 }
 
                 control.inscribirEstudianteEdicion(
-                        estudiante.getNickname(), edicion, hoy);
+                        estudiante.getNickname(), edicion, hoy,
+                        videoUrl.isEmpty() ? null : videoUrl);
 
                 resultado = "inscripto";
 
@@ -148,7 +171,8 @@ public class InscripcionEdicionServlet extends HttpServlet {
                 }
 
                 control.modificarInscripcionEdicion(
-                        existente.getId(), hoy);
+                        existente.getId(), hoy,
+                        videoUrl.isEmpty() ? null : videoUrl);
 
                 resultado = "modificado";
 
@@ -304,10 +328,19 @@ public class InscripcionEdicionServlet extends HttpServlet {
                         request.setAttribute("edicionSel", edicionElegida);
                         request.setAttribute("detalleEdicion", detalle);
 
-                        request.setAttribute("inscripcion",
+                        InscripcionEdicion inscripcion =
                                 control.buscarInscripcionEdicion(
                                         estudiante.getNickname(),
-                                        edicionElegida));
+                                        edicionElegida);
+
+                        request.setAttribute("inscripcion", inscripcion);
+
+                        // Valor inicial del campo: lo ingresado (tras un error) o el video guardado.
+                        if (request.getAttribute("videoUrlIngresado") == null) {
+                            request.setAttribute("videoUrlIngresado",
+                                    inscripcion == null || inscripcion.getVideoUrl() == null
+                                            ? "" : inscripcion.getVideoUrl());
+                        }
 
                     } else {
                         ponerError(request,
@@ -365,4 +398,4 @@ public class InscripcionEdicionServlet extends HttpServlet {
             throw new IllegalStateException(e);
         }
     }
-}
+}

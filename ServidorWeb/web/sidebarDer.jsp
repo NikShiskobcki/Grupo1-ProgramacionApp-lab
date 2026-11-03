@@ -1,9 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="Logica.DTO.UsuarioResumen" %>
-<%@ page import="Logica.DTO.DetalleUsuario" %>
-<%@ page import="Logica.DTO.ElementoResumen" %>
-<%@ page import="Logica.controladores.Fabrica" %>
-<%@ page import="Logica.controladores.IControlador" %>
+<%@ page import="modelo.UsuarioResumen" %>
+<%@ page import="modelo.DetalleUsuario" %>
+<%@ page import="modelo.ElementoResumen" %>
 <%@ page import="java.util.List" %>
 <%@ page import="util.Html" %>
 
@@ -15,7 +13,7 @@
    boolean sidebarDerEsDocente = false;
 
    if (sidebarDerUser != null) {
-       IControlador sidebarDerControl = Fabrica.getInstance().getIControlador();
+       util.ClienteCentral sidebarDerControl = new util.ClienteCentral(application);
        String sidebarDerNick = sidebarDerUser.getNickname();
 
        sidebarDerDetalle = sidebarDerControl.consultarUsuario(sidebarDerNick, sidebarDerNick);

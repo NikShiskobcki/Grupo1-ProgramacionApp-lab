@@ -1,9 +1,10 @@
 package servlets;
 
-import Logica.DTO.UsuarioResumen;
-import Logica.controladores.Fabrica;
-import Logica.controladores.IControlador;
+import util.ServletRemoto;
 
+import util.ClienteCentral;
+
+import modelo.UsuarioResumen;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -14,9 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 
 /** US-04: lista de todos los usuarios (accesible para visitantes y usuarios registrados). */
 @WebServlet("/usuarios")
-public class UsuariosServlet extends HttpServlet {
+public class UsuariosServlet extends ServletRemoto {
 
-    private final IControlador control = Fabrica.getInstance().getIControlador();
+    @Override
+    public void init() throws javax.servlet.ServletException {
+        super.init();
+        control = new ClienteCentral(getServletContext());
+    }
+
+
+    private ClienteCentral control;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

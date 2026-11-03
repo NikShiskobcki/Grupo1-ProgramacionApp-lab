@@ -21,6 +21,7 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
+
   adminer:
     image: adminer:latest
     container_name: adminer_stack
@@ -31,8 +32,10 @@ services:
       - mariadb
 
   tomcat:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
-      IMAGENES_DIR: /var/lib/edext/imagenes
+      JAVA_TOOL_OPTIONS: "-Duser.home=/opt/edext/home"
     image: tomcat:9.0-jdk21-temurin
     container_name: tomcat_stack
     restart: unless-stopped
@@ -48,10 +51,19 @@ services:
         read_only: true
         bind:
           create_host_path: false
+
       - imagenes_data:/var/lib/edext/imagenes
+
+      - type: bind
+        source: "${EDEXT_CONFIG_DIR:-${USERPROFILE:-${HOME:?No se encontro el home del usuario}}/.edEXT}/web.properties"
+        target: /opt/edext/home/.edEXT/web.properties
+        read_only: true
+        bind:
+          create_host_path: false
 
 volumes:
   imagenes_data:
     driver: local
+
   mariadb_data:
     driver: local

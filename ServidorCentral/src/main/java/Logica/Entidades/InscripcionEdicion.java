@@ -6,6 +6,7 @@ package Logica.Entidades;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -37,6 +38,11 @@ public class InscripcionEdicion implements Serializable {
     @Enumerated(EnumType.STRING)
     private EstadoInscripcion estado = EstadoInscripcion.INSCRIPTO;
 
+    private Integer nota;
+
+    /** URL opcional de un video de motivación (http/https). */
+    @Column(length = 500)
+    private String videoUrl;
 
     // CONSTRUCTORES
 
@@ -75,6 +81,15 @@ public class InscripcionEdicion implements Serializable {
     public EstadoInscripcion getEstado() {
         return estado == null ? EstadoInscripcion.INSCRIPTO : estado;
     }
+
+    public Integer getNota() {
+        return nota;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+    
     
     
 
@@ -97,9 +112,21 @@ public class InscripcionEdicion implements Serializable {
 //        this.edicion = edicion;
 //    }
 
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
     public void setEstado(EstadoInscripcion estado) {
         this.estado = estado;
     }
+
+    public void setNota(Integer nota) {
+        if (nota != null && (nota < 1 || nota > 12)) {
+            throw new IllegalArgumentException(
+                    "La nota debe estar entre 1 y 12");
+        }
+        this.nota = nota;
+    }
     
     
-}
+}

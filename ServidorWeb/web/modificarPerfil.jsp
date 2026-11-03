@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="Logica.DTO.UsuarioEdicion" %>
+<%@ page import="modelo.UsuarioEdicion" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.util.List" %>
 <%@ page import="util.Html" %>

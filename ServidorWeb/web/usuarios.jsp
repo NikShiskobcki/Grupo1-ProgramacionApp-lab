@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="Logica.DTO.UsuarioResumen" %>
+<%@ page import="modelo.UsuarioResumen" %>
 <%@ page import="java.util.List" %>
 <%@ page import="util.Html" %>
 <jsp:include page="header.jsp" />

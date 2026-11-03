@@ -1,7 +1,8 @@
 package servlets;
 
-import Logica.controladores.Fabrica;
-import Logica.controladores.IControlador;
+import util.ServletRemoto;
+
+import util.ClienteCentral;
 
 import java.io.IOException;
 import java.net.URI;
@@ -23,9 +24,16 @@ import util.Imagenes;
         maxFileSize = 6L * 1024 * 1024,
         maxRequestSize = 7L * 1024 * 1024
 )
-public class AltaUsuarioServlet extends HttpServlet {
+public class AltaUsuarioServlet extends ServletRemoto {
 
-    private final IControlador control = Fabrica.getInstance().getIControlador();
+    @Override
+    public void init() throws javax.servlet.ServletException {
+        super.init();
+        control = new ClienteCentral(getServletContext());
+    }
+
+
+    private ClienteCentral control;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

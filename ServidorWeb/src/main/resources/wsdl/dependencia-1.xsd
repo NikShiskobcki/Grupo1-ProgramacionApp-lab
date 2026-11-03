@@ -1,0 +1,1630 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Published by XML-WS Runtime (https://github.com/eclipse-ee4j/metro-jax-ws). Runtime's version is XML-WS Runtime 4.0.5 git-revision#c828e2e. --><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ws.edext.utec.edu.uy/" targetNamespace="http://ws.edext.utec.edu.uy/" version="1.0">
+    
+    <xs:element name="CentralFault" type="tns:CentralException"/>
+    
+    <xs:element name="agregarCursoAPrograma" type="tns:agregarCursoAPrograma"/>
+    
+    <xs:element name="agregarCursoAProgramaResponse" type="tns:agregarCursoAProgramaResponse"/>
+    
+    <xs:element name="altaCurso" type="tns:altaCurso"/>
+    
+    <xs:element name="altaCursoResponse" type="tns:altaCursoResponse"/>
+    
+    <xs:element name="altaEdicionCurso" type="tns:altaEdicionCurso"/>
+    
+    <xs:element name="altaEdicionCursoResponse" type="tns:altaEdicionCursoResponse"/>
+    
+    <xs:element name="altaPrograma" type="tns:altaPrograma"/>
+    
+    <xs:element name="altaProgramaResponse" type="tns:altaProgramaResponse"/>
+    
+    <xs:element name="altaUsuarioDocente" type="tns:altaUsuarioDocente"/>
+    
+    <xs:element name="altaUsuarioDocenteResponse" type="tns:altaUsuarioDocenteResponse"/>
+    
+    <xs:element name="altaUsuarioEstudiante" type="tns:altaUsuarioEstudiante"/>
+    
+    <xs:element name="altaUsuarioEstudianteResponse" type="tns:altaUsuarioEstudianteResponse"/>
+    
+    <xs:element name="buscarEdicion" type="tns:buscarEdicion"/>
+    
+    <xs:element name="buscarEdicionResponse" type="tns:buscarEdicionResponse"/>
+    
+    <xs:element name="buscarInscripcionEdicion" type="tns:buscarInscripcionEdicion"/>
+    
+    <xs:element name="buscarInscripcionEdicionResponse" type="tns:buscarInscripcionEdicionResponse"/>
+    
+    <xs:element name="buscarInscripcionPrograma" type="tns:buscarInscripcionPrograma"/>
+    
+    <xs:element name="buscarInscripcionProgramaResponse" type="tns:buscarInscripcionProgramaResponse"/>
+    
+    <xs:element name="buscarUsuarioParaEditar" type="tns:buscarUsuarioParaEditar"/>
+    
+    <xs:element name="buscarUsuarioParaEditarResponse" type="tns:buscarUsuarioParaEditarResponse"/>
+    
+    <xs:element name="cambiarContrasenia" type="tns:cambiarContrasenia"/>
+    
+    <xs:element name="cambiarContraseniaResponse" type="tns:cambiarContraseniaResponse"/>
+    
+    <xs:element name="cerrarEdicion" type="tns:cerrarEdicion"/>
+    
+    <xs:element name="cerrarEdicionResponse" type="tns:cerrarEdicionResponse"/>
+    
+    <xs:element name="consultarCurso" type="tns:consultarCurso"/>
+    
+    <xs:element name="consultarCursoResponse" type="tns:consultarCursoResponse"/>
+    
+    <xs:element name="consultarEdicion" type="tns:consultarEdicion"/>
+    
+    <xs:element name="consultarEdicionResponse" type="tns:consultarEdicionResponse"/>
+    
+    <xs:element name="consultarPrograma" type="tns:consultarPrograma"/>
+    
+    <xs:element name="consultarProgramaResponse" type="tns:consultarProgramaResponse"/>
+    
+    <xs:element name="consultarUsuario" type="tns:consultarUsuario"/>
+    
+    <xs:element name="consultarUsuarioResponse" type="tns:consultarUsuarioResponse"/>
+    
+    <xs:element name="dejarDeSeguirUsuario" type="tns:dejarDeSeguirUsuario"/>
+    
+    <xs:element name="dejarDeSeguirUsuarioResponse" type="tns:dejarDeSeguirUsuarioResponse"/>
+    
+    <xs:element name="desistirInscripcionEdicion" type="tns:desistirInscripcionEdicion"/>
+    
+    <xs:element name="desistirInscripcionEdicionResponse" type="tns:desistirInscripcionEdicionResponse"/>
+    
+    <xs:element name="edicionCerrada" type="tns:edicionCerrada"/>
+    
+    <xs:element name="edicionCerradaResponse" type="tns:edicionCerradaResponse"/>
+    
+    <xs:element name="existeCurso" type="tns:existeCurso"/>
+    
+    <xs:element name="existeCursoResponse" type="tns:existeCursoResponse"/>
+    
+    <xs:element name="existeEdicion" type="tns:existeEdicion"/>
+    
+    <xs:element name="existeEdicionResponse" type="tns:existeEdicionResponse"/>
+    
+    <xs:element name="existeEmail" type="tns:existeEmail"/>
+    
+    <xs:element name="existeEmailResponse" type="tns:existeEmailResponse"/>
+    
+    <xs:element name="existeInstituto" type="tns:existeInstituto"/>
+    
+    <xs:element name="existeInstitutoResponse" type="tns:existeInstitutoResponse"/>
+    
+    <xs:element name="existeNickname" type="tns:existeNickname"/>
+    
+    <xs:element name="existeNicknameResponse" type="tns:existeNicknameResponse"/>
+    
+    <xs:element name="existePrograma" type="tns:existePrograma"/>
+    
+    <xs:element name="existeProgramaResponse" type="tns:existeProgramaResponse"/>
+    
+    <xs:element name="guardarNotas" type="tns:guardarNotas"/>
+    
+    <xs:element name="guardarNotasResponse" type="tns:guardarNotasResponse"/>
+    
+    <xs:element name="iniciarSesion" type="tns:iniciarSesion"/>
+    
+    <xs:element name="iniciarSesionResponse" type="tns:iniciarSesionResponse"/>
+    
+    <xs:element name="inscribirEstudianteEdicion" type="tns:inscribirEstudianteEdicion"/>
+    
+    <xs:element name="inscribirEstudianteEdicionResponse" type="tns:inscribirEstudianteEdicionResponse"/>
+    
+    <xs:element name="inscribirEstudiantePrograma" type="tns:inscribirEstudiantePrograma"/>
+    
+    <xs:element name="inscribirEstudianteProgramaResponse" type="tns:inscribirEstudianteProgramaResponse"/>
+    
+    <xs:element name="listarAceptadosPorEdicion" type="tns:listarAceptadosPorEdicion"/>
+    
+    <xs:element name="listarAceptadosPorEdicionResponse" type="tns:listarAceptadosPorEdicionResponse"/>
+    
+    <xs:element name="listarCursos" type="tns:listarCursos"/>
+    
+    <xs:element name="listarCursosPorInstituto" type="tns:listarCursosPorInstituto"/>
+    
+    <xs:element name="listarCursosPorInstitutoResponse" type="tns:listarCursosPorInstitutoResponse"/>
+    
+    <xs:element name="listarCursosResponse" type="tns:listarCursosResponse"/>
+    
+    <xs:element name="listarDocentesPorInstituto" type="tns:listarDocentesPorInstituto"/>
+    
+    <xs:element name="listarDocentesPorInstitutoResponse" type="tns:listarDocentesPorInstitutoResponse"/>
+    
+    <xs:element name="listarEdicionesPorCurso" type="tns:listarEdicionesPorCurso"/>
+    
+    <xs:element name="listarEdicionesPorCursoResponse" type="tns:listarEdicionesPorCursoResponse"/>
+    
+    <xs:element name="listarEdicionesVigentesPorCurso" type="tns:listarEdicionesVigentesPorCurso"/>
+    
+    <xs:element name="listarEdicionesVigentesPorCursoResponse" type="tns:listarEdicionesVigentesPorCursoResponse"/>
+    
+    <xs:element name="listarEvaluacionesPorEdicion" type="tns:listarEvaluacionesPorEdicion"/>
+    
+    <xs:element name="listarEvaluacionesPorEdicionResponse" type="tns:listarEvaluacionesPorEdicionResponse"/>
+    
+    <xs:element name="listarInscripcionesPorEdicion" type="tns:listarInscripcionesPorEdicion"/>
+    
+    <xs:element name="listarInscripcionesPorEdicionResponse" type="tns:listarInscripcionesPorEdicionResponse"/>
+    
+    <xs:element name="listarInstitutos" type="tns:listarInstitutos"/>
+    
+    <xs:element name="listarInstitutosResponse" type="tns:listarInstitutosResponse"/>
+    
+    <xs:element name="listarNombresCategorias" type="tns:listarNombresCategorias"/>
+    
+    <xs:element name="listarNombresCategoriasResponse" type="tns:listarNombresCategoriasResponse"/>
+    
+    <xs:element name="listarNombresInstitutos" type="tns:listarNombresInstitutos"/>
+    
+    <xs:element name="listarNombresInstitutosResponse" type="tns:listarNombresInstitutosResponse"/>
+    
+    <xs:element name="listarProgramas" type="tns:listarProgramas"/>
+    
+    <xs:element name="listarProgramasCreados" type="tns:listarProgramasCreados"/>
+    
+    <xs:element name="listarProgramasCreadosResponse" type="tns:listarProgramasCreadosResponse"/>
+    
+    <xs:element name="listarProgramasResponse" type="tns:listarProgramasResponse"/>
+    
+    <xs:element name="listarResultadosPorEstudiante" type="tns:listarResultadosPorEstudiante"/>
+    
+    <xs:element name="listarResultadosPorEstudianteResponse" type="tns:listarResultadosPorEstudianteResponse"/>
+    
+    <xs:element name="listarSeguidores" type="tns:listarSeguidores"/>
+    
+    <xs:element name="listarSeguidoresResponse" type="tns:listarSeguidoresResponse"/>
+    
+    <xs:element name="listarSeguidos" type="tns:listarSeguidos"/>
+    
+    <xs:element name="listarSeguidosResponse" type="tns:listarSeguidosResponse"/>
+    
+    <xs:element name="listarUsuarios" type="tns:listarUsuarios"/>
+    
+    <xs:element name="listarUsuariosResponse" type="tns:listarUsuariosResponse"/>
+    
+    <xs:element name="modificarInscripcionEdicion" type="tns:modificarInscripcionEdicion"/>
+    
+    <xs:element name="modificarInscripcionEdicionResponse" type="tns:modificarInscripcionEdicionResponse"/>
+    
+    <xs:element name="modificarUsuario" type="tns:modificarUsuario"/>
+    
+    <xs:element name="modificarUsuarioResponse" type="tns:modificarUsuarioResponse"/>
+    
+    <xs:element name="seguirUsuario" type="tns:seguirUsuario"/>
+    
+    <xs:element name="seguirUsuarioResponse" type="tns:seguirUsuarioResponse"/>
+    
+    <xs:element name="seleccionarEstudiantesEdicion" type="tns:seleccionarEstudiantesEdicion"/>
+    
+    <xs:element name="seleccionarEstudiantesEdicionResponse" type="tns:seleccionarEstudiantesEdicionResponse"/>
+    
+    <xs:element name="sigueAUsuario" type="tns:sigueAUsuario"/>
+    
+    <xs:element name="sigueAUsuarioResponse" type="tns:sigueAUsuarioResponse"/>
+    
+    <xs:complexType name="listarProgramasCreados">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nicknameDocente" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarProgramasCreadosResponse">
+        
+        <xs:sequence>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:ElementoResumenDTO"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="ElementoResumenDTO">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="textoMostrar" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="modificarInscripcionEdicion">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="idInscripcion" type="xs:long"/>
+            
+            <xs:element minOccurs="0" name="nuevaFecha" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="videoUrl" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="modificarInscripcionEdicionResponse">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="CentralException">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="message" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="existeInstituto">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="existeInstitutoResponse">
+        
+        <xs:sequence>
+            
+            <xs:element name="return" type="xs:boolean"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="cerrarEdicion">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nicknameDocente" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombreEdicion" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="cerrarEdicionResponse">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="consultarCurso">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombreCurso" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="consultarCursoResponse">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="return" type="tns:DetalleCursoDTO"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="DetalleCursoDTO">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="descripcion" type="xs:string"/>
+            
+            <xs:element name="duracion" type="xs:int"/>
+            
+            <xs:element name="cantidadHoras" type="xs:int"/>
+            
+            <xs:element name="creditos" type="xs:int"/>
+            
+            <xs:element minOccurs="0" name="url" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaAlta" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="instituto" type="xs:string"/>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="previas" nillable="true" type="xs:string"/>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="ediciones" nillable="true" type="xs:string"/>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="programas" nillable="true" type="xs:string"/>
+            
+            <xs:element name="cantidadInscriptos" type="xs:long"/>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="categorias" nillable="true" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="rutaImagen" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="buscarInscripcionPrograma">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nicknameEstudiante" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombrePrograma" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="buscarInscripcionProgramaResponse">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="return" type="tns:InscripcionProgramaDTO"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="InscripcionProgramaDTO">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="id" type="xs:long"/>
+            
+            <xs:element minOccurs="0" name="fechaInscripcion" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nicknameEstudiante" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombrePrograma" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarEdicionesPorCurso">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombreCurso" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarEdicionesPorCursoResponse">
+        
+        <xs:sequence>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:EdicionCursoDTO"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="EdicionCursoDTO">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaInicio" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaFin" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="cupo" type="xs:int"/>
+            
+            <xs:element minOccurs="0" name="fechaPublicacion" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="rutaImagen" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombreCurso" type="xs:string"/>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="docentes" nillable="true" type="tns:DocenteDTO"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="DocenteDTO">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nickname" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="apellido" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="rutaImagen" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="existePrograma">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="existeProgramaResponse">
+        
+        <xs:sequence>
+            
+            <xs:element name="return" type="xs:boolean"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="seguirUsuario">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nicknameSeguidor" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nicknameSeguido" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="seguirUsuarioResponse">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarEvaluacionesPorEdicion">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombreEdicion" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarEvaluacionesPorEdicionResponse">
+        
+        <xs:sequence>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:EvaluacionEstudianteDTO"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="EvaluacionEstudianteDTO">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="idInscripcion" type="xs:long"/>
+            
+            <xs:element minOccurs="0" name="nicknameEstudiante" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombreEstudiante" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nota" type="xs:int"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarSeguidos">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nickname" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarSeguidosResponse">
+        
+        <xs:sequence>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:UsuarioResumen"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="UsuarioResumen">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nickname" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombreCompleto" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="tipo" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="rutaImagen" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarInstitutos">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarInstitutosResponse">
+        
+        <xs:sequence>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:InstitutoDTO"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="InstitutoDTO">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarInscripcionesPorEdicion">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombreEdicion" type="xs:string"/>
+            
+            <xs:element name="ordenarPorPrioridad" type="xs:boolean"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarInscripcionesPorEdicionResponse">
+        
+        <xs:sequence>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:InscripcionResumenDTO"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="InscripcionResumenDTO">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="id" type="xs:long"/>
+            
+            <xs:element minOccurs="0" name="nicknameEstudiante" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombreEstudiante" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaInscripcion" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="estado" type="xs:string"/>
+            
+            <xs:element name="prioridad" type="xs:double"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="inscribirEstudianteEdicion">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nicknameEstudiante" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombreEdicion" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaInscripcion" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="videoUrl" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="inscribirEstudianteEdicionResponse">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="buscarEdicion">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="buscarEdicionResponse">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="return" type="tns:EdicionCursoDTO"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="existeCurso">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="existeCursoResponse">
+        
+        <xs:sequence>
+            
+            <xs:element name="return" type="xs:boolean"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="buscarInscripcionEdicion">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nicknameEstudiante" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombreEdicion" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="buscarInscripcionEdicionResponse">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="return" type="tns:InscripcionEdicionDTO"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="InscripcionEdicionDTO">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="id" type="xs:long"/>
+            
+            <xs:element minOccurs="0" name="fechaInscripcion" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="estado" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nicknameEstudiante" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombreEdicion" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="videoUrl" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="agregarCursoAPrograma">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombrePrograma" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombreCurso" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="agregarCursoAProgramaResponse">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="desistirInscripcionEdicion">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nicknameEstudiante" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombreEdicion" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="desistirInscripcionEdicionResponse">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarAceptadosPorEdicion">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombreEdicion" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarAceptadosPorEdicionResponse">
+        
+        <xs:sequence>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:InscripcionResumenDTO"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarUsuarios">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarUsuariosResponse">
+        
+        <xs:sequence>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:UsuarioResumen"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarCursos">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarCursosResponse">
+        
+        <xs:sequence>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:CursoDTO"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="CursoDTO">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="descripcion" type="xs:string"/>
+            
+            <xs:element name="duracion" type="xs:int"/>
+            
+            <xs:element name="cantidadHoras" type="xs:int"/>
+            
+            <xs:element name="creditos" type="xs:int"/>
+            
+            <xs:element minOccurs="0" name="url" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaAlta" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="rutaImagen" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="instituto" type="tns:InstitutoDTO"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="consultarEdicion">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombreEdicion" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="consultarEdicionResponse">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="return" type="tns:DetalleEdicionCursoDTO"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="DetalleEdicionCursoDTO">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaInicio" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaFin" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="cupo" type="xs:int"/>
+            
+            <xs:element minOccurs="0" name="fechaPublicacion" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="curso" type="xs:string"/>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="docentes" nillable="true" type="xs:string"/>
+            
+            <xs:element name="cantidadInscriptos" type="xs:long"/>
+            
+            <xs:element minOccurs="0" name="rutaImagen" type="xs:string"/>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="categorias" nillable="true" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="inscribirEstudiantePrograma">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nicknameEstudiante" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombrePrograma" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaInscripcion" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="inscribirEstudianteProgramaResponse">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="dejarDeSeguirUsuario">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nicknameSeguidor" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nicknameSeguido" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="dejarDeSeguirUsuarioResponse">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="altaUsuarioEstudiante">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nickname" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="apellido" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="email" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="contrasenia" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaNacimiento" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="rutaImagen" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="altaUsuarioEstudianteResponse">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="altaCurso">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="descripcion" type="xs:string"/>
+            
+            <xs:element name="duracion" type="xs:int"/>
+            
+            <xs:element name="cantidadHoras" type="xs:int"/>
+            
+            <xs:element name="creditos" type="xs:int"/>
+            
+            <xs:element minOccurs="0" name="url" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaAlta" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombreInstituto" type="xs:string"/>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="nombresPrevias" type="xs:string"/>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="nombresCategorias" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="rutaImagen" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="altaCursoResponse">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="sigueAUsuario">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nicknameSeguidor" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nicknameSeguido" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="sigueAUsuarioResponse">
+        
+        <xs:sequence>
+            
+            <xs:element name="return" type="xs:boolean"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarNombresCategorias">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarNombresCategoriasResponse">
+        
+        <xs:sequence>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="existeEdicion">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="existeEdicionResponse">
+        
+        <xs:sequence>
+            
+            <xs:element name="existe" type="xs:boolean"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarDocentesPorInstituto">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="instituto" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarDocentesPorInstitutoResponse">
+        
+        <xs:sequence>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="docente" type="tns:UsuarioResumen"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="existeNickname">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nickname" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="existeNicknameResponse">
+        
+        <xs:sequence>
+            
+            <xs:element name="return" type="xs:boolean"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="seleccionarEstudiantesEdicion">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nicknameDocente" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombreEdicion" type="xs:string"/>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="aceptadas" type="xs:long"/>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="rechazadas" type="xs:long"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="seleccionarEstudiantesEdicionResponse">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarNombresInstitutos">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarNombresInstitutosResponse">
+        
+        <xs:sequence>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="instituto" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="consultarUsuario">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nickname" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nicknameConsulta" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="consultarUsuarioResponse">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="return" type="tns:DetalleUsuarioDTO"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="DetalleUsuarioDTO">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nickname" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="apellido" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="email" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaNacimiento" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="tipoUsuario" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="instituto" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="rutaImagen" type="xs:string"/>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="cursos" nillable="true" type="tns:ElementoResumenDTO"/>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="ediciones" nillable="true" type="tns:ElementoResumenDTO"/>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="programas" nillable="true" type="tns:ElementoResumenDTO"/>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="inscripcionesRechazadas" nillable="true" type="tns:ElementoResumenDTO"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="modificarUsuario">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nickname" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="apellido" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaNacimiento" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombreInstituto" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="rutaImagen" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="modificarUsuarioResponse">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="altaPrograma">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="descripcion" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaInicio" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaFin" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaAlta" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="rutaImagen" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nicknameDocente" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="altaProgramaResponse">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="iniciarSesion">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nicknameOEmail" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="contrasenia" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="iniciarSesionResponse">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="return" type="tns:UsuarioResumen"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="altaEdicionCurso">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaInicio" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaFin" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="cupo" type="xs:int"/>
+            
+            <xs:element minOccurs="0" name="nombreCurso" type="xs:string"/>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="nicknamesDocentes" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="rutaImagen" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="altaEdicionCursoResponse">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="edicionCerrada">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombreEdicion" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="edicionCerradaResponse">
+        
+        <xs:sequence>
+            
+            <xs:element name="return" type="xs:boolean"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarSeguidores">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nickname" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarSeguidoresResponse">
+        
+        <xs:sequence>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:UsuarioResumen"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="existeEmail">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="email" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="existeEmailResponse">
+        
+        <xs:sequence>
+            
+            <xs:element name="return" type="xs:boolean"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="cambiarContrasenia">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nickname" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="contraseniaActual" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="contraseniaNueva" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="cambiarContraseniaResponse">
+        
+        <xs:sequence>
+            
+            <xs:element name="return" type="xs:boolean"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="altaUsuarioDocente">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nickname" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="apellido" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="email" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="contrasenia" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaNacimiento" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombreInstituto" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="rutaImagen" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="altaUsuarioDocenteResponse">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarEdicionesVigentesPorCurso">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombreCurso" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarEdicionesVigentesPorCursoResponse">
+        
+        <xs:sequence>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:EdicionCursoDTO"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarProgramas">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarProgramasResponse">
+        
+        <xs:sequence>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="consultarPrograma">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="consultarProgramaResponse">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="return" type="tns:DetalleProgramaFormacionDTO"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="DetalleProgramaFormacionDTO">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="descripcion" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaInicio" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaFin" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaAlta" type="xs:string"/>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="cursos" nillable="true" type="tns:CursoResumen"/>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="categorias" nillable="true" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="rutaImagen" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="CursoResumen">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombreInstituto" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="guardarNotas">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nicknameDocente" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombreEdicion" type="xs:string"/>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="notas" type="tns:EvaluacionEstudianteDTO"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="guardarNotasResponse">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="buscarUsuarioParaEditar">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nickname" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="buscarUsuarioParaEditarResponse">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="return" type="tns:UsuarioEdicionDTO"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="UsuarioEdicionDTO">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nickname" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="email" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="tipoUsuario" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="apellido" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaNacimiento" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="instituto" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="rutaImagen" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarCursosPorInstituto">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="instituto" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarCursosPorInstitutoResponse">
+        
+        <xs:sequence>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="curso" type="tns:CursoResumen"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarResultadosPorEstudiante">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nicknameEstudiante" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="listarResultadosPorEstudianteResponse">
+        
+        <xs:sequence>
+            
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:ResultadoInscripcionDTO"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="ResultadoInscripcionDTO">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombreEdicion" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombreCurso" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="fechaInscripcion" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="estado" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+</xs:schema>

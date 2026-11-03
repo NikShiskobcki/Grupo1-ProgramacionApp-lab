@@ -1,8 +1,10 @@
 package servlets;
 
-import Logica.DTO.UsuarioResumen;
-import Logica.controladores.Fabrica;
-import Logica.controladores.IControlador;
+import util.ServletRemoto;
+
+import util.ClienteCentral;
+
+import modelo.UsuarioResumen;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -26,8 +28,15 @@ import util.Imagenes;
         maxFileSize = 6L * 1024 * 1024,
         maxRequestSize = 7L * 1024 * 1024
 )
-public class AltaProgramaServlet extends HttpServlet {
-    private final IControlador icon = Fabrica.getInstance().getIControlador();
+public class AltaProgramaServlet extends ServletRemoto {
+
+    @Override
+    public void init() throws javax.servlet.ServletException {
+        super.init();
+        icon = new ClienteCentral(getServletContext());
+    }
+
+    private ClienteCentral icon;
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

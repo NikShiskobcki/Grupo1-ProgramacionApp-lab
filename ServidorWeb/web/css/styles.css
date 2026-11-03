@@ -121,7 +121,6 @@ body {
     transition: background 0.2s;
 }
 .nav-item:hover { background: rgba(0,0,0,0.3); }
-.nav-item.cat { background: rgba(0, 128, 128, 0.4); }
 
 /* Main Content */
 .main-content {
