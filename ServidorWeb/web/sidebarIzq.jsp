@@ -69,6 +69,8 @@
 
         <a class="nav-item" href="<%= request.getContextPath()%>/desistir-inscripcion">Desistir de inscripción </a>
 
+        <a class="nav-item" href="<%= request.getContextPath()%>/acta">Generar acta de estudios</a>
+
         <% }%>
     </div>
 
