@@ -569,4 +569,168 @@ public class ControladorCasosUsoTest {
         assertNotNull(ev);
         assertEquals(edNom, ev.getNombre());
     }
+
+    // ---------- US-04 y US-05 ----------
+
+    /** Crea instituto, docente, curso y dos ediciones vigentes; devuelve {docente, curso, edA, edB}. */
+    private String[] crearEscenarioCurso(String sufijo) {
+        String instNom = "InstEv" + sufijo;
+        controlador.altaInstituto(instNom);
+        Instituto inst = new Instituto(instNom);
+        String docNick = "docEv" + sufijo;
+        controlador.altaUsuarioDocente(docNick, "Doc", "Ev", docNick + "@test.uy", "clave", LocalDate.of(1985, 2, 2), instNom, null);
+        List<Docente> docentes = controlador.listarDocentesPorInstituto(instNom);
+        String curso = "CursoEv" + sufijo;
+        controlador.altaCurso(curso, "Desc", 3, 30, 3, "http://ev.uy", LocalDate.now(), inst, Collections.emptyList(), null, null);
+        LocalDate hoy = LocalDate.now(java.time.ZoneId.of("America/Montevideo"));
+        String edA = "EdEvA" + sufijo;
+        String edB = "EdEvB" + sufijo;
+        controlador.altaEdicionCurso(edA, hoy.minusDays(2), hoy.plusMonths(2), 10, curso, docentes, null);
+        controlador.altaEdicionCurso(edB, hoy.minusDays(2), hoy.plusMonths(2), 10, curso, docentes, null);
+        return new String[]{docNick, curso, edA, edB};
+    }
+
+    private String nuevoEstudiante(String prefijo, String sufijo) {
+        String nick = prefijo + sufijo;
+        controlador.altaUsuarioEstudiante(nick, "Est", prefijo, nick + "@test.uy", "clave", LocalDate.of(2003, 3, 3), null);
+        return nick;
+    }
+
+    @Test
+    public void testResultadosEvaluacionesSoloEdicionesCerradas() {
+        String sufijo = generarSufijo();
+        String[] esc = crearEscenarioCurso(sufijo);
+        String doc = esc[0], edA = esc[2], edB = esc[3];
+        LocalDate hoy = LocalDate.now(java.time.ZoneId.of("America/Montevideo"));
+
+        String e1 = nuevoEstudiante("resUno", sufijo);
+        String e2 = nuevoEstudiante("resDos", sufijo);
+
+        controlador.inscribirEstudianteEdicion(e1, edA, hoy);
+        controlador.inscribirEstudianteEdicion(e1, edB, hoy);
+        controlador.inscribirEstudianteEdicion(e2, edA, hoy);
+
+        // Con las ediciones abiertas no aparece nada
+        assertTrue(controlador.listarResultadosEvaluacionesPorEstudiante(e1).isEmpty());
+
+        Long ins1 = controlador.buscarInscripcionEdicion(e1, edA).getId();
+        Long ins2 = controlador.buscarInscripcionEdicion(e2, edA).getId();
+        controlador.seleccionarEstudiantesEdicion(doc, edA,
+                Collections.singletonList(ins1), Collections.singletonList(ins2));
+        controlador.guardarNotas(doc, edA, Collections.singletonMap(ins1, 9));
+
+        // Nota guardada pero la edición sigue abierta: todavía no se lista
+        assertTrue(controlador.listarResultadosEvaluacionesPorEstudiante(e1).isEmpty());
+
+        controlador.cerrarEdicion(doc, edA);
+
+        // e1: solo la edición cerrada (A), con su nota; la B sigue abierta y no aparece
+        List<ResultadoEvaluacion> r1 = controlador.listarResultadosEvaluacionesPorEstudiante(e1);
+        assertEquals(1, r1.size());
+        assertEquals(edA, r1.get(0).getNombreEdicion());
+        assertEquals("ACEPTADA", r1.get(0).getEstado());
+        assertEquals(Integer.valueOf(9), r1.get(0).getNota());
+        assertNotNull(r1.get(0).getFechaFin());
+
+        // e2: rechazado en una edición cerrada, sin nota
+        List<ResultadoEvaluacion> r2 = controlador.listarResultadosEvaluacionesPorEstudiante(e2);
+        assertEquals(1, r2.size());
+        assertEquals("RECHAZADA", r2.get(0).getEstado());
+        assertNull(r2.get(0).getNota());
+
+        // Estudiante inexistente
+        try {
+            controlador.listarResultadosEvaluacionesPorEstudiante("fantasma" + sufijo);
+            fail("Debía fallar con estudiante inexistente");
+        } catch (IllegalArgumentException e) {
+            assertTrue(e.getMessage().contains("estudiante no existe"));
+        }
+    }
+
+    @Test
+    public void testValorarCurso() {
+        String sufijo = generarSufijo();
+        String[] esc = crearEscenarioCurso(sufijo);
+        String doc = esc[0], curso = esc[1], edA = esc[2], edB = esc[3];
+        LocalDate hoy = LocalDate.now(java.time.ZoneId.of("America/Montevideo"));
+
+        String e1 = nuevoEstudiante("valUno", sufijo);
+        String e2 = nuevoEstudiante("valDos", sufijo);
+
+        // Inscripto pero todavía no aceptado: no participa, no puede valorar
+        controlador.inscribirEstudianteEdicion(e1, edA, hoy);
+        assertTrue(controlador.listarCursosConParticipacion(e1).isEmpty());
+        try {
+            controlador.valorarCurso(e1, curso, 4);
+            fail("Debía exigir participación");
+        } catch (IllegalArgumentException e) {
+            assertTrue(e.getMessage().contains("participás"));
+        }
+
+        // Aceptado en una edición: el curso aparece una sola vez aunque tenga varias ediciones
+        controlador.inscribirEstudianteEdicion(e1, edB, hoy);
+        Long i1 = controlador.buscarInscripcionEdicion(e1, edA).getId();
+        Long i1b = controlador.buscarInscripcionEdicion(e1, edB).getId();
+        controlador.seleccionarEstudiantesEdicion(doc, edA, Collections.singletonList(i1), Collections.emptyList());
+        controlador.seleccionarEstudiantesEdicion(doc, edB, Collections.singletonList(i1b), Collections.emptyList());
+        assertEquals(Collections.singletonList(curso), controlador.listarCursosConParticipacion(e1));
+
+        // Sin valoraciones todavía
+        DetalleValoracionCurso d = controlador.consultarValoracionCurso(e1, curso);
+        assertNull(d.getPromedio());
+        assertEquals(0, d.getCantidad());
+        assertNull(d.getPuntajeEstudiante());
+
+        // Puntajes fuera de rango
+        for (int invalido : new int[]{0, 6, -1}) {
+            try {
+                controlador.valorarCurso(e1, curso, invalido);
+                fail("Debía rechazar el puntaje " + invalido);
+            } catch (IllegalArgumentException e) {
+                assertTrue(e.getMessage().contains("entre 1 y 5"));
+            }
+        }
+        assertEquals(0, controlador.consultarValoracionCurso(e1, curso).getCantidad());
+
+        // Valoración válida
+        controlador.valorarCurso(e1, curso, 4);
+        d = controlador.consultarValoracionCurso(e1, curso);
+        assertEquals(4.0, d.getPromedio(), 0.0001);
+        assertEquals(1, d.getCantidad());
+        assertEquals(Integer.valueOf(4), d.getPuntajeEstudiante());
+
+        // Una sola vez por curso: el segundo intento se rechaza y no cambia nada
+        try {
+            controlador.valorarCurso(e1, curso, 5);
+            fail("Debía rechazar la segunda valoración");
+        } catch (IllegalArgumentException e) {
+            assertTrue(e.getMessage().contains("Ya valoraste"));
+        }
+        assertEquals(Integer.valueOf(4), controlador.consultarValoracionCurso(e1, curso).getPuntajeEstudiante());
+
+        // Otro estudiante aceptado valora; el promedio considera a ambos y cada uno ve el suyo
+        controlador.inscribirEstudianteEdicion(e2, edA, hoy);
+        Long i2 = controlador.buscarInscripcionEdicion(e2, edA).getId();
+        controlador.seleccionarEstudiantesEdicion(doc, edA, Collections.singletonList(i2), Collections.emptyList());
+        controlador.valorarCurso(e2, curso, 2);
+        d = controlador.consultarValoracionCurso(e2, curso);
+        assertEquals(3.0, d.getPromedio(), 0.0001);
+        assertEquals(2, d.getCantidad());
+        assertEquals(Integer.valueOf(2), d.getPuntajeEstudiante());
+        assertEquals(Integer.valueOf(4), controlador.consultarValoracionCurso(e1, curso).getPuntajeEstudiante());
+
+        // Curso o estudiante inexistente
+        try {
+            controlador.valorarCurso(e1, "CursoFantasma" + sufijo, 3);
+            fail("Debía fallar con curso inexistente");
+        } catch (IllegalArgumentException e) {
+            assertTrue(e.getMessage().contains("curso no existe"));
+        }
+        try {
+            controlador.valorarCurso("fantasma" + sufijo, curso, 3);
+            fail("Debía fallar con estudiante inexistente");
+        } catch (IllegalArgumentException e) {
+            assertTrue(e.getMessage().contains("estudiante no existe"));
+        }
+    }
 }

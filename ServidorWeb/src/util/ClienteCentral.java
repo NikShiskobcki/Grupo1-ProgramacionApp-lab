@@ -465,4 +465,30 @@ public final class ClienteCentral {
     public boolean edicionCerrada(String nombreEdicion) {
         return escribir(puerto -> puerto.edicionCerrada(nombreEdicion));
     }
+
+    /** Inscripciones del estudiante a ediciones cerradas, con su nota. */
+    public List<ResultadoEvaluacion> listarResultadosEvaluacionesPorEstudiante(
+            String nicknameEstudiante) {
+        return escribir(puerto -> MapeadorCliente.lista(
+                puerto.listarResultadosEvaluacionesPorEstudiante(nicknameEstudiante),
+                MapeadorCliente::convertir));
+    }
+
+    /** Cursos en los que el estudiante participa (aceptado en alguna edición). */
+    public List<String> listarCursosConParticipacion(String nicknameEstudiante) {
+        return escribir(puerto -> puerto.listarCursosConParticipacion(nicknameEstudiante));
+    }
+
+    public ValoracionCurso consultarValoracionCurso(
+            String nicknameEstudiante, String nombreCurso) {
+        return escribir(puerto -> MapeadorCliente.convertir(
+                puerto.consultarValoracionCurso(nicknameEstudiante, nombreCurso)));
+    }
+
+    public void valorarCurso(String nicknameEstudiante, String nombreCurso, int puntaje) {
+        escribir(puerto -> {
+            puerto.valorarCurso(nicknameEstudiante, nombreCurso, puntaje);
+            return null;
+        });
+    }
 }

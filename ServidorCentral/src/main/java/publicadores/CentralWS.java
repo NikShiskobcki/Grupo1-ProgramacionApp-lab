@@ -567,4 +567,55 @@ public class CentralWS implements ICentralWS {
                     ? "No se pudo completar la operación." : e.getMessage());
         }
     }
+
+    @Override
+    public List<ResultadoEvaluacionDTO> listarResultadosEvaluacionesPorEstudiante(
+            String nicknameEstudiante) throws CentralException {
+        try {
+            return MapeadorSOAP.lista(
+                    control.listarResultadosEvaluacionesPorEstudiante(nicknameEstudiante),
+                    MapeadorSOAP::convertir);
+        } catch (RuntimeException e) {
+            LOGGER.log(Level.WARNING, "Falló listarResultadosEvaluacionesPorEstudiante", e);
+            throw new CentralException(e.getMessage() == null
+                    ? "No se pudo completar la operación." : e.getMessage());
+        }
+    }
+
+    @Override
+    public List<String> listarCursosConParticipacion(String nicknameEstudiante)
+            throws CentralException {
+        try {
+            return control.listarCursosConParticipacion(nicknameEstudiante);
+        } catch (RuntimeException e) {
+            LOGGER.log(Level.WARNING, "Falló listarCursosConParticipacion", e);
+            throw new CentralException(e.getMessage() == null
+                    ? "No se pudo completar la operación." : e.getMessage());
+        }
+    }
+
+    @Override
+    public ValoracionCursoDTO consultarValoracionCurso(
+            String nicknameEstudiante, String nombreCurso) throws CentralException {
+        try {
+            return MapeadorSOAP.convertir(
+                    control.consultarValoracionCurso(nicknameEstudiante, nombreCurso));
+        } catch (RuntimeException e) {
+            LOGGER.log(Level.WARNING, "Falló consultarValoracionCurso", e);
+            throw new CentralException(e.getMessage() == null
+                    ? "No se pudo completar la operación." : e.getMessage());
+        }
+    }
+
+    @Override
+    public void valorarCurso(String nicknameEstudiante, String nombreCurso, int puntaje)
+            throws CentralException {
+        try {
+            control.valorarCurso(nicknameEstudiante, nombreCurso, puntaje);
+        } catch (RuntimeException e) {
+            LOGGER.log(Level.WARNING, "Falló valorarCurso", e);
+            throw new CentralException(e.getMessage() == null
+                    ? "No se pudo completar la operación." : e.getMessage());
+        }
+    }
 }

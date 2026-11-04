@@ -125,6 +125,26 @@ public final class MapeadorCliente {
                 origen.getRutaImagen());
     }
 
+    public static ResultadoEvaluacion convertir(cliente.central.ResultadoEvaluacionDTO origen) {
+        if (origen == null) return null;
+        return new ResultadoEvaluacion(
+                origen.getNombreEdicion(),
+                origen.getNombreCurso(),
+                fecha(origen.getFechaInscripcion()),
+                fecha(origen.getFechaFin()),
+                origen.getEstado(),
+                origen.getNota());
+    }
+
+    public static ValoracionCurso convertir(cliente.central.ValoracionCursoDTO origen) {
+        if (origen == null) return null;
+        return new ValoracionCurso(
+                origen.getNombreCurso(),
+                origen.getPromedio(),
+                origen.getCantidad(),
+                origen.getPuntajeEstudiante());
+    }
+
     public static ResultadoInscripcion convertir(cliente.central.ResultadoInscripcionDTO origen) {
         if (origen == null) return null;
         return new ResultadoInscripcion(

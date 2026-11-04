@@ -19,6 +19,7 @@
         <class>Logica.Entidades.Docente</class>
         <class>Logica.Entidades.Usuario</class>
         <class>Logica.Entidades.Categoria</class>
+        <class>Logica.Entidades.ValoracionCurso</class>
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
