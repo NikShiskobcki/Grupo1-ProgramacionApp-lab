@@ -345,6 +345,24 @@
         
     </xs:complexType>
     
+    <xs:complexType name="cerrarEdicion">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nicknameDocente" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombreEdicion" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="cerrarEdicionResponse">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
     <xs:complexType name="buscarInscripcionPrograma">
         
         <xs:sequence>
@@ -380,24 +398,6 @@
             <xs:element minOccurs="0" name="nombrePrograma" type="xs:string"/>
             
         </xs:sequence>
-        
-    </xs:complexType>
-    
-    <xs:complexType name="cerrarEdicion">
-        
-        <xs:sequence>
-            
-            <xs:element minOccurs="0" name="nicknameDocente" type="xs:string"/>
-            
-            <xs:element minOccurs="0" name="nombreEdicion" type="xs:string"/>
-            
-        </xs:sequence>
-        
-    </xs:complexType>
-    
-    <xs:complexType name="cerrarEdicionResponse">
-        
-        <xs:sequence/>
         
     </xs:complexType>
     
@@ -481,6 +481,24 @@
         
     </xs:complexType>
     
+    <xs:complexType name="seguirUsuario">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nicknameSeguidor" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nicknameSeguido" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="seguirUsuarioResponse">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
     <xs:complexType name="listarEvaluacionesPorEdicion">
         
         <xs:sequence>
@@ -514,24 +532,6 @@
             <xs:element minOccurs="0" name="nota" type="xs:int"/>
             
         </xs:sequence>
-        
-    </xs:complexType>
-    
-    <xs:complexType name="seguirUsuario">
-        
-        <xs:sequence>
-            
-            <xs:element minOccurs="0" name="nicknameSeguidor" type="xs:string"/>
-            
-            <xs:element minOccurs="0" name="nicknameSeguido" type="xs:string"/>
-            
-        </xs:sequence>
-        
-    </xs:complexType>
-    
-    <xs:complexType name="seguirUsuarioResponse">
-        
-        <xs:sequence/>
         
     </xs:complexType>
     
@@ -681,26 +681,6 @@
         
     </xs:complexType>
     
-    <xs:complexType name="existeCurso">
-        
-        <xs:sequence>
-            
-            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-            
-        </xs:sequence>
-        
-    </xs:complexType>
-    
-    <xs:complexType name="existeCursoResponse">
-        
-        <xs:sequence>
-            
-            <xs:element name="return" type="xs:boolean"/>
-            
-        </xs:sequence>
-        
-    </xs:complexType>
-    
     <xs:complexType name="buscarInscripcionEdicion">
         
         <xs:sequence>
@@ -738,6 +718,26 @@
             <xs:element minOccurs="0" name="nombreEdicion" type="xs:string"/>
             
             <xs:element minOccurs="0" name="videoUrl" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="existeCurso">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="existeCursoResponse">
+        
+        <xs:sequence>
+            
+            <xs:element name="return" type="xs:boolean"/>
             
         </xs:sequence>
         

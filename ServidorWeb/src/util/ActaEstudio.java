@@ -24,7 +24,7 @@ public final class ActaEstudio {
      * La letra no define el valor; confirmarlo con el docente y, si cambia,
      * modificarlo solo acá.
      */
-    public static final int NOTA_APROBACION = 4;
+    public static final int NOTA_APROBACION = 6;
 
     public enum Estado { APROBADO, REPROBADO, PENDIENTE }
 
