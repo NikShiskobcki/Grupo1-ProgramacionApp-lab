@@ -8,6 +8,8 @@ import Logica.DTO.DetalleUsuario;
 import Logica.DTO.ElementoResumen;
 import Logica.DTO.InscripcionResumen;
 import Logica.DTO.ResultadoInscripcion;
+import Logica.DTO.ResultadoEvaluacion;
+import Logica.DTO.DetalleValoracionCurso;
 import Logica.DTO.UsuarioEdicion;
 import Logica.DTO.UsuarioResumen;
 import Logica.DTO.EvaluacionEstudiante;
@@ -230,4 +232,16 @@ public interface IControlador {
     void cerrarEdicion(String nicknameDocente, String nombreEdicion);
 
     boolean edicionCerrada(String nombreEdicion);
+
+    // inscripciones del estudiante a ediciones CERRADAS, con su nota
+    List<ResultadoEvaluacion> listarResultadosEvaluacionesPorEstudiante(String nicknameEstudiante);
+
+    // cursos en los que el estudiante participa (aceptado en alguna edicion)
+    List<String> listarCursosConParticipacion(String nicknameEstudiante);
+
+    // promedio del curso y puntaje del estudiante (null si no valoro)
+    DetalleValoracionCurso consultarValoracionCurso(String nicknameEstudiante, String nombreCurso);
+
+    // puntaje de 1 a 5; un estudiante valora cada curso una sola vez
+    void valorarCurso(String nicknameEstudiante, String nombreCurso, int puntaje);
 }

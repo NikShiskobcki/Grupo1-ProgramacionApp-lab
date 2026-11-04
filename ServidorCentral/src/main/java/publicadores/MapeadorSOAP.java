@@ -179,6 +179,19 @@ public final class MapeadorSOAP {
                 nicknameEstudiante, nombreEdicion, origen.getVideoUrl());
     }
 
+    public static ResultadoEvaluacionDTO convertir(Logica.DTO.ResultadoEvaluacion origen) {
+        if (origen == null) return null;
+        return new ResultadoEvaluacionDTO(origen.getNombreEdicion(), origen.getNombreCurso(),
+                fecha(origen.getFechaInscripcion()), fecha(origen.getFechaFin()),
+                origen.getEstado(), origen.getNota());
+    }
+
+    public static ValoracionCursoDTO convertir(Logica.DTO.DetalleValoracionCurso origen) {
+        if (origen == null) return null;
+        return new ValoracionCursoDTO(origen.getNombreCurso(), origen.getPromedio(),
+                origen.getCantidad(), origen.getPuntajeEstudiante());
+    }
+
     public static InscripcionProgramaDTO inscripcionPrograma(
             Logica.Entidades.InscripcionPrograma origen,
             String nicknameEstudiante, String nombrePrograma) {

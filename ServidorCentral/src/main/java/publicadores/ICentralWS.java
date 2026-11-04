@@ -282,4 +282,27 @@ public interface ICentralWS {
     boolean edicionCerrada(
             @WebParam(name = "nombreEdicion") String nombreEdicion)
             throws CentralException;
+
+    @WebMethod
+    List<ResultadoEvaluacionDTO> listarResultadosEvaluacionesPorEstudiante(
+            @WebParam(name = "nicknameEstudiante") String nicknameEstudiante)
+            throws CentralException;
+
+    @WebMethod
+    List<String> listarCursosConParticipacion(
+            @WebParam(name = "nicknameEstudiante") String nicknameEstudiante)
+            throws CentralException;
+
+    @WebMethod
+    ValoracionCursoDTO consultarValoracionCurso(
+            @WebParam(name = "nicknameEstudiante") String nicknameEstudiante,
+            @WebParam(name = "nombreCurso") String nombreCurso)
+            throws CentralException;
+
+    @WebMethod
+    void valorarCurso(
+            @WebParam(name = "nicknameEstudiante") String nicknameEstudiante,
+            @WebParam(name = "nombreCurso") String nombreCurso,
+            @WebParam(name = "puntaje") int puntaje)
+            throws CentralException;
 }

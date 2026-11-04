@@ -68,6 +68,10 @@
         <%-- Acceso existente desde el perfil propio del estudiante. --%>
         <a class="nav-item" href="<%= request.getContextPath()%>/mis-inscripciones"> Mis resultados de inscripción</a>
 
+        <a class="nav-item" href="<%= request.getContextPath()%>/mis-resultados"> Mis resultados de evaluaciones</a>
+
+        <a class="nav-item" href="<%= request.getContextPath()%>/valorar-curso"> Valorar un curso</a>
+
         <a class="nav-item" href="<%= request.getContextPath()%>/desistir-inscripcion">Desistir de inscripción </a>
 
         <a class="nav-item" href="<%= request.getContextPath()%>/acta">Generar acta de estudios</a>

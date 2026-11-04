@@ -9,6 +9,8 @@ import Logica.DTO.DetalleUsuario;
 import Logica.DTO.ElementoResumen;
 import Logica.DTO.InscripcionResumen;
 import Logica.DTO.ResultadoInscripcion;
+import Logica.DTO.ResultadoEvaluacion;
+import Logica.DTO.DetalleValoracionCurso;
 import Logica.DTO.UsuarioEdicion;
 import Logica.DTO.UsuarioResumen;
 import Logica.DTO.EvaluacionEstudiante;
@@ -23,6 +25,7 @@ import Logica.Entidades.EstadoInscripcion;
 import Logica.Entidades.InscripcionEdicion;
 import Logica.Entidades.InscripcionPrograma;
 import Logica.Entidades.ProgramaFormacion;
+import Logica.Entidades.ValoracionCurso;
 import Persistencia.ManejadorCategoria;
 
 import Persistencia.ManejadorCurso;
@@ -32,6 +35,7 @@ import Persistencia.ManejadorInscripcionPrograma;
 import Persistencia.ManejadorInstituto;
 import Persistencia.ManejadorProgramaFormacion;
 import Persistencia.ManejadorUsuario;
+import Persistencia.ManejadorValoracionCurso;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -56,6 +60,7 @@ public class Controlador implements IControlador {
     private final ManejadorInscripcionEdicion manejadorInscripcionEdicion;
     private final ManejadorInscripcionPrograma manejadorInscripcionPrograma;
     private final ManejadorCategoria manejadorCategoria;
+    private final ManejadorValoracionCurso manejadorValoracionCurso;
     private CargadorDatosPrueba cargadorDatosPrueba;
 
     // Constructor privado para aplicar Singleton
@@ -79,6 +84,7 @@ public class Controlador implements IControlador {
         manejadorInscripcionEdicion = new ManejadorInscripcionEdicion(emf);
         manejadorInscripcionPrograma = new ManejadorInscripcionPrograma(emf);
         manejadorCategoria = new ManejadorCategoria(emf);
+        manejadorValoracionCurso = new ManejadorValoracionCurso(emf);
 
         cargadorDatosPrueba = new CargadorDatosPrueba(
                 manejadorInstituto,
@@ -657,6 +663,71 @@ public class Controlador implements IControlador {
     @Override
     public boolean edicionCerrada(String nombreEdicion) {
         return manejadorInscripcionEdicion.edicionCerrada(nombreEdicion);
+    }
+
+    @Override
+    public List<ResultadoEvaluacion> listarResultadosEvaluacionesPorEstudiante(
+            String nicknameEstudiante) {
+        if (manejadorUsuario.buscarEstudiante(nicknameEstudiante) == null) {
+            throw new IllegalArgumentException("El estudiante no existe.");
+        }
+        return manejadorInscripcionEdicion
+                .listarResultadosEvaluacionesPorEstudiante(nicknameEstudiante);
+    }
+
+    @Override
+    public List<String> listarCursosConParticipacion(String nicknameEstudiante) {
+        if (manejadorUsuario.buscarEstudiante(nicknameEstudiante) == null) {
+            throw new IllegalArgumentException("El estudiante no existe.");
+        }
+        return manejadorInscripcionEdicion.listarCursosConParticipacion(nicknameEstudiante);
+    }
+
+    @Override
+    public DetalleValoracionCurso consultarValoracionCurso(
+            String nicknameEstudiante, String nombreCurso) {
+        if (manejadorUsuario.buscarEstudiante(nicknameEstudiante) == null) {
+            throw new IllegalArgumentException("El estudiante no existe.");
+        }
+        if (manejadorCurso.buscarPorNombre(nombreCurso) == null) {
+            throw new IllegalArgumentException("El curso no existe.");
+        }
+        return new DetalleValoracionCurso(
+                nombreCurso,
+                manejadorValoracionCurso.promedio(nombreCurso),
+                (int) manejadorValoracionCurso.contar(nombreCurso),
+                manejadorValoracionCurso.buscarPuntaje(nicknameEstudiante, nombreCurso));
+    }
+
+    @Override
+    public void valorarCurso(String nicknameEstudiante, String nombreCurso, int puntaje) {
+        if (puntaje < 1 || puntaje > 5) {
+            throw new IllegalArgumentException("El puntaje debe estar entre 1 y 5.");
+        }
+
+        Estudiante estudiante = manejadorUsuario.buscarEstudiante(nicknameEstudiante);
+        if (estudiante == null) {
+            throw new IllegalArgumentException("El estudiante no existe.");
+        }
+
+        Curso curso = manejadorCurso.buscarPorNombre(nombreCurso);
+        if (curso == null) {
+            throw new IllegalArgumentException("El curso no existe.");
+        }
+
+        if (!manejadorInscripcionEdicion.listarCursosConParticipacion(nicknameEstudiante)
+                .contains(nombreCurso)) {
+            throw new IllegalArgumentException(
+                    "Solo podés valorar cursos en los que participás.");
+        }
+
+        if (manejadorValoracionCurso.buscarPuntaje(nicknameEstudiante, nombreCurso) != null) {
+            throw new IllegalArgumentException("Ya valoraste este curso.");
+        }
+
+        manejadorValoracionCurso.agregar(new ValoracionCurso(
+                estudiante, curso, puntaje,
+                LocalDate.now(java.time.ZoneId.of("America/Montevideo"))));
     }
 
 }

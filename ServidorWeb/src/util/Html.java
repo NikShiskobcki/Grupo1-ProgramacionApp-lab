@@ -112,6 +112,17 @@ public final class Html {
         return "";
     }
 
+    /**
+     * Representa un puntaje de 1 a 5 como estrellas ("★★★☆☆"). Se redondea al entero
+     * más cercano; null, o un valor fuera de rango, se acota al intervalo 0 a 5.
+     */
+    public static String estrellas(Double puntaje) {
+        int llenas = puntaje == null ? 0 : (int) Math.round(Math.max(0, Math.min(5, puntaje)));
+        StringBuilder sb = new StringBuilder(5);
+        for (int i = 1; i <= 5; i++) sb.append(i <= llenas ? '\u2605' : '\u2606');
+        return sb.toString();
+    }
+
     /** Extrae el nickname de un texto con formato "Nombre Apellido (nickname)". */
     public static String nicknameDeDocente(String texto) {
         if (texto == null) return null;

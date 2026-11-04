@@ -13,6 +13,7 @@
     <class>Logica.Entidades.Usuario</class>
     <class>Logica.DTO.DetalleCurso</class>
     <class>Logica.Entidades.Categoria</class>
+    <class>Logica.Entidades.ValoracionCurso</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/edext"/>
       <property name="javax.persistence.jdbc.user" value="admin"/>
