@@ -59,6 +59,8 @@ public class ManejadorEdicionCurso {
                     "SELECT e FROM EdicionCurso e "
                     + "WHERE e.curso.nombre = :nombreCurso "
                     + "AND :hoy BETWEEN e.fechaInicio AND e.fechaFin "
+                    // Una edición cerrada ya no admite inscripciones ni selección.
+                    + "AND (e.cerrada IS NULL OR e.cerrada = false) "
                     + "ORDER BY e.nombre",
                     EdicionCurso.class)
                     .setParameter("nombreCurso", nombreCurso)

@@ -161,9 +161,10 @@
         <div class="edext-panel p-4">
             <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
                 <h4 class="mb-0">Acta de la edición</h4>
-                <button type="button" class="btn btn-outline-secondary btn-sm" id="btnImprimir">
-                    Imprimir acta
-                </button>
+                <a class="btn btn-outline-secondary btn-sm"
+                   href="<%= ctx%>/acta-edicion-pdf?edicion=<%= Html.url(edicionSel)%>">
+                    Descargar acta (PDF)
+                </a>
             </div>
 
             <div class="row g-3 mb-4 text-center">
@@ -244,11 +245,6 @@
                 }
             });
         });
-
-        const btnImprimir = document.getElementById("btnImprimir");
-        if (btnImprimir) {
-            btnImprimir.addEventListener("click", () => window.print());
-        }
     });
 </script>
 
