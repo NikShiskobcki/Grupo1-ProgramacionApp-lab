@@ -383,6 +383,24 @@
         
     </xs:complexType>
     
+    <xs:complexType name="cerrarEdicion">
+        
+        <xs:sequence>
+            
+            <xs:element minOccurs="0" name="nicknameDocente" type="xs:string"/>
+            
+            <xs:element minOccurs="0" name="nombreEdicion" type="xs:string"/>
+            
+        </xs:sequence>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="cerrarEdicionResponse">
+        
+        <xs:sequence/>
+        
+    </xs:complexType>
+    
     <xs:complexType name="consultarCurso">
         
         <xs:sequence>
@@ -436,24 +454,6 @@
             <xs:element minOccurs="0" name="rutaImagen" type="xs:string"/>
             
         </xs:sequence>
-        
-    </xs:complexType>
-    
-    <xs:complexType name="cerrarEdicion">
-        
-        <xs:sequence>
-            
-            <xs:element minOccurs="0" name="nicknameDocente" type="xs:string"/>
-            
-            <xs:element minOccurs="0" name="nombreEdicion" type="xs:string"/>
-            
-        </xs:sequence>
-        
-    </xs:complexType>
-    
-    <xs:complexType name="cerrarEdicionResponse">
-        
-        <xs:sequence/>
         
     </xs:complexType>
     

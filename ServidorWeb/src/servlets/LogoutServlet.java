@@ -1,15 +1,16 @@
 package servlets;
 
+import util.Recordarme;
 import util.ServletRemoto;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/** Cierra la sesión (solo si hay una iniciada) y vuelve a la página de login. */
 @WebServlet("/logout")
 public class LogoutServlet extends ServletRemoto {
 
@@ -17,10 +18,14 @@ public class LogoutServlet extends ServletRemoto {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        if (session != null) {
+        boolean haySesion = session != null && session.getAttribute("usuarioLogueado") != null;
+
+        if (haySesion) {
             session.invalidate();
+            Recordarme.borrarCookieSesion(request, response);
         }
-        response.sendRedirect(request.getContextPath() + "/index.jsp");
+        // Con o sin sesión, el destino es el login (sin sesión no hay nada que cerrar)
+        response.sendRedirect(request.getContextPath() + "/login");
     }
 
     @Override

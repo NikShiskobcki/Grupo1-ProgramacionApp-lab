@@ -1,0 +1,93 @@
+/* Barra de navegación superior (navbar de Bootstrap) con la paleta de edExt.
+   Se carga después de styles.css. */
+
+.edext-navbar {
+    --bs-navbar-padding-y: 0.6rem;
+    --bs-navbar-color: rgba(255, 255, 255, 0.85);
+    --bs-navbar-hover-color: #ffffff;
+    --bs-navbar-active-color: #ffffff;
+    --bs-navbar-toggler-border-color: rgba(255, 255, 255, 0.5);
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+}
+
+/* Mismo ancho y márgenes laterales que el contenido de la página */
+.edext-navbar > .container-fluid {
+    max-width: 1200px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.edext-navbar .navbar-brand {
+    color: var(--white);
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.edext-navbar .navbar-nav .nav-link {
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+}
+
+.edext-navbar .navbar-nav .nav-link.active {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.edext-navbar .header-search {
+    position: relative;
+    margin: 0.5rem 0;
+}
+
+.edext-navbar .header-search form {
+    width: 100%;
+}
+
+/* Zona de usuario: en pantallas chicas queda en columna dentro del menú desplegado */
+.navbar-usuario {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+}
+
+.navbar-usuario .avatar-sm {
+    align-self: flex-start;
+}
+
+.navbar-usuario .btn {
+    width: 100%;
+}
+
+/* Pantallas chicas: la barra queda fija arriba y el menú desplegado se desplaza si no entra */
+@media (max-width: 991.98px) {
+    .main-header {
+        position: sticky;
+    }
+
+    .edext-navbar .navbar-collapse {
+        max-height: calc(100vh - 80px);
+        overflow-y: auto;
+        padding-top: 0.5rem;
+    }
+}
+
+/* Pantallas grandes: todo en una sola fila */
+@media (min-width: 992px) {
+    .edext-navbar .header-search {
+        margin: 0 1rem;
+    }
+
+    .edext-navbar .header-search form {
+        width: 320px;
+    }
+
+    .navbar-usuario {
+        flex-direction: row;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .navbar-usuario .btn {
+        width: auto;
+    }
+}

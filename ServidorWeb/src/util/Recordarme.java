@@ -62,6 +62,13 @@ public final class Recordarme {
         response.addCookie(cookie(request, COOKIE_NICK, "", 0));
     }
 
+    /** Borra del navegador la cookie de sesión (se usa después de invalidar la sesión en el servidor). */
+    public static void borrarCookieSesion(HttpServletRequest request, HttpServletResponse response) {
+        String nombreSesion = request.getServletContext().getSessionCookieConfig().getName();
+        if (nombreSesion == null || nombreSesion.isEmpty()) nombreSesion = "JSESSIONID";
+        response.addCookie(cookie(request, nombreSesion, "", 0));
+    }
+
     private static Cookie cookie(HttpServletRequest request, String nombre, String valor, int segundos) {
         Cookie c = new Cookie(nombre, valor);
         String ctx = request.getContextPath();
