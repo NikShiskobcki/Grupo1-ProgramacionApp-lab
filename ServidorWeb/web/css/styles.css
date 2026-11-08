@@ -403,3 +403,70 @@ body {
 }
 .search-suggestions .sug-programa { background: var(--primary-light); }
 .search-suggestions .sin-resultados { padding: 10px 14px; color: var(--text-muted); font-size: 0.9rem; }
+
+/* ==========================================================
+   Diseño adaptable: header, inicio (home-layout) y login/registro
+   ========================================================== */
+.header-search form { max-width: 100%; }
+
+/* Tablet y ventanas angostas: las barras laterales pasan debajo del contenido */
+@media (max-width: 992px) {
+    .home-layout { flex-direction: column; align-items: stretch; gap: 20px; }
+    .home-content { order: -1; width: 100%; }
+    .home-sidebar,
+    .home-sidebar-der { width: 100%; position: static; max-height: none; overflow-y: visible; }
+
+    /* Dentro de la barra, los accesos se acomodan en filas en vez de una columna larga */
+    .home-sidebar .nav-group { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 6px; }
+    .home-sidebar .nav-title { flex: 0 0 100%; margin-bottom: 2px; }
+    .home-sidebar .nav-item { display: inline-block; width: auto; }
+}
+
+/* Celular y ventanas muy angostas */
+@media (max-width: 768px) {
+    .main-header { position: static; }
+    .header-container { padding: 10px 14px; gap: 10px; justify-content: center; }
+    .brand { flex: 1 1 auto; }
+    .header-search { order: 3; flex: 1 1 100%; }
+    .header-search form { width: 100%; }
+    .header-user,
+    .user-menu,
+    .auth-buttons { flex-wrap: wrap; justify-content: center; gap: 8px; }
+
+    .main-content { margin: 16px auto; padding: 0 14px; }
+    .hero-banner { padding: 28px 18px; margin-bottom: 20px; }
+    .hero-banner h2 { font-size: 1.5rem; }
+    .form-row { grid-template-columns: 1fr; gap: 0; }
+}
+
+@media (max-width: 480px) {
+    .brand a { font-size: 1.25rem; }
+    .user-greeting { flex: 1 1 100%; text-align: center; }
+    .auth-box { margin: 16px auto; padding: 24px 18px; border-radius: 10px; }
+    .radio-group { flex-wrap: wrap; gap: 10px 20px; }
+}
+
+/* ==========================================================
+   Inicio con sesión iniciada: evitar solapamientos
+   ========================================================== */
+/* Con sesión, el header suele ocupar dos filas. main.js guarda su alto real en --header-h
+   para que las barras laterales fijas queden siempre debajo y no se monten sobre él. */
+.home-sidebar {
+    top: calc(var(--header-h, 70px) + 20px);
+    max-height: calc(100vh - var(--header-h, 70px) - 40px);
+    min-width: 0;
+    overflow-x: hidden;
+}
+
+/* Nombres largos de institutos, ediciones o programas: se parten en vez de salirse de la barra */
+.home-sidebar .nav-item,
+.home-sidebar .nav-empty {
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+.home-sidebar .nav-empty { color: #d0e0e3; font-size: 0.85rem; }
+
+@media (max-width: 992px) {
+    .home-sidebar,
+    .home-sidebar-der { max-height: none; }
+}

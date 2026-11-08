@@ -264,3 +264,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+// Alto real del header (puede ocupar una o dos filas): lo usan las barras laterales fijas del inicio
+// para quedar debajo del header sin solaparse (variable CSS --header-h).
+(function () {
+    function medirHeader() {
+        var h = document.querySelector('.main-header');
+        if (!h) return;
+        document.documentElement.style.setProperty('--header-h', h.offsetHeight + 'px');
+    }
+    document.addEventListener('DOMContentLoaded', medirHeader);
+    window.addEventListener('load', medirHeader);
+    window.addEventListener('resize', medirHeader);
+})();

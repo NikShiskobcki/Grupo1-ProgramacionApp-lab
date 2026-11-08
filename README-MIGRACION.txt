@@ -33,10 +33,8 @@ COMO EJECUTAR
 
 3. Compilar Central y la Estacion:
 
-   mvn -f ServidorCentral/pom.xml clean package -Dmaven.test.skip=true
-   mvn -f EstacionDeTrabajo/pom.xml package -Dmaven.test.skip=true
 
-   Central actualiza automaticamente el JAR que utiliza la Estacion.
+  Central actualiza automaticamente el JAR que utiliza la Estacion.
    Estos comandos omiten los tests; no significa que hayan pasado.
 
 4. Iniciar UNA de estas opciones y dejarla funcionando:
@@ -45,7 +43,7 @@ COMO EJECUTAR
      Inicia Central y abre la Estacion. Cerrar la ventana deja SOAP activo.
 
    - Sin ventana: desde ServidorCentral ejecutar:
-     mvn compile exec:java -Dexec.mainClass=publicadores.CentralMain
+     mvn compile exec:java "-Dexec.mainClass=publicadores.CentralMain"
 
    No iniciar ambas: intentarian ocupar el mismo puerto.
    Para apagar todo, detener el proceso desde NetBeans o su terminal.
@@ -55,7 +53,7 @@ COMO EJECUTAR
    cd mariadb-stack-ajustado/mariadb-stack
    docker compose rm -sf tomcat
    cd ../..
-   mvn -f ServidorWeb/pom.xml clean package -Dmaven.test.skip=true
+   mvn -f ServidorWeb/pom.xml clean package "-Dmaven.test.skip=true"
 
    Si Maven falla, corregirlo antes de continuar.
 

@@ -1,4 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    // Desde un celular se muestra el login móvil (Bootstrap Signin); DispositivoFilter deja "esMovil"
+    if (Boolean.TRUE.equals(request.getAttribute("esMovil"))) {
+        request.getRequestDispatcher("/loginMovil.jsp").forward(request, response);
+        return;
+    }
+%>
 <jsp:include page="header.jsp" />
 
 <div class="auth-box">

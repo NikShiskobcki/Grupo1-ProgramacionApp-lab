@@ -700,4 +700,54 @@ public class ManejadorInscripcionEdicion {
             em.close();
         }
     }
+
+    /**
+     * Inscripciones del estudiante a ediciones cerradas, con su nota.
+     * Las ediciones abiertas no se incluyen.
+     */
+    public List<Logica.DTO.ResultadoEvaluacion> listarResultadosEvaluacionesPorEstudiante(
+            String nicknameEstudiante) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            List<InscripcionEdicion> inscripciones = em.createQuery(
+                    "SELECT i FROM InscripcionEdicion i "
+                    + "WHERE i.estudiante.nickname = :nickname "
+                    + "AND i.edicion.cerrada = TRUE "
+                    + "ORDER BY i.edicion.fechaFin DESC, i.edicion.nombre",
+                    InscripcionEdicion.class)
+                    .setParameter("nickname", nicknameEstudiante)
+                    .getResultList();
+
+            List<Logica.DTO.ResultadoEvaluacion> resultados = new ArrayList<>();
+            for (InscripcionEdicion i : inscripciones) {
+                resultados.add(new Logica.DTO.ResultadoEvaluacion(
+                        i.getEdicion().getNombre(),
+                        i.getEdicion().getCurso().getNombre(),
+                        i.getFechaInscripcion(),
+                        i.getEdicion().getFechaFin(),
+                        i.getEstado().name(),
+                        i.getNota()));
+            }
+            return resultados;
+        } finally {
+            em.close();
+        }
+    }
+
+    /** Nombres de los cursos en los que el estudiante participa (inscripción aceptada en alguna edición). */
+    public List<String> listarCursosConParticipacion(String nicknameEstudiante) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            return em.createQuery(
+                    "SELECT DISTINCT i.edicion.curso.nombre FROM InscripcionEdicion i "
+                    + "WHERE i.estudiante.nickname = :nickname "
+                    + "AND i.estado = Logica.Entidades.EstadoInscripcion.ACEPTADA "
+                    + "ORDER BY i.edicion.curso.nombre",
+                    String.class)
+                    .setParameter("nickname", nicknameEstudiante)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }

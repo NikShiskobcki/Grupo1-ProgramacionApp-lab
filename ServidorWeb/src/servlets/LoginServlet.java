@@ -3,6 +3,8 @@ package servlets;
 import util.ServletRemoto;
 
 import util.ClienteCentral;
+import util.Dispositivo;
+import util.Recordarme;
 
 import modelo.UsuarioResumen;
 
@@ -34,6 +36,7 @@ public class LoginServlet extends ServletRemoto {
             response.sendRedirect(request.getContextPath() + "/index.jsp");
             return;
         }
+        // login.jsp muestra la versión móvil (loginMovil.jsp) cuando se entra desde un celular
         request.getRequestDispatcher("/login.jsp").forward(request, response);
     }
 
@@ -52,13 +55,32 @@ public class LoginServlet extends ServletRemoto {
 
         UsuarioResumen usr = control.iniciarSesion(usuario.trim(), contrasenia.trim());
 
-        if (usr != null) {
-            HttpSession session = request.getSession(true);
-            session.setAttribute("usuarioLogueado", usr);
-            response.sendRedirect(request.getContextPath() + "/index.jsp");
-        } else {
+        if (usr == null) {
             request.setAttribute("error", "Credenciales inválidas. Verifique sus datos.");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
+            return;
         }
+
+        // Desde el celular se ingresa como estudiante: los docentes usan la versión de escritorio.
+        if (Dispositivo.esMovil(request) && !"Estudiante".equalsIgnoreCase(usr.getTipo())) {
+            request.setAttribute("error", "El acceso desde el celular es solo para estudiantes.");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            return;
+        }
+
+        // Sesión nueva en cada login (evita reutilizar un identificador de sesión previo)
+        HttpSession anterior = request.getSession(false);
+        if (anterior != null) {
+            anterior.invalidate();
+        }
+        HttpSession session = request.getSession(true);
+        session.setAttribute("usuarioLogueado", usr);
+
+        if (request.getParameter("recordarme") != null) {
+            Recordarme.activar(request, response, session, usr.getNickname());
+        } else {
+            Recordarme.desactivar(request, response);
+        }
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
 }

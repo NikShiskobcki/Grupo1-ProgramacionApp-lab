@@ -1,0 +1,69 @@
+/* Login móvil de edExt: basado en el ejemplo "Signin" de Bootstrap, con la paleta del proyecto */
+
+html,
+body {
+    height: 100%;
+}
+
+body.signin {
+    display: flex;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #f5f8fa;
+}
+
+.form-signin {
+    max-width: 330px;
+    padding: 1rem;
+}
+
+.form-signin .form-floating:focus-within {
+    z-index: 2;
+}
+
+.form-signin input[type="text"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.signin-logo {
+    color: #23474b;
+}
+
+.signin-brand {
+    font-size: 1.6rem;
+    color: #23474b;
+}
+
+.signin-brand strong {
+    color: #008080;
+}
+
+.form-signin .btn-primary {
+    --bs-btn-bg: #23474b;
+    --bs-btn-border-color: #23474b;
+    --bs-btn-hover-bg: #326267;
+    --bs-btn-hover-border-color: #326267;
+    --bs-btn-active-bg: #1b393c;
+    --bs-btn-active-border-color: #1b393c;
+    --bs-btn-focus-shadow-rgb: 0, 128, 128;
+}
+
+.form-signin .form-check-input:checked {
+    background-color: #23474b;
+    border-color: #23474b;
+}
+
+.form-signin .form-control:focus,
+.form-signin .form-check-input:focus {
+    border-color: #008080;
+    box-shadow: 0 0 0 0.25rem rgba(0, 128, 128, 0.25);
+}
