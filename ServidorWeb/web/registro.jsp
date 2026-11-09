@@ -34,11 +34,17 @@
 
         <div class="col-md-6">
             <label for="nickname" class="form-label">Nickname (único):</label>
-            <input type="text" class="form-control" id="nickname" name="nickname" required placeholder="ej. juanp">
+            <input type="text" class="form-control" id="nickname" name="nickname" required
+                   minlength="3" maxlength="30" pattern="[A-Za-z0-9_.\-]+"
+                   title="Solo letras, números, punto, guion y guion bajo." placeholder="ej. juanp"
+                   autocomplete="off">
+            <small class="form-text" id="fbNickname"></small>
         </div>
         <div class="col-md-6">
             <label for="email" class="form-label">Correo Electrónico (único):</label>
-            <input type="email" class="form-control" id="email" name="email" required placeholder="correo@ejemplo.com">
+            <input type="email" class="form-control" id="email" name="email" required
+                   placeholder="correo@ejemplo.com" autocomplete="off">
+            <small class="form-text" id="fbEmail"></small>
         </div>
 
         <div class="col-md-6">
@@ -101,6 +107,72 @@ function toggleInstituto(esDocente) {
     document.getElementById('instituto').required = esDocente;
 }
 
+// ---- Requerimiento 7.5: verificación en segundo plano (AJAX) de nickname/email ----
+// Estado de disponibilidad por campo: true = disponible, false = ocupado, null = sin verificar todavía.
+var disponibilidad = { nickname: null, email: null };
+
+function verificarDisponibilidad(campo, input, feedback) {
+    var valor = input.value.trim();
+    feedback.classList.remove('text-success', 'text-danger', 'text-muted');
+
+    if (!valor || (campo === 'nickname' && valor.length < 3)) {
+        disponibilidad[campo] = null;
+        feedback.textContent = '';
+        input.classList.remove('is-invalid', 'is-valid');
+        return;
+    }
+
+    feedback.textContent = 'Verificando...';
+    feedback.classList.add('text-muted');
+
+    var ctx = '<%= request.getContextPath() %>';
+    fetch(ctx + '/verificar-disponibilidad?campo=' + campo + '&valor=' + encodeURIComponent(valor),
+          { headers: { 'Accept': 'application/json' } })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (data) {
+            // Si el usuario siguió escribiendo mientras esperábamos la respuesta, se ignora (está desactualizada).
+            if (input.value.trim() !== valor) return;
+
+            disponibilidad[campo] = !!data.disponible;
+            feedback.classList.remove('text-muted');
+            if (data.disponible) {
+                feedback.textContent = campo === 'nickname' ? 'Nickname disponible.' : 'Correo disponible.';
+                feedback.classList.add('text-success');
+                input.classList.remove('is-invalid');
+                input.classList.add('is-valid');
+            } else {
+                feedback.textContent = campo === 'nickname'
+                    ? 'Ese nickname ya está en uso. Probá con otro, por ejemplo "' + valor + Math.floor(Math.random() * 90 + 10) + '".'
+                    : 'Ya existe una cuenta registrada con ese correo.';
+                feedback.classList.add('text-danger');
+                input.classList.remove('is-valid');
+                input.classList.add('is-invalid');
+            }
+        })
+        .catch(function () {
+            // Si falla la verificación en segundo plano, no se bloquea el envío: la validación
+            // definitiva la hace igual el servidor al enviar el formulario.
+            disponibilidad[campo] = null;
+            feedback.textContent = '';
+            feedback.classList.remove('text-muted');
+        });
+}
+
+(function () {
+    var timers = { nickname: null, email: null };
+    [['nickname', 'fbNickname'], ['email', 'fbEmail']].forEach(function (par) {
+        var campo = par[0], input = document.getElementById(campo), feedback = document.getElementById(par[1]);
+        input.addEventListener('input', function () {
+            clearTimeout(timers[campo]);
+            timers[campo] = setTimeout(function () { verificarDisponibilidad(campo, input, feedback); }, 400);
+        });
+        input.addEventListener('blur', function () {
+            clearTimeout(timers[campo]);
+            verificarDisponibilidad(campo, input, feedback);
+        });
+    });
+})();
+
 document.getElementById('formRegistro').addEventListener('submit', function (ev) {
     var fecha = document.getElementById('fechaNacimiento');
     var hoy = new Date().toISOString().split('T')[0];
@@ -119,6 +191,20 @@ document.getElementById('formRegistro').addEventListener('submit', function (ev)
     if (password !== confirmPassword) {
         ev.preventDefault();
         alert('Las contraseñas no coinciden.');
+        return;
+    }
+
+    // No se bloquea el envío si todavía no se sabe (null): el servidor valida igual.
+    if (disponibilidad.nickname === false) {
+        ev.preventDefault();
+        document.getElementById('nickname').classList.add('is-invalid');
+        document.getElementById('nickname').focus();
+        return;
+    }
+    if (disponibilidad.email === false) {
+        ev.preventDefault();
+        document.getElementById('email').classList.add('is-invalid');
+        document.getElementById('email').focus();
     }
 });
 </script>
