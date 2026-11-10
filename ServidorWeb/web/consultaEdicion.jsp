@@ -81,9 +81,6 @@
                             } %>
                         </select>
 
-                        <button type="submit" class="btn btn-primary">
-                            Ver cursos
-                        </button>
                     </div>
                 </form>
             </div>

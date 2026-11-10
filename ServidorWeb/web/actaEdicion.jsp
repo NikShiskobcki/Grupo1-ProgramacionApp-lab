@@ -45,7 +45,7 @@
         <div class="alert alert-danger" role="alert">
             <%= Html.esc(request.getAttribute("error"))%>
         </div>
-        <% } %>
+        <% }%>
 
         <%-- ===== Selección instituto / curso / edición ===== --%>
         <div class="edext-panel p-4 mb-4">
@@ -96,18 +96,16 @@
                         <label for="edicionActa" class="form-label">Edición:</label>
                         <select id="edicionActa" name="edicion" class="form-select mb-2" required>
                             <option value="">Seleccioná una edición</option>
-                            <% for (EdicionCurso edicion : ediciones) {
-                                    boolean estaCerrada = edicionesCerradas != null
-                                            && edicionesCerradas.contains(edicion.getNombre());%>
+                            <% for (EdicionCurso edicion : ediciones) {%>
                             <option value="<%= Html.esc(edicion.getNombre())%>"
                                     <%= edicion.getNombre().equals(edicionSel) ? "selected" : ""%>>
-                                <%= Html.esc(edicion.getNombre())%> (<%= estaCerrada ? "cerrada" : "abierta"%>)
+                                <%= Html.esc(edicion.getNombre())%>
                             </option>
                             <% } %>
                         </select>
                     </form>
                     <% } else if (cursoSel != null && !cursoSel.isEmpty()) { %>
-                    <p class="text-muted mb-0">No participás en ninguna edición de este curso.</p>
+                    <p class="text-muted mb-0">No hay ediciones vigentes y cerradas de este curso en las que participes.</p>
                     <% } %>
                 </div>
             </div>
@@ -135,6 +133,16 @@
                 <dd class="col-sm-8">
                     <%= detalle.getFechaFin() != null ? detalle.getFechaFin().format(formato) : "—"%>
                 </dd>
+                <dt class="col-sm-4">Fecha de publicación</dt>
+                <dd class="col-sm-8">
+                    <%= detalle.getFechaPublicacion() != null
+                            ? detalle.getFechaPublicacion().format(formato) : "—"%>
+                </dd>
+
+                <dt class="col-sm-4">Cupo</dt>
+                <dd class="col-sm-8">
+                    <%= detalle.getCupo() != null ? detalle.getCupo().toString() : "—"%>
+                </dd>
                 <dt class="col-sm-4">Docentes</dt>
                 <dd class="col-sm-8">
                     <%= detalle.getDocentes() == null || detalle.getDocentes().isEmpty()
@@ -143,7 +151,7 @@
             </dl>
         </div>
 
-        <% if (!cerrada) { %>
+        <% if (!cerrada) {%>
         <div class="alert alert-warning" role="status">
             Esta edición todavía no está cerrada. El acta solo se puede consultar
             cuando se cierra la edición.
@@ -231,7 +239,7 @@
             </p>
         </div>
         <% } %>
-        <% } %>
+        <% }%>
     </div>
 </div>
 

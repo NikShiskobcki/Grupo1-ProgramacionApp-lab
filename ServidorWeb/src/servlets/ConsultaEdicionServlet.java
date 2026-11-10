@@ -25,12 +25,11 @@ public class ConsultaEdicionServlet extends ServletRemoto {
         control = new ClienteCentral(getServletContext());
     }
 
-
     private ClienteCentral control;
 
     @Override
     protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
+            HttpServletResponse response)
             throws ServletException, IOException {
 
         response.setHeader("Cache-Control", "no-store");
@@ -80,6 +79,18 @@ public class ConsultaEdicionServlet extends ServletRemoto {
 
         request.setAttribute("detalleEdicion", detalle);
         request.setAttribute("puedeVerAceptados", puedeVerAceptados);
+
+        boolean esEstudiante = usuario != null
+                && "Estudiante".equalsIgnoreCase(usuario.getTipo());
+
+        boolean permiteAcciones = (esEstudiante || puedeVerAceptados)
+                && control.listarEdicionesVigentesPorCurso(detalle.getCurso())
+                        .stream()
+                        .anyMatch(e -> detalle.getNombre().equals(e.getNombre()));
+
+        request.setAttribute("puedeInscribirse", esEstudiante && permiteAcciones);
+        request.setAttribute("puedeSeleccionarEstudiantes",
+                puedeVerAceptados && permiteAcciones);
 
         // La lista se consulta únicamente después de comprobar el permiso.
         if (puedeVerAceptados) {
