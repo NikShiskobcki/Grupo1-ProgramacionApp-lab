@@ -7,6 +7,7 @@ import util.ClienteCentral;
 import modelo.DetalleCurso;
 import modelo.DetalleEdicionCurso;
 import modelo.InscripcionResumen;
+import modelo.InscripcionEdicion;
 import modelo.UsuarioResumen;
 import modelo.Curso;
 import modelo.Docente;
@@ -299,6 +300,21 @@ public class SeleccionEstudiantesServlet extends ServletRemoto {
                         aceptadosActuales++;
                     }
                 }
+                //videos
+                Map<Long, String> videos = new LinkedHashMap<>();
+
+                for (InscripcionResumen inscripcion : inscripciones) {
+                    InscripcionEdicion completa = control.buscarInscripcionEdicion(
+                            inscripcion.getNicknameEstudiante(), edicion);
+
+                    if (completa != null
+                            && completa.getVideoUrl() != null
+                            && !completa.getVideoUrl().isBlank()) {
+                        videos.put(inscripcion.getId(), completa.getVideoUrl());
+                    }
+                }
+
+                request.setAttribute("videos", videos);
 
                 request.setAttribute("edicionSel", edicion);
                 request.setAttribute("detalleEdicion", detalle);

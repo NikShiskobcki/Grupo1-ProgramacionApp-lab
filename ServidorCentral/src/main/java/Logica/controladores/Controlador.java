@@ -14,6 +14,7 @@ import Logica.DTO.DetalleValoracionCurso;
 import Logica.DTO.UsuarioEdicion;
 import Logica.DTO.UsuarioResumen;
 import Logica.DTO.EvaluacionEstudiante;
+import Logica.DTO.CursoTendencia;
 import Logica.DatosPrueba.CargadorDatosPrueba;
 import Logica.Entidades.Categoria;
 import Logica.Entidades.Docente;
@@ -735,4 +736,19 @@ public class Controlador implements IControlador {
                 LocalDate.now(java.time.ZoneId.of("America/Montevideo"))));
     }
 
+
+    @Override
+    public void registrarVisitaCurso(String nombreCurso) {
+        if (nombreCurso == null || nombreCurso.trim().isEmpty()) {
+            return;
+        }
+        manejadorCurso.registrarVisita(nombreCurso.trim());
+    }
+
+    @Override
+    public List<CursoTendencia> listarCursosTendencia(int cantidad) {
+
+        int limite = Math.max(1, Math.min(cantidad, 5));
+        return manejadorCurso.listarTendencias(limite);
+    }
 }

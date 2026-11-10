@@ -305,4 +305,14 @@ public interface ICentralWS {
             @WebParam(name = "nombreCurso") String nombreCurso,
             @WebParam(name = "puntaje") int puntaje)
             throws CentralException;
+
+
+    @WebMethod
+    void registrarVisitaCurso(
+            @WebParam(name = "nombreCurso") String nombreCurso)
+            throws CentralException;
+
+    @WebMethod
+    List<CursoTendenciaDTO> listarCursosTendencia(
+            @WebParam(name = "cantidad") int cantidad);
 }

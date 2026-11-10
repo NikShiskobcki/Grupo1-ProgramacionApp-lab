@@ -54,6 +54,11 @@
 
     DateTimeFormatter formato =
             DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    
+    Map<Long, String> videos = (Map<Long, String>) request.getAttribute("videos");
+    if (videos == null) {
+        videos = Collections.emptyMap();
+    }
 %>
 
 <jsp:include page="header.jsp" />
@@ -332,6 +337,37 @@
                                                 <div class="text-muted small">
                                                     @<%= Html.esc(inscripcion.getNicknameEstudiante()) %>
                                                 </div>
+                                                <div class="text-muted small">
+                                                    @<%= Html.esc(inscripcion.getNicknameEstudiante())%>
+                                                </div>
+
+                                                <% String video = videos.get(inscripcion.getId());
+                                                if (video != null) {
+                                                    String embed = Html.embedYoutube(video); %>
+                                                <details class="mt-2">
+                                                    <summary class="small">
+                                                        Ver video de motivación
+                                                    </summary>
+
+                                                    <% if (!embed.isEmpty()) {%>
+                                                        <div class="ratio ratio-16x9 mt-2"
+                                                             style="min-width: 280px;">
+                                                            <iframe src="<%= embed%>"
+                                                                    title="Video de motivación de <%= Html.esc(inscripcion.getNombreEstudiante())%>"
+                                                                    loading="lazy"
+                                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                                    allowfullscreen></iframe>
+                                                        </div>
+                                                        <% } else if (Html.esUrlHttp(video)) {%>
+                                                        <a href="<%= Html.esc(video)%>"
+                                                           target="_blank" rel="noopener noreferrer"
+                                                           class="small d-block mt-2">
+                                                            Abrir video en otra pestaña
+                                                        </a>
+                                                        <% } %>
+                                                    </details>
+                                                    <% }%>
+                                            </td>
                                             </td>
 
                                             <td>

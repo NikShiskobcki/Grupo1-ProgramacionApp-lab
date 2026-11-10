@@ -31,6 +31,7 @@ public class Curso implements Serializable {
     private String url;
     private LocalDate fechaAlta;
     private String rutaImagen;
+    private Long visitas = 0L;
     
     @ManyToOne(optional = false)
     @JoinColumn(name = "instituto_nombre", nullable = false)
@@ -131,6 +132,10 @@ public class Curso implements Serializable {
 
     public String getRutaImagen() {
         return rutaImagen;
+    }
+    
+    public long getVisitas() {
+        return visitas == null ? 0 : visitas;
     }
     
     

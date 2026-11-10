@@ -491,4 +491,17 @@ public final class ClienteCentral {
             return null;
         });
     }
+
+    public void registrarVisitaCurso(String nombreCurso) {
+        escribir(puerto -> {
+            puerto.registrarVisitaCurso(nombreCurso);
+            return null;
+        });
+    }
+
+    public List<CursoTendencia> listarCursosTendencia(int cantidad) {
+        return MapeadorCliente.lista(
+                crearPuerto().listarCursosTendencia(cantidad),
+                MapeadorCliente::convertir);
+    }
 }

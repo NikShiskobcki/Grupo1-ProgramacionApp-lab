@@ -221,4 +221,13 @@ public final class MapeadorCliente {
                 fecha(origen.getFechaInscripcion()), origen.getNicknameEstudiante(),
                 origen.getNombrePrograma());
     }
+    
+        public static CursoTendencia convertir(cliente.central.CursoTendenciaDTO origen) {
+        if (origen == null) return null;
+        return new CursoTendencia(
+                origen.getNombre(),
+                origen.getNombreInstituto(),
+                origen.getRutaImagen(),
+                origen.getVisitas());
+    }
 }
