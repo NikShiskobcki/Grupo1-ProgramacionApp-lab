@@ -13,6 +13,7 @@ import Logica.DTO.DetalleValoracionCurso;
 import Logica.DTO.UsuarioEdicion;
 import Logica.DTO.UsuarioResumen;
 import Logica.DTO.EvaluacionEstudiante;
+import Logica.DTO.CursoTendencia;
 import Logica.Entidades.Instituto;
 import Logica.Entidades.Curso;
 import Logica.Entidades.Docente;
@@ -244,4 +245,10 @@ public interface IControlador {
 
     // puntaje de 1 a 5; un estudiante valora cada curso una sola vez
     void valorarCurso(String nicknameEstudiante, String nombreCurso, int puntaje);
+
+    // suma una visita al curso (si no existe, no hace nada)
+    void registrarVisitaCurso(String nombreCurso);
+
+    // los cursos más visitados, de mayor a menor
+    List<CursoTendencia> listarCursosTendencia(int cantidad);
 }

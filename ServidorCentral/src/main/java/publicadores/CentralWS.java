@@ -618,4 +618,24 @@ public class CentralWS implements ICentralWS {
                     ? "No se pudo completar la operación." : e.getMessage());
         }
     }
+    
+
+    @Override
+    public void registrarVisitaCurso(String nombreCurso)
+            throws CentralException {
+        try {
+            control.registrarVisitaCurso(nombreCurso);
+        } catch (RuntimeException e) {
+            LOGGER.log(Level.WARNING, "Falló registrarVisitaCurso", e);
+            throw new CentralException(e.getMessage() == null
+                    ? "No se pudo completar la operación." : e.getMessage());
+        }
+    }
+
+    @Override
+    public List<CursoTendenciaDTO> listarCursosTendencia(int cantidad) {
+        return MapeadorSOAP.lista(
+                control.listarCursosTendencia(cantidad),
+                MapeadorSOAP::convertir);
+    }
 }

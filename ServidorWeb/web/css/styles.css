@@ -470,3 +470,108 @@ body {
     .home-sidebar,
     .home-sidebar-der { max-height: none; }
 }
+
+
+//* Tendencias*/
+.ranking {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+}
+
+.ranking-item {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.ranking-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.ranking-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 18px;
+    color: inherit;
+    text-decoration: none;
+}
+
+.ranking-link:focus-visible {
+    background: #f4f8f9;
+    outline: none;
+}
+
+.ranking-puesto {
+    flex: 0 0 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #000;
+    text-align: center;
+}
+
+.ranking-img {
+    flex: 0 0 64px;
+    width: 64px;
+    height: 48px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.ranking-img-vacia {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eef4f6;
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.ranking-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.ranking-nombre {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ranking-instituto {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.ranking-visitas {
+    flex: 0 0 auto;
+    font-size: 0.75rem;
+    color: #a0a7ad;
+    text-align: right;
+}
+
+.ranking-visitas strong {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #a0a7ad;
+}
+
+/* Celular: imagen y espacios más chicos */
+@media (max-width: 576px) {
+    .ranking-link { gap: 10px; padding: 10px 12px; }
+    .ranking-img { flex-basis: 48px; width: 48px; height: 40px; }
+}

@@ -1,6 +1,7 @@
 package Persistencia;
 
 import Logica.DTO.DetalleCurso;
+import Logica.DTO.CursoTendencia;
 import Logica.Entidades.Categoria;
 import Logica.Entidades.ProgramaFormacion;
 import java.util.ArrayList;
@@ -195,6 +196,58 @@ public class ManejadorCurso {
                 t.rollback();
             }
             throw new PersistenciaException("Error al agregar la categoria al curso", e);
+        } finally {
+            em.close();
+        }
+    }
+    
+    public void registrarVisita(String nombreCurso) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction t = em.getTransaction();
+
+        try {
+            t.begin();
+            em.createQuery(
+                    "UPDATE Curso c "
+                    + "SET c.visitas = COALESCE(c.visitas, 0) + 1 "
+                    + "WHERE c.nombre = :nombre")
+                    .setParameter("nombre", nombreCurso)
+                    .executeUpdate();
+            t.commit();
+        } catch (Exception e) {
+            if (t.isActive()) {
+                t.rollback();
+            }
+            throw new PersistenciaException(
+                    "No se pudo registrar la visita al curso", e);
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<CursoTendencia> listarTendencias(int cantidad) {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            List<Curso> cursos = em.createQuery(
+                    "SELECT c FROM Curso c "
+                    + "WHERE c.visitas > 0 "
+                    + "ORDER BY c.visitas DESC, c.nombre",
+                    Curso.class)
+                    .setMaxResults(cantidad)
+                    .getResultList();
+
+            List<CursoTendencia> resultado = new ArrayList<>();
+            for (Curso c : cursos) {
+                resultado.add(new CursoTendencia(
+                        c.getNombre(),
+                        c.getInstituto() == null
+                        ? null : c.getInstituto().getNombre(),
+                        c.getRutaImagen(),
+                        c.getVisitas()));
+            }
+            return resultado;
+
         } finally {
             em.close();
         }

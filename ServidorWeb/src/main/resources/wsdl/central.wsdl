@@ -677,6 +677,30 @@
         
     </message>
     
+    <message name="registrarVisitaCurso">
+        
+        <part element="tns:registrarVisitaCurso" name="parameters"/>
+        
+    </message>
+    
+    <message name="registrarVisitaCursoResponse">
+        
+        <part element="tns:registrarVisitaCursoResponse" name="parameters"/>
+        
+    </message>
+    
+    <message name="listarCursosTendencia">
+        
+        <part element="tns:listarCursosTendencia" name="parameters"/>
+        
+    </message>
+    
+    <message name="listarCursosTendenciaResponse">
+        
+        <part element="tns:listarCursosTendenciaResponse" name="parameters"/>
+        
+    </message>
+    
     <portType name="ICentralWS">
         
         <operation name="listarInstitutos">
@@ -1160,6 +1184,24 @@
             <output message="tns:valorarCursoResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/valorarCursoResponse"/>
             
             <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/valorarCurso/Fault/CentralException"/>
+            
+        </operation>
+        
+        <operation name="registrarVisitaCurso">
+            
+            <input message="tns:registrarVisitaCurso" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/registrarVisitaCursoRequest"/>
+            
+            <output message="tns:registrarVisitaCursoResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/registrarVisitaCursoResponse"/>
+            
+            <fault message="tns:CentralException" name="CentralException" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/registrarVisitaCurso/Fault/CentralException"/>
+            
+        </operation>
+        
+        <operation name="listarCursosTendencia">
+            
+            <input message="tns:listarCursosTendencia" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarCursosTendenciaRequest"/>
+            
+            <output message="tns:listarCursosTendenciaResponse" wsam:Action="http://ws.edext.utec.edu.uy/ICentralWS/listarCursosTendenciaResponse"/>
             
         </operation>
         
@@ -2288,6 +2330,48 @@
                 <soap:fault name="CentralException" use="literal"/>
                 
             </fault>
+            
+        </operation>
+        
+        <operation name="registrarVisitaCurso">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
+            
+            <fault name="CentralException">
+                
+                <soap:fault name="CentralException" use="literal"/>
+                
+            </fault>
+            
+        </operation>
+        
+        <operation name="listarCursosTendencia">
+            
+            <soap:operation soapAction=""/>
+            
+            <input>
+                
+                <soap:body use="literal"/>
+                
+            </input>
+            
+            <output>
+                
+                <soap:body use="literal"/>
+                
+            </output>
             
         </operation>
         

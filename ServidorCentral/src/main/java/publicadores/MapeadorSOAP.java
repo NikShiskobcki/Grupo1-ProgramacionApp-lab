@@ -200,4 +200,13 @@ public final class MapeadorSOAP {
                 fecha(origen.getFechaInscripcion()),
                 nicknameEstudiante, nombrePrograma);
     }
+    
+        public static CursoTendenciaDTO convertir(Logica.DTO.CursoTendencia origen) {
+        if (origen == null) return null;
+        return new CursoTendenciaDTO(
+                origen.getNombre(),
+                origen.getNombreInstituto(),
+                origen.getRutaImagen(),
+                origen.getVisitas());
+    }
 }
