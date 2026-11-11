@@ -78,10 +78,13 @@
                 <% if (user != null) { %>
                     <div class="navbar-usuario">
                         <% String imgHdr = Html.imagen(ctx, user.getRutaImagen()); %>
+                        <%-- Foto y nombre llevan al perfil propio --%>
+                        <a href="<%= ctx %>/perfil" class="user-link" title="Ver mi perfil">
                         <% if (!imgHdr.isEmpty()) { %>
                             <img src="<%= imgHdr %>" alt="" class="avatar-sm" onerror="this.style.display='none'">
                         <% } %>
                         <span class="user-greeting">Hola, <strong><%= Html.esc(user.getNombreCompleto()) %></strong> (<%= Html.esc(user.getTipo()) %>)</span>
+                        </a>
                         <a href="<%= ctx %>/perfil" class="btn btn-outline">Mi Perfil</a>
                         <%-- Cierre de sesión: solo se ofrece con la sesión iniciada; POST para que no se dispare con un simple enlace --%>
                         <form action="<%= ctx %>/logout" method="post" class="m-0">

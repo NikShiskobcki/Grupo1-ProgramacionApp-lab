@@ -9,6 +9,7 @@ import Logica.DTO.DetalleEdicionCurso;
 import Logica.DTO.DetalleProgramaFormacion;
 import Logica.DTO.CursoResumen;
 import Logica.DTO.InscripcionResumen;
+import Logica.DTO.DetalleValoracionCurso;
 import Logica.Entidades.Curso;
 import Logica.Entidades.Instituto;
 import Logica.controladores.Fabrica;
@@ -390,6 +391,26 @@ public class IFConsultaCurso extends javax.swing.JInternalFrame {
         jList2.setModel(new DefaultListModel<>());
     }
     
+    /** Promedio del curso con estrellas, p. ej. "★★★★☆ 4,0 de 5 (3 valoraciones)". */
+    private String textoValoracion(String nombreCurso) {
+        try {
+            DetalleValoracionCurso v = control.consultarValoracionCurso(null, nombreCurso);
+            if (v == null || v.getPromedio() == null) {
+                return "☆☆☆☆☆ Sin valoraciones todavía";
+            }
+            int llenas = (int) Math.round(Math.max(0, Math.min(5, v.getPromedio())));
+            StringBuilder estrellas = new StringBuilder();
+            for (int i = 1; i <= 5; i++) {
+                estrellas.append(i <= llenas ? '\u2605' : '\u2606');
+            }
+            return String.format(java.util.Locale.forLanguageTag("es-UY"), "%s %.1f de 5 (%d %s)",
+                    estrellas, v.getPromedio(), v.getCantidad(),
+                    v.getCantidad() == 1 ? "valoración" : "valoraciones");
+        } catch (RuntimeException e) {
+            return "No disponible";
+        }
+    }
+
     private String formatearDetalleCurso(DetalleCurso detalle) {
         StringBuilder sb = new StringBuilder();
         sb.append("Nombre: ").append(detalle.getNombre()).append("\n");
@@ -401,6 +422,7 @@ public class IFConsultaCurso extends javax.swing.JInternalFrame {
         sb.append("Fecha de alta: ").append(detalle.getFechaAlta()).append("\n");
         sb.append("Instituto: ").append(detalle.getInstituto()).append("\n");
         sb.append("Cantidad de inscriptos: ").append(detalle.getCantidadInscriptos()).append("\n");
+        sb.append("Valoración promedio: ").append(textoValoracion(detalle.getNombre())).append("\n");
 
         sb.append("Previas: ");
         if (detalle.getPrevias() == null || detalle.getPrevias().isEmpty()) {

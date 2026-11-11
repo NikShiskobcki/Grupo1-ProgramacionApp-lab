@@ -692,7 +692,9 @@ public class Controlador implements IControlador {
     @Override
     public DetalleValoracionCurso consultarValoracionCurso(
             String nicknameEstudiante, String nombreCurso) {
-        if (manejadorUsuario.buscarEstudiante(nicknameEstudiante) == null) {
+        // El nickname es opcional: sin él solo se informa el promedio del curso.
+        boolean conEstudiante = nicknameEstudiante != null && !nicknameEstudiante.trim().isEmpty();
+        if (conEstudiante && manejadorUsuario.buscarEstudiante(nicknameEstudiante) == null) {
             throw new IllegalArgumentException("El estudiante no existe.");
         }
         if (manejadorCurso.buscarPorNombre(nombreCurso) == null) {
@@ -702,7 +704,9 @@ public class Controlador implements IControlador {
                 nombreCurso,
                 manejadorValoracionCurso.promedio(nombreCurso),
                 (int) manejadorValoracionCurso.contar(nombreCurso),
-                manejadorValoracionCurso.buscarPuntaje(nicknameEstudiante, nombreCurso));
+                conEstudiante
+                        ? manejadorValoracionCurso.buscarPuntaje(nicknameEstudiante, nombreCurso)
+                        : null);
     }
 
     @Override

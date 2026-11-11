@@ -241,6 +241,7 @@ public interface IControlador {
     List<String> listarCursosConParticipacion(String nicknameEstudiante);
 
     // promedio del curso y puntaje del estudiante (null si no valoro)
+    /** El nickname puede ser null o vacío: en ese caso solo se devuelve el promedio del curso. */
     DetalleValoracionCurso consultarValoracionCurso(String nicknameEstudiante, String nombreCurso);
 
     // puntaje de 1 a 5; un estudiante valora cada curso una sola vez

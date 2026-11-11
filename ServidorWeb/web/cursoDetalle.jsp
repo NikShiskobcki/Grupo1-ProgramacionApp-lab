@@ -1,11 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="modelo.DetalleCurso" %>
 <%@ page import="modelo.UsuarioResumen" %>
+<%@ page import="modelo.ValoracionCurso" %>
+<%@ page import="java.util.Locale" %>
 <%@ page import="util.Html" %>
 <jsp:include page="header.jsp" />
 
 <%
     DetalleCurso curso = (DetalleCurso) request.getAttribute("detalleCurso");
+    ValoracionCurso valoracion = (ValoracionCurso) request.getAttribute("valoracionCurso");
     UsuarioResumen user = (UsuarioResumen) session.getAttribute("usuarioLogueado");
     String urlCurso = (curso != null && curso.getUrl() != null) ? curso.getUrl().trim() : "";
     boolean urlSegura = urlCurso.toLowerCase().startsWith("http://") || urlCurso.toLowerCase().startsWith("https://");
@@ -21,6 +24,21 @@
         <div class="detail-title-group">
             <span class="card-badge"><%= Html.esc(curso.getInstituto()) %></span>
             <h1><%= Html.esc(curso.getNombre()) %></h1>
+            <% if (valoracion != null && valoracion.getPromedio() != null) { %>
+            <p class="mb-1" role="img"
+               aria-label="Valoración promedio <%= String.format(Locale.US, "%.1f", valoracion.getPromedio()) %> de 5">
+                <span style="color:#f5a623; font-size:1.3rem;"><%= Html.estrellas(valoracion.getPromedio()) %></span>
+                <span class="text-muted">
+                    <%= String.format(new Locale("es", "UY"), "%.1f", valoracion.getPromedio()) %> de 5
+                    (<%= valoracion.getCantidad() %> <%= valoracion.getCantidad() == 1 ? "valoración" : "valoraciones" %>)
+                </span>
+            </p>
+            <% } else { %>
+            <p class="text-muted mb-1">
+                <span style="color:#f5a623; font-size:1.3rem;"><%= Html.estrellas(null) %></span>
+                Sin valoraciones todavía
+            </p>
+            <% } %>
             <% if (urlSegura) { %>
             <p class="detail-url">
                 <a href="<%= Html.esc(urlCurso) %>" target="_blank" rel="noopener">

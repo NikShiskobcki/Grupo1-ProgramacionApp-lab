@@ -92,6 +92,8 @@ body {
 }
 
 .user-greeting { font-size: 0.9rem; color: #d0e0e3; }
+.user-link { display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit; }
+.user-link:hover .user-greeting, .user-link:focus-visible .user-greeting { text-decoration: underline; color: #fff; }
 
 /* Sub Navigation */
 .sub-nav {

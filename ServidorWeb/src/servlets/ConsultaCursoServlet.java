@@ -6,6 +6,7 @@ import util.ClienteCentral;
 
 import modelo.DetalleCurso;
 import modelo.Curso;
+import modelo.ValoracionCurso;
 
 import java.io.IOException;
 import java.util.List;
@@ -41,6 +42,13 @@ public class ConsultaCursoServlet extends ServletRemoto {
 
         if (detalle != null) {
             request.setAttribute("detalleCurso", detalle);
+            try {
+                ValoracionCurso valoracion = control.consultarValoracionCurso(null, detalle.getNombre());
+                request.setAttribute("valoracionCurso", valoracion);
+            } catch (RuntimeException e) {
+                // La valoración es informativa: si falla, la página se muestra igual sin ella.
+                getServletContext().log("No se pudo obtener la valoración de " + detalle.getNombre(), e);
+            }
             request.getRequestDispatcher("/cursoDetalle.jsp").forward(request, response);
         } else {
             request.setAttribute("error", "El curso solicitado no fue encontrado.");
