@@ -154,7 +154,6 @@ public class ActaPdfServlet extends ServletRemoto {
         doc.add(p);
 
         doc.add(linea("Estudiante: ", estudiante.getNombre() + " " + estudiante.getApellido(), etiqueta, texto));
-        doc.add(linea("Nickname: ", estudiante.getNickname(), etiqueta, texto));
         doc.add(linea("Correo electrónico: ", estudiante.getEmail(), etiqueta, texto));
 
         p = new Paragraph("aprobó la totalidad de los cursos del programa de formación:", texto);

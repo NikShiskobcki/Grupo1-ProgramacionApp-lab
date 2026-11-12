@@ -45,7 +45,7 @@
         <div class="alert alert-danger" role="alert">
             <%= Html.esc(request.getAttribute("error"))%>
         </div>
-        <% }%>
+        <% } %>
 
         <%-- ===== Selección instituto / curso / edición ===== --%>
         <div class="edext-panel p-4 mb-4">
@@ -96,16 +96,18 @@
                         <label for="edicionActa" class="form-label">Edición:</label>
                         <select id="edicionActa" name="edicion" class="form-select mb-2" required>
                             <option value="">Seleccioná una edición</option>
-                            <% for (EdicionCurso edicion : ediciones) {%>
+                            <% for (EdicionCurso edicion : ediciones) {
+                                    boolean estaCerrada = edicionesCerradas != null
+                                            && edicionesCerradas.contains(edicion.getNombre());%>
                             <option value="<%= Html.esc(edicion.getNombre())%>"
                                     <%= edicion.getNombre().equals(edicionSel) ? "selected" : ""%>>
-                                <%= Html.esc(edicion.getNombre())%>
+                                <%= Html.esc(edicion.getNombre())%> (<%= estaCerrada ? "cerrada" : "abierta"%>)
                             </option>
                             <% } %>
                         </select>
                     </form>
                     <% } else if (cursoSel != null && !cursoSel.isEmpty()) { %>
-                    <p class="text-muted mb-0">No hay ediciones vigentes y cerradas de este curso en las que participes.</p>
+                    <p class="text-muted mb-0">No participás en ninguna edición de este curso.</p>
                     <% } %>
                 </div>
             </div>
@@ -133,25 +135,15 @@
                 <dd class="col-sm-8">
                     <%= detalle.getFechaFin() != null ? detalle.getFechaFin().format(formato) : "—"%>
                 </dd>
-                <dt class="col-sm-4">Fecha de publicación</dt>
-                <dd class="col-sm-8">
-                    <%= detalle.getFechaPublicacion() != null
-                            ? detalle.getFechaPublicacion().format(formato) : "—"%>
-                </dd>
-
-                <dt class="col-sm-4">Cupo</dt>
-                <dd class="col-sm-8">
-                    <%= detalle.getCupo() != null ? detalle.getCupo().toString() : "—"%>
-                </dd>
                 <dt class="col-sm-4">Docentes</dt>
                 <dd class="col-sm-8">
                     <%= detalle.getDocentes() == null || detalle.getDocentes().isEmpty()
-                            ? "—" : Html.esc(String.join(", ", detalle.getDocentes()))%>
+                            ? "—" : Html.esc(detalle.getDocentes().stream().map(Html::sinNickname).collect(java.util.stream.Collectors.joining(", ")))%>
                 </dd>
             </dl>
         </div>
 
-        <% if (!cerrada) {%>
+        <% if (!cerrada) { %>
         <div class="alert alert-warning" role="status">
             Esta edición todavía no está cerrada. El acta solo se puede consultar
             cuando se cierra la edición.
@@ -204,7 +196,6 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Estudiante</th>
-                            <th scope="col">Nickname</th>
                             <th scope="col" class="text-center">Nota (1-12)</th>
                             <th scope="col">Resultado</th>
                         </tr>
@@ -216,7 +207,6 @@
                         <tr>
                             <td><%= n%></td>
                             <td><%= Html.esc(ev.getNombreEstudiante())%></td>
-                            <td><%= Html.esc(ev.getNicknameEstudiante())%></td>
                             <td class="text-center"><%= ev.getNota() == null ? "—" : ev.getNota()%></td>
                             <td>
                                 <% if (ev.getNota() == null) { %>
@@ -239,7 +229,7 @@
             </p>
         </div>
         <% } %>
-        <% }%>
+        <% } %>
     </div>
 </div>
 

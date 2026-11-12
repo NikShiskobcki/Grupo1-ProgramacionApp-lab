@@ -123,6 +123,15 @@ public final class Html {
         return sb.toString();
     }
 
+    /** Quita el nickname de un texto con formato "Nombre Apellido (nickname)" y deja "Nombre Apellido". */
+    public static String sinNickname(String texto) {
+        if (texto == null) return "";
+        int a = texto.lastIndexOf('(');
+        int b = texto.lastIndexOf(')');
+        if (a > 0 && b > a) return texto.substring(0, a).trim();
+        return texto;
+    }
+
     /** Extrae el nickname de un texto con formato "Nombre Apellido (nickname)". */
     public static String nicknameDeDocente(String texto) {
         if (texto == null) return null;

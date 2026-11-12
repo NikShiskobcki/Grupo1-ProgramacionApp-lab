@@ -169,14 +169,14 @@ public class ActaEdicionPdfServlet extends ServletRemoto {
         doc.add(linea("Período: ", fecha(edicion.getFechaInicio()) + " a "
                 + fecha(edicion.getFechaFin()), etiqueta, texto));
         doc.add(linea("Docentes: ", edicion.getDocentes() == null || edicion.getDocentes().isEmpty()
-                ? "—" : String.join(", ", edicion.getDocentes()), etiqueta, texto));
+                ? "—" : edicion.getDocentes().stream().map(util.Html::sinNickname).collect(java.util.stream.Collectors.joining(", ")), etiqueta, texto));
 
-        PdfPTable tabla = new PdfPTable(new float[]{0.6f, 3.2f, 2.2f, 1.2f, 1.8f});
+        PdfPTable tabla = new PdfPTable(new float[]{0.6f, 4.4f, 1.2f, 1.8f});
         tabla.setWidthPercentage(100);
         tabla.setSpacingBefore(16);
         tabla.setHeaderRows(1);
 
-        for (String h : new String[]{"#", "Estudiante", "Nickname", "Nota", "Resultado"}) {
+        for (String h : new String[]{"#", "Estudiante", "Nota", "Resultado"}) {
             PdfPCell c = new PdfPCell(new Phrase(h, cabecera));
             c.setBackgroundColor(COLOR);
             c.setPadding(6);
@@ -205,7 +205,6 @@ public class ActaEdicionPdfServlet extends ServletRemoto {
             String[] valores = {
                 String.valueOf(n),
                 ev.getNombreEstudiante(),
-                ev.getNicknameEstudiante(),
                 nota == null ? "—" : String.valueOf(nota),
                 resultado
             };
@@ -213,7 +212,7 @@ public class ActaEdicionPdfServlet extends ServletRemoto {
                 PdfPCell c = new PdfPCell(new Phrase(valores[i] == null ? "" : valores[i], celda));
                 c.setPadding(5);
                 if (alterna) c.setBackgroundColor(GRIS);
-                if (i == 0 || i == 3 || i == 4) c.setHorizontalAlignment(Element.ALIGN_CENTER);
+                if (i == 0 || i == 2 || i == 3) c.setHorizontalAlignment(Element.ALIGN_CENTER);
                 tabla.addCell(c);
             }
             alterna = !alterna;
