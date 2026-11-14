@@ -46,7 +46,7 @@ services:
         condition: service_healthy
     volumes:
       - type: bind
-        source: ../../ServidorWeb/target/ServidorWeb-1.0-SNAPSHOT.war
+        source: ../../ServidorWeb/target/web.war
         target: /usr/local/tomcat/webapps/edext.war
         read_only: true
         bind:

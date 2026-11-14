@@ -53,6 +53,7 @@
     </dependencies>
 
     <build>
+         <finalName>web</finalName>
         <sourceDirectory>src</sourceDirectory>
 
         <plugins>
