@@ -67,6 +67,37 @@
             <h3>Descripción</h3>
             <p><%= Html.esc(curso.getDescripcion()) %></p>
 
+            <% if (valoracion != null && valoracion.getPromedio() != null && valoracion.getCantidad() > 0) {
+                   int maxVotos = 1;
+                   for (int e = 1; e <= 5; e++) maxVotos = Math.max(maxVotos, valoracion.getCantidadConPuntaje(e));
+            %>
+            <h3>Resumen de valoraciones</h3>
+            <div class="rating-summary" style="display:flex; flex-wrap:wrap; gap:1.5rem; align-items:center; margin-bottom:1.5rem;">
+                <% if (valoracion.tieneDesglose()) { %>
+                <div class="rating-bars" style="flex:1 1 260px; max-width:420px;">
+                    <% for (int e = 5; e >= 1; e--) {
+                           int votos = valoracion.getCantidadConPuntaje(e);
+                           int ancho = (int) Math.round(votos * 100.0 / maxVotos); %>
+                    <div style="display:flex; align-items:center; gap:.5rem; margin:.15rem 0; font-size:.9rem;">
+                        <span style="width:3.5rem; white-space:nowrap;"><%= e %> <%= e == 1 ? "estrella" : "estrellas" %></span>
+                        <div style="flex:1; background:#eee; height:14px; border-radius:2px;"
+                             role="img" aria-label="<%= votos %> valoraciones de <%= e %> de 5">
+                            <div style="width:<%= ancho %>%; height:100%; border-radius:2px; background:<%= e >= 4 ? "#8ab325" : (e == 3 ? "#f5c518" : (e == 2 ? "#f5a623" : "#e8552f")) %>;"></div>
+                        </div>
+                        <span style="width:2.5rem; text-align:right;" class="text-muted"><%= votos %></span>
+                    </div>
+                    <% } %>
+                </div>
+                <% } %>
+                <div style="text-align:center; padding:.75rem 1.25rem; background:#f5f6f8; border-radius:4px;">
+                    <div class="text-muted" style="font-size:.8rem; font-weight:600;">Valoración promedio</div>
+                    <div style="font-size:2rem; font-weight:600; line-height:1.2;"><%= String.format(new Locale("es", "UY"), "%.1f", valoracion.getPromedio()) %></div>
+                    <div style="color:#f5a623;"><%= Html.estrellas(valoracion.getPromedio()) %></div>
+                    <div class="text-muted" style="font-size:.8rem;"><%= valoracion.getCantidad() %> <%= valoracion.getCantidad() == 1 ? "valoración" : "valoraciones" %></div>
+                </div>
+            </div>
+            <% } %>
+
             <h3>Categorías Asociadas</h3>
             <div class="tags-container">
                 <% if (curso.getCategorias() != null && !curso.getCategorias().isEmpty()) { 

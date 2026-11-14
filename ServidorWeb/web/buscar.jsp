@@ -2,7 +2,9 @@
 <%@ page import="modelo.Curso" %>
 <%@ page import="modelo.DetalleProgramaFormacion" %>
 <%@ page import="util.Html" %>
+<%@ page import="modelo.ValoracionCurso" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
 <jsp:include page="header.jsp" />
 
 <%
@@ -10,6 +12,7 @@
     String orden = (String) request.getAttribute("orden");
     List<Curso> resultados = (List<Curso>) request.getAttribute("resultados");
     List<DetalleProgramaFormacion> programas = (List<DetalleProgramaFormacion>) request.getAttribute("programas");
+    Map<String, ValoracionCurso> valoraciones = (Map<String, ValoracionCurso>) request.getAttribute("valoraciones");
 %>
 
 <div class="home-layout">
@@ -40,6 +43,7 @@
                         <span class="card-badge"><%= c.getInstituto() != null ? c.getInstituto().getNombre() : "General" %></span>
                         <h3 class="card-title"><%= c.getNombre() %></h3>
                         <p class="card-desc"><%= c.getDescripcion() != null && c.getDescripcion().length() > 90 ? c.getDescripcion().substring(0, 90) + "..." : c.getDescripcion() %></p>
+                        <%= Html.estrellasTarjeta(valoraciones == null ? null : valoraciones.get(c.getNombre())) %>
                         <p class="card-date"><small>Publicado: <%= c.getFechaAlta() %></small></p>
                         <a href="<%= request.getContextPath() %>/curso-detalle?nombre=<%= java.net.URLEncoder.encode(c.getNombre(), "UTF-8") %>" class="btn btn-primary btn-block">Ver Detalle</a>
                     </div>

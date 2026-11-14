@@ -188,8 +188,12 @@ public final class MapeadorSOAP {
 
     public static ValoracionCursoDTO convertir(Logica.DTO.DetalleValoracionCurso origen) {
         if (origen == null) return null;
+        List<Integer> porPuntaje = new ArrayList<>(5);
+        for (int n : origen.getCantidadPorPuntaje()) {
+            porPuntaje.add(n);
+        }
         return new ValoracionCursoDTO(origen.getNombreCurso(), origen.getPromedio(),
-                origen.getCantidad(), origen.getPuntajeEstudiante());
+                origen.getCantidad(), origen.getPuntajeEstudiante(), porPuntaje);
     }
 
     public static InscripcionProgramaDTO inscripcionPrograma(

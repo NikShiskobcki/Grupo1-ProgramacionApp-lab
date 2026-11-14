@@ -138,11 +138,21 @@ public final class MapeadorCliente {
 
     public static ValoracionCurso convertir(cliente.central.ValoracionCursoDTO origen) {
         if (origen == null) return null;
+        int[] desglose = null;
+        java.util.List<Integer> porPuntaje = origen.getCantidadPorPuntaje();
+        if (porPuntaje != null && porPuntaje.size() == 5) {
+            desglose = new int[5];
+            for (int i = 0; i < 5; i++) {
+                Integer n = porPuntaje.get(i);
+                desglose[i] = n == null ? 0 : n;
+            }
+        }
         return new ValoracionCurso(
                 origen.getNombreCurso(),
                 origen.getPromedio(),
                 origen.getCantidad(),
-                origen.getPuntajeEstudiante());
+                origen.getPuntajeEstudiante(),
+                desglose);
     }
 
     public static ResultadoInscripcion convertir(cliente.central.ResultadoInscripcionDTO origen) {

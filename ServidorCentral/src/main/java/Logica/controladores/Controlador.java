@@ -707,7 +707,8 @@ public class Controlador implements IControlador {
                 (int) manejadorValoracionCurso.contar(nombreCurso),
                 conEstudiante
                         ? manejadorValoracionCurso.buscarPuntaje(nicknameEstudiante, nombreCurso)
-                        : null);
+                        : null,
+                manejadorValoracionCurso.contarPorPuntaje(nombreCurso));
     }
 
     @Override

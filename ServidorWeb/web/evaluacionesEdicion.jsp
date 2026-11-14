@@ -247,6 +247,24 @@
             });
         });
 
+        // Mensajes de validación en español (el navegador los muestra en su propio idioma)
+        document.querySelectorAll('input[type="number"][name^="nota_"]').forEach(campo => {
+            const validar = () => {
+                campo.setCustomValidity("");
+                const v = campo.validity;
+                if (v.badInput) {
+                    campo.setCustomValidity("Ingresá un número entero del 1 al 12.");
+                } else if (v.rangeUnderflow || v.rangeOverflow) {
+                    campo.setCustomValidity("La nota debe estar entre 1 y 12.");
+                } else if (v.stepMismatch) {
+                    campo.setCustomValidity("La nota debe ser un número entero, sin decimales.");
+                }
+            };
+            campo.addEventListener("input", validar);
+            campo.addEventListener("invalid", validar);
+            validar();
+        });
+
         // Confirmación antes de cerrar, porque no se puede deshacer
         const btnCerrar = document.getElementById("btnCerrar");
         if (btnCerrar) {

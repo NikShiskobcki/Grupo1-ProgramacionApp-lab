@@ -3,6 +3,7 @@ package servlets;
 import util.ServletRemoto;
 
 import util.ClienteCentral;
+import util.Valoraciones;
 
 import modelo.Curso;
 import modelo.DetalleProgramaFormacion;
@@ -84,6 +85,7 @@ public class BuscarServlet extends ServletRemoto {
             programas.sort((p1, p2) -> p1.getNombre().compareToIgnoreCase(p2.getNombre()));
         }
 
+        request.setAttribute("valoraciones", Valoraciones.deCursos(control, resultados, getServletContext()));
         request.setAttribute("programas", programas);
         request.setAttribute("query", query != null ? query : "");
         request.setAttribute("orden", orden != null ? orden : "alfa");

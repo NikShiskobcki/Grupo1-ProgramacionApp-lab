@@ -46,6 +46,28 @@ public class ManejadorValoracionCurso {
         }
     }
 
+    /** Cantidad de valoraciones del curso por puntaje: posición 0 = 1 estrella ... 4 = 5 estrellas. */
+    public int[] contarPorPuntaje(String nombreCurso) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            List<Object[]> filas = em.createQuery(
+                    "SELECT v.puntaje, COUNT(v) FROM ValoracionCurso v "
+                    + "WHERE v.curso.nombre = :curso GROUP BY v.puntaje", Object[].class)
+                    .setParameter("curso", nombreCurso)
+                    .getResultList();
+            int[] resultado = new int[5];
+            for (Object[] fila : filas) {
+                int puntaje = ((Number) fila[0]).intValue();
+                if (puntaje >= 1 && puntaje <= 5) {
+                    resultado[puntaje - 1] = ((Number) fila[1]).intValue();
+                }
+            }
+            return resultado;
+        } finally {
+            em.close();
+        }
+    }
+
     public long contar(String nombreCurso) {
         EntityManager em = emf.createEntityManager();
         try {

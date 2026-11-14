@@ -123,6 +123,22 @@ public final class Html {
         return sb.toString();
     }
 
+    /**
+     * Fragmento HTML con las estrellas del promedio de un curso para tarjetas de listado
+     * ("★★★★☆ 4,2 (5)"), o "Sin valoraciones" si todavía no tiene.
+     */
+    public static String estrellasTarjeta(modelo.ValoracionCurso v) {
+        if (v == null || v.getPromedio() == null || v.getCantidad() == 0) {
+            return "<p class=\"card-rating text-muted\"><small><span style=\"color:#f5a623;\">"
+                    + estrellas(null) + "</span> Sin valoraciones</small></p>";
+        }
+        String prom = String.format(java.util.Locale.US, "%.1f", v.getPromedio());
+        String promEs = String.format(new java.util.Locale("es", "UY"), "%.1f", v.getPromedio());
+        return "<p class=\"card-rating\" role=\"img\" aria-label=\"Valoración promedio " + prom + " de 5\">"
+                + "<span style=\"color:#f5a623;\">" + estrellas(v.getPromedio()) + "</span> "
+                + "<small class=\"text-muted\">" + promEs + " (" + v.getCantidad() + ")</small></p>";
+    }
+
     /** Quita el nickname de un texto con formato "Nombre Apellido (nickname)" y deja "Nombre Apellido". */
     public static String sinNickname(String texto) {
         if (texto == null) return "";

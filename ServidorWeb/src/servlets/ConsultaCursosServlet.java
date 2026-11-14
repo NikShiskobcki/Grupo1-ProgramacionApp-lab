@@ -3,6 +3,7 @@ package servlets;
 import util.ServletRemoto;
 
 import util.ClienteCentral;
+import util.Valoraciones;
 
 import modelo.DetalleCurso;
 import modelo.Curso;
@@ -58,6 +59,9 @@ public class ConsultaCursosServlet extends ServletRemoto {
             }
             request.setAttribute("resultados", filtrados);
         }
+
+        request.setAttribute("valoraciones", Valoraciones.deCursos(control,
+                (List<Curso>) request.getAttribute("resultados"), getServletContext()));
 
         request.getRequestDispatcher("/consultaCurso.jsp").forward(request, response);
     }

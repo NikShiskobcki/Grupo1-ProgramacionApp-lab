@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="modelo.Curso" %>
+<%@ page import="modelo.ValoracionCurso" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
 <%@ page import="util.Html" %>
 <jsp:include page="header.jsp" />
 
@@ -10,6 +12,7 @@
     List<Curso> resultados = (List<Curso>) request.getAttribute("resultados");
     String institutoSel = (String) request.getAttribute("institutoSel");
     String categoriaSel = (String) request.getAttribute("categoriaSel");
+    Map<String, ValoracionCurso> valoraciones = (Map<String, ValoracionCurso>) request.getAttribute("valoraciones");
     String ctx = request.getContextPath();
 %>
 
@@ -69,6 +72,7 @@
                                         ? Html.esc(c.getDescripcion().substring(0, 90)) + "..."
                                         : Html.esc(c.getDescripcion()) %>
                             </p>
+                            <%= Html.estrellasTarjeta(valoraciones == null ? null : valoraciones.get(c.getNombre())) %>
                             <a href="<%= ctx %>/curso-detalle?nombre=<%= Html.url(c.getNombre()) %>" class="btn btn-primary btn-block">Ver Detalle</a>
                         </div>
                     </div>
