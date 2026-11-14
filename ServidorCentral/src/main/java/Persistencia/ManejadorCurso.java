@@ -201,6 +201,30 @@ public class ManejadorCurso {
         }
     }
     
+    /** Fija la cantidad de visitas del curso (la usa la carga de datos de prueba). */
+    public void establecerVisitas(String nombreCurso, long visitas) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction t = em.getTransaction();
+
+        try {
+            t.begin();
+            em.createQuery(
+                    "UPDATE Curso c SET c.visitas = :visitas WHERE c.nombre = :nombre")
+                    .setParameter("visitas", visitas)
+                    .setParameter("nombre", nombreCurso)
+                    .executeUpdate();
+            t.commit();
+        } catch (Exception e) {
+            if (t.isActive()) {
+                t.rollback();
+            }
+            throw new PersistenciaException(
+                    "No se pudieron establecer las visitas del curso", e);
+        } finally {
+            em.close();
+        }
+    }
+
     public void registrarVisita(String nombreCurso) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction t = em.getTransaction();

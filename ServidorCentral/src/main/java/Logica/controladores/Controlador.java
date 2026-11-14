@@ -95,7 +95,8 @@ public class Controlador implements IControlador {
                 manejadorInscripcionEdicion,
                 manejadorProgramaFormacion,
                 manejadorCategoria,
-                manejadorInscripcionPrograma
+                manejadorInscripcionPrograma,
+                manejadorValoracionCurso
         );
 
     }

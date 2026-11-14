@@ -10,6 +10,7 @@ import Logica.Entidades.InscripcionEdicion;
 import Logica.Entidades.InscripcionPrograma;
 import Logica.Entidades.Instituto;
 import Logica.Entidades.ProgramaFormacion;
+import Logica.Entidades.ValoracionCurso;
 import Persistencia.ManejadorCategoria;
 import java.time.LocalDate;
 
@@ -20,6 +21,7 @@ import Persistencia.ManejadorInscripcionPrograma;
 import Persistencia.ManejadorUsuario;
 import Persistencia.ManejadorInstituto;
 import Persistencia.ManejadorProgramaFormacion;
+import Persistencia.ManejadorValoracionCurso;
 
 public class CargadorDatosPrueba {
 
@@ -31,7 +33,8 @@ public class CargadorDatosPrueba {
     private final ManejadorProgramaFormacion manejadorProgramaFormacion;
     private final ManejadorCategoria manejadorCategoria;
     private final ManejadorInscripcionPrograma manejadorInscripcionPrograma;
-    
+    private final ManejadorValoracionCurso manejadorValoracionCurso;
+
     public CargadorDatosPrueba(
             ManejadorInstituto manejadorInstituto,
             ManejadorUsuario manejadorUsuario,
@@ -39,7 +42,8 @@ public class CargadorDatosPrueba {
             ManejadorEdicionCurso manejadorEdicionCurso, ManejadorInscripcionEdicion manejadorInscripcionEdicion,
             ManejadorProgramaFormacion manejadorProgramaFormacion,
             ManejadorCategoria manejadorCategoria,
-            ManejadorInscripcionPrograma manejadorInscripcionPrograma) {
+            ManejadorInscripcionPrograma manejadorInscripcionPrograma,
+            ManejadorValoracionCurso manejadorValoracionCurso) {
 
         this.manejadorInstituto = manejadorInstituto;
         this.manejadorUsuario = manejadorUsuario;
@@ -49,6 +53,7 @@ public class CargadorDatosPrueba {
         this.manejadorProgramaFormacion = manejadorProgramaFormacion;
         this.manejadorCategoria = manejadorCategoria;
         this.manejadorInscripcionPrograma = manejadorInscripcionPrograma;
+        this.manejadorValoracionCurso = manejadorValoracionCurso;
     }
 
     public void cargar() {
@@ -64,7 +69,8 @@ public class CargadorDatosPrueba {
         cargarInscripciones(); 
         cargarProgramas();
         cargarInscripcionesProgramas();
-        
+        cargarVisitasCursos();
+        cargarValoracionesCursos();
     }
     
     private void cargarInstitutos() {
@@ -811,10 +817,19 @@ public class CargadorDatosPrueba {
         agregarEdicionConImagen(edicion);
     }
 }
+    /**
+     * Inscripciones del Anexo de Tarea 3, con estado, evaluación (nota) y video.
+     *
+     * Referencias del anexo: EL=eleven11, CH=chechi, CO=costas, RO=roro, WE=weiss, JW=jeffw.
+     * Las inscripciones de estudiantes que no están definidos en los datos de prueba
+     * (AK, NV, OM, SG, AB, SO, SH, JS) se omiten a propósito: el anexo no los incluye.
+     * Una evaluación "0" del anexo significa "todavía sin nota" (la nota válida es 1 a 12).
+     */
     private void cargarInscripciones() {
         final EstadoInscripcion A = EstadoInscripcion.ACEPTADA;
         final EstadoInscripcion R = EstadoInscripcion.RECHAZADA;
         final EstadoInscripcion I = EstadoInscripcion.INSCRIPTO;
+        final String YT = "https://www.youtube.com/watch?v=";
 
         String e1 = "Flor del Ceibo - 2010";
         String e2 = "Flor del Ceibo - 2012";
@@ -832,77 +847,138 @@ public class CargadorDatosPrueba {
         String e14 = "Seminarios de Resolución de Problemas - 2026";
 
         // E1
-        inscribir("eleven11", e1, 2010, 2, 20, A);
-        inscribir("chechi", e1, 2010, 2, 25, A);
+        inscribir("eleven11", e1, 2010, 2, 20, A, 6, null);
+        inscribir("chechi", e1, 2010, 2, 25, A, 8, YT + "c4ZoticPW1s");
         // E2
-        inscribir("costas", e2, 2012, 7, 12, A);
-        inscribir("roro", e2, 2012, 7, 15, R);
-        inscribir("weiss", e2, 2012, 7, 30, A);
+        inscribir("costas", e2, 2012, 7, 12, A, 9, YT + "1qfw6Rd_-ic");
+        inscribir("roro", e2, 2012, 7, 15, R, null, YT + "Ov4usZlSieM");
+        inscribir("weiss", e2, 2012, 7, 30, A, null, null);
         // E3
-        inscribir("roro", e3, 2025, 3, 10, A);
-        inscribir("jeffw", e3, 2025, 3, 15, A);
+        inscribir("roro", e3, 2025, 3, 10, A, 9, YT + "eIvqPPcMepU");
+        inscribir("jeffw", e3, 2025, 3, 15, A, 6, null);
         // E4
-        inscribir("chechi", e4, 2024, 7, 25, A);
-        inscribir("eleven11", e4, 2024, 7, 28, R);
-        inscribir("roro", e4, 2024, 8, 2, A);
-        inscribir("costas", e4, 2024, 8, 10, A);
-        inscribir("jeffw", e4, 2024, 8, 15, R);
+        inscribir("chechi", e4, 2024, 7, 25, A, 7, YT + "vfc42Pb5RA8");
+        inscribir("eleven11", e4, 2024, 7, 28, R, null, null);
+        inscribir("roro", e4, 2024, 8, 2, A, 7, YT + "Hg469wSrZhI");
+        inscribir("costas", e4, 2024, 8, 10, A, 6, null);
+        inscribir("jeffw", e4, 2024, 8, 15, R, null, null);
         // E5
-        inscribir("costas", e5, 2025, 7, 18, A);
-        inscribir("chechi", e5, 2025, 7, 20, A);
-        inscribir("eleven11", e5, 2025, 7, 29, A);
-        inscribir("weiss", e5, 2025, 8, 5, A);
+        inscribir("costas", e5, 2025, 7, 18, A, 9, null);
+        inscribir("chechi", e5, 2025, 7, 20, A, 9, null);
+        inscribir("eleven11", e5, 2025, 7, 29, A, 1, null);
+        inscribir("weiss", e5, 2025, 8, 5, A, 11, null);
         // E6
-        inscribir("roro", e6, 2026, 2, 23, A);
-        inscribir("weiss", e6, 2026, 2, 25, R);
-        inscribir("chechi", e6, 2026, 2, 28, A);
-        inscribir("eleven11", e6, 2026, 3, 3, R);
+        inscribir("roro", e6, 2026, 2, 23, A, 7, YT + "dG3niF2GgHM");
+        inscribir("weiss", e6, 2026, 2, 25, R, null, null);
+        inscribir("chechi", e6, 2026, 2, 28, A, 11, null);
+        inscribir("eleven11", e6, 2026, 3, 3, R, null, null);
         // E7
-        inscribir("weiss", e7, 2024, 2, 18, R);
-        inscribir("roro", e7, 2024, 2, 20, R);
-        inscribir("eleven11", e7, 2024, 3, 3, A);
+        inscribir("weiss", e7, 2024, 2, 18, R, null, null);
+        inscribir("roro", e7, 2024, 2, 20, R, null, null);
+        inscribir("eleven11", e7, 2024, 3, 3, A, null, null);
         // E8
-        inscribir("jeffw", e8, 2026, 2, 18, A);
-        inscribir("costas", e8, 2026, 2, 22, A);
-        inscribir("roro", e8, 2026, 2, 23, R);
+        inscribir("jeffw", e8, 2026, 2, 18, A, 8, null);
+        inscribir("costas", e8, 2026, 2, 22, A, 10, null);
+        inscribir("roro", e8, 2026, 2, 23, R, null, YT + "qYEWtIBmscA");
         // E9
-        inscribir("weiss", e9, 2026, 8, 18, I);
-        inscribir("chechi", e9, 2026, 8, 22, I);
-        inscribir("roro", e9, 2026, 9, 3, I);
+        inscribir("weiss", e9, 2026, 8, 18, I, null, YT + "sJq7EE0cuVE");
+        inscribir("chechi", e9, 2026, 8, 22, I, null, YT + "QUYKSWQmkrg");
+        inscribir("roro", e9, 2026, 9, 3, I, null, null);
         // E10
-        inscribir("chechi", e10, 2026, 7, 13, A);
-        inscribir("weiss", e10, 2026, 7, 20, A);
-        inscribir("roro", e10, 2026, 7, 22, A);
+        inscribir("chechi", e10, 2026, 7, 13, A, null, YT + "AHZw09PoIU0");
+        inscribir("weiss", e10, 2026, 7, 20, A, null, null);
+        inscribir("roro", e10, 2026, 7, 22, A, null, null);
         // E11
-        inscribir("weiss", e11, 2026, 6, 4, I);
-        inscribir("eleven11", e11, 2026, 7, 18, I);
-        inscribir("jeffw", e11, 2026, 8, 20, I);
+        inscribir("weiss", e11, 2026, 6, 4, I, null, null);
+        inscribir("eleven11", e11, 2026, 7, 18, I, null, null);
+        inscribir("jeffw", e11, 2026, 8, 20, I, null, null);
         // E12
-        inscribir("chechi", e12, 2026, 7, 12, I);
-        inscribir("roro", e12, 2026, 7, 14, I);
-        inscribir("eleven11", e12, 2026, 7, 25, I);
-        inscribir("jeffw", e12, 2026, 8, 5, I);
+        inscribir("chechi", e12, 2026, 7, 12, I, null, YT + "lSm4QZqN8cA");
+        inscribir("roro", e12, 2026, 7, 14, I, null, YT + "SWOz-kIwDuU");
+        inscribir("eleven11", e12, 2026, 7, 25, I, null, YT + "AfqdNJ75544");
+        inscribir("jeffw", e12, 2026, 8, 5, I, null, null);
         // E13
-        inscribir("costas", e13, 2026, 3, 5, R);
-        inscribir("weiss", e13, 2026, 3, 4, A);
-        inscribir("roro", e13, 2026, 3, 7, A);
+        inscribir("costas", e13, 2026, 3, 5, R, null, null);
+        inscribir("weiss", e13, 2026, 3, 4, A, 6, null);
+        inscribir("roro", e13, 2026, 3, 7, A, 7, null);
         // E14
-        inscribir("weiss", e14, 2026, 7, 15, A);
-        inscribir("costas", e14, 2026, 7, 20, R);
-        inscribir("roro", e14, 2026, 8, 6, A);
-        inscribir("chechi", e14, 2026, 8, 30, R);
+        inscribir("weiss", e14, 2026, 7, 15, A, 10, null);
+        inscribir("costas", e14, 2026, 7, 20, R, null, null);
+        inscribir("roro", e14, 2026, 8, 6, A, 2, null);
+        inscribir("chechi", e14, 2026, 8, 30, R, null, null);
     }
 
     private void inscribir(String nickname, String edicion,
-            int anio, int mes, int dia, EstadoInscripcion estado) {
-        agregarInscripcionSiNoExiste(nickname, edicion, LocalDate.of(anio, mes, dia), estado);
+            int anio, int mes, int dia, EstadoInscripcion estado,
+            Integer nota, String videoUrl) {
+        agregarInscripcionSiNoExiste(nickname, edicion, LocalDate.of(anio, mes, dia),
+                estado, nota, videoUrl);
     }
-    
+
+    /** Visitas de cada curso según el anexo (C1 a C10, en el orden en que se cargan los cursos). */
+    private void cargarVisitasCursos() {
+        long[] visitas = {150, 120, 132, 103, 98, 430, 318, 267, 169, 212};
+        for (int i = 0; i < visitas.length; i++) {
+            manejadorCurso.establecerVisitas(NOMBRES_CURSOS[i], visitas[i]);
+        }
+    }
+
+    /** Valoraciones (1 a 5) de estudiantes a cursos según el anexo. */
+    private void cargarValoracionesCursos() {
+        // C6
+        valorar("eleven11", 6, 3); valorar("chechi", 6, 4); valorar("costas", 6, 5);
+        valorar("weiss", 6, 4);    valorar("roro", 6, 3);   valorar("jeffw", 6, 3);
+        // C3
+        valorar("chechi", 3, 2);   valorar("roro", 3, 5);   valorar("costas", 3, 4);
+        // C4
+        valorar("costas", 4, 1);   valorar("chechi", 4, 2); valorar("eleven11", 4, 3);
+        valorar("weiss", 4, 1);
+        // C5
+        valorar("roro", 5, 5);     valorar("chechi", 5, 5);
+        // C7
+        valorar("eleven11", 7, 4); valorar("jeffw", 7, 5);
+        // C8
+        valorar("chechi", 8, 4);   valorar("weiss", 8, 4);  valorar("roro", 8, 4);
+        // C1 y C2
+        valorar("weiss", 1, 1);
+        valorar("roro", 2, 2);
+    }
+
+    /** Nombres de los cursos C1 a C10 del anexo, en orden. */
+    private static final String[] NOMBRES_CURSOS = {
+        "Talleres plenarios",
+        "Seminarios de Resolución de Problemas",
+        "Dalavuelta",
+        "Extensionismo Industrial",
+        "Inclusión Energética",
+        "Flor del Ceibo",
+        "Taller de robótica educativa.",
+        "Participación en investigación sobre el empleo del juego Komikan como recurso didáctico en la Escuela",
+        "Herramientas de apoyo a la enseñanza de inglés. Instalación y evaluación",
+        "MicroBit"
+    };
+
+    private void valorar(String nickname, int numeroCurso, int puntaje) {
+        String nombreCurso = NOMBRES_CURSOS[numeroCurso - 1];
+        if (manejadorValoracionCurso.buscarPuntaje(nickname, nombreCurso) != null) {
+            return;
+        }
+        Estudiante estudiante = manejadorUsuario.buscarEstudiante(nickname);
+        Curso curso = manejadorCurso.buscarPorNombre(nombreCurso);
+        if (estudiante == null || curso == null) {
+            return;
+        }
+        manejadorValoracionCurso.agregar(
+                new ValoracionCurso(estudiante, curso, puntaje, LocalDate.now()));
+    }
+
     private void agregarInscripcionSiNoExiste(
             String nicknameEstudiante,
             String nombreEdicion,
             LocalDate fechaInscripcion,
-            EstadoInscripcion estado) {
+            EstadoInscripcion estado,
+            Integer nota,
+            String videoUrl) {
 
         if (manejadorInscripcionEdicion.existeInscripcionCualquierEstado(nicknameEstudiante, nombreEdicion)) {
             return;
@@ -913,6 +989,8 @@ public class CargadorDatosPrueba {
 
         InscripcionEdicion inscripcion = new InscripcionEdicion(fechaInscripcion, estudiante, edicion);
         inscripcion.setEstado(estado);
+        inscripcion.setNota(nota);
+        inscripcion.setVideoUrl(videoUrl);
 
         manejadorInscripcionEdicion.addInscripcion(inscripcion);
     }
