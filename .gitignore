@@ -1,2 +1,8 @@
 target/
 .DS_Store
+/entrega/
+/compilar.ps1
+/mvnw.cmd
+/EstacionDeTrabajo/lib/ServidorCentral.jar
+*.zip
+.edEXT/

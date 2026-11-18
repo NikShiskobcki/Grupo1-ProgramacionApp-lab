@@ -1,2 +1,3 @@
 
 /compilar.sh text eol=lf
+/mvnw text eol=lf

@@ -11,6 +11,8 @@ import java.util.Properties;
 
 public class ConfigurarCentral {
 
+    private static boolean automatico;
+
     private static final Console CONSOLA = System.console();
 
     private static final BufferedReader ENTRADA =
@@ -20,6 +22,7 @@ public class ConfigurarCentral {
                             StandardCharsets.UTF_8));
 
     public static void main(String[] args) throws Exception {
+        automatico = java.util.Arrays.asList(args).contains("--automatico");
         Path carpeta = Path.of(
                 System.getProperty("user.home"),
                 ".edEXT");
@@ -59,7 +62,7 @@ public class ConfigurarCentral {
                 "Usuario de MariaDB",
                 "admin");
 
-        String contrasenia = pedirContrasenia();
+        String contrasenia = automatico ? "4dm1n" : pedirContrasenia();
 
         if (contrasenia.isEmpty()) {
             throw new IllegalArgumentException(
@@ -110,6 +113,9 @@ public class ConfigurarCentral {
     private static String preguntar(
             String mensaje,
             String valorPredeterminado) throws Exception {
+        if (automatico) {
+            return valorPredeterminado;
+        }
 
         String texto = mensaje + " [" + valorPredeterminado + "]: ";
 

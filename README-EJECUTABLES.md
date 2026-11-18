@@ -1,70 +1,96 @@
-# edEXT — Ejecutables en dos computadoras
+# edEXT — Compilación y ejecución en dos PC
 
-## Opción 1: Llevar los ejecutables listos
+Una PC ejecuta Central, la Estación y MariaDB.
+La otra ejecuta Tomcat con la aplicación Web.
 
-Llevá `servidor.jar` a la PC de Central y `web.war` a la PC de Web.
-No hace falta Maven. Llevá también los scripts de configuración en `herramientas/`
-y la carpeta `mariadb-stack-ajustado/mariadb-stack`.
+## 1. Compilar en ambas PC
 
-## Opción 2: Generar los ejecutables en Linux
+Necesitan JDK 21, Docker con Docker Compose e Internet.
+No necesitan instalar Maven ni NetBeans: el Wrapper descarga Maven 3.9.11
+la primera vez y lo reutiliza después.
 
-En una sola PC con JDK 21 y Maven, desde la raíz del repo y sin `sudo`:
+Desde la raíz del proyecto, SIN sudo:
 
 ```bash
-java herramientas/ConfigurarWeb.java
 sh compilar.sh
-ls -lh entrega/servidor.jar entrega/web.war
 ```
 
-Si Central va a correr en esa misma PC, podés aceptar la URL del WSDL
-`http://localhost:9000/edext/central?wsdl`. Si Central está apagado, se usa el
-contrato guardado en el repo. El script compila los tres módulos, omite los
-tests y deja ambos archivos en `entrega/`. Copiá cada uno a su PC.
+En Windows, el equivalente es:
 
-## PC de Central
+```powershell
+powershell -ExecutionPolicy Bypass -File .\compilar.ps1
+```
 
-1. Desde la carpeta del Compose, levantá MariaDB y esperá a que esté `healthy`.
-   Adminer es opcional; podés agregarlo para consultar la base.
+El script crea central.properties y web.properties en ~/.edEXT si faltan.
+Si ya existen, conserva sus valores. Luego compila los tres módulos,
+omitiendo los tests, y genera:
 
-   ```bash
-   sudo docker compose up -d mariadb
-   sudo docker compose ps
-   ```
+- entrega/servidor.jar
+- entrega/web.war
+- ServidorWeb/target/web.war, utilizado por Docker Compose.
 
-2. Desde la raíz del repo, configurá Central sin `sudo`:
+Esperar BUILD SUCCESS. No es necesario iniciar Central ni MariaDB
+para compilar: si Central está apagado, se utiliza el contrato SOAP local.
 
-   ```bash
-   java herramientas/ConfigurarCentral.java
-   ```
+## 2. PC de Central
 
-   La base es `edext_web`. Para que Web pueda conectarse desde otra PC,
-   publicá Central en `http://0.0.0.0:9000/edext/central`.
+Desde la raíz del proyecto:
 
-3. Desde donde guardaste el JAR, ejecutá `java -jar servidor.jar`.
-   Si la base está vacía, podés cargar los datos de prueba desde la Estación.
+```bash
+cd mariadb-stack-ajustado/mariadb-stack
+sudo docker compose up -d --wait mariadb adminer
+cd ../..
+java -jar entrega/servidor.jar
+```
 
-## PC de Web
+Adminer es opcional y se abre en http://localhost:8080/.
 
-1. Desde la raíz del repo, ejecutá `java herramientas/ConfigurarWeb.java`
-   sin `sudo`. En `~/.edEXT/web.properties`, la URL que usa Tomcat debe ser
-   `central.ws.url=http://IP_DE_CENTRAL:9000/edext/central`, sin `?wsdl`.
+Los valores iniciales de ~/.edEXT/central.properties son:
+- Publicación: http://0.0.0.0:9000/edext/central
+- Base: edext_web en localhost:3306
+- Usuario: admin
+- Contraseña: 4dm1n
 
-2. Poné `web.war` junto a `docker-compose.yml`. En el montaje del WAR dejá
-   `source: ./web.war` y conservá el destino `/usr/local/tomcat/webapps/edext.war`.
+Deben coincidir con la MariaDB utilizada. Si modifican este archivo,
+reiniciar Central. No ejecutar el JAR con sudo.
 
-3. Mové `linux/.env` al lado del Compose y comprobá que
-   `EDEXT_CONFIG_DIR` apunte a la carpeta `.edEXT` de tu usuario en esa PC.
-   Luego, desde esa carpeta:
+El JAR abre la Estación y publica Central. Si necesitan datos de prueba,
+cargarlos desde la Estación. Cerrar su ventana deja Central funcionando:
+mantener abierta la terminal; Ctrl+C detiene el proceso.
 
-   ```bash
-   sudo docker compose up -d --no-deps tomcat
-   ```
+## 3. PC de Web
 
-   Si no usás `.env`, podés pasar la ruta en el comando:
+Después de compilar, editar ~/.edEXT/web.properties con un editor de texto.
+Reemplazar IP_DE_CENTRAL por la IP real de la otra computadora:
 
-   ```bash
-   sudo EDEXT_CONFIG_DIR="$HOME/.edEXT" docker compose up -d --no-deps tomcat
-   ```
+```properties
+central.ws.url=http://IP_DE_CENTRAL:9000/edext/central
+```
 
-4. Abrí [http://localhost:8081/edext/](http://localhost:8081/edext/) y consultá
-   un curso para comprobar que Web, Central y MariaDB se comunican.
+Esta URL NO lleva ?wsdl. No usar localhost ni host.docker.internal cuando
+Central está en otra PC. Las dos computadoras deben tener acceso al puerto 9000.
+
+Desde la raíz del proyecto:
+
+```bash
+cd mariadb-stack-ajustado/mariadb-stack
+sudo EDEXT_CONFIG_DIR="$HOME/.edEXT" docker compose up -d --no-deps --force-recreate tomcat
+```
+
+El comando indica la carpeta de configuración correcta aunque se use sudo.
+No mover el WAR ni modificar el Compose: el script ya lo genera en target.
+
+Abrir http://localhost:8081/edext/ en la PC de Web.
+
+## 4. Comprobar la comunicación
+
+Desde la PC de Web, abrir en el navegador:
+
+http://IP_DE_CENTRAL:9000/edext/central?wsdl
+
+Debe aparecer XML. Luego consultar un curso desde edEXT para comprobar
+también el acceso de Central a MariaDB.
+
+Si modifican web.properties con Tomcat iniciado, recrear Tomcat con el
+comando anterior. Los puertos 3306, 9000 y 8081 deben estar disponibles
+en las PC donde se utilicen.

@@ -9,7 +9,10 @@ import java.util.Properties;
 
 public class ConfigurarWeb {
 
+    private static boolean automatico;
+
     public static void main(String[] args) throws Exception {
+        automatico = java.util.Arrays.asList(args).contains("--automatico");
         Path carpeta = Path.of(
                 System.getProperty("user.home"),
                 ".edEXT");
@@ -101,6 +104,9 @@ public class ConfigurarWeb {
             BufferedReader entrada,
             String mensaje,
             String valorPredeterminado) throws Exception {
+        if (automatico) {
+            return valorPredeterminado;
+        }
 
         System.out.print(
                 mensaje + " [" + valorPredeterminado + "]: ");
